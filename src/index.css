@@ -1,431 +1,179 @@
 @import "tailwindcss";
 
-/* ─────────────────────────────────────────────────────────────────────────
-   RIGHTCON 2026 — DESIGN SYSTEM
-   Luxury Architectural Design + Build Company
-   Bangalore | Mysuru
-────────────────────────────────────────────────────────────────────────── */
-
 @theme {
-  /* ── Fonts ── */
-  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'Space Mono', 'JetBrains Mono', 'Fira Code', monospace;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Space Mono", monospace;
 
-  /* ── Palette ── */
-  --color-warm-white:    #F8F6F1;
-  --color-stone-50:      #F5F2EC;
-  --color-stone-100:     #EDE9E0;
-  --color-stone-200:     #DDD8CC;
-  --color-stone-300:     #C8C1B4;
-  --color-stone-400:     #A89E90;
-  --color-stone-500:     #8A7F72;
-  --color-stone-600:     #6B6259;
-  --color-stone-700:     #4E4840;
-  --color-stone-800:     #342E28;
-  --color-stone-900:     #1E1912;
-  --color-charcoal:      #1A1814;
-  --color-bronze-light:  #D4A96A;
-  --color-bronze:        #B8862E;
-  --color-bronze-dark:   #8A6020;
-  --color-concrete:      #C4BFB8;
-  --color-glass:         rgba(248, 246, 241, 0.08);
+  --color-bg-dark: #12110f;
+  --color-bg-light: #fcfbfa;
+  --color-bronze: #b89047;
+  --color-bronze-light: #d1b47c;
+  --color-charcoal: #1c1a17;
+  --color-stone: #8c857b;
+  --color-stone-light: #e5e2db;
+  --color-holo-cyan: #00f3ff;
+  --color-holo-blue: #0077ff;
 
-  /* ── Spacing scale ── */
-  --spacing-px:   1px;
-  --spacing-0-5:  2px;
-  --spacing-1:    4px;
-  --spacing-2:    8px;
-  --spacing-3:    12px;
-  --spacing-4:    16px;
-  --spacing-5:    20px;
-  --spacing-6:    24px;
-  --spacing-8:    32px;
-  --spacing-10:   40px;
-  --spacing-12:   48px;
-  --spacing-16:   64px;
-  --spacing-20:   80px;
-  --spacing-24:   96px;
-  --spacing-32:  128px;
-  --spacing-40:  160px;
-  --spacing-48:  192px;
-  --spacing-64:  256px;
-
-  /* ── Type scale ── */
-  --text-xs:   0.6875rem;   /* 11px */
-  --text-sm:   0.8125rem;   /* 13px */
-  --text-base: 1rem;        /* 16px */
-  --text-lg:   1.125rem;    /* 18px */
-  --text-xl:   1.25rem;     /* 20px */
-  --text-2xl:  1.5rem;      /* 24px */
-  --text-3xl:  2rem;        /* 32px */
-  --text-4xl:  2.5rem;      /* 40px */
-  --text-5xl:  3.25rem;     /* 52px */
-  --text-6xl:  4.5rem;      /* 72px */
-  --text-7xl:  6rem;        /* 96px */
-  --text-8xl:  8rem;        /* 128px */
-  --text-9xl: 10.5rem;      /* 168px */
-
-  /* ── Easing ── */
-  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-out:    cubic-bezier(0.0, 0, 0.2, 1);
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-premium: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* ─── Global Reset ──────────────────────────────────────────────────────── */
-*, *::before, *::after {
-  box-sizing: border-box;
+/* Base Styles & Resets */
+html, body {
+  background-color: var(--color-bg-dark);
+  color: #ffffff;
+  font-family: var(--font-sans);
   margin: 0;
   padding: 0;
-}
-
-html {
-  font-size: 16px;
+  width: 100%;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbar default, managed by Lenis */
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Custom Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: #33312e;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-bronze);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(28, 26, 23, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-panel-light {
+  background: rgba(252, 251, 250, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Custom Blueprint Grid Overlay */
+.blueprint-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+}
+
+.architectural-grid {
+  background-size: 100px 100px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}
+
+/* Clip Path Animations */
+.clip-reveal {
+  clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+  transition: clip-path 1.2s var(--ease-premium);
+}
+
+.clip-reveal.active {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.clip-reveal-up {
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  transition: clip-path 1.4s var(--ease-premium);
+}
+
+.clip-reveal-up.active {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Custom typography & spacing utilities */
+.h-editorial {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Smooth Image zoom on hover */
+.img-zoom-hover {
+  overflow: hidden;
+}
+.img-zoom-hover img {
+  transition: transform 1.8s var(--ease-premium);
+}
+.img-zoom-hover:hover img {
+  transform: scale(1.05);
+}
+
+/* Sub-pixel text rendering */
+.subpixel-text {
   text-rendering: optimizeLegibility;
-  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  -webkit-font-smoothing: antialiased;
 }
 
-body {
-  background-color: var(--color-warm-white);
-  color: var(--color-charcoal);
-  font-family: var(--font-sans);
-  font-weight: 400;
-  line-height: 1.6;
-  overflow-x: hidden;
+/* Custom WebGL interactive overlay */
+.webgl-canvas-container {
+  pointer-events: none !important;
+}
+.webgl-canvas-container canvas {
+  pointer-events: none !important;
 }
 
-/* ─── Typography utilities ──────────────────────────────────────────────── */
-.font-display   { font-family: var(--font-display); }
-.font-sans      { font-family: var(--font-sans); }
-.font-mono      { font-family: var(--font-mono); }
-
-/* Display — editorial headline sizes */
-.display-hero {
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 9vw, 9rem);
-  font-weight: 300;
-  line-height: 0.96;
-  letter-spacing: -0.02em;
-}
-
-.display-xl {
-  font-family: var(--font-display);
-  font-size: clamp(2.75rem, 6vw, 6rem);
-  font-weight: 300;
-  line-height: 1.0;
-  letter-spacing: -0.02em;
-}
-
-.display-lg {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 4rem);
-  font-weight: 300;
-  line-height: 1.06;
-  letter-spacing: -0.015em;
-}
-
-.display-md {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 3rem);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-}
-
-/* Body text */
-.body-xl {
-  font-size: clamp(1.05rem, 1.25vw, 1.25rem);
-  font-weight: 300;
-  line-height: 1.65;
-  color: var(--color-stone-600);
-}
-
-.body-lg {
-  font-size: clamp(0.95rem, 1.1vw, 1.125rem);
-  font-weight: 400;
-  line-height: 1.7;
-  color: var(--color-stone-600);
-}
-
-/* Technical labels */
-.label-sm {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-stone-400);
-}
-
-.label-md {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--color-stone-500);
-}
-
-/* ─── Colors ────────────────────────────────────────────────────────────── */
-.text-bronze      { color: var(--color-bronze); }
-.text-bronze-light { color: var(--color-bronze-light); }
-.text-stone-4     { color: var(--color-stone-400); }
-.text-stone-5     { color: var(--color-stone-500); }
-.text-stone-6     { color: var(--color-stone-600); }
-.text-stone-8     { color: var(--color-stone-800); }
-.text-charcoal    { color: var(--color-charcoal); }
-.text-warm-white  { color: var(--color-warm-white); }
-
-.bg-warm-white   { background-color: var(--color-warm-white); }
-.bg-stone-50     { background-color: var(--color-stone-50); }
-.bg-stone-100    { background-color: var(--color-stone-100); }
-.bg-charcoal     { background-color: var(--color-charcoal); }
-.bg-bronze       { background-color: var(--color-bronze); }
-
-/* ─── Layout ────────────────────────────────────────────────────────────── */
-.container-xl {
-  width: 100%;
-  max-width: 1440px;
-  margin-inline: auto;
-  padding-inline: clamp(1.5rem, 5vw, 5rem);
-}
-
-.container-lg {
-  width: 100%;
-  max-width: 1200px;
-  margin-inline: auto;
-  padding-inline: clamp(1.5rem, 5vw, 5rem);
-}
-
-.container-md {
-  width: 100%;
-  max-width: 900px;
-  margin-inline: auto;
-  padding-inline: clamp(1.5rem, 5vw, 3rem);
-}
-
-/* ─── Buttons ───────────────────────────────────────────────────────────── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  border: none;
-  background: none;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all 0.4s var(--ease-smooth);
-  white-space: nowrap;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary {
-  background-color: var(--color-charcoal);
-  color: var(--color-warm-white);
-  padding: 16px 32px;
-}
-
-.btn-primary::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-color: var(--color-bronze);
-  transform: translateX(-101%);
-  transition: transform 0.5s var(--ease-smooth);
-}
-
-.btn-primary:hover::after {
-  transform: translateX(0);
-}
-
-.btn-primary span { position: relative; z-index: 1; }
-
-.btn-secondary {
-  color: var(--color-charcoal);
-  padding: 16px 0;
-  border-bottom: 1px solid currentColor;
-}
-
-.btn-secondary:hover {
-  color: var(--color-bronze);
-}
-
-.btn-ghost {
-  color: var(--color-warm-white);
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(248, 246, 241, 0.3);
-}
-
-.btn-ghost:hover {
-  border-color: var(--color-bronze);
-  color: var(--color-bronze-light);
-}
-
-/* ─── Image utilities ───────────────────────────────────────────────────── */
-.img-cover {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
-
-.img-reveal {
-  overflow: hidden;
-}
-
-.img-reveal img {
-  will-change: transform;
-  transition: transform 0.8s var(--ease-smooth);
-}
-
-.img-reveal:hover img {
-  transform: scale(1.04);
-}
-
-/* ─── Section spacing ───────────────────────────────────────────────────── */
-.section-padding {
-  padding-block: clamp(5rem, 10vw, 10rem);
-}
-
-.section-padding-lg {
-  padding-block: clamp(7rem, 14vw, 14rem);
-}
-
-/* ─── Divider ───────────────────────────────────────────────────────────── */
-.divider {
-  width: 100%;
-  height: 1px;
-  background-color: var(--color-stone-200);
-}
-
-/* ─── Invisible unless JS loaded ────────────────────────────────────────── */
-.gsap-hidden {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-/* ─── Custom cursor ─────────────────────────────────────────────────────── */
-.cursor {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  background-color: var(--color-bronze);
+/* Custom styling for cursor glow */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  background: var(--color-bronze);
   border-radius: 50%;
+  position: fixed;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s linear, width 0.3s var(--ease-smooth), height 0.3s var(--ease-smooth), opacity 0.3s ease;
-  mix-blend-mode: multiply;
+  mix-blend-mode: difference;
+  transition: transform 0.1s ease;
 }
 
-.cursor-ring {
+.custom-cursor-glow {
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(184, 144, 71, 0.15) 0%, rgba(184, 144, 71, 0) 70%);
   position: fixed;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--color-bronze);
-  border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: transform 0.12s linear, width 0.4s var(--ease-smooth), height 0.4s var(--ease-smooth), opacity 0.3s ease;
-  opacity: 0.5;
-}
-
-/* ─── Scrollbar ─────────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--color-stone-100); }
-::-webkit-scrollbar-thumb { background: var(--color-stone-400); border-radius: 2px; }
-
-/* ─── Selection ─────────────────────────────────────────────────────────── */
-::selection {
-  background-color: var(--color-bronze);
-  color: var(--color-warm-white);
-}
-
-/* ─── Hero section specifics ─────────────────────────────────────────────── */
-
-/* Hero image always fills container at full height */
-#hero {
-  isolation: isolate;
-}
-
-/* Italic headline line */
-#hero h1 em {
-  font-style: italic;
-  font-weight: 300;
-}
-
-/* Hero → next section overlap: hero shadow bleeding down */
-#hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 180px;
-  background: linear-gradient(to bottom, transparent, var(--color-warm-white));
-  z-index: 25;
-  pointer-events: none;
-}
-
-/* ─── Navigation transition utilities ────────────────────────────────────── */
-header {
-  will-change: background-color, border-color, height;
-}
-
-/* ─── Button hover fill animation ────────────────────────────────────────── */
-.btn-primary {
-  isolation: isolate;
-}
-
-/* ─── GSAP split text helpers ────────────────────────────────────────────── */
-.line-mask {
-  overflow: hidden;
-  display: block;
-}
-
-.line-inner {
-  display: block;
-}
-
-/* ─── Micro-interaction: magnetic button ─────────────────────────────────── */
-.btn-magnetic {
-  transition: transform 0.3s var(--ease-smooth);
-}
-
-/* ─── Image corner notch ─────────────────────────────────────────────────── */
-.corner-notch-tl {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 24px;
-  height: 24px;
-  border-top: 1px solid var(--color-bronze);
-  border-left: 1px solid var(--color-bronze);
-}
-
-.corner-notch-br {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 24px;
-  height: 24px;
-  border-bottom: 1px solid rgba(248, 246, 241, 0.2);
-  border-right: 1px solid rgba(248, 246, 241, 0.2);
-}
-
-/* ─── Progress bar on nav ────────────────────────────────────────────────── */
-.nav-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  background-color: var(--color-bronze);
-  opacity: 0.6;
-  transition: width 0.1s linear;
+  transition: width 0.3s ease, height 0.3s ease;
 }
