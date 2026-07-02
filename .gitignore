@@ -1,1 +1,12 @@
-git remote -v
+node_modules/
+dist/
+.vite/
+.cache/
+.turbo/
+.parcel-cache/
+.next/
+coverage/
+*.log
+.DS_Store
+.env.local
+.env.*.local
