@@ -148,10 +148,10 @@ html, body {
 
 /* Custom WebGL interactive overlay */
 .webgl-canvas-container {
-  pointer-events: none !important;
+  pointer-events: none;
 }
 .webgl-canvas-container canvas {
-  pointer-events: none !important;
+  pointer-events: none;
 }
 
 /* Custom styling for cursor glow */
@@ -176,4 +176,114 @@ html, body {
   z-index: 9998;
   transform: translate(-50%, -50%);
   transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* Logo Glow and Peaceful End animations */
+.logo-glow {
+  animation: logoGlowSlow 5s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlowSlow {
+  0% {
+    text-shadow: 0 0 0px rgba(212, 175, 55, 0);
+    color: #F8F8F6;
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.45);
+    color: #D4AF37;
+  }
+}
+
+/* Fade-in utilities for smooth scene updates */
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── V7.5 Microinteractions ─────────────────────────────────── */
+
+/* Button press compression — all interactive buttons */
+button:active,
+a:active {
+  transform: scale(0.96);
+  transition: transform 0.08s ease;
+}
+
+/* Smooth hover scale for all buttons */
+button,
+a {
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.3s ease,
+              color 0.3s ease,
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+
+/* Glass card hover depth effect */
+.glass-card {
+  transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1),
+              box-shadow 0.35s ease,
+              background-color 0.3s ease;
+}
+.glass-card:hover {
+  transform: translateY(-3px) scale(1.008);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 4px 16px rgba(212, 175, 55, 0.12);
+}
+
+/* Blueprint dimension line pulse animation */
+@keyframes dimLinePulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+.blueprint-line {
+  animation: dimLinePulse 3s ease-in-out infinite;
+}
+
+/* Guide banner entrance — slides up from bottom */
+@keyframes guideBannerIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+.guide-banner-enter {
+  animation: guideBannerIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Smooth architectural grid breathing */
+.architectural-grid {
+  animation: gridBreath 8s ease-in-out infinite alternate;
+}
+@keyframes gridBreath {
+  from { opacity: 0.12; }
+  to   { opacity: 0.2; }
 }

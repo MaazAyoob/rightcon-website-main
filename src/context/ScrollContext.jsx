@@ -2,21 +2,64 @@ import React, { createContext, useContext, useEffect, useState, useRef } from 'r
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
+import * as THREE from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ScrollContext = createContext({
   scrollProgress: 0,
   scrollVelocity: 0,
-  scrollDirection: 'down', // 'down' or 'up'
+  scrollDirection: 'down',
   activeScene: 0,
   mousePos: { x: 0, y: 0 },
   isMobile: false,
   pageIdle: false,
-  activeInteraction: null, // { type, element }
+  activeInteraction: null,
   lenisRef: null,
+  
+  // V2 mascot/layout states
+  mascotPose: 'idle',
+  mascotEmotion: 'calm',
+  hoveredProject: null,
+  hoveredService: null,
+  currentTrustTab: 'system',
+  formFieldFocus: null,
+  formSuccess: false,
+  conversationOpen: false,
+  setConversationOpen: () => {},
+  
+  // V3 hero states
+  heroState: 'BOOTING',
+  setHeroState: () => {},
+  
+  setMascotPose: () => {},
+  setMascotEmotion: () => {},
+  setHoveredProject: () => {},
+  setHoveredService: () => {},
+  setCurrentTrustTab: () => {},
+  setFormFieldFocus: () => {},
+  setFormSuccess: () => {},
+
+  // Intro states & refs
+  introActive: true,
+  introCompleted: false,
+  introPos: null,
+  introRot: null,
+  introScale: null,
+  introCamPos: null,
+  introCamRot: null,
+  introKeyPos: null,
+  introKeyRot: null,
+  introKeyScale: null,
+  introKeyOpacity: null,
+  particleState: null,
+  introIntensity: null,
+  exitTransitionRef: null,
+  
   setActiveScene: () => {},
   setActiveInteraction: () => {},
+  completeIntro: () => {},
+  replayIntro: () => {},
 });
 
 export const useScrollSystem = () => useContext(ScrollContext);
@@ -30,7 +73,38 @@ export const ScrollProvider = ({ children }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [pageIdle, setPageIdle] = useState(false);
   const [activeInteraction, setActiveInteraction] = useState(null);
+
+  // V2 states
+  const [mascotPose, setMascotPose] = useState('idle');
+  const [mascotEmotion, setMascotEmotion] = useState('calm');
+  const [hoveredProject, setHoveredProject] = useState(null);
+  const [hoveredService, setHoveredService] = useState(null);
+  const [currentTrustTab, setCurrentTrustTab] = useState('system');
+  const [formFieldFocus, setFormFieldFocus] = useState(null);
+  const [formSuccess, setFormSuccess] = useState(false);
+  const [conversationOpen, setConversationOpen] = useState(false);
   
+  // V3 hero-integrated intro State
+  const [heroState, setHeroState] = useState('BOOTING');
+  const [introCompleted, setIntroCompleted] = useState(false);
+  const introActive = heroState !== 'EXPLORE'; 
+
+  // Refs for smooth 3D animations (GSAP will animate these directly for performance)
+  const introPos = useRef(new THREE.Vector3(-7.5, 5.5, -12));
+  const introRot = useRef(new THREE.Euler(0, 0.4, 0));
+  const introScale = useRef({ value: 0.15 });
+  const introCamPos = useRef(new THREE.Vector3(0, 0.8, 7.5));
+  const introCamRot = useRef(new THREE.Euler(0, 0, 0));
+  const introKeyPos = useRef(new THREE.Vector3(0, -0.2, 0.4));
+  const introKeyRot = useRef(new THREE.Euler(0, 0, 0));
+  const introKeyScale = useRef({ value: 0 });
+  const introKeyOpacity = useRef({ value: 0 });
+  const particleState = useRef({ speed: 0.03, scatter: 0.05, opacity: 0.8, warpProgress: 0.0 });
+  const introIntensity = useRef({ value: 0.8 });
+
+  // Shared trigger ref for coordinating 3D clicks with HTML timelines
+  const exitTransitionRef = useRef(null);
+
   const lenisRef = useRef(null);
   const idleTimerRef = useRef(null);
 
@@ -38,7 +112,6 @@ export const ScrollProvider = ({ children }) => {
     setActiveSceneState(index);
   };
 
-  // Reset idle timer helper
   const resetIdleTimer = () => {
     setPageIdle(false);
     if (idleTimerRef.current) {
@@ -46,7 +119,45 @@ export const ScrollProvider = ({ children }) => {
     }
     idleTimerRef.current = setTimeout(() => {
       setPageIdle(true);
-    }, 5000); // 5 seconds of inactivity triggers idle state
+    }, 5000);
+  };
+
+  // Intro completion handler
+  const completeIntro = () => {
+    localStorage.setItem('rightcon_intro_completed', 'true');
+    setIntroCompleted(true);
+    setHeroState('EXPLORE');
+    if (lenisRef.current) {
+      lenisRef.current.start();
+    }
+  };
+
+  // Replay Intro handler
+  const replayIntro = () => {
+    window.scrollTo(0, 0);
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+      lenisRef.current.stop();
+    }
+    
+    // Reset all 3D refs to starting configuration
+    introPos.current.set(-7.5, 5.5, -12);
+    introRot.current.set(0, 0.4, 0);
+    introScale.current.value = 0.15;
+    introCamPos.current.set(0, 0.8, 7.5);
+    introCamRot.current.set(0, 0, 0);
+    introKeyPos.current.set(0, -0.2, 0.4);
+    introKeyRot.current.set(0, 0, 0);
+    introKeyScale.current.value = 0;
+    introKeyOpacity.current.value = 0;
+    particleState.current = { speed: 0.03, scatter: 0.05, opacity: 0.8, warpProgress: 0.0 };
+    introIntensity.current.value = 0.8;
+    
+    setIntroCompleted(false);
+    setHeroState('BOOTING');
+    setTimeout(() => {
+      setHeroState('LOADING');
+    }, 100);
   };
 
   useEffect(() => {
@@ -59,6 +170,22 @@ export const ScrollProvider = ({ children }) => {
 
     // Initialize idle timer
     resetIdleTimer();
+
+    // Check development mode bypass
+    const isDev = import.meta.env.DEV || 
+                  window.location.hostname === "localhost" || 
+                  window.location.hostname === "127.0.0.1";
+    
+    const completed = localStorage.getItem('rightcon_intro_completed') === 'true';
+    const shouldSkip = completed && !isDev; // Dev mode forces intro replay on refresh
+
+    setIntroCompleted(shouldSkip);
+    setHeroState(shouldSkip ? 'EXPLORE' : 'BOOTING');
+    if (!shouldSkip) {
+      setTimeout(() => {
+        setHeroState('LOADING');
+      }, 100);
+    }
 
     // 2. Lenis initialization
     const lenis = new Lenis({
@@ -83,12 +210,16 @@ export const ScrollProvider = ({ children }) => {
 
     gsap.ticker.lagSmoothing(0);
 
+    // If key not claimed, stop scroll immediately
+    if (!shouldSkip) {
+      lenis.stop();
+    }
+
     // Track scroll events
     const handleScroll = (e) => {
       resetIdleTimer();
       setScrollVelocity(e.velocity);
       
-      // Determine direction (1 is down, -1 is up)
       const dir = e.direction === 1 ? 'down' : (e.direction === -1 ? 'up' : 'down');
       setScrollDirection(dir);
 
@@ -136,8 +267,50 @@ export const ScrollProvider = ({ children }) => {
       pageIdle,
       activeInteraction,
       lenisRef,
+      
+      // V2 mascot/layout states
+      mascotPose,
+      hoveredProject,
+      hoveredService,
+      currentTrustTab,
+      formFieldFocus,
+      formSuccess,
+      conversationOpen,
+      setConversationOpen,
+      
+      // V3 hero states
+      heroState,
+      setHeroState,
+
+      setMascotPose,
+      setMascotEmotion,
+      mascotEmotion,
+      setHoveredProject,
+      setHoveredService,
+      setCurrentTrustTab,
+      setFormFieldFocus,
+      setFormSuccess,
+      
+      // Intro Context
+      introActive,
+      introCompleted,
+      introPos,
+      introRot,
+      introScale,
+      introCamPos,
+      introCamRot,
+      introKeyPos,
+      introKeyRot,
+      introKeyScale,
+      introKeyOpacity,
+      particleState,
+      introIntensity,
+      exitTransitionRef,
+      
       setActiveScene,
       setActiveInteraction,
+      completeIntro,
+      replayIntro,
     }}>
       {children}
     </ScrollContext.Provider>

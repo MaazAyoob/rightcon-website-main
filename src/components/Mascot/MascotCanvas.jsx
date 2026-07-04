@@ -1,148 +1,210 @@
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useScrollSystem } from '../../context/ScrollContext';
 import ProceduralMascot from './ProceduralMascot';
+import BehaviourEngine from './BehaviourEngine';
 import HoloProjector from './HoloProjector';
+import FuturisticKey from './FuturisticKey';
+import IntroParticles from './IntroParticles';
 import * as THREE from 'three';
 
-// Continuous Spline coordinates synced to scroll progress (0.0 to 1.0)
-const SPLINE_POINTS = [
-  { progress: 0.0,  pos: [1.6, -0.65, 0.3],  rot: [0, -0.4, 0],    scale: 0.7,   zIndex: 10 },  // Hero
-  { progress: 0.15, pos: [0.0, -0.3, 0.4],   rot: [0, -0.1, 0],    scale: 0.65,  zIndex: 20 },  // Hero -> About curve
-  { progress: 0.3,  pos: [-1.6, -0.7, 0.3],  rot: [0, 0.4, 0],     scale: 0.58,  zIndex: 10 },  // About (soil logs)
-  { progress: 0.45, pos: [0.0, -0.1, 0.1],   rot: [0, 0.1, 0],     scale: 0.55,  zIndex: 20 },  // About -> Projects curve
-  { progress: 0.6,  pos: [1.6, 0.25, -0.4],  rot: [0, -0.4, 0],    scale: 0.55,  zIndex: 20 },  // Projects
-  { progress: 0.72, pos: [-0.2, -0.4, 0.2],  rot: [0, -0.2, 0],    scale: 0.58,  zIndex: 20 },  // Projects -> Beliefs curve
-  { progress: 0.8,  pos: [-1.8, -0.7, 0.2],  rot: [0, 0.3, 0],     scale: 0.58,  zIndex: 10 },  // Beliefs
-  { progress: 0.88, pos: [1.7, -0.6, 0.2],   rot: [0, -0.3, 0],    scale: 0.6,   zIndex: 20 },  // Amenities
-  { progress: 0.94, pos: [-1.8, 0.45, -0.7], rot: [0.12, 0.45, 0], scale: 0.5,   zIndex: 10 },  // FAQ
-  { progress: 1.0,  pos: [1.4, -0.5, 0.3],   rot: [0, -0.2, 0],    scale: 0.65,  zIndex: 20 }   // CTA Form
-];
+// ── Camera Controller — Cinematic Breathing + Intro Sweeps ──────────────────
+function CameraController({ containerRef, currentPos, mousePx, introActive }) {
+  const { introCamPos, introCamRot } = useScrollSystem();
 
-// Helper to interpolate target spline coordinates based on scroll progress
-const getInterpolatedTarget = (progress, isMobile) => {
-  let k1 = SPLINE_POINTS[0];
-  let k2 = SPLINE_POINTS[SPLINE_POINTS.length - 1];
-  
-  for (let i = 0; i < SPLINE_POINTS.length - 1; i++) {
-    if (progress >= SPLINE_POINTS[i].progress && progress <= SPLINE_POINTS[i+1].progress) {
-      k1 = SPLINE_POINTS[i];
-      k2 = SPLINE_POINTS[i+1];
-      break;
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+
+    // Coordinate-based hover check for pointer events toggle
+    if (containerRef.current && currentPos.current) {
+      const tempV = new THREE.Vector3();
+      tempV.copy(currentPos.current);
+      tempV.project(state.camera);
+      
+      const screenX = (tempV.x * 0.5 + 0.5) * state.size.width;
+      const screenY = (-(tempV.y * 0.5) + 0.5) * state.size.height;
+      
+      const dx = screenX - mousePx.current.x;
+      const dy = screenY - mousePx.current.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      
+      const isHovering = dist < 70 && !introActive;
+      containerRef.current.style.pointerEvents = (introActive || isHovering) ? 'auto' : 'none';
+      containerRef.current.style.cursor = isHovering ? 'pointer' : 'default';
     }
-  }
 
-  const span = k2.progress - k1.progress;
-  const t = span > 0 ? (progress - k1.progress) / span : 0;
-  
-  // Custom ease in-out interpolation step
-  const easeT = t * t * (3 - 2 * t);
+    if (introActive) {
+      state.camera.position.lerp(introCamPos.current, 0.05);
+      state.camera.rotation.x = THREE.MathUtils.lerp(state.camera.rotation.x, introCamRot.current.x, 0.05);
+      state.camera.rotation.y = THREE.MathUtils.lerp(state.camera.rotation.y, introCamRot.current.y, 0.05);
+      state.camera.rotation.z = THREE.MathUtils.lerp(state.camera.rotation.z, introCamRot.current.z, 0.05);
+    } else {
+      // Handheld cinematic breathing — multi-frequency for organic feel
+      const breathX = Math.sin(t * 0.27) * 0.003 + Math.sin(t * 0.61) * 0.0015;
+      const breathY = Math.cos(t * 0.19) * 0.004 + Math.cos(t * 0.43) * 0.002;
+      const target = new THREE.Vector3(breathX, breathY, 5.0 + Math.sin(t * 0.15) * 0.05);
+      state.camera.position.lerp(target, 0.025);
+      state.camera.rotation.z = THREE.MathUtils.lerp(
+        state.camera.rotation.z,
+        Math.sin(t * 0.23) * 0.003,
+        0.03
+      );
+    }
+  });
 
-  // Scale interpolation
-  const scale = THREE.MathUtils.lerp(k1.scale, k2.scale, easeT) * (isMobile ? 0.72 : 1.0);
+  return null;
+}
 
-  // Rotation interpolation
-  const rot = [
-    THREE.MathUtils.lerp(k1.rot[0], k2.rot[0], easeT),
-    THREE.MathUtils.lerp(k1.rot[1], k2.rot[1], easeT),
-    THREE.MathUtils.lerp(k1.rot[2], k2.rot[2], easeT)
-  ];
+// ── Dynamic Lights — Slow Sunlight Drift + Warm Fill ────────────────────────
+function DynamicLights() {
+  const { introActive, introIntensity } = useScrollSystem();
+  const dirRef  = useRef();
+  const fillRef = useRef();
 
-  // Position interpolation
-  let pos1 = [...k1.pos];
-  let pos2 = [...k2.pos];
-
-  if (isMobile) {
-    // Compress layout boundaries for vertical mobile screens
-    pos1[0] = pos1[0] * 0.15;
-    pos2[0] = pos2[0] * 0.15;
-    pos1[1] = pos1[1] - 0.08;
-    pos2[1] = pos2[1] - 0.08;
-  }
-
-  const pos = [
-    THREE.MathUtils.lerp(pos1[0], pos2[0], easeT),
-    THREE.MathUtils.lerp(pos1[1], pos2[1], easeT),
-    THREE.MathUtils.lerp(pos1[2], pos2[2], easeT)
-  ];
-
-  return { pos, rot, scale, zIndex: k2.zIndex };
-};
-
-// Canvas wrapper to run coordinates LERPs inside R3F render loop
-function MascotController({ currentPos, currentRot, currentScale }) {
-  const { scrollProgress, isMobile } = useScrollSystem();
-
-  useFrame(() => {
-    // Compute target coordinates at active scroll percentage
-    const target = getInterpolatedTarget(scrollProgress, isMobile);
-
-    // Apply continuous smooth LERPs for a trailing suspension feel
-    currentPos.current.lerp(new THREE.Vector3(...target.pos), 0.06);
-    currentScale.current = THREE.MathUtils.lerp(currentScale.current, target.scale, 0.06);
-
-    currentRot.current.x = THREE.MathUtils.lerp(currentRot.current.x, target.rot[0], 0.06);
-    currentRot.current.y = THREE.MathUtils.lerp(currentRot.current.y, target.rot[1], 0.06);
-    currentRot.current.z = THREE.MathUtils.lerp(currentRot.current.z, target.rot[2], 0.06);
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    if (dirRef.current) {
+      if (introActive) {
+        dirRef.current.intensity = introIntensity.current.value;
+      } else {
+        // Slow solar orbit (~150s period) + cloud shadow breathing
+        dirRef.current.position.set(
+          5 + Math.sin(t * 0.04) * 1.5,
+          10 + Math.cos(t * 0.025) * 1.2,
+          4 + Math.sin(t * 0.035) * 0.8
+        );
+        dirRef.current.intensity = 1.1 + Math.sin(t * 0.08) * 0.12;
+      }
+    }
+    if (fillRef.current) {
+      fillRef.current.intensity = 0.35 + Math.sin(t * 0.12) * 0.08;
+    }
   });
 
   return (
-    <ProceduralMascot 
-      posRef={currentPos}
-      rotRef={currentRot}
-      scaleRef={currentScale}
-    />
+    <>
+      <directionalLight
+        ref={dirRef}
+        position={[5, 10, 4]}
+        intensity={0.2}
+        castShadow
+        shadow-mapSize-width={1024}
+        shadow-mapSize-height={1024}
+      />
+      {/* Warm architectural fill — interior ambient bounce */}
+      <pointLight ref={fillRef} position={[0, -2, 3]} color="#F0E4C0" intensity={0.35} distance={8} decay={2} />
+    </>
   );
 }
 
-export default function MascotCanvas() {
-  const { scrollProgress, activeScene, isMobile } = useScrollSystem();
-  const zIndex = 40; // High z-index to stay visible above all background section visuals
+// ── IntroMascotController — GSAP-driven during intro only ───────────────────
+function IntroMascotController({ currentPos, currentRot, currentScale }) {
+  const { introActive, introPos, introRot, introScale } = useScrollSystem();
 
-  // Keep references to smoothly interpolated position, rotation, and scale values
-  const currentPos = useRef(new THREE.Vector3(0, 0.4, 0));
-  const currentRot = useRef(new THREE.Euler(0, 0, 0));
-  const currentScale = useRef(0.85);
+  useFrame(() => {
+    if (!introActive) return;
+    currentPos.current.copy(introPos.current);
+    currentRot.current.copy(introRot.current);
+    currentScale.current = introScale.current.value;
+  });
+
+  return null;
+}
+
+// ── Main Canvas ──────────────────────────────────────────────────────────────
+export default function MascotCanvas() {
+  const { isMobile, introActive, activeScene } = useScrollSystem();
+  const zIndex = 40;
+
+  // Shared refs — written by BehaviourEngine/IntroMascotController, read by ProceduralMascot
+  const currentPos    = useRef(new THREE.Vector3(1.55, -0.65, 0.3));
+  const currentRot    = useRef(new THREE.Euler(0, -0.4, 0));
+  const currentScale  = useRef(0.68);
+
+  // behaviourStateRef bridges BehaviourEngine → ProceduralMascot (zero re-renders)
+  const behaviourStateRef = useRef({
+    pose:     'idle',
+    emotion:  'calm',
+    behavior: 'hover',
+  });
+
+  const containerRef = useRef();
+  const mousePx = useRef({ x: 0, y: 0 });
+
+  React.useEffect(() => {
+    const handleMove = (e) => {
+      mousePx.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener('mousemove', handleMove);
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
 
   return (
-    <div 
-      className="fixed inset-0 w-full h-full pointer-events-none transition-all duration-300 webgl-canvas-container"
-      style={{ zIndex: zIndex, pointerEvents: 'none' }}
+    <div
+      ref={containerRef}
+      className="fixed inset-0 w-full h-full webgl-canvas-container"
+      style={{ zIndex, pointerEvents: introActive ? 'auto' : 'none' }}
     >
       <Canvas
-        style={{ pointerEvents: 'none' }}
+        style={{ pointerEvents: introActive ? 'auto' : 'none' }}
         camera={{ position: [0, 0, 5], fov: 45 }}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         shadows
       >
+        {/* Lights */}
         <ambientLight intensity={isMobile ? 0.75 : 0.45} />
-        
-        {/* Architectural lighting studio rig */}
-        <directionalLight 
-          position={[5, 10, 4]} 
-          intensity={1.1} 
-          castShadow 
-          shadow-mapSize-width={1024} 
-          shadow-mapSize-height={1024}
-        />
+        <DynamicLights />
         <pointLight position={[-4, -3, -2]} intensity={0.4} color="#0055ff" />
-        <pointLight position={[4, 4, 3]} intensity={0.7} color="#00f3ff" />
-        
+        <pointLight position={[4, 4, 3]}   intensity={0.7} color="#00f3ff" />
+
+        {/* Camera */}
+        <CameraController 
+          containerRef={containerRef} 
+          currentPos={currentPos} 
+          mousePx={mousePx} 
+          introActive={introActive} 
+        />
+
         <Suspense fallback={null}>
           <group>
-            {/* Mascot Controller updates refs on frame renders */}
-            <MascotController 
-              currentPos={currentPos} 
-              currentRot={currentRot} 
-              currentScale={currentScale}
+            {/* Intro: GSAP drives refs directly from HeroScene timelines */}
+            {introActive && (
+              <IntroMascotController
+                currentPos={currentPos}
+                currentRot={currentRot}
+                currentScale={currentScale}
+              />
+            )}
+
+            {/* Explore: BehaviourEngine takes over, physics-driven */}
+            {!introActive && (
+              <BehaviourEngine
+                posRef={currentPos}
+                rotRef={currentRot}
+                scaleRef={currentScale}
+                behaviourStateRef={behaviourStateRef}
+              />
+            )}
+
+            {/* Mascot mesh — reads from shared refs every frame */}
+            <ProceduralMascot
+              posRef={currentPos}
+              rotRef={currentRot}
+              scaleRef={currentScale}
+              behaviourStateRef={behaviourStateRef}
             />
 
-            {/* Project blueprint holograms */}
-            {(activeScene === 1 || activeScene === 2 || activeScene === 3 || activeScene === 5) && (
-              <HoloProjector 
-                posRef={currentPos} 
-                scaleRef={currentScale} 
-              />
+            {/* Intro overlays */}
+            {introActive && (
+              <>
+                <FuturisticKey />
+                <IntroParticles />
+              </>
+            )}
+
+            {/* Project hologram — shown when in projects or projecting */}
+            {!introActive && (activeScene === 3 || activeScene === 5 || activeScene === 8) && (
+              <HoloProjector posRef={currentPos} scaleRef={currentScale} />
             )}
           </group>
         </Suspense>

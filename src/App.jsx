@@ -1,23 +1,28 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { ScrollProvider, useScrollSystem } from './context/ScrollContext';
 import MascotCanvas from './components/Mascot/MascotCanvas';
-import LoadingScene from './components/Scenes/LoadingScene';
 import HeroScene from './components/Scenes/HeroScene';
-import AboutScene from './components/Scenes/AboutScene';
+import BrandStoryScene from './components/Scenes/BrandStoryScene';
 import ProjectsScene from './components/Scenes/ProjectsScene';
-import BeliefsScene from './components/Scenes/BeliefsScene';
-import AmenitiesScene from './components/Scenes/AmenitiesScene';
-import FaqScene from './components/Scenes/FaqScene';
+import ProcessScene from './components/Scenes/ProcessScene';
+import ServicesScene from './components/Scenes/ServicesScene';
+import TrustScene from './components/Scenes/TrustScene';
+import AboutScene from './components/Scenes/AboutScene';
 import CtaScene from './components/Scenes/CtaScene';
 import Footer from './components/UI/Footer';
+import ConversationPanel from './components/UI/ConversationPanel';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
 function MainJourney() {
-  const { setActiveScene, isMobile } = useScrollSystem();
-  const [loaded, setLoaded] = useState(false);
+  const { 
+    setActiveScene, 
+    isMobile,
+    heroState
+  } = useScrollSystem();
+  
   const containerRef = useRef();
 
   // Mouse trail for custom luxury cursor
@@ -25,12 +30,7 @@ function MainJourney() {
   const cursorGlowRef = useRef();
 
   useEffect(() => {
-    if (!loaded) {
-      setActiveScene(0); // Loading scene active
-      return;
-    }
-
-    // Set Hero scene active initially
+    // Set active scene initially
     setActiveScene(1);
 
     // Track scroll positions of scenes to update Mascot targeting coordinates
@@ -44,8 +44,6 @@ function MainJourney() {
         end: "bottom 45%",
         onToggle: (self) => {
           if (self.isActive) {
-            // Scene index mappings: 
-            // 0: Loading, 1: Hero, 2: About, 3: Projects, 4: Beliefs, 5: Amenities, 6: FAQ, 7: CTA
             setActiveScene(index + 1);
           }
         }
@@ -59,7 +57,6 @@ function MainJourney() {
       
       const { clientX, clientY } = e;
       
-      // Fine dot trail (mix-blend-mode difference)
       if (cursorDotRef.current) {
         gsap.to(cursorDotRef.current, {
           x: clientX - 8,
@@ -69,7 +66,6 @@ function MainJourney() {
         });
       }
       
-      // Outer light glowing circle
       if (cursorGlowRef.current) {
         gsap.to(cursorGlowRef.current, {
           x: clientX,
@@ -86,73 +82,76 @@ function MainJourney() {
       triggers.forEach(t => t.kill());
       window.removeEventListener('mousemove', moveCursor);
     };
-  }, [loaded, setActiveScene, isMobile]);
+  }, [setActiveScene, isMobile]);
 
   return (
-    <div className="relative text-white min-h-screen bg-[#12110f] overflow-x-hidden selection:bg-bronze selection:text-[#12110f]" ref={containerRef}>
+    <div className="relative text-white min-h-screen bg-[#050505] overflow-x-hidden selection:bg-[#D4AF37] selection:text-[#050505]" ref={containerRef}>
       
       {/* 1. Custom Editorial Cursor (Desktop Only) */}
       {!isMobile && (
         <>
           <div 
             ref={cursorDotRef} 
-            className="fixed top-0 left-0 w-4 h-4 rounded-full bg-bronze pointer-events-none z-[9999] mix-blend-mode-difference"
+            className="fixed top-0 left-0 w-4 h-4 rounded-full bg-[#D4AF37] pointer-events-none z-[9999] mix-blend-mode-difference"
           ></div>
           <div 
             ref={cursorGlowRef} 
-            className="fixed top-0 left-0 w-24 h-24 rounded-full pointer-events-none z-[9998] border border-bronze/10 -translate-x-12 -translate-y-12"
+            className="fixed top-0 left-0 w-24 h-24 rounded-full pointer-events-none z-[9998] border border-[#D4AF37]/10 -translate-x-12 -translate-y-12"
           ></div>
         </>
       )}
 
-      {/* 2. Loading overlay */}
-      <LoadingScene onLoaded={() => setLoaded(true)} />
+      {/* 2. 3D WebGL Canvas Overlay (Renders immediately) */}
+      <MascotCanvas />
 
-      {/* 3. 3D WebGL Canvas Overlay */}
-      {loaded && <MascotCanvas />}
+      {/* 2.5 Conversational AI Panel Interface */}
+      <ConversationPanel />
 
-      {/* 4. Journey Scenes Stack */}
-      {loaded && (
-        <main className="relative z-10 w-full flex flex-col">
-          {/* Scene 1: Hero */}
-          <div className="journey-scene w-full">
-            <HeroScene />
-          </div>
+      {/* 3. Journey Scenes Stack */}
+      <main className="relative z-10 w-full flex flex-col">
+        {/* Scene 1: Hero */}
+        <div className="journey-scene w-full">
+          <HeroScene />
+        </div>
 
-          {/* Scene 2: About */}
-          <div className="journey-scene w-full">
-            <AboutScene />
-          </div>
+        {/* Scene 2: Brand Story / Vision */}
+        <div className="journey-scene w-full">
+          <BrandStoryScene />
+        </div>
 
-          {/* Scene 3: Projects (pinned horizontal scroll in itself) */}
-          <div className="journey-scene w-full">
-            <ProjectsScene />
-          </div>
+        {/* Scene 3: Projects */}
+        <div className="journey-scene w-full">
+          <ProjectsScene />
+        </div>
 
-          {/* Scene 4: Beliefs */}
-          <div className="journey-scene w-full">
-            <BeliefsScene />
-          </div>
+        {/* Scene 4: Building Process */}
+        <div className="journey-scene w-full">
+          <ProcessScene />
+        </div>
 
-          {/* Scene 5: Amenities (pinned slide timeline in itself) */}
-          <div className="journey-scene w-full">
-            <AmenitiesScene />
-          </div>
+        {/* Scene 5: Services / Craftsmanship */}
+        <div className="journey-scene w-full">
+          <ServicesScene />
+        </div>
 
-          {/* Scene 6: FAQ Accordion */}
-          <div className="journey-scene w-full">
-            <FaqScene />
-          </div>
+        {/* Scene 6: Trust */}
+        <div className="journey-scene w-full">
+          <TrustScene />
+        </div>
 
-          {/* Scene 7: Inquire CTA */}
-          <div className="journey-scene w-full">
-            <CtaScene />
-          </div>
+        {/* Scene 7: About / People */}
+        <div className="journey-scene w-full">
+          <AboutScene />
+        </div>
 
-          {/* Footer details */}
-          <Footer />
-        </main>
-      )}
+        {/* Scene 8: CTA / Begin Journey */}
+        <div className="journey-scene w-full">
+          <CtaScene />
+        </div>
+
+        {/* Footer details */}
+        <Footer />
+      </main>
 
     </div>
   );
@@ -165,3 +164,4 @@ export default function App() {
     </ScrollProvider>
   );
 }
+
