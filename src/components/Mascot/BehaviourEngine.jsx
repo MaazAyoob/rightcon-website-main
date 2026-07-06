@@ -54,6 +54,14 @@ const BEHAVIOR_POSES = {
   attentiveForm:   { pose: 'typing',         emotion: 'focused' },
   memoryWave:      { pose: 'wave',           emotion: 'friendly' },
   memoryPoint:     { pose: 'pointing',       emotion: 'helpful' },
+  
+  // Custom chat-triggered poses
+  wave:            { pose: 'wave',           emotion: 'friendly' },
+  shrug:           { pose: 'shrug',          emotion: 'curious' },
+  pointing:        { pose: 'pointing',       emotion: 'helpful' },
+  thinking:        { pose: 'typing',         emotion: 'focused' },
+  confident:       { pose: 'idle',           emotion: 'confident' },
+  inspect:         { pose: 'observing',      emotion: 'thinking' },
 };
 
 export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourStateRef }) {
@@ -69,6 +77,9 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
     formSuccess,
     scrollProgress,
     conversationOpen,
+    menuOpen,
+    mascotPose,
+    mascotEmotion,
   } = useScrollSystem();
 
   // ── Physics state refs ──
@@ -140,13 +151,33 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
     const isVisitorReading = mouseIdleTime.current > 3.5;
 
     // ── GOAL EVALUATION TREE ──
-
+    
+    // Goal 0.5: Fullscreen Navigation Menu is Open
+    if (menuOpen) {
+      if (currentPointId.current !== 'nav_observe') {
+        flyTo('nav_observe');
+        setBehavior('point');
+        nextDecisionTime.current = t + 3.0;
+      } else if (t > nextDecisionTime.current && currentBehaviorKey.current === 'point') {
+        setBehavior('lookAround');
+      }
+    }
     // Goal 1: Active Chat Panel Open (Reposition Left to avoid cover)
-    if (conversationOpen) {
+    else if (conversationOpen) {
       if (currentPointId.current !== 'chat_left') {
         flyTo('chat_left');
-        setBehavior('observeVisitor');
-        nextDecisionTime.current = t + 6.0;
+      }
+      
+      if (mascotPose && mascotPose !== 'idle') {
+        if (currentBehaviorKey.current !== mascotPose) {
+          setBehavior(mascotPose);
+          nextDecisionTime.current = t + 4.5;
+        }
+      } else {
+        if (currentBehaviorKey.current !== 'observeVisitor') {
+          setBehavior('observeVisitor');
+          nextDecisionTime.current = t + 6.0;
+        }
       }
     }
     // Goal 2: Celebrate Enquiry Form submission

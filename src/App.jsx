@@ -1,28 +1,47 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ScrollProvider, useScrollSystem } from './context/ScrollContext';
 import MascotCanvas from './components/Mascot/MascotCanvas';
-import HeroScene from './components/Scenes/HeroScene';
-import BrandStoryScene from './components/Scenes/BrandStoryScene';
-import ProjectsScene from './components/Scenes/ProjectsScene';
-import ProcessScene from './components/Scenes/ProcessScene';
-import ServicesScene from './components/Scenes/ServicesScene';
-import TrustScene from './components/Scenes/TrustScene';
-import AboutScene from './components/Scenes/AboutScene';
-import CtaScene from './components/Scenes/CtaScene';
-import Footer from './components/UI/Footer';
 import ConversationPanel from './components/UI/ConversationPanel';
+import SignatureHeader from './components/UI/SignatureHeader';
+import FullscreenMenu from './components/UI/FullscreenMenu';
+import SearchModal from './components/UI/SearchModal';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+// Lazy-loaded visual chapters
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Projects = lazy(() => import('./pages/Projects'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
+const Services = lazy(() => import('./pages/Services'));
+const ServiceDetail = lazy(() => import('./pages/ServiceDetail'));
+const Process = lazy(() => import('./pages/Process'));
+const Materials = lazy(() => import('./pages/Materials'));
+const Insights = lazy(() => import('./pages/Insights'));
+const Careers = lazy(() => import('./pages/Careers'));
+const Contact = lazy(() => import('./pages/Contact'));
+const WhyRightcon = lazy(() => import('./pages/WhyRightcon'));
+const Technology = lazy(() => import('./pages/Technology'));
+const ClientJourney = lazy(() => import('./pages/ClientJourney'));
+const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'));
+const FaqPage = lazy(() => import('./pages/FaqPage'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsConditions = lazy(() => import('./pages/TermsConditions'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+function Loading() {
+  return (
+    <div className="min-h-screen flex justify-center items-center bg-charcoal text-ivory font-mono text-[9px] tracking-[0.25em] uppercase select-none">
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-6 h-6 border border-bronze border-t-transparent animate-spin"></div>
+        <span>LOADING DESIGN SYSTEMS // TELEMETRY SETUP</span>
+      </div>
+    </div>
+  );
+}
 
 function MainJourney() {
-  const { 
-    setActiveScene, 
-    isMobile,
-    heroState
-  } = useScrollSystem();
-  
+  const { isMobile, menuOpen, setMenuOpen, searchOpen, setSearchOpen } = useScrollSystem();
   const containerRef = useRef();
 
   // Mouse trail for custom luxury cursor
@@ -30,27 +49,6 @@ function MainJourney() {
   const cursorGlowRef = useRef();
 
   useEffect(() => {
-    // Set active scene initially
-    setActiveScene(1);
-
-    // Track scroll positions of scenes to update Mascot targeting coordinates
-    const scenes = gsap.utils.toArray('.journey-scene');
-    const triggers = [];
-
-    scenes.forEach((scene, index) => {
-      const trigger = ScrollTrigger.create({
-        trigger: scene,
-        start: "top 45%",
-        end: "bottom 45%",
-        onToggle: (self) => {
-          if (self.isActive) {
-            setActiveScene(index + 1);
-          }
-        }
-      });
-      triggers.push(trigger);
-    });
-
     // Custom cursor movement handler
     const moveCursor = (e) => {
       if (isMobile) return;
@@ -79,78 +77,63 @@ function MainJourney() {
     window.addEventListener('mousemove', moveCursor);
 
     return () => {
-      triggers.forEach(t => t.kill());
       window.removeEventListener('mousemove', moveCursor);
     };
-  }, [setActiveScene, isMobile]);
+  }, [isMobile]);
 
   return (
-    <div className="relative text-white min-h-screen bg-[#050505] overflow-x-hidden selection:bg-[#D4AF37] selection:text-[#050505]" ref={containerRef}>
+    <div className="relative min-h-screen bg-charcoal overflow-x-hidden selection:bg-bronze selection:text-charcoal" ref={containerRef}>
       
       {/* 1. Custom Editorial Cursor (Desktop Only) */}
       {!isMobile && (
         <>
           <div 
             ref={cursorDotRef} 
-            className="fixed top-0 left-0 w-4 h-4 rounded-full bg-[#D4AF37] pointer-events-none z-[9999] mix-blend-mode-difference"
+            className="fixed top-0 left-0 w-2 h-2 rounded-full bg-bronze pointer-events-none z-[9999] mix-blend-difference"
           ></div>
           <div 
             ref={cursorGlowRef} 
-            className="fixed top-0 left-0 w-24 h-24 rounded-full pointer-events-none z-[9998] border border-[#D4AF37]/10 -translate-x-12 -translate-y-12"
+            className="custom-cursor-glow"
           ></div>
         </>
       )}
 
-      {/* 2. 3D WebGL Canvas Overlay (Renders immediately) */}
+      {/* 2. Global Signature Header & Fullscreen Menu */}
+      <SignatureHeader onOpenMenu={() => setMenuOpen(true)} />
+      <FullscreenMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+
+      {/* 3. 3D WebGL Canvas Overlay (Renders immediately) */}
       <MascotCanvas />
 
-      {/* 2.5 Conversational AI Panel Interface */}
+      {/* 4. Conversational AI Panel Interface */}
       <ConversationPanel />
 
-      {/* 3. Journey Scenes Stack */}
+      {/* 5. Dynamic Page Router Switch */}
       <main className="relative z-10 w-full flex flex-col">
-        {/* Scene 1: Hero */}
-        <div className="journey-scene w-full">
-          <HeroScene />
-        </div>
-
-        {/* Scene 2: Brand Story / Vision */}
-        <div className="journey-scene w-full">
-          <BrandStoryScene />
-        </div>
-
-        {/* Scene 3: Projects */}
-        <div className="journey-scene w-full">
-          <ProjectsScene />
-        </div>
-
-        {/* Scene 4: Building Process */}
-        <div className="journey-scene w-full">
-          <ProcessScene />
-        </div>
-
-        {/* Scene 5: Services / Craftsmanship */}
-        <div className="journey-scene w-full">
-          <ServicesScene />
-        </div>
-
-        {/* Scene 6: Trust */}
-        <div className="journey-scene w-full">
-          <TrustScene />
-        </div>
-
-        {/* Scene 7: About / People */}
-        <div className="journey-scene w-full">
-          <AboutScene />
-        </div>
-
-        {/* Scene 8: CTA / Begin Journey */}
-        <div className="journey-scene w-full">
-          <CtaScene />
-        </div>
-
-        {/* Footer details */}
-        <Footer />
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/:id" element={<ServiceDetail />} />
+            <Route path="/process" element={<Process />} />
+            <Route path="/materials" element={<Materials />} />
+            <Route path="/insights" element={<Insights />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/why-rightcon" element={<WhyRightcon />} />
+            <Route path="/technology" element={<Technology />} />
+            <Route path="/client-journey" element={<ClientJourney />} />
+            <Route path="/testimonials" element={<TestimonialsPage />} />
+            <Route path="/faq" element={<FaqPage />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsConditions />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
 
     </div>
@@ -159,9 +142,10 @@ function MainJourney() {
 
 export default function App() {
   return (
-    <ScrollProvider>
-      <MainJourney />
-    </ScrollProvider>
+    <BrowserRouter>
+      <ScrollProvider>
+        <MainJourney />
+      </ScrollProvider>
+    </BrowserRouter>
   );
 }
-

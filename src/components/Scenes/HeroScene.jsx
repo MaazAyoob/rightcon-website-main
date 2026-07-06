@@ -2,6 +2,49 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useScrollSystem } from '../../context/ScrollContext';
 import gsap from 'gsap';
 
+const HERO_SLIDES = [
+  {
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=95&auto=format&fit=crop",
+    category: "01 // LANDMARK RESIDENCE",
+    title: "ARCHITECTURAL RIGOR.",
+    desc: "Bangalore & Mysuru's premier structural landmarks. Crafted using deep geomechanical soil profiles, zero-tolerance column logic, and absolute raw material honesty.",
+    code: "STRUC_DETAIL // CUBE_01",
+    detailImg: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop"
+  },
+  {
+    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=95&auto=format&fit=crop",
+    category: "02 // GEOMECHANICAL AUDITS",
+    title: "FOUNDATION STRENGTH.",
+    desc: "12m deep bedrock friction piles, self-compacting M40 concrete checks, and ISO lab crushing certifications to secure coordinates.",
+    code: "BEDROCK_CORE // DAY_01",
+    detailImg: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&auto=format&fit=crop"
+  },
+  {
+    image: "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=1920&q=95&auto=format&fit=crop",
+    category: "03 // MATERIAL PROVIDENCE",
+    title: "CRAFTSMAN DETAIL.",
+    desc: "Exquisite raw travertine blocks, custom timber lattices, and raw exposed concrete formworks designed without fake aesthetic skins.",
+    code: "TRAVERTINE // ORIGIN_IT",
+    detailImg: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&auto=format&fit=crop"
+  },
+  {
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=95&auto=format&fit=crop",
+    category: "04 // VIRTUAL TWINNING",
+    title: "INTEGRATED SPACES.",
+    desc: "BIM coordinated MEP channels pre-modeled inside digital twins, ensuring zero onsite structural drill conflicts or slab cuts.",
+    code: "BIM_LOD_400 // CLASH_PASS",
+    detailImg: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop"
+  },
+  {
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=95&auto=format&fit=crop",
+    category: "05 // RESIDENTIAL MANDATE",
+    title: "COMMISSION VALUES.",
+    desc: "An architectural shield designed to protect structural peace of mind, backed by our 10-Year Transferable Deed of Warranty.",
+    code: "WARRANTY // ACTIVE_DEED",
+    detailImg: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&auto=format&fit=crop"
+  }
+];
+
 export default function HeroScene() {
   const { 
     scrollProgress, 
@@ -27,10 +70,20 @@ export default function HeroScene() {
   const particleCanvasRef = useRef(null);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [loadingFinished, setLoadingFinished] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // Parallax scaling
   const bgScale = 1.0 + scrollProgress * 0.15;
   const textTranslateY = scrollProgress * -120;
+
+  // Slide timing rotation
+  useEffect(() => {
+    if (heroState !== 'EXPLORE') return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [heroState]);
 
   // Phase 1: Genuine Load Counter (approx 2-3 seconds duration)
   useEffect(() => {
@@ -367,162 +420,240 @@ export default function HeroScene() {
   }
 
   return (
-    <section className="relative h-screen w-full flex flex-col justify-between overflow-hidden p-8 md:p-16 select-none bg-[#050505] subpixel-text">
+    <section className="relative h-screen w-full flex flex-col justify-between overflow-hidden p-space-24 md:p-space-40 select-none theme-dark subpixel-text">
       
-      {/* 1. Cinematic Background Video (Softly visible underneath) */}
-      <div 
-        className="absolute inset-0 z-0 transition-transform duration-300 ease-out brightness-35 grayscale-[20%]"
-        style={{ transform: `scale(${bgScale})` }}
-      >
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="w-full h-full object-cover"
-          poster="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=90&auto=format&fit=crop"
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-apartment-building-exterior-44161-large.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/50 via-transparent to-transparent"></div>
-        <div className="absolute inset-0 architectural-grid opacity-15 pointer-events-none"></div>
+      {/* 1. Dynamic Cinematic Slideshow Background Stack */}
+      <div className="absolute inset-0 z-0">
+        {HERO_SLIDES.map((slide, idx) => {
+          const isActive = currentSlide === idx || (heroState !== 'EXPLORE' && idx === 0);
+          return (
+            <div 
+              key={idx}
+              className={`absolute inset-0 transition-opacity duration-[1.5s] ease-in-out ${
+                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
+            >
+              <div 
+                className={`w-full h-full transition-transform duration-[6s] ease-linear ${
+                  isActive && heroState === 'EXPLORE' ? 'scale-108' : 'scale-100'
+                }`}
+              >
+                <img 
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-full object-cover brightness-[0.3] grayscale-[10%]"
+                />
+              </div>
+            </div>
+          );
+        })}
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/30 to-transparent z-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/20 via-transparent to-transparent z-20"></div>
+        <div className="absolute inset-0 architectural-grid opacity-10 pointer-events-none z-20"></div>
       </div>
 
       {/* 2. Floating Blueprint Dust Overlay Canvas */}
       <canvas 
         ref={particleCanvasRef}
-        className="absolute inset-0 z-[1] pointer-events-none mix-blend-screen"
+        className="absolute inset-0 z-[2] pointer-events-none mix-blend-screen opacity-10"
       ></canvas>
 
-      {/* 3. Luxury Preloader Screen — Construction Identity */}
+      {/* 3. Luxury Preloader Screen */}
       <div 
-        className={`absolute inset-0 flex flex-col items-center justify-center bg-[#050505]/78 backdrop-blur-[5px] z-30 transition-all duration-1000 ${
+        className={`absolute inset-0 flex flex-col items-center justify-center bg-charcoal z-30 transition-all duration-1000 ${
           loadingFinished ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
       >
-        <div className="flex flex-col items-center gap-5 max-w-xs text-center">
-          {/* Brand Identity */}
-          <div className="flex flex-col items-center gap-1">
-            <span className="font-mono text-[8px] text-[#D4AF37] tracking-[0.35em] uppercase">Rightcon · Design Studio</span>
-            <div className="font-display text-[2.6rem] text-[#F8F8F6] font-light tracking-[0.18em] relative mt-1">
+        <div className="flex flex-col items-center gap-space-24 max-w-xs text-center text-ivory">
+          <div className="flex flex-col items-center gap-space-8">
+            <span className="h-label-mono text-bronze">Rightcon · Design Studio</span>
+            <div className="font-display text-[2.6rem] text-ivory font-light tracking-[0.2em] relative mt-1">
               RIGHTCON
-              <div className="absolute -bottom-1.5 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent blueprint-line"></div>
+              <div className="absolute -bottom-1.5 left-0 w-full h-[1px] bg-bronze/30 blueprint-line"></div>
             </div>
           </div>
           
-          {/* Loading status */}
-          <div className="flex flex-col gap-1.5 font-mono text-[8.5px] mt-2 w-full">
-            <span className="text-[#3FA9F5] uppercase tracking-wider">{loadingLog}</span>
-            
-            {/* Elegant progress bar */}
-            <div className="w-full h-[2px] bg-white/8 rounded-full overflow-hidden mt-1">
+          <div className="flex flex-col gap-space-8 font-mono text-[8.5px] mt-2 w-full">
+            <span className="text-holo-cyan uppercase tracking-wider">{loadingLog}</span>
+            <div className="w-full h-[1px] bg-white/10 rounded-full overflow-hidden mt-1">
               <div 
-                className="h-full bg-gradient-to-r from-[#3FA9F5] to-[#D4AF37] transition-all duration-300 ease-out"
+                className="h-full bg-bronze transition-all duration-300 ease-out"
                 style={{ width: `${loadingProgress}%` }}
               ></div>
             </div>
-            <div className="flex justify-between text-[7px] text-[#F8F8F6]/35 mt-0.5">
+            <div className="flex justify-between text-[7px] text-ivory/40 mt-0.5">
               <span>STRUCTURAL ANALYSIS</span>
               <span>{loadingProgress}%</span>
             </div>
           </div>
 
-          {/* Construction coordinate metadata */}
-          <div className="text-[7px] font-mono text-stone/35 max-w-[260px] leading-loose mt-1 uppercase border-t border-white/5 pt-3 w-full text-left">
-            <div className="flex justify-between"><span>SITE REF</span><span>RCB-2024-MYS-01</span></div>
+          <div className="text-[7px] font-mono text-ivory/30 max-w-[260px] leading-loose mt-1 uppercase border-t border-white/5 pt-3 w-full text-left">
+            <div className="flex justify-between"><span>SITE REF</span><span>RCB-2026-MYS-01</span></div>
             <div className="flex justify-between"><span>COORDINATES</span><span>12.9716°N 77.5946°E</span></div>
             <div className="flex justify-between"><span>BIM LOD</span><span>400 / IFC-2x3</span></div>
-            <div className="flex justify-between"><span>FOUNDATION</span><span className="text-[#3FA9F5]">PASS</span></div>
+            <div className="flex justify-between"><span>FOUNDATION LOGS</span><span className="text-holo-cyan">PASS</span></div>
           </div>
+          
+          <button
+            onClick={() => {
+              setMascotPose('idle');
+              completeIntro();
+            }}
+            className="font-mono text-[7.5px] text-white/40 hover:text-bronze tracking-widest uppercase cursor-pointer border-none bg-transparent outline-none mt-4 transition-colors z-40 focus:outline-none"
+          >
+            [SKIP ENTIRE INTRO]
+          </button>
         </div>
       </div>
 
-      {/* 4. Guide Text Overlay (Slides up, construction-themed) */}
+      {/* 4. Guide Text Overlay */}
       {loadingFinished && heroState !== 'EXPLORE' && guideTitle && (
-        <div className="absolute bottom-24 left-1/2 z-20 w-[90%] max-w-md text-center pointer-events-none guide-banner-enter">
-          <div className="bg-[#171614]/80 border border-[#D4AF37]/25 backdrop-blur-md px-6 py-5 rounded-sm shadow-2xl flex flex-col items-center gap-2.5">
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-1 rounded-full bg-[#3FA9F5] animate-ping"></div>
-              <span className="font-mono text-[7.5px] text-[#D4AF37] tracking-[0.35em] uppercase font-semibold">
+        <div className="absolute bottom-space-96 left-1/2 -translate-x-1/2 z-20 w-[90%] max-w-sm text-center pointer-events-none guide-banner-enter">
+          <div className="glass-panel border-bronze/20 px-space-24 py-space-16 rounded-sm shadow-2xl flex flex-col items-center gap-space-8">
+            <div className="flex items-center gap-space-8">
+              <div className="w-1 h-1 rounded-full bg-holo-cyan animate-ping"></div>
+              <span className="h-label-mono text-bronze">
                 {guideTag}
               </span>
             </div>
-            <h2 className="font-display text-base font-light text-[#F8F8F6] tracking-wide">
+            <h2 className="font-display text-sm font-light text-ivory tracking-wide">
               {guideTitle}
             </h2>
-            <p className="font-sans text-[10px] text-stone-light/75 leading-relaxed max-w-[280px]">
+            <p className="font-sans text-[9px] text-ivory/60 leading-relaxed max-w-[260px]">
               {guideText}
             </p>
           </div>
         </div>
       )}
 
-      {/* 5. Nav Header (Floating Luxury Editorial) */}
-      <header className="relative z-10 w-full flex justify-between items-center py-6 border-b border-white/5 bg-gradient-to-b from-black/25 to-transparent">
-        <div className="flex flex-col items-start leading-none">
-          <span className="font-mono text-[7px] md:text-[9.5px] text-[#D4AF37] tracking-[0.3em] uppercase font-semibold">
-            Rightcon · Architecture &amp; Rigor
-          </span>
-          <span className="font-display text-2xl md:text-3xl font-light text-[#F8F8F6] tracking-[0.2em] mt-1.5">
-            RIGHTCON
-          </span>
-        </div>
+      {/* 5. Minimal Header (Visible during booting intro only; hidden in explore) */}
+      {heroState !== 'EXPLORE' ? (
+        <header className="relative z-10 w-full flex justify-between items-center py-space-16 border-b border-white/5">
+          <div className="flex flex-col items-start leading-none text-ivory">
+            <span className="h-label-mono text-bronze">
+              Rightcon · Architecture &amp; Rigor
+            </span>
+            <span className="font-display text-xl md:text-2xl font-light tracking-[0.25em] mt-1">
+              RIGHTCON
+            </span>
+          </div>
+          <div className="flex items-center gap-space-16 z-20">
+            <button
+              onClick={() => {
+                setMascotPose('idle');
+                completeIntro();
+              }}
+              className="font-mono text-[8px] text-bronze hover:text-white uppercase tracking-widest border border-bronze/30 hover:border-white/50 px-3 py-1 bg-transparent cursor-pointer transition-all focus:outline-none"
+            >
+              SKIP INTRO →
+            </button>
+            <span className="font-mono text-[8px] text-holo-cyan uppercase tracking-widest hidden sm:inline">
+              GEOTECHNICAL INTRO ACTIVE
+            </span>
+          </div>
+        </header>
+      ) : (
+        <div className="h-space-40 w-full pointer-events-none"></div>
+      )}
 
-        <a 
-          href="#book-a-visit" 
-          className="font-mono text-[9px] md:text-[10px] tracking-[0.25em] uppercase px-5 py-3 border border-[#D4AF37]/50 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#050505] transition-all duration-700 rounded-sm bg-white/5 backdrop-blur-md shadow-lg"
-        >
-          Inquire
-        </a>
-      </header>
-
-      {/* 6. Hero Immersive Text (Defocussed/blurred during entry swoop) */}
+      {/* 6. Dynamic Slide Immersive Text */}
       <div 
-        className="relative z-10 max-w-7xl mx-auto w-full my-auto flex flex-col justify-center transition-all duration-1000"
+        className="relative z-20 max-w-7xl mx-auto w-full my-auto flex flex-col justify-center transition-all duration-1000 mt-space-40"
         style={{ 
           transform: `translateY(${textTranslateY}px)`,
-          filter: (heroState !== 'EXPLORE') ? 'blur(3.5px)' : 'none',
-          opacity: (heroState !== 'EXPLORE') ? 0.6 : 1.0
+          filter: (heroState !== 'EXPLORE') ? 'blur(3px)' : 'none',
+          opacity: (heroState !== 'EXPLORE') ? 0.5 : 1.0
         }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-          <div className="lg:col-span-8">
-            <h1 className="font-display text-5xl sm:text-7xl md:text-[8.5rem] italic font-light tracking-tight leading-[0.95] text-[#F8F8F6] flex flex-col">
-              <span className="animate-fade-in-up">ARCHITECTURAL</span>
-              <span className="text-[#D4AF37] not-italic ml-[10%] md:ml-[18%] mt-3 drop-shadow-xl">
-                RIGOR.
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-center">
+          
+          {/* Left Text Detail */}
+          <div className="lg:col-span-7 flex flex-col gap-space-24">
+            <div className="h-label-mono text-ivory/50 flex items-center gap-space-8 transition-all duration-500">
+              <span>({HERO_SLIDES[currentSlide].category})</span>
+              <span className="w-8 h-[1px] bg-white/20"></span>
+              <span>THE ARCHITECTURAL MANIFESTO</span>
+            </div>
+            
+            <h1 className="h-hero-display text-ivory flex flex-col transition-all duration-[0.8s] ease-out">
+              <span className="animate-fade-in-up font-display font-light uppercase tracking-tight">
+                {HERO_SLIDES[currentSlide].title.split('.')[0]}
               </span>
             </h1>
+            
+            <div className="max-w-md mt-2">
+              <p className="h-body-large text-ivory/90 font-light mb-space-24 leading-relaxed transition-all duration-500">
+                {HERO_SLIDES[currentSlide].desc}
+              </p>
+              
+              <div className="flex gap-space-16 items-center">
+                <a href="#home-projects" className="btn-primary py-3 px-8 text-[9px] tracking-widest rounded-none">
+                  <span>Explore Exhibition</span>
+                </a>
+                <span className="font-mono text-[8px] tracking-widest text-holo-cyan/80 uppercase">
+                  BIM LOD 400 INTEGRATED
+                </span>
+              </div>
+            </div>
           </div>
           
-          <div className="lg:col-span-4 max-w-sm lg:pl-6">
-            <div className="font-mono text-[9.5px] text-stone tracking-[0.25em] mb-4 uppercase">
-              (CHAPTER 01 / STORY)
+          {/* Right Column: Floating Asymmetric Card matching current slide */}
+          <div className="hidden lg:flex lg:col-span-5 relative h-full min-h-[350px] items-center justify-center">
+            {/* Subtle Blueprint grid background for card */}
+            <div className="absolute inset-0 blueprint-grid opacity-10 pointer-events-none rounded-sm border border-white/5 bg-white/[0.01]"></div>
+
+            {/* A single, stunning asymmetrical floating image card */}
+            <div className="absolute right-[5%] w-[260px] aspect-[3/4] z-10 border border-white/10 shadow-[0_32px_64px_rgba(0,0,0,0.5)] bg-charcoal overflow-hidden group rotate-[2deg] hover:rotate-0 transition-all duration-700 hover:scale-103">
+              <img 
+                src={HERO_SLIDES[currentSlide].detailImg} 
+                alt="Exposed architectural details" 
+                className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
+              />
+              <div className="absolute bottom-3 left-3 bg-charcoal/90 border border-white/5 px-2.5 py-0.5 font-mono text-[7.5px] text-bronze uppercase">
+                {HERO_SLIDES[currentSlide].code}
+              </div>
             </div>
-            <p className="font-sans text-xs md:text-[14px] font-light text-stone-light leading-relaxed mb-6">
-               Bangalore &amp; Mysuru's premier structural landmarks. Crafted using deep geomechanical soil profiles, zero-tolerance column logic, and absolute raw material honesty.
-            </p>
-            <div className="flex gap-4 items-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#49B8FF] animate-ping"></span>
-              <span className="font-mono text-[8px] tracking-widest text-[#49B8FF]/80 uppercase">
-                BIM LOD 400 INTEGRATED
-              </span>
+            
+            {/* Mascot Safe Zone overlay point */}
+            <div className="absolute left-[5%] bottom-[10%] z-20">
+              <div className="mascot-observation-point bg-charcoal/80 backdrop-blur-md">
+                <span className="mascot-observation-dot"></span>
+                <span>Mascot Landing Anchor</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 7. Footer Scroll Cue */}
-      <div className="relative z-10 w-full flex justify-between items-center">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-[1px] bg-[#D4AF37]/50"></div>
-          <span className="font-mono text-[9px] text-[#D4AF37] tracking-[0.3em] uppercase">
-            Scroll to Enter
-          </span>
+      {/* 7. Footer Scroll Cue with slideshow slide indicator */}
+      <div className="relative z-20 w-full flex justify-between items-center border-t border-white/5 pt-space-16 text-ivory">
+        <div className="flex items-center gap-space-24">
+          <div className="flex items-center gap-space-8">
+            <div className="w-12 h-[1px] bg-bronze/50"></div>
+            <span className="font-mono text-[9px] text-bronze tracking-[0.3em] uppercase">
+              Scroll to Enter
+            </span>
+          </div>
+          
+          {/* Slideshow dot indicators */}
+          {heroState === 'EXPLORE' && (
+            <div className="flex gap-2">
+              {HERO_SLIDES.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setCurrentSlide(i)}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                    currentSlide === i ? 'bg-bronze w-4' : 'bg-white/20 hover:bg-white/40'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
-        <div className="font-mono text-[8px] text-stone/60 tracking-wider">
-          ESTATE COORDINATES: 12.9716° N, 77.5946° E
+
+        <div className="h-caption font-mono text-[8px] text-ivory/40">
+          SLIDE 0{currentSlide + 1} OF 0{HERO_SLIDES.length} // 12.9716° N, 77.5946° E
         </div>
       </div>
     </section>

@@ -27,49 +27,49 @@ export default function Footer() {
   return (
     <footer 
       ref={footerRef}
-      className="relative w-full bg-[#050505] border-t border-white/5 py-20 px-8 md:px-16 select-none z-10 subpixel-text"
+      className="relative w-full border-t border-white/5 py-space-96 px-space-24 md:px-space-40 select-none z-10 theme-dark subpixel-text"
     >
       {/* Decorative architectural grid */}
       <div className="absolute inset-0 architectural-grid opacity-10 pointer-events-none"></div>
 
-      <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-12">
+      <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-space-64">
         
         {/* Top footer row */}
-        <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-space-40">
           
           {/* Logo Brand Mark */}
-          <div className="flex flex-col items-start leading-none">
-            <span className="font-mono text-[7px] md:text-[9.5px] text-stone tracking-[0.25em] uppercase font-semibold">
-              EST. 2014 BANGALORE HQ
+          <div className="flex flex-col items-start leading-none text-ivory">
+            <span className="h-label-mono text-bronze">
+              EST. 2014 / BANGALORE DESIGN HQ
             </span>
-            <span className="font-display text-2xl md:text-3xl font-light tracking-wide mt-2 logo-glow">
+            <span className="font-display text-4xl md:text-5xl font-light tracking-[0.25em] mt-3">
               RIGHTCON
             </span>
           </div>
 
           {/* Right layout block: location + contacts */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 md:gap-24">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-40 md:gap-space-96">
             
             {/* Showroom location */}
-            <div className="flex flex-col gap-2">
-              <span className="font-mono text-[9px] text-[#D4AF37] tracking-[0.2em] uppercase font-semibold">
+            <div className="flex flex-col gap-space-8">
+              <span className="h-label-mono text-bronze">
                 (LOCATION)
               </span>
-              <address className="not-italic font-sans text-xs md:text-sm font-light text-stone-light max-w-[200px] leading-relaxed">
+              <address className="not-italic font-sans text-xs text-ivory/65 leading-relaxed font-light max-w-[220px]">
                 12th Main Rd, Indiranagar, Bangalore, Karnataka 560038
               </address>
             </div>
 
             {/* Inquiries */}
-            <div className="flex flex-col gap-2">
-              <span className="font-mono text-[9px] text-[#D4AF37] tracking-[0.2em] uppercase font-semibold">
+            <div className="flex flex-col gap-space-8">
+              <span className="h-label-mono text-bronze">
                 (CONTACT)
               </span>
-              <div className="flex flex-col gap-1.5 text-xs md:text-sm font-light text-stone-light">
-                <a href="mailto:info@rightcon.in" className="hover:text-white transition-colors">
+              <div className="flex flex-col gap-space-8 text-xs text-ivory/65 font-light">
+                <a href="mailto:info@rightcon.in" className="hover:text-bronze transition-colors">
                   info@rightcon.in
                 </a>
-                <a href="tel:+919845100000" className="hover:text-white transition-colors">
+                <a href="tel:+919845100000" className="hover:text-bronze transition-colors">
                   +91 98451 00000
                 </a>
               </div>
@@ -80,27 +80,33 @@ export default function Footer() {
         </div>
 
         {/* Bottom footer row */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div className="font-mono text-[9.5px] text-stone tracking-wider">
+        <div className="border-t border-white/10 pt-space-32 flex flex-col md:flex-row justify-between items-start md:items-center gap-space-24">
+          <div className="h-label-mono text-[9px] text-ivory/40">
             © {new Date().getFullYear()}. RIGHTCON COLLECTIVE. ALL RIGHTS RESERVED.
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 md:gap-12 font-mono text-[9.5px] text-stone items-start sm:items-center">
-            <a href="#" className="hover:text-white transition-colors">
+          <div className="flex flex-col sm:flex-row gap-space-16 md:gap-space-40 h-label-mono text-[9px] items-start sm:items-center">
+            <a href="#" className="hover:text-bronze transition-colors">
               PRIVACY POLICY
             </a>
 
             <button 
               onClick={replayIntro}
-              className="hover:text-white transition-colors cursor-pointer text-left font-mono text-[9.5px] text-stone border-none bg-transparent p-0 uppercase outline-none"
+              className="hover:text-bronze transition-colors cursor-pointer text-left border-none bg-transparent p-0 outline-none uppercase font-mono tracking-widest text-[9px]"
             >
               REPLAY INTRO
             </button>
             
             {/* RERA info */}
-            <div className="flex items-center gap-2">
-              <span className="text-[#D4AF37]">RERA ID:</span>
-              <span className="text-stone-light">PRM/KA/RERA/1251/310</span>
+            <div className="flex items-center gap-space-8">
+              <span className="text-bronze font-bold">RERA ID:</span>
+              <span className="text-ivory/60 font-light">PRM/KA/RERA/1251/310</span>
+            </div>
+
+            {/* Mascot observation anchor */}
+            <div className="mascot-observation-point">
+              <span className="mascot-observation-dot"></span>
+              <span>Mascot Resting Station</span>
             </div>
           </div>
         </div>
@@ -109,4 +115,3 @@ export default function Footer() {
     </footer>
   );
 }
-

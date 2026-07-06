@@ -150,6 +150,7 @@ const BEHAVIOR_MAP = {
   attentiveForm: 'thinking', contemplateWork: 'thinking', scanArea: 'curious',
   stretchArms: 'excited', studySkyline: 'curious', adjustJetpack: 'focused',
   checkProgress: 'inspect',
+  wave: 'wave', confident: 'confident',
 };
 const INTRO_POSE_MAP = {
   idle: 'calm', wave: 'wave', reach: 'keyReach',

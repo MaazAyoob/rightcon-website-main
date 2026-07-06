@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
@@ -27,6 +28,10 @@ const ScrollContext = createContext({
   formSuccess: false,
   conversationOpen: false,
   setConversationOpen: () => {},
+  menuOpen: false,
+  setMenuOpen: () => {},
+  searchOpen: false,
+  setSearchOpen: () => {},
   
   // V3 hero states
   heroState: 'BOOTING',
@@ -65,6 +70,7 @@ const ScrollContext = createContext({
 export const useScrollSystem = () => useContext(ScrollContext);
 
 export const ScrollProvider = ({ children }) => {
+  const location = useLocation();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [scrollVelocity, setScrollVelocity] = useState(0);
   const [scrollDirection, setScrollDirection] = useState('down');
@@ -83,6 +89,8 @@ export const ScrollProvider = ({ children }) => {
   const [formFieldFocus, setFormFieldFocus] = useState(null);
   const [formSuccess, setFormSuccess] = useState(false);
   const [conversationOpen, setConversationOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   
   // V3 hero-integrated intro State
   const [heroState, setHeroState] = useState('BOOTING');
@@ -256,6 +264,18 @@ export const ScrollProvider = ({ children }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (lenisRef.current) {
+      if (menuOpen || searchOpen || conversationOpen) {
+        lenisRef.current.stop();
+      } else if (location.pathname !== '/' || heroState === 'EXPLORE') {
+        lenisRef.current.start();
+      } else {
+        lenisRef.current.stop();
+      }
+    }
+  }, [menuOpen, searchOpen, conversationOpen, location.pathname, heroState]);
+
   return (
     <ScrollContext.Provider value={{
       scrollProgress,
@@ -277,6 +297,10 @@ export const ScrollProvider = ({ children }) => {
       formSuccess,
       conversationOpen,
       setConversationOpen,
+      menuOpen,
+      setMenuOpen,
+      searchOpen,
+      setSearchOpen,
       
       // V3 hero states
       heroState,
