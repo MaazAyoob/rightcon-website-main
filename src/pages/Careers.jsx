@@ -41,7 +41,7 @@ export default function Careers() {
   };
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-space-96 select-none font-sans">
+    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none font-sans">
       
       {/* 1. Careers slideshow hero */}
       <CinematicHero slides={CAREERS_SLIDES} coordinates="12.9716° N, 77.5946° E" />

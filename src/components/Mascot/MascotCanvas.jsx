@@ -132,12 +132,15 @@ export default function MascotCanvas() {
   const mousePx = useRef({ x: 0, y: 0 });
 
   React.useEffect(() => {
+    if (isMobile) return;
     const handleMove = (e) => {
       mousePx.current = { x: e.clientX, y: e.clientY };
     };
     window.addEventListener('mousemove', handleMove);
     return () => window.removeEventListener('mousemove', handleMove);
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <div

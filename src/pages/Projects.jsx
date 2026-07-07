@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useScrollSystem } from '../context/ScrollContext';
 import { PROJECTS_DATA } from '../data/mockData';
 import { Link } from 'react-router-dom';
+import { optimizeUnsplashUrl } from '../utils/image';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
 
@@ -33,7 +34,7 @@ const PROJECTS_SLIDES = [
 ];
 
 export default function Projects() {
-  const { setActiveScene, setMascotPose, setMascotEmotion } = useScrollSystem();
+  const { isMobile, setActiveScene, setMascotPose, setMascotEmotion } = useScrollSystem();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedStatus, setSelectedStatus] = useState('All');
 
@@ -123,7 +124,7 @@ export default function Projects() {
                   >
                     <div className="w-full aspect-[4/3] overflow-hidden border border-white/5 relative bg-charcoal">
                       <img 
-                        src={project.heroImage} 
+                        src={optimizeUnsplashUrl(project.heroImage, isMobile ? 800 : 1000, isMobile ? 70 : 80)} 
                         alt={project.title} 
                         className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 group-hover:scale-103 transition-all duration-[1.2s]"
                       />

@@ -2,18 +2,20 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useScrollSystem } from '../context/ScrollContext';
 import { PROJECTS_DATA } from '../data/mockData';
+import { optimizeUnsplashUrl } from '../utils/image';
 import Footer from '../components/UI/Footer';
 
 export default function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { setActiveScene, setMascotPose } = useScrollSystem();
+  const { isMobile, setActiveScene, setMascotPose } = useScrollSystem();
   
   // Find project
   const project = PROJECTS_DATA.find(p => p.id === id);
 
   // Before & After Interactive slider states
   const [sliderPos, setSliderPos] = useState(50);
+  const [containerWidth, setContainerWidth] = useState(0);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -21,6 +23,26 @@ export default function ProjectDetail() {
     setActiveScene(3); // Set active scene to projects for mascot targets
     setMascotPose('idle');
   }, [id, setActiveScene, setMascotPose]);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+    updateWidth();
+    
+    window.addEventListener('resize', updateWidth);
+    
+    const observer = new ResizeObserver(updateWidth);
+    observer.observe(containerRef.current);
+    
+    return () => {
+      window.removeEventListener('resize', updateWidth);
+      observer.disconnect();
+    };
+  }, [project]);
 
   if (!project) {
     return (
@@ -77,7 +99,7 @@ export default function ProjectDetail() {
         
         <div className="w-full aspect-[21/9] overflow-hidden border border-white/10 rounded-sm mt-space-40 relative bg-graphite shadow-2xl">
           <img 
-            src={project.heroImage} 
+            src={optimizeUnsplashUrl(project.heroImage, isMobile ? 800 : 1600, isMobile ? 70 : 85)} 
             alt={project.title} 
             className="w-full h-full object-cover"
           />
@@ -200,7 +222,7 @@ export default function ProjectDetail() {
         >
           {/* Before image (Excavation) */}
           <img 
-            src={project.beforeImage} 
+            src={optimizeUnsplashUrl(project.beforeImage, isMobile ? 800 : 1200, isMobile ? 70 : 80)} 
             alt="Excavation site" 
             className="absolute inset-0 w-full h-full object-cover pointer-events-none brightness-[0.7]"
           />
@@ -214,10 +236,10 @@ export default function ProjectDetail() {
             style={{ width: `${sliderPos}%` }}
           >
             <img 
-              src={project.afterImage} 
+              src={optimizeUnsplashUrl(project.afterImage, isMobile ? 800 : 1200, isMobile ? 70 : 80)} 
               alt="Completed facade" 
               className="absolute inset-0 w-full h-full object-cover pointer-events-none brightness-[0.8]"
-              style={{ width: containerRef.current ? containerRef.current.offsetWidth : '100%', maxWidth: 'none' }}
+              style={{ width: containerWidth ? `${containerWidth}px` : '100%', maxWidth: 'none' }}
             />
             <div className="absolute top-3 right-3 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[7px] text-[#2D4E73] z-20 whitespace-nowrap">
               DAY_360 // LANDMARK COMPLETE
@@ -308,7 +330,7 @@ export default function ProjectDetail() {
               >
                 <div className="w-[120px] aspect-square overflow-hidden border border-white/5 flex-shrink-0 bg-charcoal">
                   <img 
-                    src={p.heroImage} 
+                    src={optimizeUnsplashUrl(p.heroImage, isMobile ? 400 : 500, isMobile ? 70 : 80)} 
                     alt={p.title} 
                     className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-500" 
                   />

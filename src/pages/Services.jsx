@@ -43,7 +43,7 @@ export default function Services() {
   }, [setActiveScene, setMascotPose, setMascotEmotion]);
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-space-96 select-none">
+    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none">
       
       {/* 1. Services slideshow hero */}
       <CinematicHero slides={SERVICES_SLIDES} coordinates="12.9716° N, 77.5946° E" />

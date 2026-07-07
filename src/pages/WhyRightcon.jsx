@@ -40,10 +40,36 @@ export default function WhyRightcon() {
   }, [setActiveScene, setMascotPose, setMascotEmotion]);
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-space-96 select-none font-sans">
+    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none font-sans">
       
       {/* 1. Why Rightcon slideshow hero */}
       <CinematicHero slides={WHY_SLIDES} coordinates="12.9716° N, 77.5946° E" />
+
+      {/* 1.5 PERFORMANCE STATS BAR */}
+      <section className="py-12 px-space-24 md:px-space-40 border-t border-b border-white/5 bg-charcoal/50 relative">
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="flex flex-col gap-2">
+            <span className="font-mono text-xs text-bronze uppercase tracking-wider">[STRUCTURAL DEFECTS]</span>
+            <span className="font-display text-4xl md:text-5xl font-light text-white">0.0%</span>
+            <span className="font-sans text-[10px] text-ivory/40">Tested under active loading limits</span>
+          </div>
+          <div className="flex flex-col gap-2 border-l border-white/5 md:pl-4">
+            <span className="font-mono text-xs text-bronze uppercase tracking-wider">[SOIL CORE DRILLS]</span>
+            <span className="font-display text-4xl md:text-5xl font-light text-white">8m - 12m</span>
+            <span className="font-sans text-[10px] text-ivory/40">Friction piling deep bedrock mapping</span>
+          </div>
+          <div className="flex flex-col gap-2 border-l border-white/5 md:pl-4">
+            <span className="font-mono text-xs text-bronze uppercase tracking-wider">[CONCRETE CERTIFIED]</span>
+            <span className="font-display text-4xl md:text-5xl font-light text-white">100%</span>
+            <span className="font-sans text-[10px] text-ivory/40">ISO laboratory cube crushing checks</span>
+          </div>
+          <div className="flex flex-col gap-2 border-l border-white/5 md:pl-4">
+            <span className="font-mono text-xs text-bronze uppercase tracking-wider">[BIM CLASH AUDITS]</span>
+            <span className="font-display text-4xl md:text-5xl font-light text-white">LOD 400</span>
+            <span className="font-sans text-[10px] text-ivory/40">Complete virtual plumbing & column twins</span>
+          </div>
+        </div>
+      </section>
 
       {/* 2. CORE CREDENTIALS INDEX */}
       <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-graphite relative">
@@ -65,6 +91,60 @@ export default function WhyRightcon() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 2.5 COMPARISON MATRIX */}
+      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+        <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-space-48">
+          <div className="border-l-2 border-bronze/40 pl-4">
+            <span className="font-mono text-[9px] text-bronze block">[CONTRACTUAL DIFFERENCES]</span>
+            <h3 className="font-display text-2xl font-light text-white uppercase tracking-wider mt-1">
+              Rightcon Assurance vs. Traditional Builders
+            </h3>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse border border-white/10 font-mono text-[10.5px]">
+              <thead>
+                <tr className="bg-graphite border-b border-white/10 text-bronze uppercase tracking-wider">
+                  <th className="p-4 border-r border-white/10">Feature</th>
+                  <th className="p-4 border-r border-white/10 text-white/40">Traditional Contractors</th>
+                  <th className="p-4 text-bronze font-bold">Rightcon Assurance</th>
+                </tr>
+              </thead>
+              <tbody className="text-ivory/70">
+                <tr className="border-b border-white/10 hover:bg-white/[0.01]">
+                  <td className="p-4 border-r border-white/10 font-bold text-white uppercase">Soil Geomechanics</td>
+                  <td className="p-4 border-r border-white/10 text-white/50">Vague visual inspection, uniform foundation sizing</td>
+                  <td className="p-4 text-white font-light">
+                    Deep bedrock core drilling (8m - 12m) to map precise bearing indexes.
+                  </td>
+                </tr>
+                <tr className="border-b border-white/10 hover:bg-white/[0.01]">
+                  <td className="p-4 border-r border-white/10 font-bold text-white uppercase">Slab Coordination</td>
+                  <td className="p-4 border-r border-white/10 text-white/50">Manual drill cuts on-site; frequent structural steel rebar splits</td>
+                  <td className="p-4 text-white font-light">
+                    Zero core drill cuts. All conduit lines are pre-sleeved in 3D BIM models at LOD 400.
+                  </td>
+                </tr>
+                <tr className="border-b border-white/10 hover:bg-white/[0.01]">
+                  <td className="p-4 border-r border-white/10 font-bold text-white uppercase">Material Auditing</td>
+                  <td className="p-4 border-r border-white/10 text-white/50">Contractor-selected local batches with unverified provenance ledger</td>
+                  <td className="p-4 text-white font-light">
+                    Direct quarry/mill invoices and certified laboratory crushing reports (Day 7/28).
+                  </td>
+                </tr>
+                <tr className="hover:bg-white/[0.01]">
+                  <td className="p-4 border-r border-white/10 font-bold text-white uppercase">Warranty Title</td>
+                  <td className="p-4 border-r border-white/10 text-white/50">1-year verbal/simple contract; expires if contractor closes shop</td>
+                  <td className="p-4 text-white font-light">
+                    10-year transferable deed of warranty registered directly inside the property title.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>

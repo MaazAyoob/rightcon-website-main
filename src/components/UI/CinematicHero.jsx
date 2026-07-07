@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useScrollSystem } from '../../context/ScrollContext';
+import { optimizeUnsplashUrl } from '../../utils/image';
 
 export default function CinematicHero({ slides = [], coordinates = "12.9716° N, 77.5946° E" }) {
   const { isMobile } = useScrollSystem();
@@ -37,7 +38,7 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
                 }`}
               >
                 <img 
-                  src={slide.image}
+                  src={optimizeUnsplashUrl(slide.image, isMobile ? 800 : 1600, isMobile ? 70 : 85)}
                   alt={slide.title}
                   className="w-full h-full object-cover brightness-[0.22] grayscale-[10%]"
                 />
@@ -85,7 +86,7 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
               
               <div className="absolute right-[5%] w-[240px] aspect-[4/5] z-10 border border-[#F5F2EB]/10 shadow-[0_24px_48px_rgba(26,26,24,0.3)] bg-[#1A1A18] overflow-hidden group rotate-[1.5deg] hover:rotate-0 transition-all duration-700 hover:scale-102">
                 <img 
-                  src={activeSlide.detailImg} 
+                  src={optimizeUnsplashUrl(activeSlide.detailImg, isMobile ? 500 : 800, isMobile ? 70 : 80)} 
                   alt="Architectural detailing" 
                   className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
                 />

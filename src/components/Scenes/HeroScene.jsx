@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useScrollSystem } from '../../context/ScrollContext';
+import { optimizeUnsplashUrl } from '../../utils/image';
 import gsap from 'gsap';
 
 const HERO_SLIDES = [
@@ -47,6 +48,7 @@ const HERO_SLIDES = [
 
 export default function HeroScene() {
   const { 
+    isMobile,
     scrollProgress, 
     setMascotPose,
     setMascotEmotion,
@@ -439,7 +441,7 @@ export default function HeroScene() {
                 }`}
               >
                 <img 
-                  src={slide.image}
+                  src={optimizeUnsplashUrl(slide.image, isMobile ? 800 : 1600, isMobile ? 70 : 85)}
                   alt={slide.title}
                   className="w-full h-full object-cover brightness-[0.3] grayscale-[10%]"
                 />
@@ -605,7 +607,7 @@ export default function HeroScene() {
             {/* A single, stunning asymmetrical floating image card */}
             <div className="absolute right-[5%] w-[260px] aspect-[3/4] z-10 border border-white/10 shadow-[0_32px_64px_rgba(0,0,0,0.5)] bg-charcoal overflow-hidden group rotate-[2deg] hover:rotate-0 transition-all duration-700 hover:scale-103">
               <img 
-                src={HERO_SLIDES[currentSlide].detailImg} 
+                src={optimizeUnsplashUrl(HERO_SLIDES[currentSlide].detailImg, isMobile ? 500 : 800, isMobile ? 70 : 80)} 
                 alt="Exposed architectural details" 
                 className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
               />

@@ -185,7 +185,8 @@ export const ScrollProvider = ({ children }) => {
                   window.location.hostname === "127.0.0.1";
     
     const completed = localStorage.getItem('rightcon_intro_completed') === 'true';
-    const shouldSkip = completed && !isDev; // Dev mode forces intro replay on refresh
+    const isMobileDevice = window.innerWidth < 768;
+    const shouldSkip = (completed && !isDev) || isMobileDevice; // Auto-skip intro on mobile
 
     setIntroCompleted(shouldSkip);
     setHeroState(shouldSkip ? 'EXPLORE' : 'BOOTING');

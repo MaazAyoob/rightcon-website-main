@@ -33,7 +33,7 @@ export default function Technology() {
   }, [setActiveScene, setMascotPose, setMascotEmotion]);
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-space-96 select-none font-sans">
+    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none font-sans">
       
       {/* 1. Technology slideshow hero */}
       <CinematicHero slides={TECH_SLIDES} coordinates="12.9716° N, 77.5946° E" />
@@ -68,6 +68,62 @@ export default function Technology() {
             </svg>
             <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2.5 py-0.5 font-mono text-[7px] text-bronze">
               CAD // VIRTUAL_LOD_400
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 2.5 CLASH TELEMETRY CONSOLE */}
+      <section className="py-space-64 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+        <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-space-40">
+          
+          <div className="lg:col-span-5 flex flex-col gap-space-24 justify-center">
+            <div className="border-l-2 border-bronze/40 pl-4">
+              <span className="font-mono text-[9px] text-bronze block">[LOD 400 INTEGRATION SOFTWARE STACK]</span>
+              <h3 className="font-display text-2xl font-light text-white uppercase tracking-wider mt-1">
+                Virtual Building Orchestration
+              </h3>
+            </div>
+            <p className="font-sans text-xs text-ivory/60 leading-relaxed font-light">
+              We design coordination boundaries down to the millimeter. Using Autodesk Revit for volumetric models, Tekla for structural rebar steel layouts, and Navisworks for automated clash rules, our architecture is compiled like high-performance software.
+            </p>
+            <div className="flex flex-col gap-4 font-mono text-[10px] text-ivory/80 mt-2">
+              <div className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-bronze shrink-0"></span>
+                <span>AUTODESK REVIT // Architectural & Space Twins</span>
+              </div>
+              <div className="flex items-center gap-3 border-t border-white/5 pt-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#2D4E73] shrink-0"></span>
+                <span>TEKLA STRUCTURES // Heavy Rebar & Column Tolerances</span>
+              </div>
+              <div className="flex items-center gap-3 border-t border-white/5 pt-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                <span>NAVISWORKS MANAGE // Automated Clash Audit Scans</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-7 border border-white/10 rounded-sm bg-black/40 overflow-x-auto font-mono text-[9px] text-emerald-400 p-6 flex flex-col gap-4 relative">
+            <div className="flex justify-between items-center border-b border-white/10 pb-3">
+              <span className="text-white/40 uppercase tracking-widest">[SYSTEM // CLASH_AUDIT_TERMINAL]</span>
+              <span className="text-emerald-400/50">STATUS: ACTIVE</span>
+            </div>
+            <div className="flex flex-col gap-1.5 leading-normal select-none">
+              <span className="text-white/40">&gt; rightcon-bim-pipeline --run clash-audit --target index-model-v3</span>
+              <span>[INFO] INITIALIZING GEOMECHANICAL COORDINATE MATRIX...</span>
+              <span>[INFO] RESOLVING 12.9716° N, 77.5946° E MAP NODES...</span>
+              <span className="text-[#B58B45]">[WARN] DUPLICATE MEP PIPE SLEEVE ENCOUNTERED AT COLUMN C-04 // AUTO-SHIFTING</span>
+              <span>[INFO] RUNNING HARD CLASH TEST ON 4,192 GEOMETRIES...</span>
+              <span>[SUCCESS] PASS 01 // FOUNDATION PILE MATRIX: 0 CONFLICTS</span>
+              <span>[SUCCESS] PASS 02 // RAFT STEEL REINFORCEMENTS: 0 CONFLICTS</span>
+              <span>[SUCCESS] PASS 03 // VERTICAL SEISMIC COLUMN CORES: 0 CONFLICTS</span>
+              <span>[SUCCESS] PASS 04 // SLAB MEP CONDUIT CONGLOMERATIONS: 0 CONFLICTS</span>
+              <span className="text-white mt-2">&gt; AUDIT COMPLETE. CLASH DEVIATION INDEX: 0.00mm. BLUEPRINT KEY VALIDATED.</span>
+            </div>
+            <div className="absolute bottom-2 right-2 text-[8px] text-white/20">
+              SECURE_HASH // 0xFA488219B
             </div>
           </div>
 

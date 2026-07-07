@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useScrollSystem } from '../../context/ScrollContext';
+import { optimizeUnsplashUrl } from '../../utils/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -61,6 +62,7 @@ const PROJECTS = [
 
 function ProjectCard({ project, idx, onOpen, onHoverStart, onHoverEnd }) {
   const cardRef = useRef(null);
+  const { isMobile } = useScrollSystem();
 
   return (
     <div 
@@ -73,7 +75,7 @@ function ProjectCard({ project, idx, onOpen, onHoverStart, onHoverEnd }) {
       <div className="w-full aspect-[16/10] overflow-hidden relative shadow-[0_24px_64px_rgba(0,0,0,0.45)] bg-charcoal">
         <div className="absolute inset-0 blueprint-grid opacity-[0.04] z-0"></div>
         <img 
-          src={project.image} 
+          src={optimizeUnsplashUrl(project.image, isMobile ? 800 : 1200, isMobile ? 70 : 85)} 
           alt={project.title} 
           className="w-full h-full object-cover grayscale-[25%] group-hover:grayscale-0 group-hover:scale-101 transition-all duration-[1.4s] ease-out brightness-[0.8]"
         />
@@ -114,7 +116,7 @@ function ProjectCard({ project, idx, onOpen, onHoverStart, onHoverEnd }) {
 export default function ProjectsScene() {
   const containerRef = useRef();
   const triggerRef = useRef();
-  const { setActiveScene, setMascotPose, setHoveredProject } = useScrollSystem();
+  const { isMobile, setActiveScene, setMascotPose, setHoveredProject } = useScrollSystem();
   
   const [activeProject, setActiveProject] = useState(null);
 
@@ -237,7 +239,7 @@ export default function ProjectsScene() {
                 <div className="w-full aspect-[16/9] overflow-hidden border border-white/5 relative shadow-2xl rounded-sm group">
                   <div className="absolute inset-0 blueprint-grid opacity-10 z-0"></div>
                   <img 
-                    src={activeProject.image} 
+                    src={optimizeUnsplashUrl(activeProject.image, isMobile ? 800 : 1200, isMobile ? 70 : 85)} 
                     alt={activeProject.title} 
                     className="w-full h-full object-cover relative z-10 brightness-[0.8] group-hover:scale-101 transition-all duration-[1s]"
                   />
@@ -250,7 +252,7 @@ export default function ProjectsScene() {
                 <div className="grid grid-cols-2 gap-space-16 relative">
                   <div className="aspect-[4/3] overflow-hidden border border-white/5 rounded-sm shadow-xl relative group">
                     <img 
-                      src={activeProject.interior} 
+                      src={optimizeUnsplashUrl(activeProject.interior, isMobile ? 400 : 600, isMobile ? 70 : 80)} 
                       alt="Interior spaces" 
                       className="w-full h-full object-cover brightness-[0.85] group-hover:scale-102 transition-all duration-[1s]"
                     />
@@ -261,7 +263,7 @@ export default function ProjectsScene() {
 
                   <div className="aspect-[4/3] overflow-hidden border border-white/5 rounded-sm shadow-xl relative group">
                     <img 
-                      src={activeProject.evening} 
+                      src={optimizeUnsplashUrl(activeProject.evening, isMobile ? 400 : 600, isMobile ? 70 : 80)} 
                       alt="Evening sunset exterior" 
                       className="w-full h-full object-cover brightness-[0.8] group-hover:scale-102 transition-all duration-[1s]"
                     />
@@ -277,7 +279,7 @@ export default function ProjectsScene() {
                     <span className="font-mono text-[7px] text-white/40 uppercase">Day_45 Core Concrete</span>
                     <div className="aspect-square overflow-hidden border border-white/5 rounded-sm group">
                       <img 
-                        src={activeProject.construction} 
+                        src={optimizeUnsplashUrl(activeProject.construction, isMobile ? 400 : 500, isMobile ? 70 : 80)} 
                         alt="Construction phase" 
                         className="w-full h-full object-cover grayscale-[35%] group-hover:grayscale-0 transition-all duration-500"
                       />
@@ -288,7 +290,7 @@ export default function ProjectsScene() {
                     <span className="font-mono text-[7px] text-white/40 uppercase">Burma Teak Detail</span>
                     <div className="aspect-square overflow-hidden border border-white/5 rounded-sm group">
                       <img 
-                        src={activeProject.material} 
+                        src={optimizeUnsplashUrl(activeProject.material, isMobile ? 400 : 500, isMobile ? 70 : 80)} 
                         alt="Teak detail" 
                         className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
                       />

@@ -35,7 +35,7 @@ export default function SignatureHeader() {
           <div className="absolute w-3 h-[1px] bg-current/20 group-hover:bg-[var(--color-bronze)] transition-colors"></div>
           <div className="w-1.5 h-1.5 bg-[#2D4E73] rounded-full"></div>
         </div>
-        <span className="font-medium text-inherit group-hover:text-[var(--color-bronze)] transition-colors">INDEX // EXPLORE</span>
+        <span className="font-medium text-inherit group-hover:text-[var(--color-bronze)] transition-colors hidden sm:inline">INDEX // EXPLORE</span>
       </button>
 
       {/* Rightcon Branding Logo (Center) */}

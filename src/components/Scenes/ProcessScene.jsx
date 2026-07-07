@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useScrollSystem } from '../../context/ScrollContext';
+import { optimizeUnsplashUrl } from '../../utils/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -47,7 +48,7 @@ const STAGES = [
 export default function ProcessScene() {
   const triggerRef = useRef(null);
   const [currentStep, setCurrentStep] = useState(0);
-  const { setMascotPose } = useScrollSystem();
+  const { isMobile, setMascotPose } = useScrollSystem();
 
   useEffect(() => {
     const pin = ScrollTrigger.create({
@@ -89,7 +90,7 @@ export default function ProcessScene() {
               {STAGES.map((stage, idx) => (
                 <img 
                   key={idx}
-                  src={stage.image}
+                  src={optimizeUnsplashUrl(stage.image, isMobile ? 800 : 1200, isMobile ? 70 : 85)}
                   alt={stage.name}
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
                     idx === currentStep ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-95'

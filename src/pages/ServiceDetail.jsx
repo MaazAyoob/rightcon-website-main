@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useScrollSystem } from '../context/ScrollContext';
+import { optimizeUnsplashUrl } from '../utils/image';
 import { SERVICES_DATA, PROJECTS_DATA } from '../data/mockData';
 import Footer from '../components/UI/Footer';
 
@@ -58,7 +59,7 @@ const CONSULTATIVE_MAPPING = {
 
 export default function ServiceDetail() {
   const { id } = useParams();
-  const { setActiveScene, setMascotPose, setMascotEmotion } = useScrollSystem();
+  const { isMobile, setActiveScene, setMascotPose, setMascotEmotion } = useScrollSystem();
 
   // Find service
   const service = SERVICES_DATA.find(s => s.id === id);
@@ -112,7 +113,7 @@ export default function ServiceDetail() {
         
         <div className="w-full aspect-[21/9] overflow-hidden border border-white/10 rounded-sm mt-space-40 relative bg-graphite shadow-2xl">
           <img 
-            src={service.heroImage} 
+            src={optimizeUnsplashUrl(service.heroImage, isMobile ? 800 : 1600, isMobile ? 70 : 85)} 
             alt={service.title} 
             className="w-full h-full object-cover"
           />

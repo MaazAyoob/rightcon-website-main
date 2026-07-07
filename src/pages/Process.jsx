@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useScrollSystem } from '../context/ScrollContext';
+import { optimizeUnsplashUrl } from '../utils/image';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
 
@@ -69,7 +71,7 @@ const PROCESS_STAGES = [
 ];
 
 export default function Process() {
-  const { setActiveScene, setMascotPose, setMascotEmotion } = useScrollSystem();
+  const { isMobile, setActiveScene, setMascotPose, setMascotEmotion } = useScrollSystem();
   const [activeStage, setActiveStage] = useState(0);
 
   useEffect(() => {
@@ -80,7 +82,7 @@ export default function Process() {
   }, [setActiveScene, setMascotPose, setMascotEmotion]);
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-space-96 select-none font-sans">
+    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none font-sans">
       
       {/* 1. Process slideshow hero */}
       <CinematicHero slides={PROCESS_SLIDES} coordinates="12.9716° N, 77.5946° E" />
@@ -123,7 +125,7 @@ export default function Process() {
           <div className="col-span-12 lg:col-span-7 flex flex-col gap-space-24 justify-between">
             <div className="w-full aspect-[16/10] overflow-hidden border border-white/10 shadow-2xl rounded-sm bg-charcoal">
               <img 
-                src={PROCESS_STAGES[activeStage].img} 
+                src={optimizeUnsplashUrl(PROCESS_STAGES[activeStage].img, isMobile ? 800 : 1200, isMobile ? 70 : 85)} 
                 alt={PROCESS_STAGES[activeStage].title} 
                 className="w-full h-full object-cover grayscale-[10%]"
               />
@@ -134,6 +136,42 @@ export default function Process() {
             </p>
           </div>
 
+        </div>
+      </section>
+
+      {/* 2.5 TELEMETRY & EXECUTION STANDARDS */}
+      <section className="py-space-64 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+        <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="border-l-2 border-bronze/40 pl-4 mb-12">
+            <span className="font-mono text-[9px] text-bronze block">[QUALITY & VERIFICATION TOLERANCES]</span>
+            <h3 className="font-display text-2xl font-light text-white uppercase tracking-wider mt-1">
+              Geomechanical Tolerances
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="border border-white/5 p-6 bg-graphite/40">
+              <span className="font-mono text-[8px] text-bronze block">METRIC // COMPACTION</span>
+              <h4 className="text-white font-display text-lg font-light tracking-wide mt-2">98.5% Proctor Density</h4>
+              <p className="text-ivory/60 text-xs mt-2 font-light leading-relaxed">
+                Backfill compaction verified by soil sand replacement checks at every 250 sqm grid section.
+              </p>
+            </div>
+            <div className="border border-white/5 p-6 bg-graphite/40">
+              <span className="font-mono text-[8px] text-bronze block">METRIC // REBAR SPAN</span>
+              <h4 className="text-white font-display text-lg font-light tracking-wide mt-2">±3mm Column Alignment</h4>
+              <p className="text-ivory/60 text-xs mt-2 font-light leading-relaxed">
+                Laser-guided structural coordinate scans ensure concrete reinforcement cage deviation stays under 3mm.
+              </p>
+            </div>
+            <div className="border border-white/5 p-6 bg-graphite/40">
+              <span className="font-mono text-[8px] text-bronze block">METRIC // QUALITY ASSURANCE</span>
+              <h4 className="text-white font-display text-lg font-light tracking-wide mt-2">100% External Lab Audits</h4>
+              <p className="text-ivory/60 text-xs mt-2 font-light leading-relaxed">
+                All day 7/28 concrete cubes compression test logs are registered via independent NABL laboratories.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

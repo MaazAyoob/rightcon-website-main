@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useScrollSystem } from '../context/ScrollContext';
+import { optimizeUnsplashUrl } from '../utils/image';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
 
@@ -62,7 +64,7 @@ const MATERIALS_REGISTRY = [
 ];
 
 export default function Materials() {
-  const { setActiveScene, setMascotPose, setMascotEmotion } = useScrollSystem();
+  const { isMobile, setActiveScene, setMascotPose, setMascotEmotion } = useScrollSystem();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -72,7 +74,7 @@ export default function Materials() {
   }, [setActiveScene, setMascotPose, setMascotEmotion]);
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-space-96 select-none font-sans">
+    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none font-sans">
       
       {/* 1. Materials slideshow hero */}
       <CinematicHero slides={MATERIALS_SLIDES} coordinates="12.9716° N, 77.5946° E" />
@@ -90,7 +92,7 @@ export default function Materials() {
               >
                 <div className="w-full aspect-[16/10] overflow-hidden border border-white/5 rounded-sm relative bg-charcoal">
                   <img 
-                    src={mat.img} 
+                    src={optimizeUnsplashUrl(mat.img, isMobile ? 500 : 800, isMobile ? 70 : 80)} 
                     alt={mat.name} 
                     className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
                   />
@@ -112,6 +114,57 @@ export default function Materials() {
             ))}
           </div>
 
+        </div>
+      </section>
+
+      {/* 2.5 TECHNICAL SPECIFICATIONS MATRIX */}
+      <section className="py-space-64 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+        <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="border-l-2 border-bronze/40 pl-4 mb-12">
+            <span className="font-mono text-[9px] text-bronze block">[COMPLIANCE & METROLOGY LEDGER]</span>
+            <h3 className="font-display text-2xl font-light text-white uppercase tracking-wider mt-1">
+              Material Specification Tolerances
+            </h3>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse border border-white/10 font-mono text-[10px]">
+              <thead>
+                <tr className="bg-graphite border-b border-white/10 text-bronze uppercase tracking-wider">
+                  <th className="p-4 border-r border-white/10">Material Code</th>
+                  <th className="p-4 border-r border-white/10">Target Specification</th>
+                  <th className="p-4 border-r border-white/10">Testing Frequency</th>
+                  <th className="p-4">Assurance Standard</th>
+                </tr>
+              </thead>
+              <tbody className="text-ivory/80">
+                <tr className="border-b border-white/10 hover:bg-white/[0.01]">
+                  <td className="p-4 border-r border-white/10 font-bold text-white">CONC_M40</td>
+                  <td className="p-4 border-r border-white/10">40 N/mm² compressive strength @ day 28</td>
+                  <td className="p-4 border-r border-white/10">Every 15 cubic meters poured</td>
+                  <td className="p-4">ISO 9001 / NABL Lab Certified</td>
+                </tr>
+                <tr className="border-b border-white/10 hover:bg-white/[0.01]">
+                  <td className="p-4 border-r border-white/10 font-bold text-white">STEEL_REBAR_550D</td>
+                  <td className="p-4 border-r border-white/10">Yield strength 550 MPa minimum, elongation &gt; 14.5%</td>
+                  <td className="p-4 border-r border-white/10">Per batch invoice shipment</td>
+                  <td className="p-4">Fe-550D BIS Standard Cores</td>
+                </tr>
+                <tr className="border-b border-white/10 hover:bg-white/[0.01]">
+                  <td className="p-4 border-r border-white/10 font-bold text-white">TRAV_EXT_30</td>
+                  <td className="p-4 border-r border-white/10">30mm thickness, stainless steel under-cut anchoring</td>
+                  <td className="p-4 border-r border-white/10">100% of panels laser aligned</td>
+                  <td className="p-4">ASTM C1527 Travertine Specs</td>
+                </tr>
+                <tr className="hover:bg-white/[0.01]">
+                  <td className="p-4 border-r border-white/10 font-bold text-white">TIMB_TEAK_01</td>
+                  <td className="p-4 border-r border-white/10">Grade A Burma logs, moisture coefficient &lt; 12%</td>
+                  <td className="p-4 border-r border-white/10">Every timber slab prior to finish</td>
+                  <td className="p-4">Oven-dry moisture test verified</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
