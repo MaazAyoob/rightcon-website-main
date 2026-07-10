@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ScrollProvider, useScrollSystem } from './context/ScrollContext';
 import MascotCanvas from './components/Mascot/MascotCanvas';
 import ConversationPanel from './components/UI/ConversationPanel';
+import MascotGuidanceBubble from './components/UI/MascotGuidanceBubble';
 import SignatureHeader from './components/UI/SignatureHeader';
 import FullscreenMenu from './components/UI/FullscreenMenu';
 import SearchModal from './components/UI/SearchModal';
@@ -31,9 +32,9 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 
 function Loading() {
   return (
-    <div className="min-h-screen flex justify-center items-center bg-charcoal text-ivory font-mono text-[9px] tracking-[0.25em] uppercase select-none">
+    <div className="min-h-screen flex justify-center items-center bg-charcoal text-white font-mono text-[9px] tracking-[0.25em] uppercase select-none">
       <div className="flex flex-col items-center gap-4">
-        <div className="w-6 h-6 border border-bronze border-t-transparent animate-spin"></div>
+        <div className="w-6 h-6 border border-accent border-t-transparent animate-spin"></div>
         <span>LOADING DESIGN SYSTEMS // TELEMETRY SETUP</span>
       </div>
     </div>
@@ -82,14 +83,14 @@ function MainJourney() {
   }, [isMobile]);
 
   return (
-    <div className="relative min-h-screen bg-charcoal overflow-x-hidden selection:bg-bronze selection:text-charcoal" ref={containerRef}>
+    <div className="relative min-h-screen bg-charcoal overflow-x-hidden selection:bg-accent selection:text-charcoal" ref={containerRef}>
       
       {/* 1. Custom Editorial Cursor (Desktop Only) */}
       {!isMobile && (
         <>
           <div 
             ref={cursorDotRef} 
-            className="fixed top-0 left-0 w-2 h-2 rounded-full bg-bronze pointer-events-none z-[9999] mix-blend-difference"
+            className="fixed top-0 left-0 w-2 h-2 rounded-full bg-accent pointer-events-none z-[9999] mix-blend-difference"
           ></div>
           <div 
             ref={cursorGlowRef} 
@@ -108,6 +109,7 @@ function MainJourney() {
 
       {/* 4. Conversational AI Panel Interface */}
       <ConversationPanel />
+      <MascotGuidanceBubble />
 
       {/* 5. Dynamic Page Router Switch */}
       <main className="relative z-10 w-full flex flex-col">

@@ -36,11 +36,9 @@ export default function AmenitiesScene() {
       trigger: triggerRef.current,
       pin: true,
       start: "top top",
-      end: "+=1500", // Scroll length to cycle through slides
-      scrub: 0.5,
+      end: "+=1500",
       onUpdate: (self) => {
         const prog = self.progress;
-        // Map progress (0-1) to indices (0, 1, 2)
         const idx = Math.min(Math.floor(prog * 3), 2);
         setActiveIndex(idx);
         setLineProgress(prog * 100);
@@ -54,7 +52,7 @@ export default function AmenitiesScene() {
 
   return (
     <div ref={triggerRef} className="relative z-10 select-none">
-      <section className="h-screen w-full bg-[#12110f] flex items-center px-8 md:px-16 overflow-hidden">
+      <section className="h-screen w-full bg-charcoal flex items-center px-8 md:px-16 overflow-hidden">
         
         {/* Fine background lines */}
         <div className="absolute inset-0 architectural-grid opacity-10 pointer-events-none"></div>
@@ -72,17 +70,17 @@ export default function AmenitiesScene() {
                 }`}
               >
                 {/* Big primary image */}
-                <div className="w-[70%] h-[80%] overflow-hidden border border-white/5 bg-stone/20 relative img-zoom-hover shadow-2xl -translate-x-8">
+                <div className="w-[70%] h-[80%] overflow-hidden border border-white/5 bg-white/20 relative img-zoom-hover shadow-2xl -translate-x-8">
                   <img 
                     src={item.bigImage} 
                     alt={item.title} 
                     className="w-full h-full object-cover grayscale-[20%]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#12110f]/40 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-tr from-charcoal/40 to-transparent"></div>
                 </div>
 
                 {/* Small overlay secondary image */}
-                <div className="absolute right-0 bottom-4 w-[40%] aspect-[4/5] overflow-hidden border border-white/10 bg-stone/20 shadow-2xl translate-y-4">
+                <div className="absolute right-0 bottom-4 w-[40%] aspect-[4/5] overflow-hidden border border-white/10 bg-white/20 shadow-2xl translate-y-4">
                   <img 
                     src={item.smallImage} 
                     alt={item.title} 
@@ -99,12 +97,12 @@ export default function AmenitiesScene() {
             
             {/* Horizontal Timeline indicator line */}
             <div className="flex flex-col gap-2">
-              <span className="font-mono text-[9px] text-stone tracking-[0.25em] uppercase">
+              <span className="font-mono text-[9px] text-white tracking-[0.25em] uppercase">
                 (SCIENCE PROCESS FEED)
               </span>
               <div className="w-full h-[1px] bg-white/10 relative mt-2">
                 <div 
-                  className="absolute top-0 left-0 h-full bg-bronze transition-all duration-150"
+                  className="absolute top-0 left-0 h-full bg-accent transition-all duration-150"
                   style={{ width: `${lineProgress}%`, boxShadow: '0 0 6px rgba(184, 144, 71, 0.6)' }}
                 ></div>
               </div>
@@ -121,13 +119,13 @@ export default function AmenitiesScene() {
                       : 'opacity-0 translate-y-4 pointer-events-none'
                   }`}
                 >
-                  <div className="font-mono text-[10px] text-bronze tracking-widest uppercase">
+                  <div className="font-mono text-[10px] text-accent tracking-widest uppercase">
                     PHASE 0{idx + 1}
                   </div>
                   <h3 className="font-display text-3xl md:text-4xl text-white font-light">
                     {item.title}
                   </h3>
-                  <p className="font-sans text-xs md:text-sm font-light text-stone-light leading-relaxed">
+                  <p className="font-sans text-xs md:text-sm font-light text-white-light leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
@@ -140,7 +138,7 @@ export default function AmenitiesScene() {
                 <span 
                   key={idx}
                   className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
-                    idx === activeIndex ? 'bg-[#00f3ff]' : 'bg-white/10'
+                    idx === activeIndex ? 'bg-primary' : 'bg-white/10'
                   }`}
                 ></span>
               ))}

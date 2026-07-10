@@ -38,8 +38,8 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start gap-space-40">
           
           {/* Logo Brand Mark */}
-          <div className="flex flex-col items-start leading-none text-ivory">
-            <span className="h-label-mono text-bronze">
+          <div className="flex flex-col items-start leading-none text-white">
+            <span className="h-label-mono text-accent">
               EST. 2014 / BANGALORE DESIGN HQ
             </span>
             <span className="font-display text-4xl md:text-5xl font-light tracking-[0.25em] mt-3">
@@ -52,24 +52,24 @@ export default function Footer() {
             
             {/* Showroom location */}
             <div className="flex flex-col gap-space-8">
-              <span className="h-label-mono text-bronze">
+              <span className="h-label-mono text-accent">
                 (LOCATION)
               </span>
-              <address className="not-italic font-sans text-xs text-ivory/65 leading-relaxed font-light max-w-[220px]">
+              <address className="not-italic font-sans text-xs text-white/65 leading-relaxed font-light max-w-[220px]">
                 12th Main Rd, Indiranagar, Bangalore, Karnataka 560038
               </address>
             </div>
 
             {/* Inquiries */}
             <div className="flex flex-col gap-space-8">
-              <span className="h-label-mono text-bronze">
+              <span className="h-label-mono text-accent">
                 (CONTACT)
               </span>
-              <div className="flex flex-col gap-space-8 text-xs text-ivory/65 font-light">
-                <a href="mailto:info@rightcon.in" className="hover:text-bronze transition-colors">
+              <div className="flex flex-col gap-space-8 text-xs text-white/65 font-light">
+                <a href="mailto:info@rightcon.in" className="hover:text-accent transition-colors">
                   info@rightcon.in
                 </a>
-                <a href="tel:+919845100000" className="hover:text-bronze transition-colors">
+                <a href="tel:+919845100000" className="hover:text-accent transition-colors">
                   +91 98451 00000
                 </a>
               </div>
@@ -81,26 +81,26 @@ export default function Footer() {
 
         {/* Bottom footer row */}
         <div className="border-t border-white/10 pt-space-32 flex flex-col md:flex-row justify-between items-start md:items-center gap-space-24">
-          <div className="h-label-mono text-[9px] text-ivory/40">
+          <div className="h-label-mono text-[9px] text-white/40">
             © {new Date().getFullYear()}. RIGHTCON COLLECTIVE. ALL RIGHTS RESERVED.
           </div>
 
           <div className="flex flex-col sm:flex-row gap-space-16 md:gap-space-40 h-label-mono text-[9px] items-start sm:items-center">
-            <a href="#" className="hover:text-bronze transition-colors">
+            <a href="/privacy-policy" className="hover:text-accent transition-colors">
               PRIVACY POLICY
             </a>
 
             <button 
               onClick={replayIntro}
-              className="hover:text-bronze transition-colors cursor-pointer text-left border-none bg-transparent p-0 outline-none uppercase font-mono tracking-widest text-[9px]"
+              className="hover:text-accent transition-colors cursor-pointer text-left border-none bg-transparent p-0 outline-none uppercase font-mono tracking-widest text-[9px]"
             >
               REPLAY INTRO
             </button>
             
             {/* RERA info */}
             <div className="flex items-center gap-space-8">
-              <span className="text-bronze font-bold">RERA ID:</span>
-              <span className="text-ivory/60 font-light">PRM/KA/RERA/1251/310</span>
+              <span className="text-accent font-bold">RERA ID:</span>
+              <span className="text-white/60 font-light">PRM/KA/RERA/1251/310</span>
             </div>
 
             {/* Mascot observation anchor */}

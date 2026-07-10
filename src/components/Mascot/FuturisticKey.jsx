@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useScrollSystem } from '../../context/ScrollContext';
+import { BRAND_COLORS } from '../../config/colors';
 
 export default function FuturisticKey() {
   const { 
@@ -24,7 +25,7 @@ export default function FuturisticKey() {
 
   // Materials
   const goldMaterial = new THREE.MeshPhysicalMaterial({
-    color: '#D4AF37', // Gold
+    color: BRAND_COLORS.accent,
     roughness: 0.1,
     metalness: 0.95,
     clearcoat: 1.0,
@@ -32,13 +33,13 @@ export default function FuturisticKey() {
   });
 
   const bronzeMaterial = new THREE.MeshStandardMaterial({
-    color: '#b89047', // Bronze
+    color: BRAND_COLORS.accent,
     roughness: 0.25,
     metalness: 0.85,
   });
 
   const crystalMaterial = new THREE.MeshPhysicalMaterial({
-    color: '#E5E2DB', // Soft glass
+    color: BRAND_COLORS.white,
     roughness: 0.05,
     metalness: 0.05,
     transparent: true,
@@ -49,14 +50,14 @@ export default function FuturisticKey() {
   });
 
   const glowingCyanMaterial = new THREE.MeshBasicMaterial({
-    color: '#00f3ff',
+    color: BRAND_COLORS.primary,
     transparent: true,
     opacity: 0.8,
     blending: THREE.AdditiveBlending,
   });
 
   const wireframeMaterial = new THREE.MeshBasicMaterial({
-    color: '#3FA9F5', // Blueprint blue
+    color: BRAND_COLORS.primary,
     wireframe: true,
     transparent: true,
     opacity: 0.4,

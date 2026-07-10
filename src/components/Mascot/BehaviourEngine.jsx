@@ -76,10 +76,13 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
     formFieldFocus,
     formSuccess,
     scrollProgress,
-    conversationOpen,
+    isChatOpen,
     menuOpen,
     mascotPose,
     mascotEmotion,
+    setCurrentMascotPoint,
+    isMobile,
+    mascotHovered,
   } = useScrollSystem();
 
   // ── Physics state refs ──
@@ -96,6 +99,7 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
   // ── Decision & Memory refs ──
   const nextDecisionTime   = useRef(3.0);
   const currentBehaviorKey = useRef('hover');
+  const lastStatePoint     = useRef('hero_right');
   
   const contextMemory = useRef({
     greeted: false,
@@ -115,9 +119,37 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
     const pt = INTEREST_POINTS[pointId];
     if (!pt) return;
     currentPointId.current = pointId;
-    targetPos.current.set(...pt.pos);
+    
+    // Base positions
+    let targetX = pt.pos[0];
+    let targetY = pt.pos[1];
+    let targetZ = pt.pos[2];
+    
+    // Scale modifier on mobile
+    const scaleFactor = isMobile ? 0.75 : 1.0;
+    targetScale.current = pt.scale * scaleFactor;
+    
+    // Mobile position shifting to clear layout / overlaps
+    if (isMobile) {
+      if (pointId === 'chat_left') {
+        targetX = -0.3; // Center slightly
+        targetY = 0.55; // Sit higher above the slide-up chat sheet
+      } else if (pointId === 'nav_observe') {
+        targetX = -0.9;
+        targetY = 0.65;
+      }
+    }
+    
+    targetPos.current.set(targetX, targetY, targetZ);
     targetRotY.current = pt.rot[1];
-    targetScale.current = pt.scale;
+    
+    // Synchronize active coordinate point with React state
+    if (lastStatePoint.current !== currentPointId.current) {
+      lastStatePoint.current = currentPointId.current;
+      Promise.resolve().then(() => {
+        setCurrentMascotPoint(currentPointId.current);
+      });
+    }
   };
 
   // ── Helper: set behavior state ──
@@ -162,8 +194,21 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
         setBehavior('lookAround');
       }
     }
+    // Goal 0.8: Mascot is hovered (Scale pulse & eye contact / hover wave details)
+    else if (mascotHovered && !isChatOpen) {
+      targetScale.current = (INTEREST_POINTS[currentPointId.current]?.scale || 0.6) * (isMobile ? 0.75 : 1.0) * 1.15;
+      if (mascotPose && mascotPose !== 'idle') {
+        if (currentBehaviorKey.current !== mascotPose) {
+          setBehavior(mascotPose);
+        }
+      } else {
+        if (currentBehaviorKey.current !== 'observeVisitor') {
+          setBehavior('observeVisitor');
+        }
+      }
+    }
     // Goal 1: Active Chat Panel Open (Reposition Left to avoid cover)
-    else if (conversationOpen) {
+    else if (isChatOpen) {
       if (currentPointId.current !== 'chat_left') {
         flyTo('chat_left');
       }
@@ -372,6 +417,14 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
     }
 
     pos.y += micro + sighDip;
+
+    // Synchronize active coordinate point with React state
+    if (lastStatePoint.current !== currentPointId.current) {
+      lastStatePoint.current = currentPointId.current;
+      Promise.resolve().then(() => {
+        setCurrentMascotPoint(currentPointId.current);
+      });
+    }
   });
 
   return null;

@@ -41,31 +41,31 @@ export default function Careers() {
   };
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none font-sans">
+    <div className="w-full flex flex-col bg-white text-charcoal selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Careers slideshow hero */}
       <CinematicHero slides={CAREERS_SLIDES} coordinates="12.9716° N, 77.5946° E" />
 
       {/* 2. OPEN ROLES GRID */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-graphite relative">
+      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-white relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full flex flex-col gap-space-48 relative z-10">
-          <span className="h-label-mono text-bronze">[OPEN POSITIONS]</span>
+          <span className="h-label-mono text-accent">[OPEN POSITIONS]</span>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-space-32">
             {CAREERS_DATA.map((job) => (
               <div 
                 key={job.id} 
-                className="border border-white/5 p-space-32 bg-charcoal/30 rounded-sm hover:border-bronze/40 transition-all duration-500 flex flex-col justify-between min-h-[240px]"
+                className="border border-charcoal/5 p-space-32 bg-charcoal/30 rounded-none hover:border-accent/40 transition-all duration-500 flex flex-col justify-between min-h-[240px]"
               >
                 <div className="flex flex-col gap-2">
-                  <div className="flex justify-between items-center text-[8px] font-mono text-stone">
+                  <div className="flex justify-between items-center text-[8px] font-mono text-charcoal/50">
                     <span>{job.location.toUpperCase()} // {job.type.toUpperCase()}</span>
                     <span>EXP: {job.experience}</span>
                   </div>
                   <h3 className="font-display text-xl font-light text-white mt-2 uppercase tracking-wide">{job.title}</h3>
-                  <p className="font-sans text-xs text-ivory/60 leading-relaxed font-light mt-2">
+                  <p className="font-sans text-xs text-charcoal/60 leading-relaxed font-light mt-2">
                     {job.desc}
                   </p>
                 </div>
@@ -73,7 +73,7 @@ export default function Careers() {
                 <a 
                   href="#apply-form" 
                   onClick={() => setFormData(prev => ({ ...prev, role: job.title }))}
-                  className="font-mono text-[9px] text-bronze hover:text-white uppercase tracking-widest mt-6"
+                  className="font-mono text-[9px] text-accent hover:text-white uppercase tracking-widest mt-6"
                 >
                   Apply for this role ↓
                 </a>
@@ -85,15 +85,15 @@ export default function Careers() {
 
       {/* 3. APPLICATION FORM (Glassy panel) */}
       <section id="apply-form" className="py-space-96 px-space-24 md:px-space-40 max-w-3xl mx-auto w-full relative z-10">
-        <div className="border border-white/10 bg-graphite p-space-32 md:p-space-40 shadow-2xl rounded-sm">
+        <div className="border border-charcoal/10 bg-white p-space-32 md:p-space-40 shadow-2xl rounded-none">
           
           {submitted ? (
             <div className="py-space-40 text-center flex flex-col gap-space-16 items-center">
-              <div className="w-12 h-12 rounded-full border border-bronze flex items-center justify-center text-bronze text-xl mb-4">
+              <div className="w-12 h-12 rounded-full border border-accent flex items-center justify-center text-accent text-xl mb-4">
                 ✓
               </div>
               <h3 className="font-display text-2xl font-light text-white uppercase tracking-wide">Application Logged</h3>
-              <p className="font-sans text-xs text-ivory/60 max-w-xs leading-relaxed font-light">
+              <p className="font-sans text-xs text-charcoal/60 max-w-xs leading-relaxed font-light">
                 Your credentials have been indexed in our coordination registry. Maaz Ayoob's estimating office will evaluate details within 3 business days.
               </p>
             </div>
@@ -101,7 +101,7 @@ export default function Careers() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-space-32">
               <div className="flex flex-col gap-space-8">
                 <h3 className="font-display text-2xl font-light text-white uppercase tracking-wide">Submit Credentials</h3>
-                <p className="font-sans text-xs text-ivory/60 font-light leading-relaxed">
+                <p className="font-sans text-xs text-charcoal/60 font-light leading-relaxed">
                   Join our structural team in Indiranagar.
                 </p>
               </div>
@@ -123,12 +123,12 @@ export default function Careers() {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="input-architectural"
                 />
-                <div className="border-b border-white/10 py-4 flex flex-col gap-2">
+                <div className="border-b border-charcoal/10 py-4 flex flex-col gap-2">
                   <span className="font-mono text-[8px] text-white/30">SELECT ROLE:</span>
                   <select 
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                    className="bg-transparent border-none outline-none font-sans text-xs text-ivory/80 cursor-pointer"
+                    className="bg-transparent border-none outline-none font-sans text-xs text-charcoal/80 cursor-pointer"
                   >
                     {CAREERS_DATA.map(j => (
                       <option key={j.id} value={j.title} className="bg-charcoal text-white">{j.title}</option>

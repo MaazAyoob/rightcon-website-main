@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useScrollSystem } from '../../context/ScrollContext';
 import gsap from 'gsap';
+import { BRAND_COLORS } from '../../config/colors';
 
 const PRIMARY_ITEMS = [
   { 
@@ -214,6 +215,9 @@ export default function FullscreenMenu() {
 
   useEffect(() => {
     if (menuOpen) {
+      if (setMascotPose) {
+        setMascotPose('wave');
+      }
       gsap.fromTo(".menu-anim-bg", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" });
       gsap.fromTo(".menu-anim-link", 
         { opacity: 0, x: -30 }, 
@@ -221,7 +225,7 @@ export default function FullscreenMenu() {
       );
       gsap.fromTo(".menu-anim-preview", { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 1.0, ease: "power2.out", delay: 0.2 });
     }
-  }, [menuOpen]);
+  }, [menuOpen, setMascotPose]);
 
   if (!menuOpen) return null;
 
@@ -235,6 +239,24 @@ export default function FullscreenMenu() {
     if (item && item.mascotPose) {
       setMascotPose(item.mascotPose);
       setMascotEmotion(item.mascotEmotion || 'calm');
+      
+      const speechTextMap = {
+        "HOME": "Return to the exhibition entrance and home coordinate ledger.",
+        "PROJECTS": "Behold our completed Bangalore & Mysuru residential estates.",
+        "SERVICES": "Check our IS_456 BOQ estimators and digital twin MEP designs.",
+        "PROCESS": "Walk through our 5-phase foundation and concrete casting timeline.",
+        "MATERIALS": "See our direct trace records of teak logs and Travertine bedrock.",
+        "ABOUT": "Audit our geological history, Indiranagar HQ, and creator's mandates.",
+        "INSIGHTS": "Explore engineering journals and architectural design education.",
+        "CONTACT": "Schedule geological standard penetration testing for your site.",
+        "WHY RIGHTCON": "Verify our 10-year transferable structural warranty deed.",
+        "BIM TECHNOLOGY": "Inspect virtual BIM LOD 400 MEP clash coordinates.",
+        "CLIENT JOURNEY": "Review our geological advisory compaction check protocols.",
+        "TESTIMONIALS": "Read homeowner verifications from Bangalore villas.",
+        "CAREERS": "Apply for structural coordinator and supervisor openings.",
+        "GENERAL FAQ": "Audit RERA registers, Fe550D rebar standards, and concrete targets."
+      };
+      
     }
   };
 
@@ -247,28 +269,28 @@ export default function FullscreenMenu() {
   return (
     <div 
       data-lenis-prevent
-      className="fixed inset-0 z-[1000] menu-grid-overlay menu-anim-bg select-none bg-[#E7E1D7] text-[#20201E]"
+      className="fixed inset-0 z-[1000] menu-grid-overlay menu-anim-bg select-none bg-charcoal text-white"
     >
       
-      {/* Blueprint Grid Overlay using Blueprint Navy */}
-      <div className="absolute inset-0 blueprint-grid opacity-[0.04] pointer-events-none"></div>
+      {/* Blueprint Grid Overlay using Brand Blue */}
+      <div className="absolute inset-0 blueprint-grid opacity-[0.015] pointer-events-none"></div>
 
       {/* Close button (Top-Right) */}
       <button 
         type="button"
         onClick={handleClose}
-        className="absolute top-space-24 right-space-24 md:right-space-40 z-50 text-[#20201E] hover:text-[#B58B45] font-mono text-[9.5px] tracking-widest transition-all cursor-pointer border-none bg-transparent outline-none uppercase"
+        className="absolute top-space-24 right-space-24 md:right-space-40 z-50 text-white hover:text-primary font-sans text-[11px] tracking-widest transition-all cursor-pointer border-none bg-transparent outline-none uppercase"
       >
         Close ✕
       </button>
 
       {/* Left Column: Asymmetrical Editorial Preview Panel (Desktop Only) */}
-      <div className="hidden lg:flex flex-col justify-between p-space-40 md:p-space-64 border-r border-[#20201E]/10 relative bg-[#F5F2EB] select-none h-full max-h-screen overflow-y-auto">
+      <div className="hidden lg:flex flex-col justify-between p-space-40 md:p-space-64 border-r border-white/10 relative bg-charcoal select-none h-full max-h-screen overflow-y-auto">
         
         {/* Dynamic Chapter description */}
         <div className="flex flex-col gap-space-8 menu-anim-preview">
-          <span className="h-label-mono text-[#2D4E73] font-semibold">{currentItem.tagline}</span>
-          <p className="font-sans text-[11px] text-[#67645E] leading-relaxed font-light max-w-xs mt-1">
+          <span className="h-label-mono text-primary font-semibold">{currentItem.tagline}</span>
+          <p className="font-sans text-[11px] text-white/60 leading-relaxed font-light max-w-xs mt-1">
             {currentItem.desc}
           </p>
         </div>
@@ -276,18 +298,18 @@ export default function FullscreenMenu() {
         {/* Dynamic Asymmetric Editorial collage */}
         <div className="relative w-full aspect-[4/3] max-w-[280px] mx-auto my-auto menu-anim-preview select-none overflow-visible flex items-center justify-center py-8">
           {/* Main big image */}
-          <div className="w-[75%] h-[90%] overflow-hidden border border-[#20201E]/10 shadow-[0_20px_40px_rgba(32,32,30,0.15)] relative z-10 bg-[#F5F2EB] rounded-sm">
+          <div className="w-[75%] h-[90%] overflow-hidden border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative z-10 bg-charcoal rounded-none">
             <img 
               src={currentItem.img} 
               alt={currentItem.label} 
               className="w-full h-full object-cover transition-all duration-700 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18]/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent"></div>
           </div>
 
           {/* Secondary overlapping thumbnail */}
           {currentItem.photos && currentItem.photos[0] && (
-            <div className="absolute -left-[12%] -bottom-[5%] w-[45%] aspect-square z-20 border border-[#20201E]/10 bg-[#F5F2EB] shadow-lg rounded-sm overflow-hidden rotate-[-4deg] hover:rotate-0 transition-transform duration-500 hover:scale-105">
+            <div className="absolute -left-[12%] -bottom-[5%] w-[45%] aspect-square z-20 border border-white/10 bg-charcoal shadow-lg rounded-none overflow-hidden rotate-[-4deg] hover:rotate-0 transition-transform duration-500 hover:scale-105">
               <img 
                 src={currentItem.photos[0]} 
                 alt="Material reference" 
@@ -298,7 +320,7 @@ export default function FullscreenMenu() {
 
           {/* Tertiary overlapping thumbnail */}
           {currentItem.photos && currentItem.photos[1] && (
-            <div className="absolute -right-[12%] -top-[5%] w-[40%] aspect-[3/4] z-0 border border-[#20201E]/10 bg-[#F5F2EB] shadow-lg rounded-sm overflow-hidden rotate-[3deg] hover:rotate-0 transition-transform duration-500 hover:scale-105 opacity-80">
+            <div className="absolute -right-[12%] -top-[5%] w-[40%] aspect-[3/4] z-0 border border-white/10 bg-charcoal shadow-lg rounded-none overflow-hidden rotate-[3deg] hover:rotate-0 transition-transform duration-500 hover:scale-105 opacity-80">
               <img 
                 src={currentItem.photos[1]} 
                 alt="Detail close-up" 
@@ -309,13 +331,13 @@ export default function FullscreenMenu() {
         </div>
 
         {/* Dynamic statistical preview at bottom */}
-        <div className="flex flex-col gap-2 border-t border-[#20201E]/10 pt-4 menu-anim-preview">
-          <span className="font-mono text-[7.5px] text-[#B58B45] uppercase font-bold">[METRIC RECORDS LEDGER]</span>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-1 font-mono text-[8px] text-[#67645E]">
+        <div className="flex flex-col gap-2 border-t border-white/10 pt-4 menu-anim-preview">
+          <span className="font-sans text-[7.5px] text-accent tracking-widest uppercase font-bold">[METRIC RECORDS LEDGER]</span>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1 font-mono text-[8px] text-white/50">
             {currentItem.stats.map((stat, sIdx) => (
-              <div key={sIdx} className="flex justify-between border-b border-[#20201E]/5 pb-1">
+              <div key={sIdx} className="flex justify-between border-b border-white/5 pb-1">
                 <span>{stat.split(' // ')[0]}</span>
-                <span className="text-[#20201E] font-bold">{stat.split(' // ')[1]}</span>
+                <span className="text-white font-bold">{stat.split(' // ')[1]}</span>
               </div>
             ))}
           </div>
@@ -324,7 +346,7 @@ export default function FullscreenMenu() {
 
       {/* Right Column: High-contrast navigation links list (Scrollable catalog grid) */}
       <div 
-        className="flex flex-col justify-between p-space-24 md:p-space-64 bg-[#E7E1D7] relative overflow-y-auto select-none pt-space-96 lg:pt-space-64 h-full max-h-screen"
+        className="flex flex-col justify-between p-space-24 md:p-space-64 bg-charcoal relative overflow-y-auto select-none pt-space-96 lg:pt-space-64 h-full max-h-screen"
       >
         
         {/* Editorial double column links */}
@@ -332,7 +354,7 @@ export default function FullscreenMenu() {
           
           {/* Column 1: Primary pages */}
           <div className="md:col-span-7 flex flex-col gap-space-6">
-            <span className="h-label-mono text-[#20201E]/30 mb-2 font-bold">[01 // PRIMARY CHAPTERS]</span>
+            <span className="h-label-mono text-white/30 mb-2 font-bold">[01 // PRIMARY CHAPTERS]</span>
             {PRIMARY_ITEMS.map((item, idx) => {
               const isActive = location.pathname === item.path;
               return (
@@ -345,12 +367,12 @@ export default function FullscreenMenu() {
                     to={item.path} 
                     onClick={handleClose}
                     className={`menu-link-item ${isActive ? 'active' : ''}`}
-                    style={{ color: isActive ? 'var(--color-bronze)' : undefined }}
+                    style={{ color: isActive ? BRAND_COLORS.primary : undefined }}
                   >
-                    <span className="font-mono text-[9px] text-[#20201E]/30 tracking-wider">
+                    <span className="font-sans text-[10px] text-white/20 tracking-wider font-semibold">
                       0{idx + 1}
                     </span>
-                    <span className="font-display font-light tracking-tight text-[#20201E] hover:text-[#B58B45] transition-colors">{item.label}</span>
+                    <span className="font-display font-light tracking-tight text-white hover:text-primary transition-colors">{item.label}</span>
                   </NavLink>
                 </div>
               );
@@ -358,8 +380,8 @@ export default function FullscreenMenu() {
           </div>
 
           {/* Column 2: Reference ledgers */}
-          <div className="md:col-span-5 flex flex-col gap-space-6 md:border-l md:border-[#20201E]/10 md:pl-space-32">
-            <span className="h-label-mono text-[#20201E]/30 mb-2 font-bold">[02 // TECHNICAL REGISTRIES]</span>
+          <div className="md:col-span-5 flex flex-col gap-space-6 md:border-l md:border-white/10 md:pl-space-32">
+            <span className="h-label-mono text-white/30 mb-2 font-bold">[02 // TECHNICAL REGISTRIES]</span>
             {SECONDARY_ITEMS.map((item, idx) => {
               const isActive = location.pathname === item.path;
               return (
@@ -373,10 +395,10 @@ export default function FullscreenMenu() {
                     onClick={handleClose}
                     className="flex items-center gap-3 py-1 hover:pl-2 transition-all group"
                   >
-                    <span className="font-mono text-[8px] text-[#20201E]/30 tracking-wider">
+                    <span className="font-sans text-[9px] text-white/20 tracking-wider font-semibold">
                       R{idx + 1}
                     </span>
-                    <span className="font-sans text-[11px] font-light tracking-wider text-[#20201E]/80 group-hover:text-[#B58B45] transition-colors">{item.label}</span>
+                    <span className="font-sans text-[11px] font-light tracking-wider text-white/70 group-hover:text-primary transition-colors">{item.label}</span>
                   </NavLink>
                 </div>
               );
@@ -386,20 +408,20 @@ export default function FullscreenMenu() {
         </div>
 
         {/* Expanded Navigation Footer (At the bottom) */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-t border-[#20201E]/10 pt-space-24 mt-space-40 gap-space-16 text-[#67645E]">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-t border-white/10 pt-space-24 mt-space-40 gap-space-16 text-white/50">
           
           {/* Social vectors */}
-          <div className="flex gap-space-16 h-label-mono text-[8.5px] text-[#67645E]">
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-[#B58B45] transition-colors">Instagram</a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-[#B58B45] transition-colors">LinkedIn</a>
-            <a href="https://youtube.com" target="_blank" rel="noreferrer" className="hover:text-[#B58B45] transition-colors">YouTube</a>
+          <div className="flex gap-space-16 h-label-mono text-[8.5px] text-white/40">
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">Instagram</a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">LinkedIn</a>
+            <a href="https://youtube.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">YouTube</a>
           </div>
 
           {/* Quick Contacts */}
-          <div className="flex gap-space-16 h-label-mono text-[8.5px] text-[#67645E]">
-            <a href="https://wa.me/919845100000" className="hover:text-[#B58B45] transition-colors">WhatsApp</a>
-            <a href="tel:+919845100000" className="hover:text-[#B58B45] transition-colors">Call</a>
-            <a href="mailto:info@rightcon.in" className="hover:text-[#B58B45] transition-colors">Email</a>
+          <div className="flex gap-space-16 h-label-mono text-[8.5px] text-white/40">
+            <a href="https://wa.me/919845100000" className="hover:text-primary transition-colors">WhatsApp</a>
+            <a href="tel:+919845100000" className="hover:text-primary transition-colors">Call</a>
+            <a href="mailto:info@rightcon.in" className="hover:text-primary transition-colors">Email</a>
           </div>
 
         </div>

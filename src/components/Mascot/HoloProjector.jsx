@@ -1,3 +1,4 @@
+import { BRAND_COLORS } from '../../config/colors';
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -143,7 +144,7 @@ export default function HoloProjector({ posRef, scaleRef }) {
       <mesh ref={beamRef}>
         <cylinderGeometry args={[0.015, 0.22, 1.0, 16, 1, true]} />
         <meshBasicMaterial
-          color="#3FA9F5"
+          color={BRAND_COLORS.primary}
           transparent
           opacity={0.0}
           blending={THREE.AdditiveBlending}
@@ -155,7 +156,7 @@ export default function HoloProjector({ posRef, scaleRef }) {
       {/* Emitter flare light */}
       <mesh ref={flareRef}>
         <sphereGeometry args={[0.024, 16, 16]} />
-        <meshBasicMaterial color="#3FA9F5" transparent opacity={0.0} />
+        <meshBasicMaterial color={BRAND_COLORS.primary} transparent opacity={0.0} />
       </mesh>
 
       {/* 2. Micro Hologram Group */}
@@ -163,7 +164,7 @@ export default function HoloProjector({ posRef, scaleRef }) {
         
         {/* Flat blueprint coordinate base grid */}
         <gridHelper 
-          args={[1.0, 8, '#3FA9F5', '#003344']} 
+          args={[1.0, 8, BRAND_COLORS.primary, BRAND_COLORS.charcoal]} 
           position={[0, -0.4, 0]} 
         />
 
@@ -174,19 +175,19 @@ export default function HoloProjector({ posRef, scaleRef }) {
               <group>
                 <mesh position={[-0.1, -0.15, 0]}>
                   <boxGeometry args={[0.7, 0.25, 0.7]} />
-                  <meshBasicMaterial color="#3FA9F5" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
                 <mesh position={[0.2, 0.15, 0.1]}>
                   <boxGeometry args={[0.6, 0.25, 0.6]} />
-                  <meshBasicMaterial color="#3FA9F5" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
                 <mesh position={[0.4, -0.27, 0.3]}>
                   <cylinderGeometry args={[0.015, 0.015, 0.2, 6]} />
-                  <meshBasicMaterial color="#3FA9F5" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
                 <mesh position={[-0.4, -0.27, 0.3]}>
                   <cylinderGeometry args={[0.015, 0.015, 0.2, 6]} />
-                  <meshBasicMaterial color="#3FA9F5" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
               </group>
             )}
@@ -195,11 +196,11 @@ export default function HoloProjector({ posRef, scaleRef }) {
               <group>
                 <mesh position={[0, -0.05, 0]}>
                   <boxGeometry args={[0.8, 0.7, 0.8]} />
-                  <meshBasicMaterial color="#3FA9F5" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
                 <mesh position={[0.15, 0.15, 0.15]}>
                   <boxGeometry args={[0.4, 0.4, 0.5]} />
-                  <meshBasicMaterial color="#00aaff" transparent opacity={0.2} />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} transparent opacity={0.2} />
                 </mesh>
               </group>
             )}
@@ -208,15 +209,15 @@ export default function HoloProjector({ posRef, scaleRef }) {
               <group>
                 <mesh position={[0, -0.25, 0]}>
                   <boxGeometry args={[0.9, 0.15, 0.9]} />
-                  <meshBasicMaterial color="#3FA9F5" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
                 <mesh position={[0, 0.05, 0]}>
                   <boxGeometry args={[0.7, 0.4, 0.7]} />
-                  <meshBasicMaterial color="#3FA9F5" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
                 <mesh position={[0, 0.4, 0]} rotation={[0, 0, Math.PI / 4]}>
                   <boxGeometry args={[0.5, 0.5, 0.72]} />
-                  <meshBasicMaterial color="#00aaff" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
               </group>
             )}
@@ -229,24 +230,24 @@ export default function HoloProjector({ posRef, scaleRef }) {
             {/* Foundation */}
             <mesh ref={fRef} position={[0, -0.36, 0]}>
               <boxGeometry args={[0.8, 0.08, 0.8]} />
-              <meshBasicMaterial color="#3FA9F5" wireframe />
+              <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
             </mesh>
             {/* Columns */}
             <group ref={cRef}>
-              <mesh position={[-0.3, -0.16, -0.3]}><cylinderGeometry args={[0.016, 0.016, 0.32, 6]} /><meshBasicMaterial color="#3FA9F5" wireframe /></mesh>
-              <mesh position={[ 0.3, -0.16, -0.3]}><cylinderGeometry args={[0.016, 0.016, 0.32, 6]} /><meshBasicMaterial color="#3FA9F5" wireframe /></mesh>
-              <mesh position={[-0.3, -0.16,  0.3]}><cylinderGeometry args={[0.016, 0.016, 0.32, 6]} /><meshBasicMaterial color="#3FA9F5" wireframe /></mesh>
-              <mesh position={[ 0.3, -0.16,  0.3]}><cylinderGeometry args={[0.016, 0.016, 0.32, 6]} /><meshBasicMaterial color="#3FA9F5" wireframe /></mesh>
+              <mesh position={[-0.3, -0.16, -0.3]}><cylinderGeometry args={[0.016, 0.016, 0.32, 6]} /><meshBasicMaterial color={BRAND_COLORS.primary} wireframe /></mesh>
+              <mesh position={[ 0.3, -0.16, -0.3]}><cylinderGeometry args={[0.016, 0.016, 0.32, 6]} /><meshBasicMaterial color={BRAND_COLORS.primary} wireframe /></mesh>
+              <mesh position={[-0.3, -0.16,  0.3]}><cylinderGeometry args={[0.016, 0.016, 0.32, 6]} /><meshBasicMaterial color={BRAND_COLORS.primary} wireframe /></mesh>
+              <mesh position={[ 0.3, -0.16,  0.3]}><cylinderGeometry args={[0.016, 0.016, 0.32, 6]} /><meshBasicMaterial color={BRAND_COLORS.primary} wireframe /></mesh>
             </group>
             {/* Walls */}
             <group ref={wRef}>
-              <mesh position={[0, -0.16, -0.38]}><boxGeometry args={[0.58, 0.32, 0.02]} /><meshBasicMaterial color="#0077ff" wireframe /></mesh>
-              <mesh position={[-0.38, -0.16, 0]} rotation={[0, Math.PI / 2, 0]}><boxGeometry args={[0.58, 0.32, 0.02]} /><meshBasicMaterial color="#0077ff" wireframe /></mesh>
+              <mesh position={[0, -0.16, -0.38]}><boxGeometry args={[0.58, 0.32, 0.02]} /><meshBasicMaterial color={BRAND_COLORS.primary} wireframe /></mesh>
+              <mesh position={[-0.38, -0.16, 0]} rotation={[0, Math.PI / 2, 0]}><boxGeometry args={[0.58, 0.32, 0.02]} /><meshBasicMaterial color={BRAND_COLORS.primary} wireframe /></mesh>
             </group>
             {/* Roof */}
             <mesh ref={rRef} position={[0, 0.16, 0]} rotation={[0, 0, Math.PI / 4]}>
               <boxGeometry args={[0.52, 0.52, 0.78]} />
-              <meshBasicMaterial color="#D4AF37" wireframe />
+              <meshBasicMaterial color={BRAND_COLORS.accent} wireframe />
             </mesh>
           </group>
         )}
@@ -259,29 +260,29 @@ export default function HoloProjector({ posRef, scaleRef }) {
               <group>
                 <mesh position={[0, -0.1, 0]}>
                   <boxGeometry args={[0.9, 0.12, 0.9]} />
-                  <meshBasicMaterial color="#3FA9F5" transparent opacity={0.15} wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} transparent opacity={0.15} wireframe />
                 </mesh>
                 {/* Dimension helper lines */}
                 <mesh position={[0.48, -0.1, 0]}>
                   <boxGeometry args={[0.01, 0.2, 0.9]} />
-                  <meshBasicMaterial color="#D4AF37" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.accent} wireframe />
                 </mesh>
                 {/* Rebar cross-wires */}
                 <mesh position={[0, -0.06, -0.2]} rotation={[0, 0, Math.PI / 2]}>
                   <cylinderGeometry args={[0.006, 0.006, 0.85, 8]} />
-                  <meshBasicMaterial color="#D4AF37" />
+                  <meshBasicMaterial color={BRAND_COLORS.accent} />
                 </mesh>
                 <mesh position={[0, -0.06, 0.2]} rotation={[0, 0, Math.PI / 2]}>
                   <cylinderGeometry args={[0.006, 0.006, 0.85, 8]} />
-                  <meshBasicMaterial color="#D4AF37" />
+                  <meshBasicMaterial color={BRAND_COLORS.accent} />
                 </mesh>
                 <mesh position={[-0.2, -0.04, 0]} rotation={[Math.PI / 2, 0, 0]}>
                   <cylinderGeometry args={[0.006, 0.006, 0.85, 8]} />
-                  <meshBasicMaterial color="#49B8FF" />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} />
                 </mesh>
                 <mesh position={[0.2, -0.04, 0]} rotation={[Math.PI / 2, 0, 0]}>
                   <cylinderGeometry args={[0.006, 0.006, 0.85, 8]} />
-                  <meshBasicMaterial color="#49B8FF" />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} />
                 </mesh>
               </group>
             )}
@@ -291,19 +292,19 @@ export default function HoloProjector({ posRef, scaleRef }) {
               <group>
                 <mesh position={[0, -0.08, -0.15]} rotation={[0, 0, Math.PI / 2]}>
                   <cylinderGeometry args={[0.03, 0.03, 0.95, 12]} />
-                  <meshBasicMaterial color="#0077ff" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
                 <mesh position={[0.15, 0.08, 0]} rotation={[Math.PI / 2, 0, 0]}>
                   <cylinderGeometry args={[0.04, 0.04, 0.95, 12]} />
-                  <meshBasicMaterial color="#49B8FF" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
                 <mesh position={[0.15, 0.0, -0.15]}>
                   <sphereGeometry args={[0.045, 16, 16]} />
-                  <meshBasicMaterial color="#D4AF37" transparent opacity={0.8} />
+                  <meshBasicMaterial color={BRAND_COLORS.accent} transparent opacity={0.8} />
                 </mesh>
                 <mesh position={[0.15, 0.0, -0.15]} rotation={[Math.PI / 2, 0, 0]}>
                   <torusGeometry args={[0.10, 0.003, 4, 16]} />
-                  <meshBasicMaterial color="#49B8FF" />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} />
                 </mesh>
               </group>
             )}
@@ -314,17 +315,17 @@ export default function HoloProjector({ posRef, scaleRef }) {
                 {/* Travertine stone */}
                 <mesh position={[-0.26, -0.12, 0.08]}>
                   <boxGeometry args={[0.20, 0.28, 0.20]} />
-                  <meshBasicMaterial color="#D4AF37" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.accent} wireframe />
                 </mesh>
                 {/* Teak plank log */}
                 <mesh position={[0.05, 0.0, -0.08]} rotation={[Math.PI / 4, Math.PI / 6, 0]}>
                   <cylinderGeometry args={[0.05, 0.05, 0.38, 12]} />
-                  <meshBasicMaterial color="#D4AF37" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.accent} wireframe />
                 </mesh>
                 {/* Rebar bundle */}
                 <mesh position={[0.26, -0.12, 0.12]}>
                   <cylinderGeometry args={[0.04, 0.04, 0.28, 8, 4, true]} />
-                  <meshBasicMaterial color="#3FA9F5" wireframe />
+                  <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
                 </mesh>
               </group>
             )}
@@ -337,17 +338,17 @@ export default function HoloProjector({ posRef, scaleRef }) {
             {/* Outer ring */}
             <mesh rotation={[Math.PI / 2, 0, 0]}>
               <torusGeometry args={[0.36, 0.02, 8, 24]} />
-              <meshBasicMaterial color="#3FA9F5" wireframe />
+              <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
             </mesh>
             {/* Golden Star core */}
             <mesh rotation={[0, 0, 0]}>
               <octahedronGeometry args={[0.22, 0]} />
-              <meshBasicMaterial color="#D4AF37" wireframe />
+              <meshBasicMaterial color={BRAND_COLORS.accent} wireframe />
             </mesh>
             {/* Secondary ring */}
             <mesh rotation={[Math.PI / 2, 0, 0]}>
               <torusGeometry args={[0.42, 0.008, 4, 32]} />
-              <meshBasicMaterial color="#49B8FF" transparent opacity={0.5} />
+              <meshBasicMaterial color={BRAND_COLORS.primary} transparent opacity={0.5} />
             </mesh>
           </group>
         )}
@@ -358,22 +359,22 @@ export default function HoloProjector({ posRef, scaleRef }) {
             {/* Key shaft */}
             <mesh position={[0, 0.1, 0]}>
               <cylinderGeometry args={[0.015, 0.015, 0.4, 8]} />
-              <meshBasicMaterial color="#D4AF37" wireframe />
+              <meshBasicMaterial color={BRAND_COLORS.accent} wireframe />
             </mesh>
             {/* Key handle ring */}
             <mesh position={[0, 0.32, 0]} rotation={[Math.PI / 2, 0, 0]}>
               <torusGeometry args={[0.08, 0.016, 8, 16]} />
-              <meshBasicMaterial color="#D4AF37" wireframe />
+              <meshBasicMaterial color={BRAND_COLORS.accent} wireframe />
             </mesh>
             {/* Key bit */}
             <mesh position={[0.05, 0.0, 0]}>
               <boxGeometry args={[0.08, 0.05, 0.02]} />
-              <meshBasicMaterial color="#D4AF37" wireframe />
+              <meshBasicMaterial color={BRAND_COLORS.accent} wireframe />
             </mesh>
             {/* Rolled Blueprint Scroll */}
             <mesh position={[0, -0.2, 0]} rotation={[0, 0, Math.PI / 2]}>
               <cylinderGeometry args={[0.07, 0.07, 0.6, 12, 1, true]} />
-              <meshBasicMaterial color="#49B8FF" wireframe />
+              <meshBasicMaterial color={BRAND_COLORS.primary} wireframe />
             </mesh>
           </group>
         )}
@@ -381,7 +382,7 @@ export default function HoloProjector({ posRef, scaleRef }) {
         {/* Secondary decorative concentric outer blueprint ring */}
         <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, -0.22, 0]}>
           <torusGeometry args={[0.55, 0.003, 4, 32]} />
-          <meshBasicMaterial color="#00aaee" transparent opacity={0.12} />
+          <meshBasicMaterial color={BRAND_COLORS.primary} transparent opacity={0.12} />
         </mesh>
       </group>
     </group>

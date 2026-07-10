@@ -48,7 +48,7 @@ export default function ServicesScene() {
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full py-space-96 md:py-space-160 px-space-24 md:px-space-40 flex items-center overflow-hidden border-t border-charcoal/5 theme-stone subpixel-text">
+    <section className="relative min-h-screen w-full py-space-96 md:py-space-160 px-space-24 md:px-space-40 flex items-center overflow-hidden border-t border-charcoal/5 theme-light subpixel-text">
       {/* Decorative blueprint grids */}
       <div className="absolute inset-0 architectural-grid opacity-15 pointer-events-none"></div>
 
@@ -60,10 +60,10 @@ export default function ServicesScene() {
             (05 // SERVICES)
           </div>
           <div className="lg:col-span-8 flex flex-col gap-space-16">
-            <span className="h-label-mono text-bronze">(CRAFTSMANSHIP SERVICES)</span>
+            <span className="h-label-mono text-accent">(CRAFTSMANSHIP SERVICES)</span>
             <h2 className="h-section-title">
               Structural Providence <br />
-              <span className="text-bronze italic">&amp; Clash Management.</span>
+              <span className="text-accent italic">&amp; Clash Management.</span>
             </h2>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function ServicesScene() {
           
           {/* Left Column: Visual site details */}
           <div className="hidden lg:block lg:col-span-4 relative pr-space-24">
-            <div className="w-full aspect-[3/4] overflow-hidden border border-charcoal/15 bg-concrete shadow-[0_32px_80px_rgba(0,0,0,0.06)] rounded-sm group">
+            <div className="w-full aspect-[3/4] overflow-hidden border border-charcoal/15 bg-white shadow-[0_32px_80px_rgba(0,0,0,0.06)] rounded-none group">
               <img 
                 src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&auto=format&fit=crop" 
                 alt="Raw construction concrete reinforcement steel" 
@@ -95,7 +95,7 @@ export default function ServicesScene() {
                 onClick={() => handleTabClick('boq', 0)}
                 className={`flex-shrink-0 pb-3 border-b-2 transition-all duration-500 cursor-pointer text-left min-w-[140px] ${
                   activeTab === 'boq' 
-                    ? 'border-bronze text-bronze font-semibold' 
+                    ? 'border-accent text-accent font-semibold' 
                     : 'border-transparent text-charcoal/40 hover:text-charcoal'
                 }`}
               >
@@ -108,7 +108,7 @@ export default function ServicesScene() {
                 onClick={() => handleTabClick('bim', 1)}
                 className={`flex-shrink-0 pb-3 border-b-2 transition-all duration-500 cursor-pointer text-left min-w-[140px] ${
                   activeTab === 'bim' 
-                    ? 'border-holo-cyan text-holo-cyan font-semibold' 
+                    ? 'border-primary text-primary font-semibold' 
                     : 'border-transparent text-charcoal/40 hover:text-charcoal'
                 }`}
               >
@@ -131,7 +131,7 @@ export default function ServicesScene() {
             </div>
 
             {/* Dynamic Dashboard Card (Warm Ivory card floating on Architectural Stone background) */}
-            <div className="bg-ivory border border-charcoal/10 rounded-sm p-space-32 md:p-space-40 shadow-[0_24px_48px_rgba(0,0,0,0.03)] min-h-[440px] flex flex-col justify-between relative overflow-hidden">
+            <div className="bg-white border border-charcoal/10 rounded-none p-space-32 md:p-space-40 shadow-[0_24px_48px_rgba(0,0,0,0.03)] min-h-[440px] flex flex-col justify-between relative overflow-hidden">
               
               <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-bronze/20 to-transparent"></div>
 
@@ -144,7 +144,7 @@ export default function ServicesScene() {
                     {/* Left: Input sliders and metrics */}
                     <div className="md:col-span-7 flex flex-col justify-between gap-space-24">
                       <div className="flex flex-col gap-space-8">
-                        <span className="h-label-mono text-bronze">[CALCULATOR REGISTER]</span>
+                        <span className="h-label-mono text-accent">[CALCULATOR REGISTER]</span>
                         <h4 className="font-display text-2xl font-light text-charcoal">RCC Slab Core Volumetrics</h4>
                         <p className="font-sans text-xs text-charcoal/60 leading-relaxed font-light mt-1">
                           Adjust built area and target slab depth to calculate concrete volumes and rebar weights. Formulated from IS_456 codes.
@@ -152,11 +152,11 @@ export default function ServicesScene() {
                       </div>
 
                       {/* Sliders */}
-                      <div className="flex flex-col gap-space-16 bg-charcoal/[0.02] p-space-24 border border-charcoal/5 rounded-sm">
+                      <div className="flex flex-col gap-space-16 bg-charcoal/[0.02] p-space-24 border border-charcoal/5 rounded-none">
                         <div className="flex flex-col gap-space-8">
                           <div className="flex justify-between h-label-mono text-charcoal/70">
                             <span>Target Built Area</span>
-                            <span className="text-bronze font-bold text-xs">{area} SQ. FT.</span>
+                            <span className="text-accent font-bold text-xs">{area} SQ. FT.</span>
                           </div>
                           <input 
                             type="range" 
@@ -165,14 +165,14 @@ export default function ServicesScene() {
                             step="100" 
                             value={area}
                             onChange={(e) => setArea(parseInt(e.target.value))}
-                            className="w-full accent-bronze bg-charcoal/10 h-[2px] rounded-sm cursor-pointer"
+                            className="w-full accent-bronze bg-charcoal/10 h-[2px] rounded-none cursor-pointer"
                           />
                         </div>
 
                         <div className="flex flex-col gap-space-8">
                           <div className="flex justify-between h-label-mono text-charcoal/70">
                             <span>Slab Depth Thickness</span>
-                            <span className="text-bronze font-bold text-xs">{thickness} INCHES</span>
+                            <span className="text-accent font-bold text-xs">{thickness} INCHES</span>
                           </div>
                           <input 
                             type="range" 
@@ -181,7 +181,7 @@ export default function ServicesScene() {
                             step="1" 
                             value={thickness}
                             onChange={(e) => setThickness(parseInt(e.target.value))}
-                            className="w-full accent-bronze bg-charcoal/10 h-[2px] rounded-sm cursor-pointer"
+                            className="w-full accent-bronze bg-charcoal/10 h-[2px] rounded-none cursor-pointer"
                           />
                         </div>
                       </div>
@@ -194,25 +194,25 @@ export default function ServicesScene() {
                         </div>
                         <div>
                           <span className="h-caption font-mono text-[7.5px] block">Concrete Volume</span>
-                          <span className="font-display text-lg text-bronze font-semibold mt-1 block">{slabCubicYds} CU. YD</span>
+                          <span className="font-display text-lg text-accent font-semibold mt-1 block">{slabCubicYds} CU. YD</span>
                         </div>
                         <div>
                           <span className="h-caption font-mono text-[7.5px] block">Rebar Weight</span>
-                          <span className="font-display text-lg text-holo-cyan font-semibold mt-1 block">{reinforcementSteelKg} KG</span>
+                          <span className="font-display text-lg text-primary font-semibold mt-1 block">{reinforcementSteelKg} KG</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Right: Technical Blueprint Drawing */}
                     <div className="md:col-span-5 flex flex-col justify-center">
-                      <div className="w-full aspect-[4/5] overflow-hidden border border-charcoal/10 rounded-sm relative shadow-md group">
+                      <div className="w-full aspect-[4/5] overflow-hidden border border-charcoal/10 rounded-none relative shadow-md group">
                         <div className="absolute inset-0 blueprint-grid opacity-15 pointer-events-none"></div>
                         <img 
                           src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop" 
                           alt="BIM drawing blueprint details" 
                           className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
                         />
-                        <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[6.5px] text-bronze">
+                        <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[6.5px] text-accent">
                           DWG // REF_LOD_400_SLAB
                         </div>
                       </div>
@@ -228,7 +228,7 @@ export default function ServicesScene() {
                     {/* Left: Laser sweep scan */}
                     <div className="md:col-span-7 flex flex-col gap-space-24 justify-between">
                       <div className="flex flex-col gap-space-8">
-                        <span className="h-label-mono text-holo-cyan">[COORDINATE LAYER VERIFICATION]</span>
+                        <span className="h-label-mono text-primary">[COORDINATE LAYER VERIFICATION]</span>
                         <h4 className="font-display text-2xl font-light text-charcoal">LOD 400 Clash Scan</h4>
                         <p className="font-sans text-xs text-charcoal/60 leading-relaxed font-light mt-1">
                           We overlay physical geometry data of structure rebar matrices, MEP conduits, and layout ducts onto digital models to clear errors before cast.
@@ -236,15 +236,15 @@ export default function ServicesScene() {
                       </div>
 
                       {/* Scanning animation canvas */}
-                      <div className="w-full aspect-[16/8] relative border border-charcoal/10 bg-charcoal/[0.03] flex items-center justify-center overflow-hidden rounded-sm">
+                      <div className="w-full aspect-[16/8] relative border border-charcoal/10 bg-charcoal/[0.03] flex items-center justify-center overflow-hidden rounded-none">
                         <div className="absolute inset-0 blueprint-grid opacity-25"></div>
                         
-                        <div className="absolute w-[1.5px] h-full bg-holo-cyan left-0 top-0 shadow-[0_0_8px_var(--color-holo-cyan)]" style={{
+                        <div className="absolute w-[1.5px] h-full bg-primary left-0 top-0 shadow-[0_0_8px_var(--color-holo-cyan)]" style={{
                           animation: 'sweep 4s linear infinite'
                         }}></div>
 
-                        <div className="absolute flex flex-col items-center z-10 gap-1.5 bg-ivory border border-holo-cyan/20 p-space-16 rounded-sm shadow-md">
-                          <span className="font-mono text-[7.5px] text-holo-cyan animate-pulse">COLLISION RESOLVER ONLINE</span>
+                        <div className="absolute flex flex-col items-center z-10 gap-1.5 bg-white border border-primary/20 p-space-16 rounded-none shadow-md">
+                          <span className="font-mono text-[7.5px] text-primary animate-pulse">COLLISION RESOLVER ONLINE</span>
                           <span className="font-mono text-[8.5px] text-emerald-600 font-bold">ZERO GEOMETRICAL CLASHES FOUND</span>
                         </div>
                       </div>
@@ -256,13 +256,13 @@ export default function ServicesScene() {
 
                     {/* Right: Site inspection, Engineer review */}
                     <div className="md:col-span-5 flex flex-col justify-center">
-                      <div className="w-full aspect-[4/5] overflow-hidden border border-charcoal/10 rounded-sm relative shadow-md group">
+                      <div className="w-full aspect-[4/5] overflow-hidden border border-charcoal/10 rounded-none relative shadow-md group">
                         <img 
                           src="https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=600&auto=format&fit=crop" 
                           alt="Geotechnical coordination review" 
                           className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
                         />
-                        <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[6.5px] text-holo-cyan">
+                        <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[6.5px] text-primary">
                           SITE_INSPECT // BIM_CLASH_AUDIT
                         </div>
                       </div>
@@ -275,7 +275,7 @@ export default function ServicesScene() {
                 {activeTab === 'materials' && (
                   <div className="flex flex-col gap-space-24 animate-fade-in">
                     <div className="flex flex-col gap-space-8">
-                      <span className="h-label-mono text-bronze">[LEDGER SPECIFICATIONS]</span>
+                      <span className="h-label-mono text-accent">[LEDGER SPECIFICATIONS]</span>
                       <h4 className="font-display text-2xl font-light text-charcoal">Material Sourcing Swatches</h4>
                       <p className="font-sans text-xs text-charcoal/60 leading-relaxed font-light mt-1">
                         Macro textures of natural travertine bedrock, teak lumber logs, aggregate-concrete, and Fe550D rebar joints. We refuse veneers.
@@ -284,7 +284,7 @@ export default function ServicesScene() {
 
                     <div className="grid grid-cols-2 gap-space-16">
                       {MATERIALS_LIST.map((mat, i) => (
-                        <div key={i} className="flex flex-col border border-charcoal/10 rounded-sm overflow-hidden bg-charcoal/[0.01]">
+                        <div key={i} className="flex flex-col border border-charcoal/10 rounded-none overflow-hidden bg-charcoal/[0.01]">
                           <div className="w-full aspect-[16/9] overflow-hidden">
                             <img 
                               src={mat.image} 
@@ -293,7 +293,7 @@ export default function ServicesScene() {
                             />
                           </div>
                           <div className="p-space-16 flex flex-col gap-1">
-                            <span className="font-mono text-[8.5px] font-bold text-bronze uppercase">{mat.name}</span>
+                            <span className="font-mono text-[8.5px] font-bold text-accent uppercase">{mat.name}</span>
                             <p className="font-sans text-[10px] text-charcoal/60 leading-relaxed font-light">{mat.desc}</p>
                           </div>
                         </div>

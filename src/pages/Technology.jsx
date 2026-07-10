@@ -33,40 +33,40 @@ export default function Technology() {
   }, [setActiveScene, setMascotPose, setMascotEmotion]);
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none font-sans">
+    <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Technology slideshow hero */}
       <CinematicHero slides={TECH_SLIDES} coordinates="12.9716° N, 77.5946° E" />
 
       {/* 2. BIM EXPLANATION DETAILED SECTION */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-graphite relative">
+      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-center relative z-10">
           
           <div className="col-span-12 lg:col-span-6 flex flex-col gap-space-24">
-            <span className="h-label-mono text-bronze">[THE ALIGNMENT PROCESS]</span>
+            <span className="h-label-mono text-accent">[THE ALIGNMENT PROCESS]</span>
             <h2 className="font-display text-3xl font-light text-white leading-snug uppercase tracking-wide">
               Eliminating Structural Core Cuts
             </h2>
-            <p className="font-sans text-xs text-ivory/65 leading-relaxed font-light">
+            <p className="font-sans text-xs text-white/65 leading-relaxed font-light">
               Traditional builds suffer from trade conflicts on site: pipelines run through concrete beams, forcing builders to drill cores through load-bearing steel reinforcement. 
             </p>
-            <p className="font-sans text-xs text-ivory/65 leading-relaxed font-light">
+            <p className="font-sans text-xs text-white/65 leading-relaxed font-light">
               Rightcon resolves this inside the virtual model. Every conduit sleeve is cast *into* the slab framework from day one, resulting in a zero-core-cut structure.
             </p>
           </div>
 
-          <div className="col-span-12 lg:col-span-6 border border-white/10 p-space-32 bg-charcoal rounded-sm relative overflow-hidden">
+          <div className="col-span-12 lg:col-span-6 border border-white/10 p-space-32 bg-charcoal rounded-none relative overflow-hidden">
             <div className="absolute inset-0 blueprint-grid opacity-10"></div>
             <svg className="w-full h-[220px] stroke-white/20 fill-none stroke-[0.5]" viewBox="0 0 100 100">
               <rect x="5" y="5" width="90" height="90" />
               <line x1="5" y1="5" x2="95" y2="95" className="blueprint-line" />
               <line x1="95" y1="5" x2="5" y2="95" className="blueprint-line" />
-              <circle cx="50" cy="50" r="30" className="stroke-bronze/40" />
-              <rect x="25" y="25" width="50" height="50" className="stroke-[#2D4E73]/30" />
+              <circle cx="50" cy="50" r="30" className="stroke-accent/40" />
+              <rect x="25" y="25" width="50" height="50" className="stroke-primary/30" />
             </svg>
-            <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2.5 py-0.5 font-mono text-[7px] text-bronze">
+            <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2.5 py-0.5 font-mono text-[7px] text-accent">
               CAD // VIRTUAL_LOD_400
             </div>
           </div>
@@ -80,22 +80,22 @@ export default function Technology() {
         <div className="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-space-40">
           
           <div className="lg:col-span-5 flex flex-col gap-space-24 justify-center">
-            <div className="border-l-2 border-bronze/40 pl-4">
-              <span className="font-mono text-[9px] text-bronze block">[LOD 400 INTEGRATION SOFTWARE STACK]</span>
+            <div className="border-l-2 border-accent/40 pl-4">
+              <span className="font-mono text-[9px] text-accent block">[LOD 400 INTEGRATION SOFTWARE STACK]</span>
               <h3 className="font-display text-2xl font-light text-white uppercase tracking-wider mt-1">
                 Virtual Building Orchestration
               </h3>
             </div>
-            <p className="font-sans text-xs text-ivory/60 leading-relaxed font-light">
+            <p className="font-sans text-xs text-white/60 leading-relaxed font-light">
               We design coordination boundaries down to the millimeter. Using Autodesk Revit for volumetric models, Tekla for structural rebar steel layouts, and Navisworks for automated clash rules, our architecture is compiled like high-performance software.
             </p>
-            <div className="flex flex-col gap-4 font-mono text-[10px] text-ivory/80 mt-2">
+            <div className="flex flex-col gap-4 font-mono text-[10px] text-white/80 mt-2">
               <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-bronze shrink-0"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-accent shrink-0"></span>
                 <span>AUTODESK REVIT // Architectural & Space Twins</span>
               </div>
               <div className="flex items-center gap-3 border-t border-white/5 pt-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#2D4E73] shrink-0"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-primary shrink-0"></span>
                 <span>TEKLA STRUCTURES // Heavy Rebar & Column Tolerances</span>
               </div>
               <div className="flex items-center gap-3 border-t border-white/5 pt-3">
@@ -105,7 +105,7 @@ export default function Technology() {
             </div>
           </div>
 
-          <div className="lg:col-span-7 border border-white/10 rounded-sm bg-black/40 overflow-x-auto font-mono text-[9px] text-emerald-400 p-6 flex flex-col gap-4 relative">
+          <div className="lg:col-span-7 border border-white/10 rounded-none bg-black/40 overflow-x-auto font-mono text-[9px] text-emerald-400 p-6 flex flex-col gap-4 relative">
             <div className="flex justify-between items-center border-b border-white/10 pb-3">
               <span className="text-white/40 uppercase tracking-widest">[SYSTEM // CLASH_AUDIT_TERMINAL]</span>
               <span className="text-emerald-400/50">STATUS: ACTIVE</span>
@@ -114,7 +114,7 @@ export default function Technology() {
               <span className="text-white/40">&gt; rightcon-bim-pipeline --run clash-audit --target index-model-v3</span>
               <span>[INFO] INITIALIZING GEOMECHANICAL COORDINATE MATRIX...</span>
               <span>[INFO] RESOLVING 12.9716° N, 77.5946° E MAP NODES...</span>
-              <span className="text-[#B58B45]">[WARN] DUPLICATE MEP PIPE SLEEVE ENCOUNTERED AT COLUMN C-04 // AUTO-SHIFTING</span>
+              <span className="text-accent">[WARN] DUPLICATE MEP PIPE SLEEVE ENCOUNTERED AT COLUMN C-04 // AUTO-SHIFTING</span>
               <span>[INFO] RUNNING HARD CLASH TEST ON 4,192 GEOMETRIES...</span>
               <span>[SUCCESS] PASS 01 // FOUNDATION PILE MATRIX: 0 CONFLICTS</span>
               <span>[SUCCESS] PASS 02 // RAFT STEEL REINFORCEMENTS: 0 CONFLICTS</span>

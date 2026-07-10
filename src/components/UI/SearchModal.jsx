@@ -74,16 +74,16 @@ export default function SearchModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[2000] bg-[#1A1A18]/98 backdrop-blur-2xl flex flex-col justify-start items-center p-space-24 md:p-space-40 font-sans text-[#F5F2EB]">
+    <div className="fixed inset-0 z-[2000] bg-charcoal/98 backdrop-blur-2xl flex flex-col justify-start items-center p-space-24 md:p-space-40 font-sans text-white">
       
-      {/* Blueprint Grid background decoration using Blueprint Navy */}
-      <div className="absolute inset-0 blueprint-grid opacity-[0.04] pointer-events-none"></div>
+      {/* Blueprint Grid background decoration using Brand Blue */}
+      <div className="absolute inset-0 blueprint-grid opacity-[0.015] pointer-events-none"></div>
 
       {/* Close button */}
       <button 
         type="button"
         onClick={onClose}
-        className="absolute top-space-24 right-space-24 md:right-space-40 font-mono text-[9px] uppercase tracking-widest text-[#F5F2EB]/50 hover:text-[#B58B45] cursor-pointer border-none bg-transparent outline-none"
+        className="absolute top-space-24 right-space-24 md:right-space-40 font-sans text-[11px] uppercase tracking-widest text-white/50 hover:text-primary cursor-pointer border-none bg-transparent outline-none"
       >
         Close [ESC] ✕
       </button>
@@ -92,21 +92,21 @@ export default function SearchModal({ isOpen, onClose }) {
         
         {/* Search header info */}
         <div className="flex flex-col gap-space-8">
-          <span className="h-label-mono text-[#2D4E73] font-semibold">[GEOTECHNICAL GLOBAL REGISTRY SEARCH]</span>
+          <span className="h-label-mono text-primary font-semibold">[GEOTECHNICAL GLOBAL REGISTRY SEARCH]</span>
           <h2 className="font-display text-2xl md:text-3xl font-light text-white tracking-wide uppercase">
             Search Digital HQ Logs
           </h2>
         </div>
 
         {/* Input box */}
-        <div className="w-full relative border-b-2 border-white/10 focus-within:border-[#B58B45] transition-colors py-2">
+        <div className="w-full relative border-b-2 border-white/10 focus-within:border-primary transition-colors py-2">
           <input 
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Type coordinates, services, or materials (e.g. 'soil', 'BIM', 'monolith')..."
-            className="w-full bg-transparent border-none outline-none font-display text-lg md:text-2xl font-light placeholder-white/20 text-[#F5F2EB]"
+            className="w-full bg-transparent border-none outline-none font-display text-lg md:text-2xl font-light placeholder-white/20 text-white"
           />
         </div>
 
@@ -119,19 +119,19 @@ export default function SearchModal({ isOpen, onClose }) {
                 <div 
                   key={i}
                   onClick={() => handleNavigate(item.path)}
-                  className="group flex flex-col md:flex-row md:items-center justify-between border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-[#B58B45]/35 p-space-16 rounded-sm cursor-pointer transition-all duration-300"
+                  className="group flex flex-col md:flex-row md:items-center justify-between border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-primary/35 p-space-16 rounded-none cursor-pointer transition-all duration-300"
                 >
                   <div className="flex flex-col gap-1 max-w-xl">
-                    <span className="font-mono text-[8px] text-[#2D4E73] font-semibold">{item.type} // REFERENCE</span>
-                    <h4 className="font-display text-base font-light text-white group-hover:text-[#B58B45] transition-colors mt-0.5">{item.title}</h4>
-                    <p className="font-sans text-[11px] text-[#F5F2EB]/60 font-light mt-0.5">{item.desc}</p>
+                    <span className="font-sans text-[9px] text-primary font-semibold">{item.type} // REFERENCE</span>
+                    <h4 className="font-display text-base font-light text-white group-hover:text-primary transition-colors mt-0.5">{item.title}</h4>
+                    <p className="font-sans text-[11px] text-white/60 font-light mt-0.5">{item.desc}</p>
                   </div>
-                  <span className="font-mono text-[9px] text-white/30 group-hover:text-[#B58B45] transition-colors mt-3 md:mt-0">EXPLORE LOG →</span>
+                  <span className="font-sans text-[10px] text-white/30 group-hover:text-primary tracking-wider transition-colors mt-3 md:mt-0">EXPLORE LOG →</span>
                 </div>
               ))}
             </div>
           ) : query.trim() ? (
-            <div className="py-space-40 text-center flex flex-col gap-2 font-mono text-[9.5px] text-[#F5F2EB]/40 uppercase">
+            <div className="py-space-40 text-center flex flex-col gap-2 font-sans text-[11px] text-white/40 uppercase">
               <span>[WARNING: ZERO MATCHING TELEMETRY RECORDS FOUND]</span>
               <span>Audit spelling coordinates and retry.</span>
             </div>
@@ -144,7 +144,7 @@ export default function SearchModal({ isOpen, onClose }) {
                     key={idx}
                     type="button"
                     onClick={() => setQuery(word)}
-                    className="border border-white/10 hover:border-[#B58B45]/35 bg-white/[0.01] hover:bg-white/[0.03] p-space-12 rounded-sm font-mono text-[9px] tracking-wide text-[#F5F2EB]/70 hover:text-[#B58B45] transition-all cursor-pointer text-left"
+                    className="border border-white/10 hover:border-primary/35 bg-white/[0.01] hover:bg-white/[0.03] p-space-12 rounded-none font-sans text-[11px] tracking-wide text-white/70 hover:text-primary transition-all cursor-pointer text-left"
                   >
                     &gt; {word}
                   </button>

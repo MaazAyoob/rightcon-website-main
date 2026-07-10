@@ -53,13 +53,13 @@ export default function Projects() {
   });
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none">
+    <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none">
       
       {/* 1. Projects Slideshow Hero */}
       <CinematicHero slides={PROJECTS_SLIDES} coordinates="12.9716° N, 77.5946° E" />
 
       {/* 2. ADVANCED FILTER TABS */}
-      <section className="py-space-24 px-space-24 md:px-space-40 border-t border-b border-white/5 bg-graphite/40">
+      <section className="py-space-24 px-space-24 md:px-space-40 border-t border-b border-white/5 bg-charcoal/40">
         <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-space-16 font-mono text-[9px] tracking-wider">
           
           {/* Categories */}
@@ -72,8 +72,8 @@ export default function Projects() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1 border transition-all duration-300 cursor-pointer ${
                   selectedCategory === cat 
-                    ? 'border-bronze text-bronze font-bold' 
-                    : 'border-white/5 text-ivory/60 hover:text-ivory'
+                    ? 'border-accent text-accent font-bold' 
+                    : 'border-white/5 text-white/60 hover:text-white'
                 }`}
               >
                 {cat.toUpperCase()}
@@ -91,8 +91,8 @@ export default function Projects() {
                 onClick={() => setSelectedStatus(st)}
                 className={`px-3 py-1 border transition-all duration-300 cursor-pointer ${
                   selectedStatus === st 
-                    ? 'border-bronze text-bronze font-bold' 
-                    : 'border-white/5 text-ivory/60 hover:text-ivory'
+                    ? 'border-accent text-accent font-bold' 
+                    : 'border-white/5 text-white/60 hover:text-white'
                 }`}
               >
                 {st.toUpperCase()}
@@ -120,7 +120,7 @@ export default function Projects() {
                 <div key={project.id} className={`${colSpan} ${offsetClass} flex flex-col gap-space-16`}>
                   <Link 
                     to={`/projects/${project.id}`} 
-                    className="group block border border-white/10 p-space-20 bg-graphite rounded-sm hover:border-bronze/40 transition-all duration-700 shadow-xl"
+                    className="group block border border-white/10 p-space-20 bg-charcoal rounded-none hover:border-accent/40 transition-all duration-700 shadow-xl"
                   >
                     <div className="w-full aspect-[4/3] overflow-hidden border border-white/5 relative bg-charcoal">
                       <img 
@@ -128,28 +128,28 @@ export default function Projects() {
                         alt={project.title} 
                         className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 group-hover:scale-103 transition-all duration-[1.2s]"
                       />
-                      <div className="absolute top-3 left-3 bg-charcoal/90 border border-white/5 px-2.5 py-0.5 font-mono text-[7px] text-bronze uppercase">
+                      <div className="absolute top-3 left-3 bg-charcoal/90 border border-white/5 px-2.5 py-0.5 font-mono text-[7px] text-accent uppercase">
                         {project.location}
                       </div>
                     </div>
 
                     <div className="flex justify-between items-start mt-space-24">
                       <div className="flex flex-col gap-1">
-                        <span className="font-mono text-[8px] text-bronze font-bold">{project.category.toUpperCase()}</span>
-                        <h2 className="font-display text-2xl font-light text-white mt-1 group-hover:text-bronze transition-colors">
+                        <span className="font-mono text-[8px] text-accent font-bold">{project.category.toUpperCase()}</span>
+                        <h2 className="font-display text-2xl font-light text-white mt-1 group-hover:text-accent transition-colors">
                           {project.title}
                         </h2>
-                        <p className="font-sans text-xs text-ivory/60 leading-relaxed font-light mt-2 max-w-sm">
+                        <p className="font-sans text-xs text-white/60 leading-relaxed font-light mt-2 max-w-sm">
                           {project.overview}
                         </p>
                       </div>
-                      <span className="font-mono text-xs text-stone hover:text-bronze mt-1">→</span>
+                      <span className="font-mono text-xs text-white/50 hover:text-accent mt-1">→</span>
                     </div>
 
                     <div className="border-t border-white/5 pt-4 mt-6 flex justify-between items-center text-[8px] font-mono text-white/30">
                       <span>AREA: {project.area}</span>
                       <span>YEAR: {project.year}</span>
-                      <span className="text-[#2D4E73]">{project.status.toUpperCase()}</span>
+                      <span className="text-primary">{project.status.toUpperCase()}</span>
                     </div>
                   </Link>
                 </div>

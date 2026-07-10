@@ -41,21 +41,21 @@ export default function FaqPage() {
   }, [setActiveScene, setMascotPose, setMascotEmotion]);
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none font-sans">
+    <div className="w-full flex flex-col bg-white text-charcoal selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Faq slideshow hero */}
       <CinematicHero slides={FAQ_SLIDES} coordinates="12.9716° N, 77.5946° E" />
 
       {/* 2. ACCORDION */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-graphite relative">
+      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-white relative">
         <div className="max-w-4xl mx-auto w-full relative z-10">
-          <div className="flex flex-col border-t border-white/10">
+          <div className="flex flex-col border-t border-charcoal/10">
             {FAQS_LIST.map((item, idx) => {
               const isOpen = openIdx === idx;
               return (
                 <div 
                   key={idx} 
-                  className="border-b border-white/10 py-space-24 flex flex-col gap-space-16 transition-colors duration-500 hover:bg-white/[0.01] px-4 rounded-sm"
+                  className="border-b border-charcoal/10 py-space-24 flex flex-col gap-space-16 transition-colors duration-500 hover:bg-white/[0.01] px-4 rounded-none"
                 >
                   <button
                     type="button"
@@ -63,14 +63,14 @@ export default function FaqPage() {
                     className="w-full flex justify-between items-start text-left cursor-pointer focus:outline-none"
                   >
                     <div className="flex gap-space-16 items-start">
-                      <span className="font-mono text-[9px] text-stone/50 mt-1">
+                      <span className="font-mono text-[9px] text-charcoal/50/50 mt-1">
                         (0{idx + 1})
                       </span>
-                      <h3 className="font-display text-lg md:text-xl font-light text-white hover:text-bronze transition-colors tracking-wide leading-snug">
+                      <h3 className="font-display text-lg md:text-xl font-light text-white hover:text-accent transition-colors tracking-wide leading-snug">
                         {item.q}
                       </h3>
                     </div>
-                    <span className="text-bronze font-light ml-4">
+                    <span className="text-accent font-light ml-4">
                       {isOpen ? '—' : '+'}
                     </span>
                   </button>
@@ -80,7 +80,7 @@ export default function FaqPage() {
                       isOpen ? 'max-h-[220px] opacity-100' : 'max-h-0 opacity-0'
                     }`}
                   >
-                    <p className="font-sans text-xs text-ivory/60 pl-space-24 leading-relaxed font-light mt-1">
+                    <p className="font-sans text-xs text-charcoal/60 pl-space-24 leading-relaxed font-light mt-1">
                       {item.a}
                     </p>
                   </div>

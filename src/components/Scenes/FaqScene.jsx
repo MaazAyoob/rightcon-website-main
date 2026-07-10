@@ -34,7 +34,7 @@ export default function FaqScene() {
   };
 
   return (
-    <section className="relative min-h-screen w-full bg-[#12110f] py-24 px-8 md:px-16 flex items-center border-t border-white/5 select-none">
+    <section className="relative min-h-screen w-full bg-charcoal py-24 px-8 md:px-16 flex items-center border-t border-white/5 select-none">
       {/* Background decoration */}
       <div className="absolute inset-0 architectural-grid opacity-10 pointer-events-none"></div>
 
@@ -42,11 +42,11 @@ export default function FaqScene() {
         
         {/* Header */}
         <div className="flex flex-col gap-3 mb-16 text-center md:text-left">
-          <span className="font-mono text-[9px] text-bronze tracking-[0.25em] uppercase">
+          <span className="font-mono text-[9px] text-accent tracking-[0.25em] uppercase">
             (TECHNICAL FAQ)
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-light text-white leading-tight">
-            Your Questions, <span className="text-bronze italic">Answered</span>
+            Your Questions, <span className="text-accent italic">Answered</span>
           </h2>
         </div>
 
@@ -57,7 +57,7 @@ export default function FaqScene() {
             return (
               <div 
                 key={idx} 
-                className="border-b border-white/10 py-6 md:py-8 flex flex-col gap-4 transition-colors duration-500 hover:bg-white/[0.01] px-4 rounded-sm"
+                className="border-b border-white/10 py-6 md:py-8 flex flex-col gap-4 transition-colors duration-500 hover:bg-white/[0.01] px-4 rounded-none"
               >
                 {/* Header button */}
                 <button
@@ -68,16 +68,16 @@ export default function FaqScene() {
                   className="w-full flex justify-between items-start text-left cursor-pointer focus:outline-none"
                 >
                   <div className="flex gap-4 md:gap-8 items-start">
-                    <span className="font-mono text-[10px] text-stone tracking-wider mt-1.5">
+                    <span className="font-mono text-[10px] text-white tracking-wider mt-1.5">
                       (0{idx + 1})
                     </span>
-                    <h3 className="font-display text-lg md:text-xl font-light text-white hover:text-bronze transition-colors">
+                    <h3 className="font-display text-lg md:text-xl font-light text-white hover:text-accent transition-colors">
                       {faq.q}
                     </h3>
                   </div>
                   
                   {/* Plus/minus sign */}
-                  <span className="text-bronze text-xl font-light ml-4 select-none">
+                  <span className="text-accent text-xl font-light ml-4 select-none">
                     {isOpen ? '—' : '+'}
                   </span>
                 </button>
@@ -88,7 +88,7 @@ export default function FaqScene() {
                     isOpen ? 'max-h-[200px] opacity-100 mt-2' : 'max-h-0 opacity-0'
                   }`}
                 >
-                  <p className="font-sans text-xs md:text-sm font-light text-stone-light leading-relaxed pl-10 md:pl-[68px]">
+                  <p className="font-sans text-xs md:text-sm font-light text-white-light leading-relaxed pl-10 md:pl-[68px]">
                     {faq.a}
                   </p>
                 </div>

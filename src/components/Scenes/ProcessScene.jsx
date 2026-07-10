@@ -55,13 +55,11 @@ export default function ProcessScene() {
       trigger: triggerRef.current,
       pin: true,
       start: "top top",
-      end: "+=2000", // Scroll length
-      scrub: 0.5,
+      end: "+=2000",
       onUpdate: (self) => {
         const prog = self.progress;
         const step = Math.min(Math.floor(prog * STAGES.length), STAGES.length - 1);
         setCurrentStep(step);
-        
         if (self.isActive) {
           setMascotPose('process');
         }
@@ -70,84 +68,101 @@ export default function ProcessScene() {
 
     return () => {
       pin.kill();
-      ScrollTrigger.getAll().forEach(t => {
-        if (t.vars.trigger === triggerRef.current) t.kill();
-      });
     };
   }, []);
 
   return (
     <div ref={triggerRef} className="relative z-10 select-none">
-      <section className="h-screen w-full flex items-center px-space-24 md:px-space-40 overflow-hidden border-t border-charcoal/5 theme-light subpixel-text">
-        <div className="absolute inset-0 architectural-grid opacity-15 pointer-events-none"></div>
+      <section className="h-screen w-full flex items-center px-space-24 md:px-space-40 overflow-hidden border-t border-charcoal/5 bg-white subpixel-text">
+        <div className="absolute inset-0 architectural-grid opacity-[0.06] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-40 lg:gap-space-64 items-center relative z-10">
           
-          {/* Left Column: Asymmetrical Visual Display of Construction Steps */}
+          {/* Left Column: Image with decorative frame */}
           <div className="col-span-12 lg:col-span-7 flex flex-col justify-center">
-            
-            <div className="w-full aspect-[16/10] overflow-hidden border border-charcoal/10 relative shadow-[0_24px_48px_rgba(0,0,0,0.06)] rounded-sm bg-ivory">
-              {STAGES.map((stage, idx) => (
-                <img 
-                  key={idx}
-                  src={optimizeUnsplashUrl(stage.image, isMobile ? 800 : 1200, isMobile ? 70 : 85)}
-                  alt={stage.name}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
-                    idx === currentStep ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-95'
-                  }`}
-                />
-              ))}
+            <div className="relative">
+              {/* Decorative corner accents */}
+              <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-accent z-20 pointer-events-none"></div>
+              <div className="absolute -bottom-3 -right-3 w-10 h-10 border-b-2 border-r-2 border-primary z-20 pointer-events-none"></div>
+              
+              <div className="w-full aspect-[16/10] overflow-hidden border border-charcoal/10 relative shadow-[0_32px_80px_rgba(0,0,0,0.07)] bg-white">
+                {STAGES.map((stage, idx) => (
+                  <img 
+                    key={idx}
+                    src={optimizeUnsplashUrl(stage.image, isMobile ? 800 : 1200, isMobile ? 70 : 85)}
+                    alt={stage.name}
+                    className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out ${
+                      idx === currentStep ? 'opacity-100 z-10 scale-100' : 'opacity-0 z-0 scale-[1.02]'
+                    }`}
+                  />
+                ))}
+                <div className="absolute top-4 right-4 z-20 bg-white/95 border border-charcoal/10 px-3 py-1.5 font-mono text-[8px] text-charcoal/50 shadow-sm">
+                  STAGE {String(currentStep + 1).padStart(2,'0')} / {String(STAGES.length).padStart(2,'0')}
+                </div>
+              </div>
             </div>
 
-            {/* Micro progress indicator */}
-            <div className="flex gap-space-8 mt-space-24 items-center">
+            {/* Step progress dots */}
+            <div className="flex gap-2 mt-6 items-center">
               {STAGES.map((_, i) => (
                 <div 
                   key={i} 
-                  className={`h-[2px] transition-all duration-500 ${
+                  className={`h-[2px] transition-all duration-500 rounded-full ${
                     i === currentStep 
-                      ? 'w-8 bg-charcoal' 
-                      : (i < currentStep ? 'w-3 bg-charcoal/30' : 'w-1.5 bg-charcoal/10')
+                      ? 'w-10 bg-accent' 
+                      : (i < currentStep ? 'w-4 bg-accent/40' : 'w-2 bg-charcoal/10')
                   }`}
                 ></div>
               ))}
             </div>
-
           </div>
 
-          {/* Right Column: Minimal Technical Specification Copy */}
+          {/* Right Column: Step details */}
           <div className="col-span-12 lg:col-span-5 lg:pl-space-24 flex flex-col justify-center gap-space-24">
             
             <div className="flex flex-col gap-space-8">
-              <span className="h-label-mono text-bronze">
-                (04 // CONSTRUCTION JOURNEY)
-              </span>
-              <div className="w-full h-[1px] bg-charcoal/10 relative mt-1">
+              <span className="h-label-mono text-accent">(04 // CONSTRUCTION JOURNEY)</span>
+              <div className="w-full h-[2px] bg-charcoal/5 relative mt-1 overflow-hidden">
                 <div 
-                  className="absolute top-0 left-0 h-full bg-bronze transition-all duration-300"
-                  style={{ 
-                    width: `${((currentStep + 1) / STAGES.length) * 100}%`
-                  }}
+                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-accent to-primary transition-all duration-500"
+                  style={{ width: `${((currentStep + 1) / STAGES.length) * 100}%` }}
                 ></div>
               </div>
             </div>
 
-            {/* Active milestone content */}
-            <div className="flex flex-col gap-space-16 min-h-[220px] justify-center">
-              <div className="font-mono text-[9px] font-bold text-charcoal/40 uppercase tracking-widest">
+            <div className="flex flex-col gap-space-16 min-h-[200px] justify-center">
+              <div className="font-mono text-[9px] font-bold text-charcoal/30 uppercase tracking-widest">
                 STAGE 0{currentStep + 1} // {STAGES[currentStep].tag}
               </div>
-              <h3 className="font-display text-3xl font-light text-charcoal tracking-wide">
+              <h3 className="font-display text-3xl md:text-4xl font-light text-charcoal tracking-wide leading-none">
                 {STAGES[currentStep].name}
               </h3>
-              <p className="font-sans text-sm text-charcoal/70 leading-relaxed font-light">
+              <p className="font-sans text-sm text-charcoal/60 leading-relaxed font-light">
                 {STAGES[currentStep].desc}
               </p>
             </div>
 
-            {/* Metadata and Mascot Anchor */}
-            <div className="border-t border-charcoal/10 pt-space-16 flex justify-between items-center">
-              <span className="h-caption font-mono text-[7px]">
+            {/* Stages list */}
+            <div className="flex flex-col gap-2 border-t border-charcoal/5 pt-space-16">
+              {STAGES.map((stage, i) => (
+                <div 
+                  key={i} 
+                  className={`flex items-center gap-3 py-1 transition-all duration-300 ${
+                    i === currentStep ? 'opacity-100' : 'opacity-25'
+                  }`}
+                >
+                  <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 transition-colors duration-300 ${
+                    i < currentStep ? 'bg-accent' : i === currentStep ? 'bg-primary' : 'bg-charcoal/20'
+                  }`}></div>
+                  <span className={`font-mono text-[8.5px] uppercase tracking-wider ${
+                    i === currentStep ? 'text-charcoal font-bold' : 'text-charcoal/40'
+                  }`}>{stage.name}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="border-t border-charcoal/5 pt-space-16 flex justify-between items-center">
+              <span className="h-caption font-mono text-[7px] text-charcoal/30">
                 LOD_400_COORD: STG_0{currentStep + 1}_LOG_CHECK // PASS
               </span>
               <div className="mascot-observation-point">
@@ -157,7 +172,6 @@ export default function ProcessScene() {
             </div>
 
           </div>
-
         </div>
       </section>
     </div>

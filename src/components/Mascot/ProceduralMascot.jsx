@@ -1,3 +1,4 @@
+import { BRAND_COLORS } from '../../config/colors';
 /**
  * ProceduralMascot.jsx — V10+V11
  *
@@ -183,7 +184,8 @@ function applyRot(groupRef, v3) {
 
 export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourStateRef, velocityRef }) {
   const {
-    mousePos, scrollVelocity, introActive, mascotPose, formFieldFocus, formSuccess, setConversationOpen,
+    mousePos, scrollVelocity, introActive, mascotPose, formFieldFocus, formSuccess, setIsChatOpen,
+    isChatOpen, mascotHovered, setMascotPose, setMascotEmotion,
   } = useScrollSystem();
 
   // ── Randomised lerp rates (imperfect timing — set once at mount) ──
@@ -248,13 +250,13 @@ export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourSt
   // ── Materials ──
   const mats = useMemo(() => ({
     ceramic: new THREE.MeshPhysicalMaterial({
-      color: '#fcfbfa', roughness: 0.12, metalness: 0.02,
+      color: BRAND_COLORS.white, roughness: 0.12, metalness: 0.02,
       clearcoat: 1.0, clearcoatRoughness: 0.05,
     }),
-    cobalt: new THREE.MeshStandardMaterial({ color: '#07335c', roughness: 0.25, metalness: 0.8 }),
-    chrome: new THREE.MeshStandardMaterial({ color: '#e5e5e5', roughness: 0.05, metalness: 1.0 }),
-    cyan: new THREE.MeshBasicMaterial({ color: '#00f3ff', transparent: true }),
-    gold: new THREE.MeshBasicMaterial({ color: '#D4AF37', transparent: true }),
+    cobalt: new THREE.MeshStandardMaterial({ color: BRAND_COLORS.primary, roughness: 0.25, metalness: 0.8 }),
+    chrome: new THREE.MeshStandardMaterial({ color: BRAND_COLORS.white, roughness: 0.05, metalness: 1.0 }),
+    cyan: new THREE.MeshBasicMaterial({ color: BRAND_COLORS.primary, transparent: true }),
+    gold: new THREE.MeshBasicMaterial({ color: BRAND_COLORS.accent, transparent: true }),
   }), []);
 
   useFrame((state) => {
@@ -622,17 +624,29 @@ export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourSt
       </group>
     );
   };
+  const glowIntensity = mascotHovered ? 3.8 : 1.8;
 
   return (
     <group ref={groupRef} onClick={(e) => {
       e.stopPropagation();
-      if (!introActive) setConversationOpen(true);
+      console.log("Mascot clicked");
+      if (!introActive) {
+        if (setMascotPose) setMascotPose('wave');
+        if (setMascotEmotion) setMascotEmotion('happy');
+        
+        // Delay opening the chat panel slightly to allow click reaction waves
+        setTimeout(() => {
+          console.log("Opening chat");
+          console.log(isChatOpen);
+          setIsChatOpen(true);
+        }, 550);
+      }
     }}>
       {/* Reactive emotion glow */}
       <pointLight
         position={[0, 0, 0.5]}
-        color={isExcited ? '#D4AF37' : (isThinking ? '#49B8FF' : '#00f3ff')}
-        intensity={1.8} distance={4.5} decay={2}
+        color={isExcited ? BRAND_COLORS.accent : (isThinking ? BRAND_COLORS.primary : BRAND_COLORS.primary)}
+        intensity={glowIntensity} distance={4.5} decay={2}
       />
 
       <group ref={bodyBaseRef}>
@@ -649,38 +663,46 @@ export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourSt
           <mesh position={[0, 0.0, -0.17]} material={mats.chrome}>
             <boxGeometry args={[0.05, 0.3, 0.04]} />
           </mesh>
-
+ 
           {/* ── HEAD ── */}
           <group ref={headRef} position={[0, 0.44, 0]}>
             <mesh material={mats.ceramic} castShadow>
               <sphereGeometry args={[0.26, 32, 32]} />
             </mesh>
-            <mesh position={[0, 0.04, 0.08]} material={mats.cobalt}>
+            <mesh position={[0, 0.04, 0.25]} material={mats.cobalt}>
               <boxGeometry args={[0.4, 0.1, 0.34]} />
             </mesh>
-
+ 
             {/* Visor eyes */}
             <group position={[0, 0.04, 0.25]}>
-              {isCurious ? (<>
-                <mesh ref={leftEyeRef}  position={[-0.10, 0, 0]} material={mats.cyan}><torusGeometry args={[0.022, 0.006, 4, 16]} /></mesh>
-                <mesh ref={rightEyeRef} position={[ 0.10, 0, 0]} material={mats.cyan}><torusGeometry args={[0.022, 0.006, 4, 16]} /></mesh>
-              </>) : isExcited ? (<>
-                <mesh ref={leftEyeRef}  position={[-0.10, 0, 0]} material={mats.gold}><sphereGeometry args={[0.022, 8, 8]} /></mesh>
-                <mesh ref={rightEyeRef} position={[ 0.10, 0, 0]} material={mats.gold}><sphereGeometry args={[0.022, 8, 8]} /></mesh>
-              </>) : isThinking ? (<>
-                <mesh ref={leftEyeRef}  position={[-0.10, 0, 0]} rotation={[0,0, 0.35]} material={mats.cyan}><boxGeometry args={[0.04, 0.007, 0.01]} /></mesh>
-                <mesh ref={rightEyeRef} position={[ 0.10, 0, 0]} rotation={[0,0,-0.35]} material={mats.cyan}><boxGeometry args={[0.04, 0.007, 0.01]} /></mesh>
-              </>) : (<>
-                <mesh ref={leftEyeRef}  position={[-0.10, 0, 0]} material={mats.cyan}><boxGeometry args={[0.05, 0.008, 0.01]} /></mesh>
-                <mesh ref={rightEyeRef} position={[ 0.10, 0, 0]} material={mats.cyan}><boxGeometry args={[0.05, 0.008, 0.01]} /></mesh>
-              </>)}
+              {isCurious ? (
+                <>
+                  <mesh ref={leftEyeRef}  position={[-0.10, 0, 0]} material={mats.cyan}><torusGeometry args={[0.022, 0.006, 4, 16]} /></mesh>
+                  <mesh ref={rightEyeRef} position={[ 0.10, 0, 0]} material={mats.cyan}><torusGeometry args={[0.022, 0.006, 4, 16]} /></mesh>
+                </>
+              ) : isExcited ? (
+                <>
+                  <mesh ref={leftEyeRef}  position={[-0.10, 0, 0]} material={mats.gold}><sphereGeometry args={[0.022, 8, 8]} /></mesh>
+                  <mesh ref={rightEyeRef} position={[ 0.10, 0, 0]} material={mats.gold}><sphereGeometry args={[0.022, 8, 8]} /></mesh>
+                </>
+              ) : isThinking ? (
+                <>
+                  <mesh ref={leftEyeRef}  position={[-0.10, 0, 0]} rotation={[0,0, 0.35]} material={mats.cyan}><boxGeometry args={[0.04, 0.007, 0.01]} /></mesh>
+                  <mesh ref={rightEyeRef} position={[ 0.10, 0, 0]} rotation={[0,0,-0.35]} material={mats.cyan}><boxGeometry args={[0.04, 0.007, 0.01]} /></mesh>
+                </>
+              ) : (
+                <>
+                  <mesh ref={leftEyeRef}  position={[-0.10, 0, 0]} material={mats.cyan}><boxGeometry args={[0.05, 0.008, 0.01]} /></mesh>
+                  <mesh ref={rightEyeRef} position={[ 0.10, 0, 0]} material={mats.cyan}><boxGeometry args={[0.05, 0.008, 0.01]} /></mesh>
+                </>
+              )}
             </group>
-
+ 
             {/* Chrome ears */}
             <mesh position={[-0.26, 0, 0]} rotation={[0,0, Math.PI/2]} material={mats.chrome}><cylinderGeometry args={[0.06,0.06,0.04,16]} /></mesh>
             <mesh position={[ 0.26, 0, 0]} rotation={[0,0,-Math.PI/2]} material={mats.chrome}><cylinderGeometry args={[0.06,0.06,0.04,16]} /></mesh>
           </group>
-
+ 
           {/* ── ARMS ── */}
           <ArmSegment
             shoulderRef={LShoulderRef} elbowRef={LElbowRef} wristRef={LWristRef} side="L"
@@ -691,7 +713,7 @@ export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourSt
             fi={RFI} fm={RFM} fr={RFR} ft={RFT}
           />
         </group>
-
+ 
         {/* ── HOVER THRUSTER BASE ── */}
         <group ref={hoverBaseRef} position={[0, -0.52, 0]}>
           <mesh material={mats.chrome}  position={[0, 0.12, 0]}><cylinderGeometry args={[0.12, 0.10, 0.08, 16]} /></mesh>
@@ -701,7 +723,7 @@ export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourSt
           <mesh ref={exhaustRef} position={[0, -0.22, 0]}>
             <cylinderGeometry args={[0.05, 0.005, 0.3, 16, 1, true]} />
             <meshBasicMaterial
-              color="#00f3ff" transparent opacity={0.6}
+              color={BRAND_COLORS.primary} transparent opacity={0.6}
               blending={THREE.AdditiveBlending}
               side={THREE.DoubleSide} depthWrite={false}
             />

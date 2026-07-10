@@ -1,17 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useScrollSystem } from '../../context/ScrollContext';
 
 const RESPONSES = {
   welcome: "Welcome. I am Rightcon's AI Digital Architect companion. I monitor this session's structural logs, geomechanical data, and layout coordinates. Select a query or type below to explore our engineering philosophy.",
   project_general: "We are currently reviewing our Selected Monoliths. These are premium residential estates constructed in Bangalore and Mysuru, featuring deep geomechanical plinth raft layouts and Fe550D rebar matrices.",
-  project_emerald: "The Emerald Terraces is a 12,500 SQ. FT. Whitefield estate. It is engineered with a 900mm double-layer plinth raft foundation to isolate clay-soil moisture expansion, anchoring 32 columns of M40-grade concrete.",
+  project_emerald: "The Emerald Terraces is a 12,500 SQ. FT. Whitefield estate. It is engineered with a 900mm double-layer plinth raft foundation to isolate clay-soil moisture expansion, anchoring M40 columns.",
   project_mono: "The Koramangala Monolith in Bangalore features exposed-aggregate structural pillars cast inside custom resin moulds to eliminate joint lines. It boasts a 3.5m cantilever facade with zero support pillars.",
   project_villa: "The Jayalakshmipuram Villa in Mysuru is anchored using 12 seismic rock-bolt collars directly into shallow granite bedrock. Its stack-ventilated terracotta facade passive-cools the rooms naturally.",
   boq: "Our BOQ concrete estimator calculates slab metrics dynamically using IS_456:2000 standard algorithms. Sliders calculate core concrete volume (cubic yards) and Fe550D reinforcement steel weight (KG).",
   bim: "LOD 400 BIM coordination enables us to resolve utility line and structural rebar geometry collisions in a synchronized virtual twin model, ensuring zero mechanical clashes before site pour.",
   materials: "Rightcon maintains strict trace logs for all materials: hand-cut Travertine blocks, kiln-dried Burma Teak log timber, and Fe550D high-ductility steel rebar joints. We refuse cheap cosmetic veneers or hollow drywalls.",
   why: "We are Karnataka's only studio that anchors a 10-year transferable structural warranty directly in the property deed. Every single column is load-tested at day 7 and day 28 in certified labs.",
-  enquiry: "Once you submit an enquiry, our Indiranagar HQ registers the geotechnical coordinates of your site. A certified geomechanical estimator will establish contact within 24 hours to schedule standard penetration tests."
+  enquiry: "Once you submit an enquiry, our Indiranagar HQ registers the geotechnical coordinates of your site. A certified geomechanical estimator will establish contact within 24 hours to schedule standard penetration tests.",
+  nav_projects: "Telemetry scan confirms Completed Monoliths ledger. I can teleport you directly to the Projects page, or we can discuss specific Bangalore/Mysuru locations. Would you like me to take you there?",
+  nav_services: "Our design workflows, BOQ concrete calculator, and LOD 400 BIM twin coordination coordinates are loaded. Let's teleport to the Services page.",
+  careers_open: "We have active openings for Structural Design Coordinators, Geotechnical Auditors, MEP Clash Detailers, and Site Supervisors in Bangalore. Submit your CV on the Careers page.",
+  careers_culture: "At Rightcon Indiranagar HQ, we prioritize zero-tolerance structural execution, scientific bedrock compactions, and collaborative LOD 400 coordinate twinning.",
+  contact_speed: "Our certified engineers respond to all geomechanical site requests and estimate registrations within 24 hours.",
+  contact_audits: "You can book Standard Penetration Tests (SPT), soil compaction evaluations, exposed-aggregate mould coordination, or full BOQ concrete slabs validation.",
+  warranty_registered: "Yes, our 10-Year structural warranty deed is registered directly within the sale deed, anchored inside the property registration logs to protect valuation.",
+  concrete_crush: "We load-test M40 concrete cubes at 7 and 28 days in accredited ISO labs. We reject any batch scoring under 40 N/mm².",
+  package: "Rightcon coordinates three flagship execution packages: Standard Structural (Fe550D/M25), Premium Villa (Fe550D/M40 with BIM coordination), and Bespoke Monolith (Custom exposed concrete, granite bedrock rock-bolts, and Burma teak log trace registers). Type 'request an estimate' to book a geomechanical advisor audit.",
 };
 
 const SUGGESTION_POSES = {
@@ -24,7 +34,16 @@ const SUGGESTION_POSES = {
   bim: { pose: "inspect", emotion: "thinking" },
   materials: { pose: "inspect", emotion: "focused" },
   why: { pose: "confirmQuality", emotion: "friendly" },
-  enquiry: { pose: "pointing", emotion: "helpful" }
+  enquiry: { pose: "pointing", emotion: "helpful" },
+  nav_projects: { pose: "pointing", emotion: "friendly" },
+  nav_services: { pose: "pointing", emotion: "focused" },
+  careers_open: { pose: "wave", emotion: "friendly" },
+  careers_culture: { pose: "confident", emotion: "happy" },
+  contact_speed: { pose: "confirmQuality", emotion: "friendly" },
+  contact_audits: { pose: "pointing", emotion: "helpful" },
+  warranty_registered: { pose: "confirmQuality", emotion: "happy" },
+  concrete_crush: { pose: "inspect", emotion: "focused" },
+  package: { pose: "thinking", emotion: "focused" },
 };
 
 const KEYWORDS_DICTIONARY = [
@@ -105,127 +124,333 @@ const KEYWORDS_DICTIONARY = [
     response: "Our BOQ concrete estimator calculates slab metrics dynamically using IS_456:2000 standard algorithms. Sliders calculate core concrete volume (cubic yards) and Fe550D reinforcement steel weight (KG).",
     pose: "thinking",
     emotion: "focused"
+  },
+  {
+    keys: ["projects", "portfolio", "monoliths", "estates", "villas", "completed"],
+    response: "Opening the Completed Monoliths registry... Preparing coordinate teleportation.",
+    pose: "pointing",
+    emotion: "helpful",
+    navigate: "/projects"
+  },
+  {
+    keys: ["services", "estimator", "boq", "bim", "clash", "calculator", "estimation"],
+    response: "Loading BOQ estimators and MEP clash models... Redirecting to Services page.",
+    pose: "inspect",
+    emotion: "focused",
+    navigate: "/services"
+  },
+  {
+    keys: ["process", "workflow", "stages", "casting", "phases", "foundation"],
+    response: "Scanning 5-phase foundation and concrete pouring workflows... Redirecting to Process page.",
+    pose: "pointing",
+    emotion: "helpful",
+    navigate: "/process"
+  },
+  {
+    keys: ["materials", "teak", "travertine", "wood", "stone", "marble", "sourcing"],
+    response: "Retrieving hand-cut Travertine and Burma Teak logs registry... Navigating to Materials page.",
+    pose: "inspect",
+    emotion: "focused",
+    navigate: "/materials"
+  },
+  {
+    keys: ["about", "history", "philosophy", "legacy", "company", "team", "rightcon"],
+    response: "Accessing heritage logs and chief estimator details... Redirecting to About page.",
+    pose: "confident",
+    emotion: "happy",
+    navigate: "/about"
+  },
+  {
+    keys: ["contact", "book", "inquire", "appointment", "schedule", "audit", "office", "hq"],
+    response: "Opening geomechanical site coordinate mapping page... Redirecting to Contact page.",
+    pose: "pointing",
+    emotion: "helpful",
+    navigate: "/contact"
+  },
+  {
+    keys: ["warranty", "warranty deed", "10 year", "guarantee"],
+    response: "Loading 10-Year Transferable Warranty deed records... Navigating to Why Rightcon page.",
+    pose: "confirmQuality",
+    emotion: "happy",
+    navigate: "/why-rightcon"
+  },
+  {
+    keys: ["careers", "jobs", "hiring", "openings", "join"],
+    response: "Retrieving active structural and MEP coordinator job openings... Navigating to Careers board.",
+    pose: "wave",
+    emotion: "friendly",
+    navigate: "/careers"
+  },
+  {
+    keys: ["insights", "blog", "articles", "journal", "education"],
+    response: "Opening design education database and engineering articles... Redirecting to Insights page.",
+    pose: "pointing",
+    emotion: "curious",
+    navigate: "/insights"
+  },
+  {
+    keys: ["faq", "frequently asked questions", "questions"],
+    response: "Loading standard compliance, RERA, and concrete verification FAQs... Navigating to FAQs.",
+    pose: "pointing",
+    emotion: "curious",
+    navigate: "/faq"
+  },
+  {
+    keys: ["testimonials", "reviews", "clients", "owners"],
+    response: "Opening homeowner verification records and testimonials... Navigating to Testimonials page.",
+    pose: "wave",
+    emotion: "friendly",
+    navigate: "/testimonials"
+  },
+  {
+    keys: ["technology", "digital twin", "clash detection"],
+    response: "Opening BIM LOD 400 digital twin MEP clash coordinates... Navigating to Technology page.",
+    pose: "inspect",
+    emotion: "focused",
+    navigate: "/technology"
+  },
+  {
+    keys: ["client journey", "journey", "milestones"],
+    response: "Retrieving 5-stage geological compaction and handover protocols... Navigating to Client Journey.",
+    pose: "pointing",
+    emotion: "helpful",
+    navigate: "/client-journey"
+  },
+  {
+    keys: ["home", "homepage", "start", "exit"],
+    response: "Returning to coordinate entrance... Redirecting to Homepage.",
+    pose: "wave",
+    emotion: "friendly",
+    navigate: "/"
+  },
+  {
+    keys: ["price", "cost", "budget"],
+    response: "Our custom villa executions range from ₹3,500 to ₹5,500 per sq. ft., depending on foundations, structural spans, and custom formworks. You can use our BOQ concrete calculator in the Services page or request an audit.",
+    pose: "thinking",
+    emotion: "focused"
+  },
+  {
+    keys: ["location", "address", "office", "indiranagar"],
+    response: "Our design headquarters is located in Indiranagar, Bangalore. We coordinate projects across Bangalore Urban, Bangalore Rural, and Mysuru. You can submit details on our Contact page.",
+    pose: "pointing",
+    emotion: "friendly"
+  },
+  {
+    keys: ["phone", "email", "whatsapp"],
+    response: "Reach our Indiranagar HQ at +91 98451 00000 or email info@rightcon.in. You can also message our estimators on WhatsApp at +91 98451 00000.",
+    pose: "wave",
+    emotion: "friendly"
+  },
+  {
+    keys: ["package", "packages", "pricing"],
+    response: "Rightcon coordinates three flagship execution packages: Standard Structural (Fe550D/M25), Premium Villa (Fe550D/M40 with BIM coordination), and Bespoke Monolith (Custom exposed concrete, granite bedrock rock-bolts, and Burma teak log trace registers). Type 'request an estimate' to book a geomechanical advisor audit.",
+    pose: "thinking",
+    emotion: "focused"
   }
 ];
 
 export default function ConversationPanel() {
   const { 
-    conversationOpen, 
-    setConversationOpen,
+    isChatOpen, 
+    setIsChatOpen,
     activeScene,
     hoveredProject,
     hoveredService,
     setMascotPose,
-    setMascotEmotion
+    setMascotEmotion,
+    setMascotSpeech,
+    menuOpen,
   } = useScrollSystem();
 
-  const [activeText, setActiveText] = useState(RESPONSES.welcome);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [messages, setMessages] = useState([]);
   const [displayText, setDisplayText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [customQuery, setCustomQuery] = useState("");
-  const textEndRef = useRef(null);
+  
+  const chatContainerRef = useRef(null);
+  const inputRef = useRef(null);
 
-  // Typewriter effect
+  const [shouldRender, setShouldRender] = useState(isChatOpen);
+
   useEffect(() => {
-    if (!conversationOpen) return;
-    
+    if (isChatOpen) {
+      setShouldRender(true);
+    } else {
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+      }, 650);
+      return () => clearTimeout(timer);
+    }
+  }, [isChatOpen]);
+
+  // Helper to map route welcome messages
+  const getWelcomeMessage = (path) => {
+    switch (path) {
+      case '/services':
+        return "Welcome to our Services section. I am here to guide you through our structural estimators, LOD 400 BIM twin checks, and geological penetration logs.";
+      case '/about':
+        return "Welcome to our Heritage logs. Audit our creator's mandates, Indiranagar HQ telemetry, and geological values.";
+      case '/projects':
+        return "These are our Completed Monoliths in Bangalore and Mysuru. We build with M40 concrete targets and Fe550D reinforcement grids.";
+      case '/process':
+        return "This is our step-by-step foundation and concrete casting pipeline. I monitor Standard Penetration Tests, compaction parameters, and structural handovers.";
+      case '/materials':
+        return "Behold our raw materials registry. We source direct hand-cut Italian Travertine and high-density Burma Teak.";
+      case '/careers':
+        return "Welcome to our Careers department. We are actively hiring structural coordinators, supervisors, and MEP estimators in Bangalore.";
+      case '/contact':
+        return "Ready to register site coordinates? Our Indiranagar HQ registers compaction tests and penetrations.";
+      case '/why-rightcon':
+        return "Audit our structural security registers. We register a 10-Year transferable warranty deed inside the property deed, load-testing columns at day 7 and 28.";
+      case '/technology':
+        return "This is our BIM LOD 400 coordination deck. We scan mechanical, structural, and plumbing conduit coordinates in virtual twin systems.";
+      case '/client-journey':
+        return "This is the 5-stage geological advisor map. We guide you from Standard Penetration Test compactions to final blueprint handover.";
+      case '/testimonials':
+        return "Read verified homeowner validations and structural certifications directly from Bangalore estates.";
+      case '/faq':
+        return "Have compliance or concrete questions? Ask me about Karnataka RERA, Fe550D steel codes, slab depth calculations, or bedrock compactions.";
+      case '/insights':
+        return "Read our architectural insights, design guides, and geotechnical blogs.";
+      default:
+        return "Welcome. I am Rightcon's AI Digital Architect companion. I monitor this session's structural logs, geomechanical data, and layout coordinates.";
+    }
+  };
+
+  const getPageName = (path) => {
+    const formatted = path.substring(1).replace('-', ' ');
+    return formatted ? formatted.toUpperCase() : "HOME";
+  };
+
+  // Bot response typewriter animator
+  const triggerBotResponse = (responseText, matchedEntry = null) => {
     setIsTyping(true);
     setDisplayText("");
     
     let index = 0;
-    const text = activeText;
-    const speed = 22; // ms per char (snappy yet readable)
+    const speed = 18; // Very snappy and high-end
     
+    // Answering gesture
+    setMascotPose('inspect');
+    setMascotEmotion('focused');
+
     const interval = setInterval(() => {
-      setDisplayText((prev) => prev + text.charAt(index));
+      setDisplayText((prev) => prev + responseText.charAt(index));
       index++;
-      if (index >= text.length) {
+      if (index >= responseText.length) {
         clearInterval(interval);
         setIsTyping(false);
+        setMessages((prev) => [...prev, { sender: 'bot', text: responseText }]);
+        setDisplayText("");
+        
+        // Final pose reaction (Answering/Celebration/Waiting)
+        if (matchedEntry && matchedEntry.pose) {
+          setMascotPose(matchedEntry.pose);
+          setMascotEmotion(matchedEntry.emotion || 'calm');
+        } else {
+          setMascotPose('confirmQuality'); // Thumbs up
+          setMascotEmotion('happy');
+          setTimeout(() => {
+            setMascotPose('idle');
+            setMascotEmotion('calm');
+          }, 2000);
+        }
       }
     }, speed);
+  };
 
-    return () => clearInterval(interval);
-  }, [activeText, conversationOpen]);
-
-  // Scroll to bottom of message when text updates
+  // Initialize page-welcome on first panel open
   useEffect(() => {
-    if (textEndRef.current) {
-      textEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (isChatOpen && messages.length === 0) {
+      const welcome = getWelcomeMessage(location.pathname);
+      triggerBotResponse(welcome);
     }
-  }, [displayText]);
+  }, [isChatOpen]);
 
-  // Mascot attentive typing focus pose
+  // Handle page shifts in active chat (Conversation Memory)
   useEffect(() => {
-    if (!conversationOpen) return;
-    if (customQuery.trim().length > 0 && !isTyping) {
-      setMascotPose('attentiveForm');
+    if (isChatOpen && messages.length > 0) {
+      const pageName = getPageName(location.pathname);
+      const syncNote = `Telemetry synchronized with ${pageName} coordinates. Ask me anything about this section.`;
+      triggerBotResponse(syncNote);
+    }
+  }, [location.pathname]);
+
+  // Auto-focus input after transition completes
+  useEffect(() => {
+    if (isChatOpen) {
+      const timer = setTimeout(() => {
+        if (inputRef.current) inputRef.current.focus();
+      }, 650);
+      return () => clearTimeout(timer);
+    }
+  }, [isChatOpen]);
+
+  // Mascot typing/listening pose controller
+  useEffect(() => {
+    if (!isChatOpen) return;
+    
+    if (isTyping) {
+      // Handled by triggerBotResponse
+    } else if (customQuery.trim().length > 0) {
+      setMascotPose('attentiveForm'); // Listening / user typing indicator
       setMascotEmotion('focused');
-    } else if (customQuery.trim().length === 0 && !isTyping) {
+    } else {
       setMascotPose('idle');
       setMascotEmotion('calm');
     }
-  }, [customQuery, conversationOpen, isTyping, setMascotPose, setMascotEmotion]);
+  }, [customQuery, isTyping, isChatOpen]);
 
-  if (!conversationOpen) return null;
-
-  // Build context-aware prompts based on what the user is currently viewing
-  const getPrompts = () => {
-    const list = [];
-    
-    if (activeScene === 3) {
-      if (hoveredProject === 0) {
-        list.push({ label: "Tell me about The Emerald Terraces", key: "project_emerald" });
-      } else if (hoveredProject === 1) {
-        list.push({ label: "Tell me about Koramangala Monolith", key: "project_mono" });
-      } else if (hoveredProject === 2) {
-        list.push({ label: "Tell me about Jayalakshmipuram Villa", key: "project_villa" });
-      } else {
-        list.push({ label: "Tell me about these projects", key: "project_general" });
-      }
-    } else if (activeScene === 5) {
-      if (hoveredService === 0) {
-        list.push({ label: "Explain the BOQ concrete estimator", key: "boq" });
-      } else if (hoveredService === 1) {
-        list.push({ label: "Explain LOD 400 Clash Detection", key: "bim" });
-      } else if (hoveredService === 2) {
-        list.push({ label: "Explain Material Providence logs", key: "materials" });
-      } else {
-        list.push({ label: "Explain BOQ slabs & coordination", key: "boq" });
-      }
+  // Scroll viewport when content changes
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
+  }, [displayText, messages]);
 
-    // Default static prompts
-    list.push({ label: "Why choose Rightcon?", key: "why" });
-    list.push({ label: "What materials do you use?", key: "materials" });
-    list.push({ label: "What happens after I inquire?", key: "enquiry" });
-
-    // Filter duplicates
-    const unique = [];
-    const seen = new Set();
-    list.forEach(item => {
-      if (!seen.has(item.key)) {
-        seen.add(item.key);
-        unique.push(item);
-      }
-    });
-
-    return unique.slice(0, 3); // Return max 3 contextually relevant prompts
-  };
-
-  const handleSelectPrompt = (key) => {
+  const handleChipClick = (label, key) => {
     if (isTyping) return;
-    setActiveText(RESPONSES[key] || RESPONSES.welcome);
-    const sp = SUGGESTION_POSES[key] || SUGGESTION_POSES.welcome;
-    setMascotPose(sp.pose);
-    setMascotEmotion(sp.emotion);
+    
+    // Add user message
+    setMessages(prev => [...prev, { sender: 'user', text: label }]);
+    
+    // Match response
+    const matched = KEYWORDS_DICTIONARY.find(entry => entry.keys.includes(key)) || {
+      response: RESPONSES[key] || "Geotechnical telemetry query unresolved.",
+      pose: "pointing",
+      emotion: "helpful"
+    };
+
+    triggerBotResponse(matched.response, matched);
+
+    // Coordinate redirect
+    const routeMap = {
+      nav_process: '/process',
+      nav_contact: '/contact',
+      nav_projects: '/projects',
+    };
+    if (routeMap[key]) {
+      setTimeout(() => {
+        navigate(routeMap[key]);
+        setIsChatOpen(false);
+      }, 2000);
+    }
   };
 
   const handleCustomSubmit = (e) => {
     e.preventDefault();
     if (isTyping || !customQuery.trim()) return;
 
-    const queryLower = customQuery.toLowerCase().trim();
+    const query = customQuery;
+    setCustomQuery("");
+
+    // Add user message
+    setMessages(prev => [...prev, { sender: 'user', text: query }]);
+
+    const queryLower = query.toLowerCase().trim();
     let matched = null;
 
     for (const entry of KEYWORDS_DICTIONARY) {
@@ -239,9 +464,7 @@ export default function ConversationPanel() {
     }
 
     if (matched) {
-      setActiveText(matched.response);
-      setMascotPose(matched.pose);
-      setMascotEmotion(matched.emotion);
+      triggerBotResponse(matched.response, matched);
     } else {
       const fallbacks = [
         "I've logged your query regarding that coordinate layer. Try asking about: RERA, 10-Year Warranty, M40 Concrete, or LOD 400 BIM Clashes.",
@@ -249,85 +472,125 @@ export default function ConversationPanel() {
         "Query unresolved. I specialize in Rightcon's structural blueprints and geomechanical auditing. Try asking about 'foundations', 'cantilever', or 'Mysuru villa'."
       ];
       const randomFallback = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-      setActiveText(randomFallback);
-      setMascotPose('shrug');
-      setMascotEmotion('curious');
+      triggerBotResponse(randomFallback);
     }
-
-    setCustomQuery("");
   };
 
   const handleClose = () => {
-    setConversationOpen(false);
-    setMascotPose('idle');
-    setMascotEmotion('calm');
+    setMascotPose('wave');
+    setMascotEmotion('friendly');
+    setIsChatOpen(false);
   };
 
-  return (
-    <div className="fixed bottom-28 right-8 md:right-12 z-[100] w-[90%] max-w-sm glass-panel rounded-sm p-space-24 shadow-[0_32px_80px_rgba(0,0,0,0.35)] flex flex-col gap-space-16 animate-fade-in font-sans theme-dark text-ivory select-none">
-      
-      {/* Visual elegant bronze line at top */}
-      <div className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-bronze/40 to-transparent"></div>
+  // Suggestion chips (Show only if conversation has not fully progressed)
+  const showChips = messages.length <= 1 && !isTyping;
+  const CHIPS = [
+    { label: "🏡 Tell me about Rightcon", key: "why" },
+    { label: "🏗 Show your construction process", key: "nav_process" },
+    { label: "📐 Explain BOQ", key: "boq" },
+    { label: "🏠 Recommend the right package", key: "package" },
+    { label: "💰 Request an estimate", key: "enquiry" },
+    { label: "📞 Book a consultation", key: "nav_contact" },
+    { label: "📍 View recent projects", key: "nav_projects" }
+  ];
 
-      {/* Header info */}
+  if (!shouldRender) return null;
+
+  return (
+    <div 
+      className={`fixed z-[1200] flex flex-col gap-4 font-sans theme-dark text-white select-none transition-all duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)]
+        bottom-0 left-0 right-0 w-full rounded-t-none p-6 bg-charcoal/98 border-t border-white/10
+        md:bottom-28 md:right-12 md:left-auto md:w-[380px] md:rounded-none md:p-space-24 md:border md:bg-charcoal/90 md:backdrop-blur-md md:shadow-[0_32px_80px_rgba(0,0,0,0.35)]
+        ${
+          isChatOpen 
+            ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' 
+            : 'opacity-0 translate-y-8 scale-95 pointer-events-none'
+        }
+      `}
+    >
+      {/* Top elegance accent line */}
+      <div className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-[var(--color-brand-blue)]/40 to-transparent"></div>
+
+      {/* Header Info */}
       <div className="flex justify-between items-start border-b border-white/10 pb-space-8">
         <div className="flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full bg-bronze animate-pulse"></div>
-          <span className="h-label-mono text-bronze font-bold">
+          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-blue)] animate-pulse"></div>
+          <span className="h-label-mono text-[var(--color-brand-blue)] font-bold">
             RIGHTCON AI // COMPANION ONLINE
           </span>
         </div>
         <button 
           onClick={handleClose}
-          className="hover:text-bronze font-mono text-[9px] uppercase tracking-wider transition-colors cursor-pointer text-white/50 border-none bg-transparent"
+          className="hover:text-[var(--color-brand-blue)] font-sans text-[10px] uppercase tracking-wider transition-colors cursor-pointer text-white/50 border-none bg-transparent"
         >
           Close ✕
         </button>
       </div>
 
-      {/* Dialog viewport */}
-      <div className="flex flex-col min-h-[110px] max-h-[180px] overflow-y-auto pr-1">
-        <p className="text-[12.5px] font-sans font-light leading-relaxed text-ivory/95">
-          {displayText}
-          {isTyping && (
-            <span className="inline-block w-1.5 h-3 bg-bronze ml-1 animate-pulse"></span>
-          )}
-        </p>
-        <div ref={textEndRef} />
-      </div>
-
-      {/* Dynamic interactive prompts */}
-      <div className="flex flex-col gap-2 border-t border-white/10 pt-space-12">
-        <span className="h-label-mono mb-1">
-          SUGGESTED QUERIES:
-        </span>
-        {getPrompts().map((prompt, i) => (
-          <button
-            key={i}
-            disabled={isTyping}
-            onClick={() => handleSelectPrompt(prompt.key)}
-            className={`w-full text-left py-2 px-3 border border-white/10 hover:border-bronze/40 rounded-sm font-mono text-[9px] tracking-wide text-ivory/70 hover:text-bronze transition-all bg-white/[0.01] hover:bg-white/[0.02] cursor-pointer ${
-              isTyping ? 'opacity-40 cursor-default' : ''
-            }`}
-          >
-            &gt; {prompt.label}
-          </button>
+      {/* Chat Messages Viewport */}
+      <div ref={chatContainerRef} className="flex flex-col min-h-[140px] max-h-[220px] overflow-y-auto pr-1">
+        {messages.map((msg, i) => (
+          <div key={i} className={`flex flex-col gap-1 mb-3.5 animate-fade-in ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
+            <span className="font-sans text-[7.5px] text-accent/80 uppercase tracking-widest font-bold">
+              {msg.sender === 'user' ? 'VISITOR // INPUT' : 'ARCHITECT // AI'}
+            </span>
+            <div className={`p-2.5 rounded-none max-w-[85%] text-[11px] font-sans font-light leading-relaxed ${
+              msg.sender === 'user' 
+                ? 'bg-primary/10 border border-primary/30 text-white' 
+                : 'bg-white/[0.02] border border-white/10 text-white/95'
+            }`}>
+              {msg.text}
+            </div>
+          </div>
         ))}
+        {isTyping && (
+          <div className="flex flex-col gap-1 mb-3.5 items-start">
+            <span className="font-sans text-[7.5px] text-accent/80 uppercase tracking-widest font-bold">
+              ARCHITECT // TELEMETRY FEED
+            </span>
+            <div className="p-2.5 rounded-none max-w-[85%] text-[11px] font-sans font-light leading-relaxed bg-white/[0.02] border border-white/10 text-white/95">
+              {displayText}
+              <span className="inline-block w-1.5 h-3 bg-[var(--color-brand-blue)] ml-1 animate-pulse"></span>
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Custom query input form */}
-      <form onSubmit={handleCustomSubmit} className="flex gap-2 border-t border-white/10 pt-3">
+      {/* Interactive suggested chips */}
+      {showChips && (
+        <div className="flex flex-col gap-2 border-t border-white/10 pt-3.5">
+          <span className="font-sans text-[8px] text-accent/80 uppercase tracking-wider mb-1 font-bold">
+            RECOMMENDED AUDITS:
+          </span>
+          <div className="flex flex-wrap gap-1.5 max-h-[85px] overflow-y-auto pr-0.5 font-sans">
+            {CHIPS.map((chip, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleChipClick(chip.label, chip.key)}
+                className="py-1 px-2 border border-white/10 hover:border-primary/40 rounded-none font-sans text-[9px] text-white/70 hover:text-primary hover:bg-white/[0.02] transition-all cursor-pointer whitespace-nowrap"
+              >
+                {chip.label.split(' ')[0]} {chip.label.substring(chip.label.indexOf(' ') + 1)}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Custom input form */}
+      <form onSubmit={handleCustomSubmit} className="flex gap-2 border-t border-white/10 pt-3.5">
         <input 
+          ref={inputRef}
           type="text" 
           value={customQuery}
           onChange={(e) => setCustomQuery(e.target.value)}
-          placeholder="Ask a custom question..."
-          className="flex-1 bg-charcoal/40 border border-white/10 hover:border-white/20 focus:border-bronze/60 focus:outline-none rounded-sm px-3 py-1.5 font-mono text-[9px] text-ivory placeholder-white/30 transition-all"
+          placeholder={isTyping ? "AI Architect is answering..." : "Ask a custom question..."}
+          disabled={isTyping}
+          className="flex-1 bg-charcoal/40 border border-white/10 hover:border-white/20 focus:border-primary/60 focus:outline-none rounded-none px-3 py-1.5 font-sans text-[11px] text-white placeholder-white/30 transition-all disabled:opacity-50"
         />
         <button 
           type="submit" 
           disabled={isTyping || !customQuery.trim()}
-          className={`px-3 bg-bronze/10 border border-bronze/35 hover:bg-bronze hover:text-charcoal font-mono text-[9.5px] font-bold text-bronze uppercase tracking-widest transition-all rounded-sm cursor-pointer ${
+          className={`px-3 bg-primary/10 border border-primary/35 hover:bg-primary hover:text-white font-sans text-[10px] font-bold text-primary uppercase tracking-widest transition-all rounded-none cursor-pointer ${
             isTyping || !customQuery.trim() ? 'opacity-40 cursor-default' : ''
           }`}
         >
@@ -335,12 +598,11 @@ export default function ConversationPanel() {
         </button>
       </form>
 
-      {/* Coordinates reference log */}
-      <div className="flex justify-between h-label-mono text-[7px] border-t border-white/10 pt-space-8 text-ivory/40">
+      {/* Reference logs code */}
+      <div className="flex justify-between h-label-mono text-[7px] border-t border-white/10 pt-space-8 text-white/30 font-bold">
         <span>SESSION: RC-ARCH-X</span>
         <span>SYS_LOG: ACTIVE</span>
       </div>
-
     </div>
   );
 }

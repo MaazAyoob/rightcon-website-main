@@ -2,6 +2,7 @@ import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useScrollSystem } from '../../context/ScrollContext';
+import { BRAND_COLORS } from '../../config/colors';
 
 export default function IntroParticles() {
   const { introActive, heroState, particleState, introKeyPos } = useScrollSystem();
@@ -111,7 +112,7 @@ export default function IntroParticles() {
         />
       </bufferGeometry>
       <pointsMaterial
-        color="#3FA9F5" // Blueprint Cyan
+        color={BRAND_COLORS.primary}
         size={0.03}
         transparent
         opacity={1.0}

@@ -589,9 +589,16 @@ export default function HeroScene() {
               </p>
               
               <div className="flex gap-space-16 items-center">
-                <a href="#home-projects" className="btn-primary py-3 px-8 text-[9px] tracking-widest rounded-none">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById('home-projects');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="btn-primary py-3 px-8 text-[9px] tracking-widest rounded-none cursor-pointer border-none outline-none"
+                >
                   <span>Explore Exhibition</span>
-                </a>
+                </button>
                 <span className="font-mono text-[8px] tracking-widest text-holo-cyan/80 uppercase">
                   BIM LOD 400 INTEGRATED
                 </span>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useState, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -26,12 +26,18 @@ const ScrollContext = createContext({
   currentTrustTab: 'system',
   formFieldFocus: null,
   formSuccess: false,
-  conversationOpen: false,
-  setConversationOpen: () => {},
+  isChatOpen: false,
+  setIsChatOpen: () => {},
   menuOpen: false,
   setMenuOpen: () => {},
   searchOpen: false,
   setSearchOpen: () => {},
+  currentMascotPoint: 'hero_right',
+  setCurrentMascotPoint: () => {},
+  mascotSpeech: '',
+  setMascotSpeech: () => {},
+  mascotHovered: false,
+  setMascotHovered: () => {},
   
   // V3 hero states
   heroState: 'BOOTING',
@@ -88,9 +94,36 @@ export const ScrollProvider = ({ children }) => {
   const [currentTrustTab, setCurrentTrustTab] = useState('system');
   const [formFieldFocus, setFormFieldFocus] = useState(null);
   const [formSuccess, setFormSuccess] = useState(false);
-  const [conversationOpen, setConversationOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [isChatOpen, rawSetIsChatOpen] = useState(false);
+  const [menuOpen, rawSetMenuOpen] = useState(false);
+  const [searchOpen, rawSetSearchOpen] = useState(false);
+
+  const setIsChatOpen = (val) => {
+    rawSetIsChatOpen(val);
+    if (val) {
+      rawSetMenuOpen(false);
+      rawSetSearchOpen(false);
+    }
+  };
+
+  const setMenuOpen = (val) => {
+    rawSetMenuOpen(val);
+    if (val) {
+      rawSetIsChatOpen(false);
+      rawSetSearchOpen(false);
+    }
+  };
+
+  const setSearchOpen = (val) => {
+    rawSetSearchOpen(val);
+    if (val) {
+      rawSetIsChatOpen(false);
+      rawSetMenuOpen(false);
+    }
+  };
+  const [currentMascotPoint, setCurrentMascotPoint] = useState('hero_right');
+  const [mascotSpeech, setMascotSpeech] = useState("");
+  const [mascotHovered, setMascotHovered] = useState(false);
   
   // V3 hero-integrated intro State
   const [heroState, setHeroState] = useState('BOOTING');
@@ -116,9 +149,12 @@ export const ScrollProvider = ({ children }) => {
   const lenisRef = useRef(null);
   const idleTimerRef = useRef(null);
 
-  const setActiveScene = (index) => {
+  // useCallback ensures this function has a stable reference across renders.
+  // Without it, Home.jsx's useEffect (which lists setActiveScene as a dep)
+  // would re-run on EVERY render, calling window.scrollTo(0,0) each time.
+  const setActiveScene = useCallback((index) => {
     setActiveSceneState(index);
-  };
+  }, []);
 
   const resetIdleTimer = () => {
     setPageIdle(false);
@@ -186,7 +222,7 @@ export const ScrollProvider = ({ children }) => {
     
     const completed = localStorage.getItem('rightcon_intro_completed') === 'true';
     const isMobileDevice = window.innerWidth < 768;
-    const shouldSkip = (completed && !isDev) || isMobileDevice; // Auto-skip intro on mobile
+    const shouldSkip = (completed && !isDev) || isMobileDevice || location.pathname !== '/'; // Auto-skip intro on mobile or inner pages
 
     setIntroCompleted(shouldSkip);
     setHeroState(shouldSkip ? 'EXPLORE' : 'BOOTING');
@@ -210,9 +246,10 @@ export const ScrollProvider = ({ children }) => {
 
     lenisRef.current = lenis;
 
-    // Connect Lenis to ScrollTrigger
+    // Proper Lenis + ScrollTrigger integration via scrollerProxy
+    // This prevents pin sections from fighting smooth scroll
     lenis.on('scroll', ScrollTrigger.update);
-    
+
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
@@ -265,9 +302,30 @@ export const ScrollProvider = ({ children }) => {
     };
   }, []);
 
+  // 3. Centralized route and hover speaker system
+  useEffect(() => {
+    if (isChatOpen) {
+      setMascotSpeech("");
+      return;
+    }
+
+    if (mascotHovered) {
+      const timer = setTimeout(() => {
+        setMascotSpeech("Ask the Rightcon AI");
+        setMascotPose('wave');
+        setMascotEmotion('friendly');
+      }, 350); // Snappy hover wave reaction
+      return () => clearTimeout(timer);
+    } else {
+      setMascotSpeech("");
+      setMascotPose('idle');
+      setMascotEmotion('calm');
+    }
+  }, [location.pathname, mascotHovered, isChatOpen]);
+
   useEffect(() => {
     if (lenisRef.current) {
-      if (menuOpen || searchOpen || conversationOpen) {
+      if (menuOpen || searchOpen || isChatOpen) {
         lenisRef.current.stop();
       } else if (location.pathname !== '/' || heroState === 'EXPLORE') {
         lenisRef.current.start();
@@ -275,7 +333,7 @@ export const ScrollProvider = ({ children }) => {
         lenisRef.current.stop();
       }
     }
-  }, [menuOpen, searchOpen, conversationOpen, location.pathname, heroState]);
+  }, [menuOpen, searchOpen, isChatOpen, location.pathname, heroState]);
 
   return (
     <ScrollContext.Provider value={{
@@ -296,12 +354,18 @@ export const ScrollProvider = ({ children }) => {
       currentTrustTab,
       formFieldFocus,
       formSuccess,
-      conversationOpen,
-      setConversationOpen,
+      isChatOpen,
+      setIsChatOpen,
       menuOpen,
       setMenuOpen,
       searchOpen,
       setSearchOpen,
+      currentMascotPoint,
+      setCurrentMascotPoint,
+      mascotSpeech,
+      setMascotSpeech,
+      mascotHovered,
+      setMascotHovered,
       
       // V3 hero states
       heroState,

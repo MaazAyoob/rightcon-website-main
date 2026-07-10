@@ -45,10 +45,10 @@ export default function Home() {
     return () => {
       triggers.forEach(t => t.kill());
     };
-  }, [setActiveScene, setMascotPose]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div ref={pageRef} className="w-full flex flex-col bg-[#F5F2EB] selection:bg-[#B58B45] selection:text-[#F5F2EB]">
+    <div ref={pageRef} className="w-full flex flex-col bg-white selection:bg-primary selection:text-white">
       
       {/* Scene 1: Hero */}
       <div className="journey-scene w-full">

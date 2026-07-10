@@ -81,7 +81,7 @@ export default function ServiceDetail() {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center font-mono text-xs text-white bg-charcoal">
         <span>[ERROR: SERVICE_NOT_FOUND]</span>
-        <Link to="/services" className="underline mt-4 text-bronze uppercase">Back to Index</Link>
+        <Link to="/services" className="underline mt-4 text-accent uppercase">Back to Index</Link>
       </div>
     );
   }
@@ -90,7 +90,7 @@ export default function ServiceDetail() {
   const relatedProjects = PROJECTS_DATA.slice(0, 2);
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-space-96 select-none font-sans">
+    <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-space-96 select-none font-sans">
       
       {/* BREADCRUMBS */}
       <div className="px-space-24 md:px-space-40 max-w-7xl mx-auto w-full z-10">
@@ -99,7 +99,7 @@ export default function ServiceDetail() {
           <span>/</span>
           <Link to="/services" className="breadcrumb-link">SERVICES</Link>
           <span>/</span>
-          <span className="text-bronze font-semibold">{service.category.toUpperCase()}</span>
+          <span className="text-accent font-semibold">{service.category.toUpperCase()}</span>
           <span>/</span>
           <span className="text-white/40">{service.title.toUpperCase()}</span>
         </nav>
@@ -111,7 +111,7 @@ export default function ServiceDetail() {
           {service.title}
         </h1>
         
-        <div className="w-full aspect-[21/9] overflow-hidden border border-white/10 rounded-sm mt-space-40 relative bg-graphite shadow-2xl">
+        <div className="w-full aspect-[21/9] overflow-hidden border border-white/10 rounded-none mt-space-40 relative bg-charcoal shadow-2xl">
           <img 
             src={optimizeUnsplashUrl(service.heroImage, isMobile ? 800 : 1600, isMobile ? 70 : 85)} 
             alt={service.title} 
@@ -129,7 +129,7 @@ export default function ServiceDetail() {
             
             {/* Target Client */}
             <div className="flex flex-col gap-space-16 border-b border-white/5 pb-8">
-              <span className="h-label-mono text-bronze">[WHO IS THIS SERVICE FOR?]</span>
+              <span className="h-label-mono text-accent">[WHO IS THIS SERVICE FOR?]</span>
               <p className="font-display text-xl md:text-2xl font-light leading-relaxed text-white">
                 {consult.target}
               </p>
@@ -137,8 +137,8 @@ export default function ServiceDetail() {
 
             {/* Problems Solved */}
             <div className="flex flex-col gap-space-16">
-              <span className="h-label-mono text-bronze">[WHAT PROBLEMS DOES IT SOLVE?]</span>
-              <p className="font-sans text-xs md:text-sm text-ivory/80 leading-relaxed font-light">
+              <span className="h-label-mono text-accent">[WHAT PROBLEMS DOES IT SOLVE?]</span>
+              <p className="font-sans text-xs md:text-sm text-white/80 leading-relaxed font-light">
                 {consult.problems}
               </p>
             </div>
@@ -150,16 +150,16 @@ export default function ServiceDetail() {
             
             {/* Execution */}
             <div className="flex flex-col gap-space-16 border-b border-white/5 pb-8">
-              <span className="h-label-mono text-bronze">[HOW DOES RIGHTCON EXECUTE IT?]</span>
-              <p className="font-sans text-xs md:text-sm text-ivory/80 leading-relaxed font-light">
+              <span className="h-label-mono text-accent">[HOW DOES RIGHTCON EXECUTE IT?]</span>
+              <p className="font-sans text-xs md:text-sm text-white/80 leading-relaxed font-light">
                 {consult.execution}
               </p>
             </div>
 
             {/* The Difference */}
             <div className="flex flex-col gap-space-16">
-              <span className="h-label-mono text-bronze">[WHY IS RIGHTCON DIFFERENT?]</span>
-              <p className="font-sans text-xs md:text-sm text-ivory/80 leading-relaxed font-light">
+              <span className="h-label-mono text-accent">[WHY IS RIGHTCON DIFFERENT?]</span>
+              <p className="font-sans text-xs md:text-sm text-white/80 leading-relaxed font-light">
                 {consult.difference}
               </p>
             </div>
@@ -170,21 +170,21 @@ export default function ServiceDetail() {
       </section>
 
       {/* 3. DELIVERABLES & MOCK CAD BLUEPRINTS */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-graphite relative">
+      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-center relative z-10">
           
           {/* Deliverables list */}
           <div className="col-span-12 lg:col-span-6 flex flex-col gap-space-32">
-            <span className="h-label-mono text-bronze">[02 // WHAT WILL THE CLIENT RECEIVE?]</span>
+            <span className="h-label-mono text-accent">[02 // WHAT WILL THE CLIENT RECEIVE?]</span>
             <h3 className="font-display text-2xl font-light text-white uppercase tracking-wide">Documented Deliverables</h3>
             
             <div className="flex flex-col gap-space-16">
               {service.deliverables.map((del, i) => (
-                <div key={i} className="flex gap-space-16 items-center bg-charcoal/50 border border-white/5 p-space-16 rounded-sm">
-                  <span className="font-mono text-xs text-bronze font-bold">0{i+1}</span>
-                  <span className="font-sans text-xs text-ivory/80 font-light">{del.toUpperCase()}</span>
+                <div key={i} className="flex gap-space-16 items-center bg-charcoal/50 border border-white/5 p-space-16 rounded-none">
+                  <span className="font-mono text-xs text-accent font-bold">0{i+1}</span>
+                  <span className="font-sans text-xs text-white/80 font-light">{del.toUpperCase()}</span>
                 </div>
               ))}
             </div>
@@ -192,18 +192,18 @@ export default function ServiceDetail() {
 
           {/* Blueprint mockup */}
           <div className="col-span-12 lg:col-span-6 flex flex-col gap-space-32">
-            <span className="h-label-mono text-bronze">[CAD SCHEMATIC]</span>
+            <span className="h-label-mono text-accent">[CAD SCHEMATIC]</span>
             
-            <div className="w-full aspect-[4/3] border border-white/10 p-space-24 flex items-center justify-center bg-charcoal rounded-sm overflow-hidden relative">
+            <div className="w-full aspect-[4/3] border border-white/10 p-space-24 flex items-center justify-center bg-charcoal rounded-none overflow-hidden relative">
               <div className="absolute inset-0 blueprint-grid opacity-10"></div>
               <svg className="w-full h-full stroke-white/20 fill-none stroke-[0.5]" viewBox="0 0 100 100">
                 <rect x="10" y="10" width="80" height="80" />
                 <line x1="10" y1="10" x2="90" y2="90" className="blueprint-line" />
                 <line x1="90" y1="10" x2="10" y2="90" className="blueprint-line" />
-                <circle cx="50" cy="50" r="25" className="stroke-bronze/40" />
-                <rect x="30" y="30" width="40" height="40" className="stroke-[#2D4E73]/20" />
+                <circle cx="50" cy="50" r="25" className="stroke-accent/40" />
+                <rect x="30" y="30" width="40" height="40" className="stroke-primary/20" />
               </svg>
-              <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2.5 py-0.5 font-mono text-[7px] text-bronze">
+              <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2.5 py-0.5 font-mono text-[7px] text-accent">
                 TELEMETRY // COORDINATION_GRID
               </div>
             </div>
@@ -217,7 +217,7 @@ export default function ServiceDetail() {
         <section className="py-space-96 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10 border-t border-white/5">
           <div className="max-w-3xl mx-auto flex flex-col gap-space-48">
             <div className="flex flex-col gap-space-8 text-center items-center">
-              <span className="h-label-mono text-bronze">[03 // TECHNICAL ACCORD // Q&amp;A]</span>
+              <span className="h-label-mono text-accent">[03 // TECHNICAL ACCORD // Q&amp;A]</span>
               <h2 className="font-display text-2xl md:text-3xl font-light text-white uppercase tracking-wide">Technical Faq</h2>
             </div>
 
@@ -225,10 +225,10 @@ export default function ServiceDetail() {
               {service.faq.map((item, idx) => (
                 <div key={idx} className="border-b border-white/10 py-space-24 flex flex-col gap-3">
                   <div className="flex gap-space-16 items-start">
-                    <span className="font-mono text-[9px] text-stone mt-1">(Q)</span>
+                    <span className="font-mono text-[9px] text-white/50 mt-1">(Q)</span>
                     <h3 className="font-display text-lg font-light text-white leading-snug">{item.q}</h3>
                   </div>
-                  <p className="font-sans text-xs text-ivory/60 pl-space-24 leading-relaxed font-light">
+                  <p className="font-sans text-xs text-white/60 pl-space-24 leading-relaxed font-light">
                     {item.a}
                   </p>
                 </div>
@@ -239,14 +239,14 @@ export default function ServiceDetail() {
       )}
 
       {/* 5. CONSULTATION CTA */}
-      <section className="py-space-96 px-space-24 md:px-space-40 bg-graphite border-t border-white/5 relative">
+      <section className="py-space-96 px-space-24 md:px-space-40 bg-charcoal border-t border-white/5 relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-space-24 relative z-10">
-          <span className="h-label-mono text-bronze">[DIRECT SITE ADVISORY REGISTRY]</span>
+          <span className="h-label-mono text-accent">[DIRECT SITE ADVISORY REGISTRY]</span>
           <h2 className="font-display text-3xl font-light text-white uppercase tracking-wide">
             Book Site Compaction Review
           </h2>
-          <p className="font-sans text-xs text-ivory/60 max-w-md mx-auto leading-relaxed font-light">
+          <p className="font-sans text-xs text-white/60 max-w-md mx-auto leading-relaxed font-light">
             Secure geomechanical audits for your custom home lot coordinate parameters.
           </p>
           <Link 

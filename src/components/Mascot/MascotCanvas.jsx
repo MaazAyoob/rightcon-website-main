@@ -6,11 +6,13 @@ import BehaviourEngine from './BehaviourEngine';
 import HoloProjector from './HoloProjector';
 import FuturisticKey from './FuturisticKey';
 import IntroParticles from './IntroParticles';
+import { BRAND_COLORS } from '../../config/colors';
 import * as THREE from 'three';
 
 // ── Camera Controller — Cinematic Breathing + Intro Sweeps ──────────────────
 function CameraController({ containerRef, currentPos, mousePx, introActive }) {
-  const { introCamPos, introCamRot } = useScrollSystem();
+  const { introCamPos, introCamRot, setMascotHovered } = useScrollSystem();
+  const lastHoverRef = useRef(false);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
@@ -31,6 +33,15 @@ function CameraController({ containerRef, currentPos, mousePx, introActive }) {
       const isHovering = dist < 70 && !introActive;
       containerRef.current.style.pointerEvents = (introActive || isHovering) ? 'auto' : 'none';
       containerRef.current.style.cursor = isHovering ? 'pointer' : 'default';
+
+      if (isHovering !== lastHoverRef.current) {
+        lastHoverRef.current = isHovering;
+        if (setMascotHovered) {
+          Promise.resolve().then(() => {
+            setMascotHovered(isHovering);
+          });
+        }
+      }
     }
 
     if (introActive) {
@@ -92,7 +103,7 @@ function DynamicLights() {
         shadow-mapSize-height={1024}
       />
       {/* Warm architectural fill — interior ambient bounce */}
-      <pointLight ref={fillRef} position={[0, -2, 3]} color="#F0E4C0" intensity={0.35} distance={8} decay={2} />
+      <pointLight ref={fillRef} position={[0, -2, 3]} color={BRAND_COLORS.white} intensity={0.35} distance={8} decay={2} />
     </>
   );
 }
@@ -113,8 +124,8 @@ function IntroMascotController({ currentPos, currentRot, currentScale }) {
 
 // ── Main Canvas ──────────────────────────────────────────────────────────────
 export default function MascotCanvas() {
-  const { isMobile, introActive, activeScene } = useScrollSystem();
-  const zIndex = 40;
+  const { isMobile, introActive, activeScene, menuOpen, isChatOpen } = useScrollSystem();
+  const zIndex = (menuOpen || isChatOpen) ? 1100 : 40;
 
   // Shared refs — written by BehaviourEngine/IntroMascotController, read by ProceduralMascot
   const currentPos    = useRef(new THREE.Vector3(1.55, -0.65, 0.3));
@@ -140,25 +151,23 @@ export default function MascotCanvas() {
     return () => window.removeEventListener('mousemove', handleMove);
   }, [isMobile]);
 
-  if (isMobile) return null;
-
   return (
     <div
       ref={containerRef}
       className="fixed inset-0 w-full h-full webgl-canvas-container"
-      style={{ zIndex, pointerEvents: introActive ? 'auto' : 'none' }}
+      style={{ zIndex, pointerEvents: 'none' }}
     >
       <Canvas
-        style={{ pointerEvents: introActive ? 'auto' : 'none' }}
+        style={{ pointerEvents: 'inherit' }}
         camera={{ position: [0, 0, 5], fov: 45 }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-        shadows
+        shadows={!isMobile}
       >
         {/* Lights */}
         <ambientLight intensity={isMobile ? 0.75 : 0.45} />
         <DynamicLights />
-        <pointLight position={[-4, -3, -2]} intensity={0.4} color="#0055ff" />
-        <pointLight position={[4, 4, 3]}   intensity={0.7} color="#00f3ff" />
+        <pointLight position={[-4, -3, -2]} intensity={0.4} color={BRAND_COLORS.primary} />
+        <pointLight position={[4, 4, 3]}   intensity={0.7} color={BRAND_COLORS.white} />
 
         {/* Camera */}
         <CameraController 

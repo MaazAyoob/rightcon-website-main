@@ -19,7 +19,7 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
   const activeSlide = slides[currentSlide];
 
   return (
-    <section className="relative h-[80vh] md:h-[90vh] w-full flex flex-col justify-between overflow-hidden p-space-24 md:p-space-40 select-none theme-dark subpixel-text bg-[#1A1A18]">
+    <section className="relative h-[80vh] md:h-[90vh] w-full flex flex-col justify-between overflow-hidden p-space-24 md:p-space-40 select-none theme-dark subpixel-text bg-charcoal">
       
       {/* 1. Dynamic Cinematic Slideshow Background Stack */}
       <div className="absolute inset-0 z-0">
@@ -46,11 +46,11 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
             </div>
           );
         })}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A18] via-[#1A1A18]/30 to-transparent z-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1A1A18]/20 via-transparent to-transparent z-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/30 to-transparent z-20"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/20 via-transparent to-transparent z-20"></div>
         
-        {/* Fine grid using Blueprint Navy */}
-        <div className="absolute inset-0 blueprint-grid opacity-[0.03] pointer-events-none z-20"></div>
+        {/* Fine grid using Brand Blue */}
+        <div className="absolute inset-0 blueprint-grid opacity-[0.015] pointer-events-none z-20"></div>
       </div>
 
       {/* spacer to push text down */}
@@ -62,10 +62,10 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
           
           {/* Left Text Detail */}
           <div className="lg:col-span-7 flex flex-col gap-space-16">
-            <div className="h-label-mono text-[#F5F2EB]/50 flex items-center gap-space-8 transition-all duration-500">
+            <div className="h-label-mono text-white/50 flex items-center gap-space-8 transition-all duration-500">
               <span>({activeSlide.category})</span>
               <span className="w-8 h-[1px] bg-white/10"></span>
-              <span className="text-[#2D4E73] font-semibold">TECHNICAL VERIFICATION LOG</span>
+              <span className="text-primary font-semibold">TECHNICAL VERIFICATION LOG</span>
             </div>
             
             <h1 className="h-hero-display font-display text-white transition-all duration-[0.8s] ease-out uppercase">
@@ -73,7 +73,7 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
             </h1>
             
             <div className="max-w-md mt-2">
-              <p className="font-sans text-xs md:text-sm font-light text-[#F5F2EB]/80 leading-relaxed mb-space-24 transition-all duration-500">
+              <p className="font-sans text-xs md:text-sm font-light text-white/80 leading-relaxed mb-space-24 transition-all duration-500">
                 {activeSlide.desc}
               </p>
             </div>
@@ -82,15 +82,15 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
           {/* Right Column: Floating Asymmetric Card */}
           {activeSlide.detailImg && (
             <div className="hidden lg:flex lg:col-span-5 relative h-full min-h-[300px] items-center justify-center">
-              <div className="absolute inset-0 blueprint-grid opacity-10 pointer-events-none rounded-sm border border-white/5 bg-white/[0.01]"></div>
+              <div className="absolute inset-0 blueprint-grid opacity-10 pointer-events-none rounded-none border border-white/5 bg-white/[0.01]"></div>
               
-              <div className="absolute right-[5%] w-[240px] aspect-[4/5] z-10 border border-[#F5F2EB]/10 shadow-[0_24px_48px_rgba(26,26,24,0.3)] bg-[#1A1A18] overflow-hidden group rotate-[1.5deg] hover:rotate-0 transition-all duration-700 hover:scale-102">
+              <div className="absolute right-[5%] w-[240px] aspect-[4/5] z-10 border border-white/10 shadow-[0_24px_48px_rgba(0,0,0,0.3)] bg-charcoal overflow-hidden group rotate-[1.5deg] hover:rotate-0 transition-all duration-700 hover:scale-102 rounded-none">
                 <img 
                   src={optimizeUnsplashUrl(activeSlide.detailImg, isMobile ? 500 : 800, isMobile ? 70 : 80)} 
                   alt="Architectural detailing" 
                   className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
                 />
-                <div className="absolute bottom-3 left-3 bg-[#1A1A18]/90 border border-white/5 px-2.5 py-0.5 font-mono text-[7px] text-[#B58B45] uppercase">
+                <div className="absolute bottom-3 left-3 bg-charcoal/90 border border-white/5 px-2.5 py-0.5 font-sans text-[9px] text-accent uppercase font-bold">
                   {activeSlide.code}
                 </div>
               </div>
@@ -100,11 +100,11 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
       </div>
 
       {/* 3. Footer with slideshow progress indicators */}
-      <div className="relative z-20 w-full flex justify-between items-center border-t border-white/5 pt-space-16 text-[#F5F2EB] mt-space-40">
+      <div className="relative z-20 w-full flex justify-between items-center border-t border-white/5 pt-space-16 text-white mt-space-40">
         <div className="flex items-center gap-space-24">
           <div className="flex items-center gap-space-8">
-            <div className="w-12 h-[1px] bg-[#B58B45]/50"></div>
-            <span className="font-mono text-[8.5px] text-[#B58B45] tracking-[0.25em] uppercase font-semibold">
+            <div className="w-12 h-[1px] bg-accent/50"></div>
+            <span className="font-sans text-[10px] text-accent tracking-[0.15em] uppercase font-bold">
               Section Ledger Active
             </span>
           </div>
@@ -117,14 +117,14 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
                 type="button"
                 onClick={() => setCurrentSlide(i)}
                 className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                  currentSlide === i ? 'bg-[#B58B45] w-4' : 'bg-white/20 hover:bg-white/40'
+                  currentSlide === i ? 'bg-primary w-4' : 'bg-white/20 hover:bg-white/40'
                 }`}
               />
             ))}
           </div>
         </div>
 
-        <div className="h-caption font-mono text-[8px] text-[#F5F2EB]/40">
+        <div className="h-caption font-sans text-[10px] text-white/40">
           PAGE SLIDE 0{currentSlide + 1} OF 0{slides.length} // {coordinates}
         </div>
       </div>

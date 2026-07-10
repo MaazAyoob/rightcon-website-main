@@ -82,13 +82,13 @@ export default function Process() {
   }, [setActiveScene, setMascotPose, setMascotEmotion]);
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-0 select-none font-sans">
+    <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Process slideshow hero */}
       <CinematicHero slides={PROCESS_SLIDES} coordinates="12.9716° N, 77.5946° E" />
 
       {/* 2. DYNAMIC WORKFLOW PRESENTATION */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-graphite relative">
+      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-stretch relative z-10">
@@ -102,7 +102,7 @@ export default function Process() {
                   type="button"
                   onClick={() => setActiveStage(i)}
                   className={`w-full text-left py-space-24 border-b border-white/10 flex justify-between items-center transition-all duration-300 cursor-pointer group ${
-                    activeStage === i ? 'text-bronze' : 'text-ivory/65 hover:text-white'
+                    activeStage === i ? 'text-accent' : 'text-white/65 hover:text-white'
                   }`}
                 >
                   <div className="flex gap-space-16 items-center">
@@ -114,8 +114,8 @@ export default function Process() {
               ))}
             </div>
 
-            <div className="bg-charcoal border border-white/5 p-space-24 rounded-sm mt-8">
-              <span className="font-mono text-[9.5px] text-[#2D4E73] block uppercase">
+            <div className="bg-charcoal border border-white/5 p-space-24 rounded-none mt-8">
+              <span className="font-mono text-[9.5px] text-primary block uppercase">
                 {PROCESS_STAGES[activeStage].log}
               </span>
             </div>
@@ -123,7 +123,7 @@ export default function Process() {
 
           {/* Right Side: Image and description of active stage */}
           <div className="col-span-12 lg:col-span-7 flex flex-col gap-space-24 justify-between">
-            <div className="w-full aspect-[16/10] overflow-hidden border border-white/10 shadow-2xl rounded-sm bg-charcoal">
+            <div className="w-full aspect-[16/10] overflow-hidden border border-white/10 shadow-2xl rounded-none bg-charcoal">
               <img 
                 src={optimizeUnsplashUrl(PROCESS_STAGES[activeStage].img, isMobile ? 800 : 1200, isMobile ? 70 : 85)} 
                 alt={PROCESS_STAGES[activeStage].title} 
@@ -131,7 +131,7 @@ export default function Process() {
               />
             </div>
             
-            <p className="font-sans text-xs md:text-sm text-ivory/80 leading-relaxed font-light pl-space-16 border-l-2 border-bronze/30">
+            <p className="font-sans text-xs md:text-sm text-white/80 leading-relaxed font-light pl-space-16 border-l-2 border-accent/30">
               {PROCESS_STAGES[activeStage].desc}
             </p>
           </div>
@@ -143,31 +143,31 @@ export default function Process() {
       <section className="py-space-64 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto w-full relative z-10">
-          <div className="border-l-2 border-bronze/40 pl-4 mb-12">
-            <span className="font-mono text-[9px] text-bronze block">[QUALITY & VERIFICATION TOLERANCES]</span>
+          <div className="border-l-2 border-accent/40 pl-4 mb-12">
+            <span className="font-mono text-[9px] text-accent block">[QUALITY & VERIFICATION TOLERANCES]</span>
             <h3 className="font-display text-2xl font-light text-white uppercase tracking-wider mt-1">
               Geomechanical Tolerances
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border border-white/5 p-6 bg-graphite/40">
-              <span className="font-mono text-[8px] text-bronze block">METRIC // COMPACTION</span>
+            <div className="border border-white/5 p-6 bg-charcoal/40">
+              <span className="font-mono text-[8px] text-accent block">METRIC // COMPACTION</span>
               <h4 className="text-white font-display text-lg font-light tracking-wide mt-2">98.5% Proctor Density</h4>
-              <p className="text-ivory/60 text-xs mt-2 font-light leading-relaxed">
+              <p className="text-white/60 text-xs mt-2 font-light leading-relaxed">
                 Backfill compaction verified by soil sand replacement checks at every 250 sqm grid section.
               </p>
             </div>
-            <div className="border border-white/5 p-6 bg-graphite/40">
-              <span className="font-mono text-[8px] text-bronze block">METRIC // REBAR SPAN</span>
+            <div className="border border-white/5 p-6 bg-charcoal/40">
+              <span className="font-mono text-[8px] text-accent block">METRIC // REBAR SPAN</span>
               <h4 className="text-white font-display text-lg font-light tracking-wide mt-2">±3mm Column Alignment</h4>
-              <p className="text-ivory/60 text-xs mt-2 font-light leading-relaxed">
+              <p className="text-white/60 text-xs mt-2 font-light leading-relaxed">
                 Laser-guided structural coordinate scans ensure concrete reinforcement cage deviation stays under 3mm.
               </p>
             </div>
-            <div className="border border-white/5 p-6 bg-graphite/40">
-              <span className="font-mono text-[8px] text-bronze block">METRIC // QUALITY ASSURANCE</span>
+            <div className="border border-white/5 p-6 bg-charcoal/40">
+              <span className="font-mono text-[8px] text-accent block">METRIC // QUALITY ASSURANCE</span>
               <h4 className="text-white font-display text-lg font-light tracking-wide mt-2">100% External Lab Audits</h4>
-              <p className="text-ivory/60 text-xs mt-2 font-light leading-relaxed">
+              <p className="text-white/60 text-xs mt-2 font-light leading-relaxed">
                 All day 7/28 concrete cubes compression test logs are registered via independent NABL laboratories.
               </p>
             </div>
@@ -179,11 +179,11 @@ export default function Process() {
       <section className="py-space-96 px-space-24 md:px-space-40 bg-charcoal border-t border-white/5 relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-space-24 relative z-10">
-          <span className="h-label-mono text-bronze">[STRUCTURAL EXECUTION ADVISORY]</span>
+          <span className="h-label-mono text-accent">[STRUCTURAL EXECUTION ADVISORY]</span>
           <h2 className="font-display text-3xl font-light text-white uppercase tracking-wide">
             Track Your Home's Milestones
           </h2>
-          <p className="font-sans text-xs text-ivory/60 max-w-md mx-auto leading-relaxed font-light">
+          <p className="font-sans text-xs text-white/60 max-w-md mx-auto leading-relaxed font-light">
             We schedule geotechnical compaction checks for every building coordinate. Connect with Maaz Ayoob to schedule audit profiles.
           </p>
           <Link 

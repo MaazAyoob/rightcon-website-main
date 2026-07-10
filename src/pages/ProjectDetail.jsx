@@ -48,7 +48,7 @@ export default function ProjectDetail() {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center font-mono text-xs text-white bg-charcoal">
         <span>[ERROR: PROJECT_NOT_FOUND]</span>
-        <Link to="/projects" className="underline mt-4 text-bronze uppercase">Back to Index</Link>
+        <Link to="/projects" className="underline mt-4 text-accent uppercase">Back to Index</Link>
       </div>
     );
   }
@@ -76,7 +76,7 @@ export default function ProjectDetail() {
   const relatedProjects = PROJECTS_DATA.filter(p => p.id !== project.id).slice(0, 2);
 
   return (
-    <div className="w-full flex flex-col bg-charcoal text-ivory selection:bg-bronze selection:text-charcoal pt-space-96 select-none">
+    <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-space-96 select-none">
       
       {/* BREADCRUMBS & META HEADER */}
       <div className="px-space-24 md:px-space-40 max-w-7xl mx-auto w-full z-10">
@@ -85,7 +85,7 @@ export default function ProjectDetail() {
           <span>/</span>
           <Link to="/projects" className="breadcrumb-link">PROJECTS</Link>
           <span>/</span>
-          <span className="text-bronze font-semibold">{project.category}</span>
+          <span className="text-accent font-semibold">{project.category}</span>
           <span>/</span>
           <span className="text-white/40">{project.title}</span>
         </nav>
@@ -97,7 +97,7 @@ export default function ProjectDetail() {
           {project.title}
         </h1>
         
-        <div className="w-full aspect-[21/9] overflow-hidden border border-white/10 rounded-sm mt-space-40 relative bg-graphite shadow-2xl">
+        <div className="w-full aspect-[21/9] overflow-hidden border border-white/10 rounded-none mt-space-40 relative bg-charcoal shadow-2xl">
           <img 
             src={optimizeUnsplashUrl(project.heroImage, isMobile ? 800 : 1600, isMobile ? 70 : 85)} 
             alt={project.title} 
@@ -112,8 +112,8 @@ export default function ProjectDetail() {
           
           {/* Facts column */}
           <div className="col-span-12 lg:col-span-4 flex flex-col gap-space-24">
-            <span className="h-label-mono text-bronze">[PROJECT STATS]</span>
-            <div className="flex flex-col gap-space-12 font-mono text-[9px] text-ivory/70">
+            <span className="h-label-mono text-accent">[PROJECT STATS]</span>
+            <div className="flex flex-col gap-space-12 font-mono text-[9px] text-white/70">
               <div className="flex justify-between border-b border-white/5 pb-2">
                 <span className="text-white/30">CLIENT</span>
                 <span>{project.client}</span>
@@ -132,14 +132,14 @@ export default function ProjectDetail() {
               </div>
               <div className="flex justify-between border-b border-white/5 pb-2">
                 <span className="text-white/30">STATUS</span>
-                <span className="text-[#2D4E73]">{project.status}</span>
+                <span className="text-primary">{project.status}</span>
               </div>
             </div>
           </div>
 
           {/* Narrative Overview column */}
           <div className="col-span-12 lg:col-span-8 flex flex-col gap-space-16">
-            <span className="h-label-mono text-bronze">[01 // OVERVIEW]</span>
+            <span className="h-label-mono text-accent">[01 // OVERVIEW]</span>
             <p className="font-display text-2xl font-light leading-relaxed text-white">
               {project.overview}
             </p>
@@ -150,10 +150,10 @@ export default function ProjectDetail() {
 
       {/* 3. NARRATIVE GALLERY COLLAGE */}
       <section className="py-space-64 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10">
-        <span className="h-label-mono text-bronze mb-space-32 block">[02 // DESIGN PORTRAIT GALLERY]</span>
+        <span className="h-label-mono text-accent mb-space-32 block">[02 // DESIGN PORTRAIT GALLERY]</span>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-24">
           {project.gallery.map((img, idx) => (
-            <div key={idx} className="aspect-[3/4] overflow-hidden border border-white/10 rounded-sm bg-graphite group">
+            <div key={idx} className="aspect-[3/4] overflow-hidden border border-white/10 rounded-none bg-charcoal group">
               <img 
                 src={img} 
                 alt={`${project.title} gallery ${idx + 1}`} 
@@ -165,7 +165,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* 4. STRUCTURAL CHALLENGE, SITE CONTEXT & DESIGN PHILOSOPHY */}
-      <section className="py-space-96 md:py-space-160 px-space-24 md:px-space-40 border-t border-white/5 bg-graphite relative">
+      <section className="py-space-96 md:py-space-160 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
         
         <div className="max-w-7xl mx-auto w-full flex flex-col gap-space-48 relative z-10">
@@ -173,28 +173,28 @@ export default function ProjectDetail() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-space-64">
             {/* Challenge & Site Context */}
             <div className="flex flex-col gap-space-24">
-              <span className="h-label-mono text-bronze">[03 // THE GEOMECHANICAL CHALLENGE]</span>
+              <span className="h-label-mono text-accent">[03 // THE GEOMECHANICAL CHALLENGE]</span>
               <h2 className="font-display text-3xl font-light text-white leading-snug">
                 Soil Compaction &amp; Site Context
               </h2>
-              <p className="font-sans text-xs text-ivory/65 leading-relaxed font-light">
+              <p className="font-sans text-xs text-white/65 leading-relaxed font-light">
                 {project.challenge}
               </p>
-              <div className="border border-white/5 p-space-16 bg-charcoal/40 rounded-sm font-mono text-[8.5px] text-[#2D4E73] mt-2">
+              <div className="border border-white/5 p-space-16 bg-charcoal/40 rounded-none font-mono text-[8.5px] text-primary mt-2">
                 SITE_CONTEXT // SBC_LIMIT: 220 kN/m² // PROFILE: SILTY_CLAY
               </div>
             </div>
 
             {/* Design Philosophy & Construction Timeline */}
             <div className="flex flex-col gap-space-24">
-              <span className="h-label-mono text-bronze">[04 // DESIGN PHILOSOPHY &amp; TIMELINE]</span>
+              <span className="h-label-mono text-accent">[04 // DESIGN PHILOSOPHY &amp; TIMELINE]</span>
               <h2 className="font-display text-3xl font-light text-white leading-snug">
                 Volumetric Massing &amp; Timelines
               </h2>
-              <p className="font-sans text-xs text-ivory/65 leading-relaxed font-light">
+              <p className="font-sans text-xs text-white/65 leading-relaxed font-light">
                 {project.process}
               </p>
-              <div className="flex justify-between items-center bg-charcoal/40 border border-white/5 p-space-16 rounded-sm font-mono text-[8.5px] text-bronze">
+              <div className="flex justify-between items-center bg-charcoal/40 border border-white/5 p-space-16 rounded-none font-mono text-[8.5px] text-accent">
                 <span>CONSTRUCTION TIMELINE</span>
                 <span>{project.timeline}</span>
               </div>
@@ -207,7 +207,7 @@ export default function ProjectDetail() {
       {/* 5. INTERACTIVE BEFORE & AFTER SLIDER */}
       <section className="py-space-96 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-space-32">
         <div className="flex flex-col gap-space-8">
-          <span className="h-label-mono text-bronze">[05 // BEFORE &amp; AFTER SLIDER]</span>
+          <span className="h-label-mono text-accent">[05 // BEFORE &amp; AFTER SLIDER]</span>
           <h2 className="font-display text-2xl md:text-3xl font-light text-white">
             Excavation Site vs. Completed Slab Structural Facade
           </h2>
@@ -218,7 +218,7 @@ export default function ProjectDetail() {
           ref={containerRef}
           onMouseMove={handleMouseMove}
           onTouchMove={handleTouchMove}
-          className="image-comparison-container select-none touch-none shadow-2xl bg-graphite rounded-sm"
+          className="image-comparison-container select-none touch-none shadow-2xl bg-charcoal rounded-none"
         >
           {/* Before image (Excavation) */}
           <img 
@@ -226,7 +226,7 @@ export default function ProjectDetail() {
             alt="Excavation site" 
             className="absolute inset-0 w-full h-full object-cover pointer-events-none brightness-[0.7]"
           />
-          <div className="absolute top-3 left-3 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[7px] text-bronze z-20">
+          <div className="absolute top-3 left-3 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[7px] text-accent z-20">
             DAY_01 // GEOTECHNICAL CORE EXCAVATION
           </div>
 
@@ -241,7 +241,7 @@ export default function ProjectDetail() {
               className="absolute inset-0 w-full h-full object-cover pointer-events-none brightness-[0.8]"
               style={{ width: containerWidth ? `${containerWidth}px` : '100%', maxWidth: 'none' }}
             />
-            <div className="absolute top-3 right-3 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[7px] text-[#2D4E73] z-20 whitespace-nowrap">
+            <div className="absolute top-3 right-3 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[7px] text-primary z-20 whitespace-nowrap">
               DAY_360 // LANDMARK COMPLETE
             </div>
           </div>
@@ -257,18 +257,18 @@ export default function ProjectDetail() {
       </section>
 
       {/* 6. MATERIAL PALETTE & FLOOR PLANS */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-graphite relative">
+      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-start">
           
           {/* Materials Swatches */}
           <div className="col-span-12 lg:col-span-6 flex flex-col gap-space-32">
-            <span className="h-label-mono text-bronze">[06 // COMPONENT MATERIALS]</span>
+            <span className="h-label-mono text-accent">[06 // COMPONENT MATERIALS]</span>
             <h3 className="font-display text-2xl font-light text-white">Travertine &amp; Teak Timber Swatches</h3>
             
             <div className="grid grid-cols-2 gap-space-16">
               {project.materials.map((mat, i) => (
-                <div key={i} className="border border-white/5 p-space-20 bg-charcoal/40 rounded-sm">
-                  <span className="font-mono text-[8.5px] text-bronze font-bold">MATERIAL_0{i+1}</span>
+                <div key={i} className="border border-white/5 p-space-20 bg-charcoal/40 rounded-none">
+                  <span className="font-mono text-[8.5px] text-accent font-bold">MATERIAL_0{i+1}</span>
                   <h4 className="font-display text-base font-light text-white mt-1">{mat}</h4>
                 </div>
               ))}
@@ -277,10 +277,10 @@ export default function ProjectDetail() {
 
           {/* Floor Plans Mock */}
           <div className="col-span-12 lg:col-span-6 flex flex-col gap-space-32">
-            <span className="h-label-mono text-bronze">[07 // FLOOR PLAN MODEL]</span>
+            <span className="h-label-mono text-accent">[07 // FLOOR PLAN MODEL]</span>
             <h3 className="font-display text-2xl font-light text-white">Blueprint Skeletal Coordinates</h3>
             
-            <div className="w-full aspect-[4/3] border border-white/10 relative p-space-24 flex items-center justify-center bg-charcoal rounded-sm overflow-hidden">
+            <div className="w-full aspect-[4/3] border border-white/10 relative p-space-24 flex items-center justify-center bg-charcoal rounded-none overflow-hidden">
               <div className="absolute inset-0 blueprint-grid opacity-10"></div>
               {/* SVG drawing lines to look like an architectural sketch */}
               <svg className="w-full h-full stroke-white/20 fill-none stroke-[0.5]" viewBox="0 0 100 100">
@@ -289,11 +289,11 @@ export default function ProjectDetail() {
                 <line x1="90" y1="90" x2="10" y2="90" />
                 <line x1="10" y1="90" x2="10" y2="10" />
                 <rect x="25" y="25" width="50" height="50" />
-                <circle cx="50" cy="50" r="15" className="stroke-bronze/40" />
+                <circle cx="50" cy="50" r="15" className="stroke-accent/40" />
                 <line x1="0" y1="50" x2="100" y2="50" className="stroke-white/5" />
                 <line x1="50" y1="0" x2="50" y2="100" className="stroke-white/5" />
               </svg>
-              <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[7px] text-bronze">
+              <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[7px] text-accent">
                 LOD_400 // CLASH_CLEARED_GRID
               </div>
             </div>
@@ -305,28 +305,28 @@ export default function ProjectDetail() {
       {/* 7. CLIENT TESTIMONIAL (Interview) */}
       <section className="py-space-96 md:py-space-160 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10 border-t border-white/5">
         <div className="max-w-3xl mx-auto text-center flex flex-col gap-space-24">
-          <span className="h-label-mono text-bronze">[08 // CLIENT INTERVIEW]</span>
+          <span className="h-label-mono text-accent">[08 // CLIENT INTERVIEW]</span>
           <p className="font-display text-2xl font-light italic leading-relaxed text-white">
             "{project.testimonial.quote}"
           </p>
           <div className="flex flex-col gap-1 mt-4">
-            <span className="font-mono text-[9px] text-bronze font-bold uppercase">{project.testimonial.author}</span>
+            <span className="font-mono text-[9px] text-accent font-bold uppercase">{project.testimonial.author}</span>
             <span className="font-mono text-[8px] text-white/30">CLIENT OF COMMISSION</span>
           </div>
         </div>
       </section>
 
       {/* 8. RELATED PROJECTS */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-graphite">
+      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal">
         <div className="max-w-7xl mx-auto w-full flex flex-col gap-space-48">
-          <span className="h-label-mono text-bronze">[09 // ADDITIONAL CHAPTERS]</span>
+          <span className="h-label-mono text-accent">[09 // ADDITIONAL CHAPTERS]</span>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-space-32">
             {relatedProjects.map((p, i) => (
               <Link 
                 to={`/projects/${p.id}`} 
                 key={p.id}
-                className="group flex gap-space-24 border border-white/5 p-space-16 bg-charcoal/30 hover:border-bronze/35 rounded-sm transition-all duration-700"
+                className="group flex gap-space-24 border border-white/5 p-space-16 bg-charcoal/30 hover:border-accent/35 rounded-none transition-all duration-700"
               >
                 <div className="w-[120px] aspect-square overflow-hidden border border-white/5 flex-shrink-0 bg-charcoal">
                   <img 
@@ -337,10 +337,10 @@ export default function ProjectDetail() {
                 </div>
                 <div className="flex flex-col justify-between py-1">
                   <div className="flex flex-col gap-1">
-                    <span className="font-mono text-[8px] text-bronze uppercase">{p.category}</span>
+                    <span className="font-mono text-[8px] text-accent uppercase">{p.category}</span>
                     <h4 className="font-display text-lg font-light text-white mt-1">{p.title}</h4>
                   </div>
-                  <span className="font-mono text-[9px] text-stone hover:text-bronze transition-colors">EXPLORE →</span>
+                  <span className="font-mono text-[9px] text-white/50 hover:text-accent transition-colors">EXPLORE →</span>
                 </div>
               </Link>
             ))}
@@ -352,11 +352,11 @@ export default function ProjectDetail() {
       <section className="py-space-96 px-space-24 md:px-space-40 bg-charcoal border-t border-white/5 relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-space-24 relative z-10">
-          <span className="h-label-mono text-bronze">[DIRECT COMMISSION REGISTRY]</span>
+          <span className="h-label-mono text-accent">[DIRECT COMMISSION REGISTRY]</span>
           <h2 className="font-display text-3xl md:text-4xl font-light text-white uppercase tracking-wide">
             Build Your Own Structural Landmark
           </h2>
-          <p className="font-sans text-xs text-ivory/60 max-w-lg mx-auto leading-relaxed font-light">
+          <p className="font-sans text-xs text-white/60 max-w-lg mx-auto leading-relaxed font-light">
             Each rightcon villa begins with a geomechanical soil compaction review. Secure your site coordinates with our engineering estimators.
           </p>
           <Link 

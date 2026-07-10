@@ -54,22 +54,22 @@ export default function TestimonialsPage() {
   }, [setActiveScene, setMascotPose, setMascotEmotion]);
 
   return (
-    <div className="w-full flex flex-col bg-stone text-charcoal selection:bg-bronze selection:text-charcoal pt-0 select-none font-sans">
+    <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Testimonials slideshow hero */}
       <CinematicHero slides={TESTIMONIAL_SLIDES} coordinates="12.9716° N, 77.5946° E" />
 
       {/* 2. DETAILED INTERVIEWS LIST */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-charcoal/10 bg-concrete relative">
+      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/10 bg-charcoal relative">
         <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-space-48">
           
           <div className="flex flex-col gap-space-64">
             {INTERVIEWS.map((int, i) => (
               <div 
                 key={i} 
-                className="flex flex-col md:flex-row gap-space-40 items-center border-b border-charcoal/10 pb-space-40"
+                className="flex flex-col md:flex-row gap-space-40 items-center border-b border-white/10 pb-space-40"
               >
-                <div className="w-[320px] aspect-[4/3] overflow-hidden border border-charcoal/15 bg-stone rounded-sm shadow-md group flex-shrink-0">
+                <div className="w-[320px] aspect-[4/3] overflow-hidden border border-charcoal/15 bg-charcoal rounded-none shadow-md group flex-shrink-0">
                   <img 
                     src={int.image} 
                     alt={int.project} 
@@ -81,7 +81,7 @@ export default function TestimonialsPage() {
                     "{int.quote}"
                   </p>
                   <div className="flex items-center gap-space-16 font-mono text-[9px]">
-                    <span className="text-bronze font-bold uppercase">{int.author}</span>
+                    <span className="text-accent font-bold uppercase">{int.author}</span>
                     <span className="text-charcoal/30">|</span>
                     <span className="text-charcoal/50 uppercase">{int.project}</span>
                   </div>
