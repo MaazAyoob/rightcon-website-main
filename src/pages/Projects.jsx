@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { optimizeUnsplashUrl } from '../utils/image';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
+import ModularSculpture from '../components/Sculptures/ModularSculpture';
 
 const PROJECTS_SLIDES = [
   {
@@ -56,7 +57,7 @@ export default function Projects() {
     <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none">
       
       {/* 1. Projects Slideshow Hero */}
-      <CinematicHero slides={PROJECTS_SLIDES} coordinates="12.9716° N, 77.5946° E" />
+      <CinematicHero slides={PROJECTS_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<ModularSculpture />} />
 
       {/* 2. ADVANCED FILTER TABS */}
       <section className="py-space-24 px-space-24 md:px-space-40 border-t border-b border-white/5 bg-charcoal/40">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useScrollSystem } from '../../context/ScrollContext';
 import { optimizeUnsplashUrl } from '../../utils/image';
 
-export default function CinematicHero({ slides = [], coordinates = "12.9716° N, 77.5946° E" }) {
+export default function CinematicHero({ slides = [], coordinates = "12.9716° N, 77.5946° E", sculpture = null }) {
   const { isMobile } = useScrollSystem();
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -19,39 +19,33 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
   const activeSlide = slides[currentSlide];
 
   return (
-    <section className="relative h-[80vh] md:h-[90vh] w-full flex flex-col justify-between overflow-hidden p-space-24 md:p-space-40 select-none theme-dark subpixel-text bg-charcoal">
+    <section className="relative h-[80vh] md:h-[90vh] w-full flex flex-col justify-between overflow-hidden p-space-24 md:p-space-40 select-none theme-dark subpixel-text bg-transparent">
       
-      {/* 1. Dynamic Cinematic Slideshow Background Stack */}
-      <div className="absolute inset-0 z-0">
-        {slides.map((slide, idx) => {
-          const isActive = currentSlide === idx;
-          return (
-            <div 
-              key={idx}
-              className={`absolute inset-0 transition-opacity duration-[1.5s] ease-in-out ${
-                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
-              }`}
-            >
-              <div 
-                className={`w-full h-full transition-transform duration-[6s] ease-linear ${
-                  isActive ? 'scale-108' : 'scale-100'
-                }`}
-              >
-                <img 
-                  src={optimizeUnsplashUrl(slide.image, isMobile ? 800 : 1600, isMobile ? 70 : 85)}
-                  alt={slide.title}
-                  className="w-full h-full object-cover brightness-[0.22] grayscale-[10%]"
-                />
-              </div>
-            </div>
-          );
-        })}
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/30 to-transparent z-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/20 via-transparent to-transparent z-20"></div>
-        
-        {/* Fine grid using Brand Blue */}
-        <div className="absolute inset-0 blueprint-grid opacity-[0.015] pointer-events-none z-20"></div>
-      </div>
+      {/* 0. Optional 3D Sculpture Background */}
+      {sculpture && sculpture}
+
+      {/* 1. Readability overlays over the light canvas background */}
+      {/* Text readability zone — dark-left → transparent-right (desktop split layout) */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: 'linear-gradient(to right, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.88) 35%, rgba(10,10,10,0.55) 58%, rgba(10,10,10,0.18) 76%, rgba(10,10,10,0) 90%)'
+        }}
+      ></div>
+      {/* Bottom vignette — scroll cue + footer readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A]/70 via-transparent to-transparent z-[1] pointer-events-none"></div>
+      {/* Top vignette — nav bar readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/35 via-transparent to-transparent z-[1] pointer-events-none"></div>
+      {/* Mobile safe — gradient dark overlay on small screens (no col split, text covers full width) */}
+      <div 
+        className="absolute inset-0 lg:hidden z-[1] pointer-events-none"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.45) 45%, rgba(10,10,10,0.80) 100%)'
+        }}
+      ></div>
+
+      {/* Fine architectural grid overlay */}
+      <div className="absolute inset-0 blueprint-grid opacity-[0.015] pointer-events-none z-[1]"></div>
 
       {/* spacer to push text down */}
       <div className="h-space-40 w-full pointer-events-none z-10"></div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useScrollSystem } from '../../context/ScrollContext';
+import { mascotBrain } from '../../services/mascotBrain';
 
 const RESPONSES = {
   welcome: "Welcome. I am Rightcon's AI Digital Architect companion. I monitor this session's structural logs, geomechanical data, and layout coordinates. Select a query or type below to explore our engineering philosophy.",
@@ -411,20 +412,28 @@ export default function ConversationPanel() {
     }
   }, [displayText, messages]);
 
-  const handleChipClick = (label, key) => {
+  const handleChipClick = async (label, key) => {
     if (isTyping) return;
     
     // Add user message
     setMessages(prev => [...prev, { sender: 'user', text: label }]);
-    
-    // Match response
-    const matched = KEYWORDS_DICTIONARY.find(entry => entry.keys.includes(key)) || {
-      response: RESPONSES[key] || "Geotechnical telemetry query unresolved.",
-      pose: "pointing",
-      emotion: "helpful"
-    };
+    setIsTyping(true);
+    setDisplayText("");
 
-    triggerBotResponse(matched.response, matched);
+    // Set mascot to thinking state
+    setMascotPose('listening');
+    setMascotEmotion('focused');
+
+    try {
+      const reply = await mascotBrain.askMascot(label, location.pathname);
+      triggerBotResponse(reply.text, {
+        pose: reply.intent,
+        emotion: 'helpful'
+      });
+    } catch (err) {
+      console.error("Mascot reply failed:", err);
+      setIsTyping(false);
+    }
 
     // Coordinate redirect
     const routeMap = {
@@ -440,7 +449,7 @@ export default function ConversationPanel() {
     }
   };
 
-  const handleCustomSubmit = (e) => {
+  const handleCustomSubmit = async (e) => {
     e.preventDefault();
     if (isTyping || !customQuery.trim()) return;
 
@@ -449,30 +458,22 @@ export default function ConversationPanel() {
 
     // Add user message
     setMessages(prev => [...prev, { sender: 'user', text: query }]);
+    setIsTyping(true);
+    setDisplayText("");
 
-    const queryLower = query.toLowerCase().trim();
-    let matched = null;
+    // Look thoughtful/nodding while "AI is thinking/generating"
+    setMascotPose('listening');
+    setMascotEmotion('focused');
 
-    for (const entry of KEYWORDS_DICTIONARY) {
-      for (const key of entry.keys) {
-        if (queryLower.includes(key)) {
-          matched = entry;
-          break;
-        }
-      }
-      if (matched) break;
-    }
-
-    if (matched) {
-      triggerBotResponse(matched.response, matched);
-    } else {
-      const fallbacks = [
-        "I've logged your query regarding that coordinate layer. Try asking about: RERA, 10-Year Warranty, M40 Concrete, or LOD 400 BIM Clashes.",
-        "My telemetry database covers bedrock testing, materials sourcing, and BIM clash detection. Try asking about 'soil testing', 'Burma teak', or 'seismic anchors'!",
-        "Query unresolved. I specialize in Rightcon's structural blueprints and geomechanical auditing. Try asking about 'foundations', 'cantilever', or 'Mysuru villa'."
-      ];
-      const randomFallback = fallbacks[Math.floor(Math.random() * fallbacks.length)];
-      triggerBotResponse(randomFallback);
+    try {
+      const reply = await mascotBrain.askMascot(query, location.pathname);
+      triggerBotResponse(reply.text, {
+        pose: reply.intent,
+        emotion: 'focused'
+      });
+    } catch (err) {
+      console.error("Mascot reply failed:", err);
+      setIsTyping(false);
     }
   };
 

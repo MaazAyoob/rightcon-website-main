@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useScrollSystem } from '../context/ScrollContext';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
+import ContactSculpture from '../components/Sculptures/ContactSculpture';
 
 const CONTACT_SLIDES = [
   {
@@ -82,7 +83,7 @@ export default function Contact() {
     <div className="w-full flex flex-col bg-white text-charcoal selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Contact Hero */}
-      <CinematicHero slides={CONTACT_SLIDES} coordinates="12.9716° N, 77.6412° E" />
+      <CinematicHero slides={CONTACT_SLIDES} coordinates="12.9716° N, 77.6412° E" sculpture={<ContactSculpture />} />
 
       {/* 2. INQUIRY FORM & ADDRESSES */}
       <section ref={formRef} className="py-space-96 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-white relative">

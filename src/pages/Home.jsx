@@ -56,7 +56,7 @@ export default function Home() {
       </div>
 
       {/* Scene 2: Brand Story / Vision */}
-      <div className="journey-scene w-full">
+      <div className="journey-scene w-full" data-nav-theme="light">
         <BrandStoryScene />
       </div>
 
@@ -66,7 +66,7 @@ export default function Home() {
       </div>
 
       {/* Scene 4: Building Process */}
-      <div className="journey-scene w-full">
+      <div className="journey-scene w-full" data-nav-theme="light">
         <ProcessScene />
       </div>
 
@@ -76,12 +76,12 @@ export default function Home() {
       </div>
 
       {/* Scene 6: Trust */}
-      <div className="journey-scene w-full">
+      <div className="journey-scene w-full" data-nav-theme="light">
         <TrustScene />
       </div>
 
       {/* Scene 7: About / People */}
-      <div className="journey-scene w-full">
+      <div className="journey-scene w-full" data-nav-theme="light">
         <AboutScene />
       </div>
 

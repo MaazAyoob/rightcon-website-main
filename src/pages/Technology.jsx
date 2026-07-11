@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useScrollSystem } from '../context/ScrollContext';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
+import GridSculpture from '../components/Sculptures/GridSculpture';
 
 const TECH_SLIDES = [
   {
@@ -36,7 +37,7 @@ export default function Technology() {
     <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Technology slideshow hero */}
-      <CinematicHero slides={TECH_SLIDES} coordinates="12.9716° N, 77.5946° E" />
+      <CinematicHero slides={TECH_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<GridSculpture />} />
 
       {/* 2. BIM EXPLANATION DETAILED SECTION */}
       <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">

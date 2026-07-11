@@ -4,6 +4,8 @@ import { useScrollSystem } from '../context/ScrollContext';
 import { optimizeUnsplashUrl } from '../utils/image';
 import { SERVICES_DATA, PROJECTS_DATA } from '../data/mockData';
 import Footer from '../components/UI/Footer';
+import CinematicHero from '../components/UI/CinematicHero';
+import ServiceSculpture from '../components/Sculptures/ServiceSculpture';
 
 // Dynamic consult mappings
 const CONSULTATIVE_MAPPING = {
@@ -89,36 +91,26 @@ export default function ServiceDetail() {
   // Find some related projects to link to
   const relatedProjects = PROJECTS_DATA.slice(0, 2);
 
-  return (
-    <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-space-96 select-none font-sans">
-      
-      {/* BREADCRUMBS */}
-      <div className="px-space-24 md:px-space-40 max-w-7xl mx-auto w-full z-10">
-        <nav className="breadcrumb-nav">
-          <Link to="/" className="breadcrumb-link">HOME</Link>
-          <span>/</span>
-          <Link to="/services" className="breadcrumb-link">SERVICES</Link>
-          <span>/</span>
-          <span className="text-accent font-semibold">{service.category.toUpperCase()}</span>
-          <span>/</span>
-          <span className="text-white/40">{service.title.toUpperCase()}</span>
-        </nav>
-      </div>
+  const serviceSlides = [
+    {
+      image: service.heroImage,
+      category: `01 // ${service.category.toUpperCase()}`,
+      title: service.title,
+      desc: service.overview,
+      code: `${service.id.toUpperCase().replace('-', '_')} // SERVICE_PASS`,
+      detailImg: relatedProjects[0]?.heroImage,
+    }
+  ];
 
-      {/* 1. SERVICE HERO */}
-      <section className="py-space-64 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10">
-        <h1 className="font-display text-4xl md:text-7xl font-light text-white leading-none mt-space-24 uppercase tracking-wide">
-          {service.title}
-        </h1>
-        
-        <div className="w-full aspect-[21/9] overflow-hidden border border-white/10 rounded-none mt-space-40 relative bg-charcoal shadow-2xl">
-          <img 
-            src={optimizeUnsplashUrl(service.heroImage, isMobile ? 800 : 1600, isMobile ? 70 : 85)} 
-            alt={service.title} 
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </section>
+  return (
+    <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none font-sans">
+      
+      {/* 1. Service Detail Hero with Custom interactive 3D Sculpture */}
+      <CinematicHero 
+        slides={serviceSlides} 
+        coordinates="12.9716° N, 77.5946° E" 
+        sculpture={<ServiceSculpture serviceId={service.id} />} 
+      />
 
       {/* 2. CONSULTATIVE DIAGNOSIS SECTION */}
       <section className="py-space-96 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10 border-t border-white/5 mt-space-40">

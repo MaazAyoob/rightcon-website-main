@@ -4,6 +4,7 @@ import { useScrollSystem } from '../context/ScrollContext';
 import { optimizeUnsplashUrl } from '../utils/image';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
+import PanelSculpture from '../components/Sculptures/PanelSculpture';
 
 const MATERIALS_SLIDES = [
   {
@@ -77,7 +78,7 @@ export default function Materials() {
     <div className="w-full flex flex-col bg-white text-charcoal selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Materials slideshow hero */}
-      <CinematicHero slides={MATERIALS_SLIDES} coordinates="12.9716° N, 77.5946° E" />
+      <CinematicHero slides={MATERIALS_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<PanelSculpture />} />
 
       {/* 2. DETAILED MATERIALS REGISTER */}
       <section className="py-space-96 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-white relative">

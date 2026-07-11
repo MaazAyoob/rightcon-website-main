@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useScrollSystem } from '../context/ScrollContext';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
+import RingSculpture from '../components/Sculptures/RingSculpture';
 
 const TESTIMONIAL_SLIDES = [
   {
@@ -57,7 +58,7 @@ export default function TestimonialsPage() {
     <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Testimonials slideshow hero */}
-      <CinematicHero slides={TESTIMONIAL_SLIDES} coordinates="12.9716° N, 77.5946° E" />
+      <CinematicHero slides={TESTIMONIAL_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<RingSculpture />} />
 
       {/* 2. DETAILED INTERVIEWS LIST */}
       <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/10 bg-charcoal relative">

@@ -3,6 +3,7 @@ import { useScrollSystem } from '../context/ScrollContext';
 import { INSIGHTS_DATA } from '../data/mockData';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
+import PanelSculpture from '../components/Sculptures/PanelSculpture';
 
 const INSIGHTS_SLIDES = [
   {
@@ -37,7 +38,7 @@ export default function Insights() {
     <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Insights slideshow hero */}
-      <CinematicHero slides={INSIGHTS_SLIDES} coordinates="12.9716° N, 77.5946° E" />
+      <CinematicHero slides={INSIGHTS_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<PanelSculpture />} />
 
       {/* 2. CORE ARTICLE GRID */}
       <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/10 bg-charcoal relative">

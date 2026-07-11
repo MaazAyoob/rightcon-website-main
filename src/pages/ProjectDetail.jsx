@@ -4,6 +4,8 @@ import { useScrollSystem } from '../context/ScrollContext';
 import { PROJECTS_DATA } from '../data/mockData';
 import { optimizeUnsplashUrl } from '../utils/image';
 import Footer from '../components/UI/Footer';
+import CinematicHero from '../components/UI/CinematicHero';
+import ProjectSculpture from '../components/Sculptures/ProjectSculpture';
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -75,36 +77,26 @@ export default function ProjectDetail() {
   // Find related projects
   const relatedProjects = PROJECTS_DATA.filter(p => p.id !== project.id).slice(0, 2);
 
-  return (
-    <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-space-96 select-none">
-      
-      {/* BREADCRUMBS & META HEADER */}
-      <div className="px-space-24 md:px-space-40 max-w-7xl mx-auto w-full z-10">
-        <nav className="breadcrumb-nav">
-          <Link to="/" className="breadcrumb-link">HOME</Link>
-          <span>/</span>
-          <Link to="/projects" className="breadcrumb-link">PROJECTS</Link>
-          <span>/</span>
-          <span className="text-accent font-semibold">{project.category}</span>
-          <span>/</span>
-          <span className="text-white/40">{project.title}</span>
-        </nav>
-      </div>
+  const projectSlides = [
+    {
+      image: project.heroImage,
+      category: `01 // ${project.category.toUpperCase()}`,
+      title: project.title,
+      desc: project.overview,
+      code: `${project.id.toUpperCase().replace('-', '_')} // STRUC_PASS`,
+      detailImg: project.gallery[0],
+    }
+  ];
 
-      {/* 1. FULL-SCREEN HERO */}
-      <section className="py-space-64 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10">
-        <h1 className="font-display text-4xl md:text-7xl font-light text-white leading-none mt-space-24 uppercase tracking-wide">
-          {project.title}
-        </h1>
-        
-        <div className="w-full aspect-[21/9] overflow-hidden border border-white/10 rounded-none mt-space-40 relative bg-charcoal shadow-2xl">
-          <img 
-            src={optimizeUnsplashUrl(project.heroImage, isMobile ? 800 : 1600, isMobile ? 70 : 85)} 
-            alt={project.title} 
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </section>
+  return (
+    <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none">
+      
+      {/* 1. Project Detail Hero with Custom interactive 3D Sculpture */}
+      <CinematicHero 
+        slides={projectSlides} 
+        coordinates={project.location} 
+        sculpture={<ProjectSculpture projectId={project.id} />} 
+      />
 
       {/* 2. OVERVIEW & PROJECT FACTS */}
       <section className="py-space-64 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10 border-t border-white/5 mt-space-40">

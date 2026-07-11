@@ -151,24 +151,24 @@ export default function FuturisticKey() {
     >
       {/* Invisible wider hit area sphere for easier raycast clicking */}
       <mesh visible={true}>
-        <sphereGeometry args={[0.7, 16, 16]} />
+        <sphereGeometry args={[0.6, 16, 16]} />
         <meshBasicMaterial transparent opacity={0} />
       </mesh>
 
-      {/* 1. CENTRAL GLOWING CRYSTAL CORE (Luxury Gem) */}
+      {/* 1. CENTRAL KEY BODY (Floating and Rotating Together) */}
       <group ref={coreRef}>
-        {/* Outer Crystal Sheath */}
-        <mesh material={crystalMaterial}>
-          <octahedronGeometry args={[0.24]} />
+        {/* KEY BOW (Architectural Handle) - Centered at Y = 0.3 */}
+        {/* Outer Gold Ring */}
+        <mesh position={[0, 0.3, 0]} material={goldMaterial}>
+          <torusGeometry args={[0.22, 0.04, 16, 64]} />
+        </mesh>
+        {/* Inner Bronze Detail Ring */}
+        <mesh position={[0, 0.3, 0]} material={bronzeMaterial}>
+          <torusGeometry args={[0.27, 0.015, 12, 48]} />
         </mesh>
         
-        {/* Inner Glowing Energy Core */}
-        <mesh material={glowingCyanMaterial}>
-          <octahedronGeometry args={[0.12]} />
-        </mesh>
-
-        {/* Tiny rotating holographic house inside the key */}
-        <group ref={holoHouseRef} scale={0.07}>
+        {/* Tiny rotating holographic house inside the key bow loop */}
+        <group ref={holoHouseRef} position={[0, 0.3, 0]} scale={0.06}>
           <mesh material={wireframeMaterial}>
             <boxGeometry args={[1, 1, 1]} />
           </mesh>
@@ -177,72 +177,74 @@ export default function FuturisticKey() {
           </mesh>
         </group>
 
-        {/* Small energy points orbiting */}
-        <mesh position={[0, 0.35, 0]} material={glowingCyanMaterial}>
-          <sphereGeometry args={[0.02, 8, 8]} />
+        {/* Small glowing energy node inside the holographic house */}
+        <mesh position={[0, 0.3, 0]} material={glowingCyanMaterial}>
+          <sphereGeometry args={[0.025, 8, 8]} />
         </mesh>
-        <mesh position={[0, -0.35, 0]} material={glowingCyanMaterial}>
-          <sphereGeometry args={[0.02, 8, 8]} />
-        </mesh>
-      </group>
 
-      {/* 2. ROTATING GYROSCOPIC RINGS (Architectural Orbitals) */}
-      {/* Ring 1 - Gold Torus */}
-      <mesh ref={ring1Ref} material={goldMaterial}>
-        <torusGeometry args={[0.4, 0.015, 8, 48]} />
-      </mesh>
-
-      {/* Ring 2 - Bronze Torus */}
-      <mesh ref={ring2Ref} material={bronzeMaterial}>
-        <torusGeometry args={[0.48, 0.01, 8, 48]} />
-      </mesh>
-
-      {/* Ring 3 - Fine Blueprint wireframe ring */}
-      <mesh ref={ring3Ref} material={wireframeMaterial}>
-        <torusGeometry args={[0.56, 0.005, 4, 32]} />
-      </mesh>
-
-      {/* 3. KEY SHAFT AND TEETH (Blueprint / Architectural lines) */}
-      {/* Key Shaft */}
-      <group position={[0, -0.65, 0]}>
-        <mesh material={wireframeMaterial}>
-          <cylinderGeometry args={[0.05, 0.05, 0.5, 8, 4, true]} />
+        {/* KEY SHAFT (Stem) - Centered at Y = -0.2 */}
+        {/* Main Solid Gold Shaft */}
+        <mesh position={[0, -0.2, 0]} material={goldMaterial}>
+          <cylinderGeometry args={[0.035, 0.035, 0.7, 16]} />
         </mesh>
         
-        {/* Accent Solid Gold Collars */}
-        <mesh position={[0, 0.2, 0]} material={goldMaterial}>
-          <cylinderGeometry args={[0.07, 0.07, 0.04, 16]} />
+        {/* Blueprint Wireframe outer sheath */}
+        <mesh position={[0, -0.2, 0]} material={wireframeMaterial}>
+          <cylinderGeometry args={[0.045, 0.045, 0.72, 8, 4, true]} />
         </mesh>
+        
+        {/* Accent Collars */}
+        {/* Upper Collar (Bow-Shaft Join) */}
+        <mesh position={[0, 0.1, 0]} material={bronzeMaterial}>
+          <cylinderGeometry args={[0.052, 0.052, 0.04, 16]} />
+        </mesh>
+        {/* Middle Decorative Collar */}
         <mesh position={[0, -0.2, 0]} material={goldMaterial}>
-          <cylinderGeometry args={[0.07, 0.07, 0.04, 16]} />
+          <cylinderGeometry args={[0.048, 0.048, 0.03, 16]} />
+        </mesh>
+        {/* Lower Collar (Shaft-Tip Join) */}
+        <mesh position={[0, -0.5, 0]} material={bronzeMaterial}>
+          <cylinderGeometry args={[0.048, 0.048, 0.04, 16]} />
         </mesh>
 
-        {/* Key Teeth - Luxury abstract architectural block structures */}
-        <group position={[0.12, -0.15, 0]}>
-          {/* Teeth Block 1 */}
-          <mesh position={[0, 0.08, 0]} material={goldMaterial}>
-            <boxGeometry args={[0.15, 0.05, 0.05]} />
+        {/* KEY TEETH (Bit) - Architectural Silhouette at bottom right */}
+        <group position={[0, -0.4, 0]}>
+          {/* Main Key Bit Plate */}
+          <mesh position={[0.08, 0, 0]} material={goldMaterial}>
+            <boxGeometry args={[0.12, 0.16, 0.03]} />
           </mesh>
-          {/* Teeth Block 2 */}
-          <mesh position={[-0.03, -0.02, 0]} material={bronzeMaterial}>
-            <boxGeometry args={[0.09, 0.05, 0.05]} />
+          {/* Tooth Cut Block 1 */}
+          <mesh position={[0.16, 0.05, 0]} material={bronzeMaterial}>
+            <boxGeometry args={[0.06, 0.03, 0.035]} />
           </mesh>
-          {/* Glowing node at bottom of teeth */}
-          <mesh position={[0.04, -0.02, 0]} material={glowingCyanMaterial}>
-            <boxGeometry args={[0.04, 0.04, 0.06]} />
+          {/* Tooth Cut Block 2 */}
+          <mesh position={[0.14, 0.0, 0]} material={goldMaterial}>
+            <boxGeometry args={[0.04, 0.03, 0.035]} />
+          </mesh>
+          {/* Tooth Cut Block 3 */}
+          <mesh position={[0.17, -0.05, 0]} material={bronzeMaterial}>
+            <boxGeometry args={[0.07, 0.03, 0.035]} />
+          </mesh>
+          {/* High-tech Blueprint glowing node on the edge */}
+          <mesh position={[0.19, 0.0, 0]} material={glowingCyanMaterial}>
+            <boxGeometry args={[0.02, 0.02, 0.04]} />
           </mesh>
         </group>
-      </group>
 
-      {/* 4. BASE PRISM HILT (Abstract Architectural Roof design) */}
-      <group position={[0, 0.65, 0]}>
-        {/* Solid gold triangle prism */}
-        <mesh rotation={[0, 0, Math.PI / 4]} material={goldMaterial}>
-          <boxGeometry args={[0.18, 0.18, 0.18]} />
+        {/* 2. ROTATING GYROSCOPIC RINGS (Architectural Orbitals centered on the bow) */}
+        {/* Ring 1 - Gold Torus */}
+        <mesh ref={ring1Ref} position={[0, 0.3, 0]} material={goldMaterial}>
+          <torusGeometry args={[0.35, 0.01, 8, 48]} />
         </mesh>
-        {/* Blueprint wireframe box surrounding it */}
-        <mesh material={wireframeMaterial}>
-          <boxGeometry args={[0.26, 0.26, 0.26]} />
+
+        {/* Ring 2 - Bronze Torus */}
+        <mesh ref={ring2Ref} position={[0, 0.3, 0]} material={bronzeMaterial}>
+          <torusGeometry args={[0.42, 0.007, 8, 48]} />
+        </mesh>
+
+        {/* Ring 3 - Fine Blueprint wireframe ring */}
+        <mesh ref={ring3Ref} position={[0, 0.3, 0]} material={wireframeMaterial}>
+          <torusGeometry args={[0.48, 0.004, 4, 32]} />
         </mesh>
       </group>
     </group>

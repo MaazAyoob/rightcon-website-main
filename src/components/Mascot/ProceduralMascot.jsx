@@ -134,6 +134,36 @@ const EC = {
     torsoX: -0.05, torsoY: 0, headX: 0.02, headY: 0,
     LF: 'open', RF: 'open',
   },
+  visorClean: {
+    LS: [0.1, 0, 0.25], LE: [0.2, 0, 0], LW: [0, 0, 0],
+    RS: [-0.6, 0.15, -0.45], RE: [1.25, 0, 0], RW: [0.15, 0.1, 0],
+    torsoX: 0.05, torsoY: 0, headX: 0.08, headY: 0.1,
+    LF: 'relaxed', RF: 'relaxed',
+  },
+  jetpackAdjust: {
+    LS: [0.55, 0, 0.45], LE: [0.45, 0, 0], LW: [-0.2, 0, 0],
+    RS: [0.55, 0, -0.45], RE: [0.45, 0, 0], RW: [-0.2, 0, 0],
+    torsoX: 0.22, torsoY: 0, headX: -0.05, headY: 0,
+    LF: 'relaxed', RF: 'relaxed',
+  },
+  wristCheck: {
+    LS: [-0.45, -0.2, 0.5], LE: [1.2, 0, 0], LW: [0.1, 0, 0],
+    RS: [0.1, 0, -0.15], RE: [0.15, 0, 0], RW: [0, 0, 0],
+    torsoX: 0.08, torsoY: 0, headX: 0.22, headY: -0.15,
+    LF: 'relaxed', RF: 'relaxed',
+  },
+  listening: {
+    LS: [0, 0, 0.15], LE: [0.15, 0, 0], LW: [0.05, 0, 0.05],
+    RS: [0, 0, -0.15], RE: [0.15, 0, 0], RW: [0.05, 0, -0.05],
+    torsoX: 0.04, torsoY: 0.05, headX: 0.02, headY: 0.02,
+    LF: 'relaxed', RF: 'relaxed',
+  },
+  inspecting: {
+    LS: [0.35, 0.1, 0.4], LE: [0.95, 0, 0], LW: [0, 0, 0],
+    RS: [-0.45, 0.2, -0.6], RE: [1.1, 0, 0], RW: [0.15, 0, 0],
+    torsoX: 0.25, torsoY: 0, headX: 0.12, headY: 0.08,
+    LF: 'relaxed', RF: 'chinTouch',
+  },
 };
 
 // Emotion / behavior → config key
@@ -141,16 +171,17 @@ const EMOTION_MAP = {
   calm:       'calm',      curious:  'curious',  thinking: 'thinking',
   focused:    'thinking',  happy:    'happy',     excited:  'excited',
   friendly:   'happy',     helpful:  'helpful',  confident:'confident',
-  relaxed:    'calm',
+  relaxed:    'calm',      busy:     'jetpackAdjust',
 };
 const BEHAVIOR_MAP = {
-  inspect: 'inspect', inspecting: 'inspect', observing: 'inspect',
+  inspect: 'inspect', inspecting: 'inspecting', observing: 'inspect',
   checkAlignment: 'inspect', dustHands: 'dustHands', shrug: 'shrug',
   pointing: 'pointing', inviteContinue: 'pointing', memoryPoint: 'pointing',
   waveFarewell: 'waveFarewell', celebrateForm: 'celebrating', sitFarewell: 'sitting',
-  attentiveForm: 'thinking', contemplateWork: 'thinking', scanArea: 'curious',
-  stretchArms: 'excited', studySkyline: 'curious', adjustJetpack: 'focused',
-  checkProgress: 'inspect',
+  attentiveForm: 'listening', contemplateWork: 'thinking', scanArea: 'curious',
+  stretchArms: 'excited', studySkyline: 'curious', adjustJetpack: 'jetpackAdjust',
+  checkProgress: 'inspect', visorClean: 'visorClean', jetpackAdjust: 'jetpackAdjust',
+  wristCheck: 'wristCheck', listening: 'listening',
   wave: 'wave', confident: 'confident',
 };
 const INTRO_POSE_MAP = {
@@ -330,6 +361,18 @@ export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourSt
       hoverBaseRef.current && (hoverBaseRef.current.rotation.x = THREE.MathUtils.lerp(
         hoverBaseRef.current?.rotation.x || 0, 0.45, 0.08));
     }
+    if (configKey === 'visorClean') {
+      rwTarget[0] += Math.sin(t * 16) * 0.15;
+      rwTarget[2] += Math.cos(t * 16) * 0.15;
+      hxTarget += Math.sin(t * 8) * 0.03;
+    }
+    if (configKey === 'jetpackAdjust') {
+      lwTarget[1] += Math.sin(t * 14) * 0.08;
+      rwTarget[1] += Math.cos(t * 14) * 0.08;
+    }
+    if (configKey === 'listening') {
+      hxTarget += Math.sin(t * 4.5) * 0.05; // Nodding movement
+    }
 
     // Inertia from velocity (body balance)
     const vel = velocityRef?.current || new THREE.Vector3(0, 0, 0);
@@ -506,12 +549,13 @@ export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourSt
     // ── 10. Jetpack exhaust ──
     if (exhaustRef.current) {
       const isSitting = configKey === 'sitting';
-      const thrustBase = isSitting ? 0 : 0.8;
-      const flicker = isSitting ? 0 : Math.sin(t * 28) * 0.14 + Math.sin(t * 17) * 0.08;
+      const isAdjusting = configKey === 'jetpackAdjust';
+      const thrustBase = isSitting ? 0 : (isAdjusting ? 1.6 : 0.8);
+      const flicker = isSitting ? 0 : Math.sin(t * (isAdjusting ? 48 : 28)) * 0.14 + Math.sin(t * (isAdjusting ? 27 : 17)) * 0.08;
       exhaustRef.current.scale.y = Math.max(0, thrustBase + flicker);
-      exhaustRef.current.scale.x = isSitting ? 0 : 0.9 + flicker * 0.3;
+      exhaustRef.current.scale.x = isSitting ? 0 : (isAdjusting ? 1.4 : 0.9) + flicker * 0.3;
       exhaustRef.current.scale.z = exhaustRef.current.scale.x;
-      exhaustRef.current.material.opacity = isSitting ? 0 : 0.4 + flicker * 0.2;
+      exhaustRef.current.material.opacity = isSitting ? 0 : (isAdjusting ? 0.9 : 0.4) + flicker * 0.2;
     }
 
     // ── 11. Subtle body pacing sway when idle ──

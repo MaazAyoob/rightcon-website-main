@@ -4,6 +4,7 @@ import { useScrollSystem } from '../context/ScrollContext';
 import { optimizeUnsplashUrl } from '../utils/image';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
+import EvolutionSculpture from '../components/Sculptures/EvolutionSculpture';
 
 const PROCESS_SLIDES = [
   {
@@ -85,7 +86,7 @@ export default function Process() {
     <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Process slideshow hero */}
-      <CinematicHero slides={PROCESS_SLIDES} coordinates="12.9716° N, 77.5946° E" />
+      <CinematicHero slides={PROCESS_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<EvolutionSculpture />} />
 
       {/* 2. DYNAMIC WORKFLOW PRESENTATION */}
       <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">

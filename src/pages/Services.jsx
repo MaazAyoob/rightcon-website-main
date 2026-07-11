@@ -4,6 +4,7 @@ import { SERVICES_DATA } from '../data/mockData';
 import { Link } from 'react-router-dom';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
+import AssemblySculpture from '../components/Sculptures/AssemblySculpture';
 
 const SERVICES_SLIDES = [
   {
@@ -46,7 +47,7 @@ export default function Services() {
     <div className="w-full flex flex-col bg-white text-charcoal selection:bg-primary selection:text-white pt-0 select-none">
       
       {/* 1. Services slideshow hero */}
-      <CinematicHero slides={SERVICES_SLIDES} coordinates="12.9716° N, 77.5946° E" />
+      <CinematicHero slides={SERVICES_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<AssemblySculpture />} />
 
       {/* 2. SERVICES LISTING BENTO GRID */}
       <section className="py-space-96 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10">

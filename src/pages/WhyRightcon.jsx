@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useScrollSystem } from '../context/ScrollContext';
 import CinematicHero from '../components/UI/CinematicHero';
 import Footer from '../components/UI/Footer';
+import LockSculpture from '../components/Sculptures/LockSculpture';
 
 const WHY_SLIDES = [
   {
@@ -43,7 +44,7 @@ export default function WhyRightcon() {
     <div className="w-full flex flex-col bg-charcoal text-white selection:bg-primary selection:text-white pt-0 select-none font-sans">
       
       {/* 1. Why Rightcon slideshow hero */}
-      <CinematicHero slides={WHY_SLIDES} coordinates="12.9716° N, 77.5946° E" />
+      <CinematicHero slides={WHY_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<LockSculpture />} />
 
       {/* 1.5 PERFORMANCE STATS BAR */}
       <section className="py-12 px-space-24 md:px-space-40 border-t border-b border-white/5 bg-charcoal/50 relative">
