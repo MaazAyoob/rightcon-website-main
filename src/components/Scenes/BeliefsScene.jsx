@@ -53,7 +53,7 @@ export default function BeliefsScene() {
                 A Mandate of <br />
                 <span className="text-accent italic">Structural Perfection</span>
               </h2>
-              <p className="font-sans text-xs md:text-sm font-light text-white-light leading-relaxed mt-4">
+              <p className="font-sans text-xs md:text-sm font-light text-white/70 leading-relaxed mt-4">
                 To construct with absolute geomechanical truth. We reject decorative covers and hollow drywalls. Every project exposes raw form-finished concrete, solid Burma teak, and certified Fe550D rebar matrices.
               </p>
             </div>

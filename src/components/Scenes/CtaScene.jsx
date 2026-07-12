@@ -115,15 +115,15 @@ export default function CtaScene() {
   }, []);
 
   return (
-    <section id="book-a-visit" className="relative w-full py-16 md:py-24 px-5 md:px-10 border-t border-charcoal/5 select-none bg-charcoal subpixel-text">
+    <section id="book-a-visit" className="relative w-full section-container select-none bg-charcoal subpixel-text">
       <div className="absolute inset-0 architectural-grid opacity-10 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           
-          {/* Left Column: Image */}
+          {/* Left Column: Image — responsive aspect ratio */}
           <div className="col-span-12 lg:col-span-5 flex flex-col">
-            <div className="w-full aspect-[4/3] md:aspect-[4/5] overflow-hidden border border-white/10 shadow-2xl rounded-none relative group bg-white">
+            <div className="w-full aspect-[16/9] lg:aspect-[4/5] overflow-hidden border border-white/10 shadow-2xl rounded-none relative group bg-white">
               <img 
                 src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1000&auto=format&fit=crop&q=80" 
                 alt="Sunset concrete deck architectural design" 

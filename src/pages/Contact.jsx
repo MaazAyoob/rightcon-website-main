@@ -86,20 +86,20 @@ export default function Contact() {
       <CinematicHero slides={CONTACT_SLIDES} coordinates="12.9716° N, 77.6412° E" sculpture={<ContactSculpture />} />
 
       {/* 2. INQUIRY FORM & ADDRESSES */}
-      <section ref={formRef} className="py-space-96 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-white relative">
+      <section ref={formRef} className="section-container border-t border-charcoal/5 bg-white relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-64 items-start relative z-10">
           
           {/* Glass Form */}
-          <div className="col-span-12 lg:col-span-7 border border-charcoal/10 bg-charcoal/50 p-space-32 md:p-space-40 shadow-2xl rounded-none">
+          <div className="col-span-12 lg:col-span-7 border border-charcoal/10 bg-charcoal p-space-32 md:p-space-40 shadow-2xl rounded-none">
             {submitted ? (
-              <div className="py-space-40 text-center flex flex-col gap-space-16 items-center">
-                <div className="w-12 h-12 rounded-full border border-accent flex items-center justify-center text-accent text-xl mb-4">
+              <div className="py-space-40 text-center flex flex-col gap-space-16 items-center animate-scale-in">
+                <div className="w-14 h-14 rounded-full border border-accent flex items-center justify-center text-accent text-2xl mb-4 shadow-[0_0_15px_rgba(201,162,39,0.3)] animate-pulse">
                   ✓
                 </div>
                 <h3 className="font-display text-2xl font-light text-white uppercase tracking-wide">Advisory Booked</h3>
-                <p className="font-sans text-xs text-charcoal/60 max-w-xs leading-relaxed font-light">
+                <p className="font-sans text-xs text-white/60 max-w-xs leading-relaxed font-light">
                   Your coordinates have been registered. Maaz Ayoob will review details and schedule contact within 24 business hours.
                 </p>
               </div>
@@ -107,7 +107,7 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="flex flex-col gap-space-32">
                 <div className="flex flex-col gap-space-8">
                   <h3 className="font-display text-2xl font-light text-white uppercase tracking-wide">Request Advisory Consultation</h3>
-                  <p className="font-sans text-xs text-charcoal/60 font-light">
+                  <p className="font-sans text-xs text-white/60 font-light">
                     Enter contact specifications to schedule a geomechanical review.
                   </p>
                 </div>
@@ -136,7 +136,9 @@ export default function Contact() {
                   <input 
                     type="tel" 
                     required 
-                    placeholder="Phone Number" 
+                    pattern="[0-9]{10}"
+                    title="Please enter a valid 10-digit mobile number"
+                    placeholder="Phone Number (10 digits)" 
                     value={formData.phone}
                     onFocus={() => setFormFieldFocus('phone')}
                     onBlur={() => setFormFieldFocus(null)}
@@ -172,14 +174,14 @@ export default function Contact() {
               
               <div className="flex flex-col gap-4 font-light text-xs text-charcoal/70">
                 <div className="flex flex-col gap-1">
-                  <h4 className="font-mono text-xs text-white font-bold">BANGALORE DESIGN HQ</h4>
+                  <h4 className="font-mono text-xs text-charcoal font-bold">BANGALORE DESIGN HQ</h4>
                   <address className="not-italic leading-relaxed">
                     12th Main Rd, Indiranagar, Bangalore, Karnataka 560038
                   </address>
                 </div>
                 
                 <div className="flex flex-col gap-1 mt-4">
-                  <h4 className="font-mono text-xs text-white font-bold">MYSURU STUDIO</h4>
+                  <h4 className="font-mono text-xs text-charcoal font-bold">MYSURU STUDIO</h4>
                   <address className="not-italic leading-relaxed">
                     Jayalakshmipuram, Mysuru, Karnataka 570012
                   </address>
@@ -202,11 +204,11 @@ export default function Contact() {
       </section>
 
       {/* 3. TECHNICAL FAQS ACCORDION */}
-      <section className="py-space-96 px-space-24 md:px-space-40 max-w-5xl mx-auto w-full relative z-10 border-t border-charcoal/5">
+      <section className="section-container max-w-5xl mx-auto w-full relative z-10 border-t border-charcoal/5">
         <div className="flex flex-col gap-space-48">
           <div className="flex flex-col gap-space-8 text-center items-center">
             <span className="h-label-mono text-accent">[TECHNICAL BRIEFINGS // FAQ]</span>
-            <h2 className="font-display text-2xl md:text-3xl font-light text-white uppercase tracking-wide">General Questions</h2>
+            <h2 className="font-display text-2xl md:text-3xl font-light text-charcoal uppercase tracking-wide">General Questions</h2>
           </div>
 
           <div className="flex flex-col border-t border-charcoal/10">
@@ -223,7 +225,7 @@ export default function Contact() {
                     className="w-full flex justify-between items-start text-left cursor-pointer focus:outline-none"
                   >
                     <div className="flex gap-space-16 items-start">
-                      <span className="font-mono text-[9px] text-charcoal/50/50 mt-1">
+                      <span className="font-mono text-[9px] text-charcoal/40 mt-1">
                         (0{idx + 1})
                       </span>
                       <h3 className="font-display text-base md:text-lg font-light text-charcoal hover:text-accent transition-colors tracking-wide leading-snug">

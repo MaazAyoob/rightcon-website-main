@@ -83,6 +83,9 @@ export const ScrollProvider = ({ children }) => {
   const [activeScene, setActiveSceneState] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [screenSize, setScreenSize] = useState('desktop'); // 'mobile'|'tablet'|'laptop'|'desktop'|'wide'
   const [pageIdle, setPageIdle] = useState(false);
   const [activeInteraction, setActiveInteraction] = useState(null);
 
@@ -205,12 +208,20 @@ export const ScrollProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // 1. Mobile detection
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    // 1. Screen size detection
+    const checkScreenSize = () => {
+      const w = window.innerWidth;
+      setIsMobile(w < 768);
+      setIsTablet(w >= 768 && w < 1024);
+      setIsDesktop(w >= 1024);
+      if (w < 768)       setScreenSize('mobile');
+      else if (w < 1024) setScreenSize('tablet');
+      else if (w < 1280) setScreenSize('laptop');
+      else if (w < 1920) setScreenSize('desktop');
+      else               setScreenSize('wide');
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
 
     // Initialize idle timer
     resetIdleTimer();
@@ -222,7 +233,8 @@ export const ScrollProvider = ({ children }) => {
     
     const completed = localStorage.getItem('rightcon_intro_completed') === 'true';
     const isMobileDevice = window.innerWidth < 768;
-    const shouldSkip = (completed && !isDev) || isMobileDevice || location.pathname !== '/'; // Auto-skip intro on mobile or inner pages
+    const isTabletDevice = window.innerWidth >= 768 && window.innerWidth < 1024;
+    const shouldSkip = (completed && !isDev) || isMobileDevice || isTabletDevice || location.pathname !== '/'; // Auto-skip intro on mobile/tablet or inner pages
 
     setIntroCompleted(shouldSkip);
     setHeroState(shouldSkip ? 'EXPLORE' : 'BOOTING');
@@ -290,7 +302,7 @@ export const ScrollProvider = ({ children }) => {
 
     // Clean up
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('resize', checkScreenSize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', resetIdleTimer);
       window.removeEventListener('click', resetIdleTimer);
@@ -343,6 +355,9 @@ export const ScrollProvider = ({ children }) => {
       activeScene,
       mousePos,
       isMobile,
+      isTablet,
+      isDesktop,
+      screenSize,
       pageIdle,
       activeInteraction,
       lenisRef,

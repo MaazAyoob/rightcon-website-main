@@ -24,10 +24,10 @@ const WHY_SLIDES = [
 ];
 
 const CREDENTIALS = [
-  { num: "01", title: "RERA Registered", desc: "Fully certified under Karnataka RERA registries, ensuring strict scheduling logs and transparency rules." },
-  { num: "02", title: "Bedrock Soil Testing", desc: "Standard Penetration Tests up to 8m mapping geomechanical soil properties before pouring footings." },
-  { num: "03", title: "Day 7/28 Concrete Tests", desc: "Cube samples compressed in ISO certified laboratories to verify strict loading load capacity tolerances." },
-  { num: "04", title: "LOD 400 Coordination", desc: "Clash-free digital twins modeled in BIM coordinating structural spans, eliminating drilling defects." }
+  { num: "01", title: "RERA Registered (PRM_KA_RERA_1251)", desc: "Fully certified under Karnataka RERA registers, guaranteeing strict phase completion logs and transparent client audits." },
+  { num: "02", title: "Standard Penetration Tests (SPT)", desc: "Continuous soil boring checks down to bedrock (8m - 12m) mapping precise bearing indexes before plinth slab designs." },
+  { num: "03", title: "Compressive Cube Testing (IS_456)", desc: "Concrete samples from every structural pour are load-crushed at day 7 and 28 in certified labs to confirm safety tolerances." },
+  { num: "04", title: "LOD 400 BIM Clash Mitigation", desc: "Pre-construction coordination mapping pipelines, HVAC layout runs, and columns inside virtual twins to clear overlap errors." }
 ];
 
 export default function WhyRightcon() {
@@ -73,7 +73,7 @@ export default function WhyRightcon() {
       </section>
 
       {/* 2. CORE CREDENTIALS INDEX */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+      <section className="section-container border-t border-white/5 bg-charcoal relative">
         <div className="max-w-7xl mx-auto w-full flex flex-col gap-space-48 relative z-10">
           <span className="h-label-mono text-accent">[THE CREDIBILITY REGISTRY]</span>
           
@@ -81,7 +81,7 @@ export default function WhyRightcon() {
             {CREDENTIALS.map((cred, idx) => (
               <div 
                 key={idx} 
-                className="border border-white/5 p-space-32 bg-charcoal/30 rounded-none flex flex-col gap-space-16 justify-between hover:border-accent/35 transition-all duration-500"
+                className="border border-white/5 p-space-32 bg-charcoal/30 rounded-none flex flex-col gap-space-16 justify-between hover:border-accent/35 hover:-translate-y-1.5 hover:shadow-2xl transition-all duration-500"
               >
                 <div className="flex flex-col gap-2">
                   <span className="font-mono text-[8.5px] text-accent font-bold">REGISTRY // {cred.num}</span>
@@ -97,7 +97,7 @@ export default function WhyRightcon() {
       </section>
 
       {/* 2.5 COMPARISON MATRIX */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+      <section className="section-container border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-space-48">
           <div className="border-l-2 border-accent/40 pl-4">
@@ -106,7 +106,68 @@ export default function WhyRightcon() {
               Rightcon Assurance vs. Traditional Builders
             </h3>
           </div>
-          <div className="overflow-x-auto">
+
+          {/* Mobile Comparison Grid */}
+          <div className="grid grid-cols-1 gap-space-24 md:hidden">
+            <div className="border border-white/10 p-5 bg-charcoal/20 rounded-none flex flex-col gap-4">
+              <div className="flex justify-between items-center">
+                <span className="font-mono text-[9px] text-accent uppercase font-bold">Soil Geomechanics</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="font-sans text-[10px] text-white/40">TRADITIONAL BUILDERS:</span>
+                <p className="font-sans text-xs text-white/70 leading-relaxed font-light">Vague visual inspection, uniform foundation sizing</p>
+              </div>
+              <div className="flex flex-col gap-2 border-t border-white/5 pt-3">
+                <span className="font-sans text-[10px] text-accent font-bold">RIGHTCON ASSURANCE:</span>
+                <p className="font-sans text-xs text-white leading-relaxed font-light">Deep bedrock core drilling (8m - 12m) to map precise bearing indexes.</p>
+              </div>
+            </div>
+            
+            <div className="border border-white/10 p-5 bg-charcoal/20 rounded-none flex flex-col gap-4">
+              <div className="flex justify-between items-center">
+                <span className="font-mono text-[9px] text-accent uppercase font-bold">Slab Coordination</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="font-sans text-[10px] text-white/40">TRADITIONAL BUILDERS:</span>
+                <p className="font-sans text-xs text-white/70 leading-relaxed font-light">Manual drill cuts on-site; frequent structural steel rebar splits</p>
+              </div>
+              <div className="flex flex-col gap-2 border-t border-white/5 pt-3">
+                <span className="font-sans text-[10px] text-accent font-bold">RIGHTCON ASSURANCE:</span>
+                <p className="font-sans text-xs text-white leading-relaxed font-light">Zero core drill cuts. All conduit lines are pre-sleeved in 3D BIM models at LOD 400.</p>
+              </div>
+            </div>
+
+            <div className="border border-white/10 p-5 bg-charcoal/20 rounded-none flex flex-col gap-4">
+              <div className="flex justify-between items-center">
+                <span className="font-mono text-[9px] text-accent uppercase font-bold">Material Auditing</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="font-sans text-[10px] text-white/40">TRADITIONAL BUILDERS:</span>
+                <p className="font-sans text-xs text-white/70 leading-relaxed font-light">Contractor-selected local batches with unverified provenance ledger</p>
+              </div>
+              <div className="flex flex-col gap-2 border-t border-white/5 pt-3">
+                <span className="font-sans text-[10px] text-accent font-bold">RIGHTCON ASSURANCE:</span>
+                <p className="font-sans text-xs text-white leading-relaxed font-light">Direct quarry/mill invoices and certified laboratory crushing reports (Day 7/28).</p>
+              </div>
+            </div>
+
+            <div className="border border-white/10 p-5 bg-charcoal/20 rounded-none flex flex-col gap-4">
+              <div className="flex justify-between items-center">
+                <span className="font-mono text-[9px] text-accent uppercase font-bold">Warranty Title</span>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="font-sans text-[10px] text-white/40">TRADITIONAL BUILDERS:</span>
+                <p className="font-sans text-xs text-white/70 leading-relaxed font-light">1-year verbal/simple contract; expires if contractor closes shop</p>
+              </div>
+              <div className="flex flex-col gap-2 border-t border-white/5 pt-3">
+                <span className="font-sans text-[10px] text-accent font-bold">RIGHTCON ASSURANCE:</span>
+                <p className="font-sans text-xs text-white leading-relaxed font-light">10-year transferable deed of warranty registered directly inside the property title.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Comparison Table */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-left border-collapse border border-white/10 font-mono text-[10.5px]">
               <thead>
                 <tr className="bg-charcoal border-b border-white/10 text-accent uppercase tracking-wider">
@@ -151,7 +212,7 @@ export default function WhyRightcon() {
       </section>
 
       {/* 3. 10-YEAR DEED OF STRUCTURAL WARRANTY */}
-      <section className="py-space-96 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10">
+      <section className="section-container max-w-7xl mx-auto w-full relative z-10">
         <div className="border border-white/10 bg-charcoal p-space-32 md:p-space-64 shadow-2xl rounded-none flex flex-col gap-space-32">
           <span className="h-label-mono text-accent">[STRUCTURAL WARRANTY DEED]</span>
           <h2 className="font-display text-3xl font-light text-white uppercase tracking-wide">10-Year Transferable Warranty</h2>

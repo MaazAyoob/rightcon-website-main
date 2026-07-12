@@ -61,7 +61,7 @@ export default function TestimonialsPage() {
       <CinematicHero slides={TESTIMONIAL_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<RingSculpture />} />
 
       {/* 2. DETAILED INTERVIEWS LIST */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/10 bg-charcoal relative">
+      <section className="section-container border-t border-white/10 bg-charcoal relative">
         <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-space-48">
           
           <div className="flex flex-col gap-space-64">
@@ -78,13 +78,13 @@ export default function TestimonialsPage() {
                   />
                 </div>
                 <div className="flex flex-col gap-space-16">
-                  <p className="font-display text-xl md:text-2xl font-light italic leading-relaxed text-charcoal/90">
+                  <p className="font-display text-xl md:text-2xl font-light italic leading-relaxed text-white/90">
                     "{int.quote}"
                   </p>
                   <div className="flex items-center gap-space-16 font-mono text-[9px]">
                     <span className="text-accent font-bold uppercase">{int.author}</span>
-                    <span className="text-charcoal/30">|</span>
-                    <span className="text-charcoal/50 uppercase">{int.project}</span>
+                    <span className="text-white/30">|</span>
+                    <span className="text-white/50 uppercase">{int.project}</span>
                   </div>
                 </div>
               </div>

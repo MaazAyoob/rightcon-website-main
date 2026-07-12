@@ -35,19 +35,20 @@ export default function AboutScene() {
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-start">
           
-          {/* Left Column: Facade Image */}
-          <div className="hidden lg:block lg:col-span-4 relative pr-space-24">
+          {/* Left Column: Facade Image — responsive aspect ratio, visible on all viewports */}
+          <div className="col-span-12 lg:col-span-4 relative lg:pr-space-24 mb-8 lg:mb-0">
             <div className="relative">
               <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-accent z-20 pointer-events-none"></div>
-              <div className="w-full aspect-[3/4] overflow-hidden border border-charcoal/10 shadow-[0_32px_80px_rgba(0,0,0,0.07)] bg-white rounded-none group">
+              <div className="w-full aspect-[16/9] lg:aspect-[3/4] overflow-hidden border border-charcoal/10 shadow-[0_24px_64px_rgba(0,0,0,0.06)] bg-white rounded-none group">
                 <img 
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&auto=format&fit=crop" 
                   alt="Completed architectural landmark villa exterior" 
+                  loading="lazy"
                   className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-[1s]"
                 />
               </div>
             </div>
-            <span className="h-caption font-mono text-[7px] text-charcoal/40 mt-3 block text-center uppercase tracking-widest">
+            <span className="h-caption font-mono text-[7.5px] text-charcoal/40 mt-3.5 block text-center uppercase tracking-widest">
               ESTATE FACADE // FACADE_01 COMPLETED MONOLITH
             </span>
           </div>
@@ -67,10 +68,11 @@ export default function AboutScene() {
               
               {/* Photo collage */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-space-16 items-stretch">
-                <div className="md:col-span-7 aspect-[4/5] overflow-hidden border border-charcoal/10 relative shadow-[0_24px_48px_rgba(0,0,0,0.05)] bg-white rounded-none group">
+                <div className="col-span-12 md:col-span-7 aspect-[16/9] md:aspect-[4/5] overflow-hidden border border-charcoal/10 relative shadow-[0_24px_48px_rgba(0,0,0,0.05)] bg-white rounded-none group">
                   <img 
                     src="https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=1000&auto=format&fit=crop&q=80" 
                     alt="Maaz Ayoob, Founder of Rightcon" 
+                    loading="lazy"
                     className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
                   />
                   <div className="absolute bottom-2.5 left-2.5 bg-white border border-charcoal/10 px-2 py-0.5 font-mono text-[7px] text-accent uppercase shadow-sm">
@@ -83,6 +85,7 @@ export default function AboutScene() {
                     <img 
                       src="https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=600&auto=format&fit=crop&q=80" 
                       alt="Rightcon architectural planning studio" 
+                      loading="lazy"
                       className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-[1s]"
                     />
                     <div className="absolute bottom-2 left-2 bg-white border border-charcoal/10 px-2 py-0.5 font-mono text-[6.5px] text-charcoal/60">
@@ -94,6 +97,7 @@ export default function AboutScene() {
                     <img 
                       src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&auto=format&fit=crop&q=80" 
                       alt="Construction site coordination inspect" 
+                      loading="lazy"
                       className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
                     />
                     <div className="absolute bottom-2 left-2 bg-white border border-charcoal/10 px-2 py-0.5 font-mono text-[6.5px] text-charcoal/60">
@@ -128,6 +132,7 @@ export default function AboutScene() {
                         <img 
                           src={t.image} 
                           alt={t.project} 
+                          loading="lazy"
                           className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" 
                         />
                       </div>
@@ -135,6 +140,7 @@ export default function AboutScene() {
                         <img 
                           src={t.detailImage} 
                           alt="Material close-up" 
+                          loading="lazy"
                           className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-500" 
                         />
                       </div>

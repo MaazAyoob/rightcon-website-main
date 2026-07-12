@@ -50,6 +50,7 @@ const HERO_SLIDES = [
 export default function HeroScene() {
   const { 
     isMobile,
+    isTablet,
     scrollProgress, 
     setMascotPose,
     setMascotEmotion,
@@ -302,7 +303,7 @@ export default function HeroScene() {
     window.addEventListener('resize', resize);
 
     // Blueprint-themed ambient particles — elevation markers, dimension lines, nodes
-    const particleCount = 38;
+    const particleCount = isMobile ? 12 : isTablet ? 22 : 38;
     const particleTypes = ['cross', 'square', 'dot', 'dimLine', 'elevMarker', 'gridNode'];
     for (let i = 0; i < particleCount; i++) {
       particles.push({
@@ -393,7 +394,7 @@ export default function HeroScene() {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [isMobile, isTablet]);
 
   // Compute loading message log — Construction vocabulary
   let loadingLog = "Loading Architectural Experience...";
@@ -626,6 +627,29 @@ export default function HeroScene() {
           </div>
         </div>
       </div>
+
+      {/* Mobile/Tablet Swipeable Info Card (Hidden on lg+) */}
+      {heroState === 'EXPLORE' && HERO_SLIDES[currentSlide].detailImg && (
+        <div className="lg:hidden relative z-20 w-full mt-4">
+          <div className="glass-panel border-bronze/10 p-3 flex items-center gap-3 bg-charcoal/85 backdrop-blur-md">
+            <div className="w-12 h-12 flex-shrink-0 border border-white/10 overflow-hidden">
+              <img 
+                src={optimizeUnsplashUrl(HERO_SLIDES[currentSlide].detailImg, 150, 70)} 
+                alt="Detail" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="flex flex-col gap-0.5 flex-1 min-w-0">
+              <span className="font-mono text-[8px] text-accent font-bold uppercase tracking-widest truncate">
+                {HERO_SLIDES[currentSlide].code}
+              </span>
+              <p className="font-sans text-[11px] text-white/70 line-clamp-2 leading-snug">
+                {HERO_SLIDES[currentSlide].desc}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 7. Footer Scroll Cue with slideshow slide indicator */}
       <div className="relative z-20 w-full flex justify-between items-center border-t border-white/5 pt-space-16 text-ivory">

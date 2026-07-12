@@ -124,7 +124,7 @@ function IntroMascotController({ currentPos, currentRot, currentScale }) {
 
 // ── Main Canvas ──────────────────────────────────────────────────────────────
 export default function MascotCanvas() {
-  const { isMobile, introActive, activeScene, menuOpen, isChatOpen } = useScrollSystem();
+  const { isMobile, isTablet, introActive, activeScene, menuOpen, isChatOpen } = useScrollSystem();
   const zIndex = (menuOpen || isChatOpen) ? 1100 : 40;
 
   // Shared refs — written by BehaviourEngine/IntroMascotController, read by ProceduralMascot
@@ -151,6 +151,10 @@ export default function MascotCanvas() {
     return () => window.removeEventListener('mousemove', handleMove);
   }, [isMobile]);
 
+  // Performance Tiers: dpr limits, shadow resolution reductions, antialias disabling
+  const dpr = isMobile ? 1.0 : isTablet ? 1.3 : Math.min(window.devicePixelRatio, 2.0);
+  const shadowResolution = isMobile ? 0 : isTablet ? 512 : 1024;
+
   return (
     <div
       ref={containerRef}
@@ -160,12 +164,29 @@ export default function MascotCanvas() {
       <Canvas
         style={{ pointerEvents: 'inherit' }}
         camera={{ position: [0, 0, 5], fov: 45 }}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        dpr={dpr}
+        gl={{ 
+          antialias: !isMobile, 
+          alpha: true, 
+          powerPreference: 'high-performance',
+          precision: isMobile ? 'mediump' : 'highp'
+        }}
         shadows={!isMobile}
       >
         {/* Lights */}
         <ambientLight intensity={isMobile ? 0.75 : 0.45} />
-        <DynamicLights />
+        
+        {/* Directional Light with performance-tuned shadow maps */}
+        <directionalLight
+          position={[5, 10, 4]}
+          intensity={1.0}
+          castShadow={!isMobile}
+          shadow-mapSize-width={shadowResolution}
+          shadow-mapSize-height={shadowResolution}
+        />
+        
+        {/* Warm architectural fill — interior ambient bounce */}
+        <pointLight position={[0, -2, 3]} color={BRAND_COLORS.white} intensity={isMobile ? 0.2 : 0.35} distance={8} decay={2} />
         <pointLight position={[-4, -3, -2]} intensity={0.4} color={BRAND_COLORS.primary} />
         <pointLight position={[4, 4, 3]}   intensity={0.7} color={BRAND_COLORS.white} />
 

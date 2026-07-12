@@ -105,7 +105,7 @@ export default function Projects() {
       </section>
 
       {/* 3. ASYMMETRICAL PROJECTS LISTING */}
-      <section className="py-space-96 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10">
+      <section className="section-container max-w-7xl mx-auto w-full relative z-10">
         {filteredProjects.length === 0 ? (
           <div className="py-space-64 text-center font-mono text-xs text-white/30">
             [ZERO PROJECTS MATCHING SELECTED PARAMS]
@@ -123,7 +123,7 @@ export default function Projects() {
                     to={`/projects/${project.id}`} 
                     className="group block border border-white/10 p-space-20 bg-charcoal rounded-none hover:border-accent/40 transition-all duration-700 shadow-xl"
                   >
-                    <div className="w-full aspect-[4/3] overflow-hidden border border-white/5 relative bg-charcoal">
+                    <div className="w-full aspect-[16/9] md:aspect-[4/3] overflow-hidden border border-white/5 relative bg-charcoal">
                       <img 
                         src={optimizeUnsplashUrl(project.heroImage, isMobile ? 800 : 1000, isMobile ? 70 : 80)} 
                         alt={project.title} 

@@ -105,8 +105,6 @@ export default function SculptureCanvas({
   hoverRef,
   style = {},
 }) {
-  const bg = '#F5F5F3';
-
   return (
     <div
       style={{
@@ -121,12 +119,11 @@ export default function SculptureCanvas({
         camera={{ position: [0, 0.1, cameraZ], fov }}
         gl={{
           antialias: true,
-          alpha: false,
+          alpha: true,
           powerPreference: 'high-performance',
         }}
       >
         <CanvasContextDisposer />
-        <color attach="background" args={[bg]} />
         <StudioLights hoverRef={hoverRef} />
         {children}
       </Canvas>

@@ -29,6 +29,7 @@ const INTEREST_POINTS = {
   cta_side:        { pos: [-1.4, -0.5,  0.4],  rot: [0,  0.4, 0],  scale: 0.65 },
   footer_farewell: { pos: [1.2,  -1.35, 0.5],  rot: [0, -0.2, 0],  scale: 0.62 },
   chat_left:       { pos: [-1.38, -0.05, 0.4], rot: [0,  0.5, 0],  scale: 0.66 },
+  form_avoid_mobile: { pos: [0.85, 0.75, 0.25], rot: [0, -0.4, 0], scale: 0.38 },
 };
 
 const BEHAVIOR_POSES = {
@@ -95,6 +96,7 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
     mascotEmotion,
     setCurrentMascotPoint,
     isMobile,
+    isTablet,
     mascotHovered,
   } = useScrollSystem();
 
@@ -348,10 +350,10 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
         setBehavior('hover');
       }
     }
-    // 4. Focus on active form inputs
+    // 4. Focus on active form inputs — avoid overlay conflicts on mobile
     else if (formFieldFocus && !formSuccess) {
       if (currentBehaviorKey.current !== 'attentiveForm') {
-        flyTo('cta_side');
+        flyTo(isMobile ? 'form_avoid_mobile' : 'cta_side');
         setBehavior('attentiveForm');
         nextDecisionTime.current = t + 4.0;
       }
@@ -437,12 +439,22 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
         flyTo('about_side');
         setBehavior('observeBlueprint');
       } else if (location.pathname === '/process') {
-        flyTo(currentPointId.current === 'process_guide' ? 'process_side' : 'process_guide');
-        setBehavior('guideProcess');
+        if (isMobile || isTablet) {
+          flyTo('process_guide');
+          setBehavior('guideProcess');
+        } else {
+          flyTo(currentPointId.current === 'process_guide' ? 'process_side' : 'process_guide');
+          setBehavior('guideProcess');
+        }
       } else {
-        // Hero base pacing
-        flyTo(currentPointId.current === 'hero_right' ? 'hero_left' : 'hero_right');
-        setBehavior('lookAround');
+        // Hero base pacing — avoid hero text by staying right on mobile/tablet
+        if (isMobile || isTablet) {
+          flyTo('hero_right');
+          setBehavior('hover');
+        } else {
+          flyTo(currentPointId.current === 'hero_right' ? 'hero_left' : 'hero_right');
+          setBehavior('lookAround');
+        }
       }
       nextDecisionTime.current = t + 4.0 + Math.random() * 4.0;
     }
@@ -499,15 +511,15 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
     const dist = diff.length();
 
     // spring constant gets firmer if further away (fast recovery)
-    const springK = isVisitorReading ? 0.08 : (0.012 + Math.min(dist * 0.007, 0.024));
+    const springK = isVisitorReading ? 0.06 : (0.01 + Math.min(dist * 0.005, 0.02));
     velocity.current.addScaledVector(diff, springK);
     
     // spring dampening (higher dampening on reading block)
-    velocity.current.multiplyScalar(isVisitorReading ? 0.78 : 0.86);
+    velocity.current.multiplyScalar(isVisitorReading ? 0.82 : 0.88);
 
     // Limit maximum physics velocity frame increments
-    if (velocity.current.length() > 0.12) {
-      velocity.current.setLength(0.12);
+    if (velocity.current.length() > 0.08) {
+      velocity.current.setLength(0.08);
     }
 
     // Apply movement offset to pos vector
@@ -539,9 +551,9 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
     // ── Micro Hover Oscillations ──
     // Disable oscillations entirely if user is reading to keep screen static
     const micro = isVisitorReading ? 0 : (
-      Math.sin(t * 2.2) * 0.008 +
-      Math.sin(t * 3.8) * 0.004 +
-      Math.sin(t * 0.8) * 0.003
+      Math.sin(t * 2.2) * 0.004 +
+      Math.sin(t * 3.8) * 0.002 +
+      Math.sin(t * 0.8) * 0.001
     );
 
     // Apply sigh-dip math: rapid dip, slow recover
@@ -549,7 +561,7 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
     if (arrivedSighTime.current > 0 && !isVisitorReading) {
       const age = t - arrivedSighTime.current;
       if (age < 2.0) {
-        sighDip = Math.sin(age * Math.PI / 2.0) * -0.11 * Math.exp(-age * 1.6);
+        sighDip = Math.sin(age * Math.PI / 2.0) * -0.06 * Math.exp(-age * 1.6);
       } else {
         arrivedSighTime.current = -1;
       }

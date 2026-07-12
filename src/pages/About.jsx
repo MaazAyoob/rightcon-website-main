@@ -46,7 +46,7 @@ export default function About() {
       
       {/* 1. Cinematic Slideshow Hero */}
       <CinematicHero slides={ABOUT_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<FoundationSculpture />} />
-      <section className="py-space-96 md:py-space-160 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-white relative">
+      <section className="section-container border-t border-charcoal/5 bg-white relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.015] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto flex flex-col gap-space-32 text-center items-center relative z-10">
           <span className="h-label-mono text-primary font-bold">[02 // DESIGN MANDATE]</span>
@@ -63,7 +63,7 @@ export default function About() {
       </section>
 
       {/* 3. COORD TIMELINE LEDGER */}
-      <section className="py-space-96 md:py-space-160 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal">
+      <section className="section-container border-t border-white/5 bg-charcoal">
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-48">
           <div className="lg:col-span-4 flex flex-col gap-space-16">
             <span className="h-label-mono text-accent">[03 // STUDIO TIMELINE]</span>
@@ -97,7 +97,7 @@ export default function About() {
       </section>
 
       {/* 4. COMPLETED RESIDENCES VERIFICATIONS */}
-      <section className="py-space-96 md:py-space-160 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-white relative">
+      <section className="section-container border-t border-charcoal/5 bg-white relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.015] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto w-full flex flex-col gap-space-48 relative z-10">
           <span className="h-label-mono text-primary font-bold">[04 // CLIENT STORIES]</span>

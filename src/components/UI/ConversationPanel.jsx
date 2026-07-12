@@ -261,6 +261,7 @@ export default function ConversationPanel() {
     setMascotEmotion,
     setMascotSpeech,
     menuOpen,
+    isTablet,
   } = useScrollSystem();
 
   const location = useLocation();
@@ -498,19 +499,43 @@ export default function ConversationPanel() {
   if (!shouldRender) return null;
 
   return (
-    <div 
-      className={`fixed z-[1200] flex flex-col gap-4 font-sans theme-dark text-white select-none transition-all duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)]
-        bottom-0 left-0 right-0 w-full rounded-t-none p-6 bg-charcoal/98 border-t border-white/10
-        md:bottom-28 md:right-12 md:left-auto md:w-[380px] md:rounded-none md:p-space-24 md:border md:bg-charcoal/90 md:backdrop-blur-md md:shadow-[0_32px_80px_rgba(0,0,0,0.35)]
-        ${
-          isChatOpen 
-            ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' 
-            : 'opacity-0 translate-y-8 scale-95 pointer-events-none'
-        }
-      `}
-    >
-      {/* Top elegance accent line */}
-      <div className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-[var(--color-brand-blue)]/40 to-transparent"></div>
+    <>
+      {/* Tablet Backdrop Overlay */}
+      {isTablet && isChatOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[1199] animate-fade-in"
+          onClick={handleClose}
+          aria-hidden="true"
+        />
+      )}
+      
+      <div 
+        className={`fixed z-[1200] flex flex-col gap-4 font-sans theme-dark text-white select-none transition-all duration-[500ms] ease-[cubic-bezier(0.16,1,0.3,1)]
+          ${
+            isTablet
+              ? 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] rounded-lg border border-white/10 bg-charcoal/98 shadow-2xl p-6'
+              : 'bottom-0 left-0 right-0 w-full rounded-t-xl p-6 pb-safe bg-charcoal/98 border-t border-white/10 md:bottom-28 md:right-12 md:left-auto md:w-[380px] md:rounded-none md:p-space-24 md:border md:bg-charcoal/90 md:backdrop-blur-md md:shadow-[0_32px_80px_rgba(0,0,0,0.35)]'
+          }
+          ${
+            isChatOpen 
+              ? 'opacity-100 scale-100 pointer-events-auto' 
+              : isTablet
+                ? 'opacity-0 scale-95 pointer-events-none'
+                : 'opacity-0 translate-y-full pointer-events-none'
+          }
+        `}
+      >
+        {/* Mobile drag handle indicator */}
+        {!isTablet && (
+          <div 
+            className="md:hidden bottom-sheet-handle" 
+            onClick={handleClose}
+            aria-label="Close bottom sheet"
+          />
+        )}
+
+        {/* Top elegance accent line */}
+        <div className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-[var(--color-brand-blue)]/40 to-transparent"></div>
 
       {/* Header Info */}
       <div className="flex justify-between items-start border-b border-white/10 pb-space-8">
@@ -604,6 +629,7 @@ export default function ConversationPanel() {
         <span>SESSION: RC-ARCH-X</span>
         <span>SYS_LOG: ACTIVE</span>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

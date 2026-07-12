@@ -47,12 +47,11 @@ export default function TrustScene() {
 
         {/* Main content grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-stretch">
-          
-          {/* Left: Photo with strong editorial treatment */}
+                     {/* Left: Photo with strong editorial treatment */}
           <div className="col-span-12 lg:col-span-5 flex flex-col justify-between">
             <div className="relative">
               <div className="absolute -top-3 -left-3 w-10 h-10 border-t-2 border-l-2 border-accent z-20 pointer-events-none"></div>
-              <div className="w-full aspect-[4/5] overflow-hidden border border-charcoal/10 relative shadow-[0_32px_80px_rgba(0,0,0,0.07)] bg-white rounded-none group">
+              <div className="w-full aspect-[16/9] lg:aspect-[4/5] overflow-hidden border border-charcoal/10 relative shadow-[0_32px_80px_rgba(0,0,0,0.07)] bg-white rounded-none group">
                 <img 
                   src="https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=800&auto=format&fit=crop&q=80" 
                   alt="Architects and structural engineers inspecting bedrock details" 
@@ -116,13 +115,13 @@ export default function TrustScene() {
                 {AUDIT_FEED.map((item, i) => (
                   <div 
                     key={i} 
-                    className="flex justify-between items-center bg-charcoal/[0.02] border border-charcoal/5 p-space-12 font-mono text-[8.5px] text-charcoal/70"
+                    className="flex flex-col sm:flex-row justify-between sm:items-center bg-charcoal/[0.02] border border-charcoal/5 p-space-12 font-mono text-[8.5px] text-charcoal/70 gap-2"
                   >
-                    <div className="flex gap-space-12 items-center">
-                      <span className="text-charcoal/30">{item.time}</span>
-                      <span>{item.msg}</span>
+                    <div className="flex gap-space-12 items-start sm:items-center">
+                      <span className="text-charcoal/30 flex-shrink-0">{item.time}</span>
+                      <span className="leading-normal">{item.msg}</span>
                     </div>
-                    <span className={`px-2 py-0.5 text-[7px] font-bold flex-shrink-0 ml-2 ${
+                    <span className={`px-2 py-0.5 text-[7px] font-bold flex-shrink-0 self-start sm:self-auto ${
                       item.status === 'PASS' || item.status === 'VERIFIED' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-primary/5 text-primary border border-primary/10'
                     }`}>
                       {item.status}

@@ -47,7 +47,7 @@ export default function ClientJourney() {
       <CinematicHero slides={JOURNEY_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<PathSculpture />} />
 
       {/* 2. MILESTONE LIST */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-white relative">
+      <section className="section-container border-t border-charcoal/5 bg-white relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full flex flex-col gap-space-48 relative z-10">
@@ -57,12 +57,12 @@ export default function ClientJourney() {
             {JOURNEY_STEPS.map((step, idx) => (
               <div 
                 key={idx} 
-                className="border-b border-charcoal/10 py-space-32 grid grid-cols-1 md:grid-cols-12 gap-space-24 items-start hover:bg-white/[0.01] px-4 transition-colors duration-300"
+                className="border-b border-charcoal/10 py-space-32 grid grid-cols-1 md:grid-cols-12 gap-space-24 items-start hover:bg-charcoal/[0.01] px-4 transition-colors duration-300"
               >
                 <div className="md:col-span-2 font-mono text-xs text-accent font-bold">
                   STEP // {step.num}
                 </div>
-                <div className="md:col-span-4 font-display text-lg font-light text-white tracking-wide uppercase">
+                <div className="md:col-span-4 font-display text-lg font-light text-charcoal tracking-wide uppercase">
                   {step.phase}
                 </div>
                 <div className="md:col-span-6 font-sans text-xs text-charcoal/60 leading-relaxed font-light">
@@ -75,7 +75,7 @@ export default function ClientJourney() {
       </section>
 
       {/* 2.5 CLIENT PORTAL PREVIEW */}
-      <section className="py-space-64 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-charcoal relative">
+      <section className="section-container border-t border-charcoal/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-space-48">
           
@@ -86,7 +86,7 @@ export default function ClientJourney() {
             </h3>
           </div>
 
-          <div className="border border-charcoal/10 rounded-none bg-white/40 overflow-hidden p-space-24 md:p-space-40 flex flex-col gap-8 shadow-2xl">
+          <div className="border border-charcoal/10 rounded-none bg-white/10 overflow-hidden p-space-24 md:p-space-40 flex flex-col gap-8 shadow-2xl">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-charcoal/5 pb-6">
               <div className="flex flex-col gap-1">
                 <span className="font-mono text-[9px] text-white/40 uppercase">ACTIVE COMMISSION REFERENCE</span>

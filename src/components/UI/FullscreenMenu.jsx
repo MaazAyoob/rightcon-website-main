@@ -221,9 +221,10 @@ export default function FullscreenMenu() {
       gsap.fromTo(".menu-anim-bg", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" });
       gsap.fromTo(".menu-anim-link", 
         { opacity: 0, x: -30 }, 
-        { opacity: 1, x: 0, duration: 0.8, stagger: 0.03, ease: "power3.out", delay: 0.1 }
+        { opacity: 1, x: 0, duration: 0.8, stagger: 0.04, ease: "power3.out", delay: 0.1 }
       );
       gsap.fromTo(".menu-anim-preview", { opacity: 0, scale: 0.98 }, { opacity: 1, scale: 1, duration: 1.0, ease: "power2.out", delay: 0.2 });
+      gsap.fromTo(".menu-anim-img", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", delay: 0.05 });
     }
   }, [menuOpen, setMascotPose]);
 
@@ -239,24 +240,6 @@ export default function FullscreenMenu() {
     if (item && item.mascotPose) {
       setMascotPose(item.mascotPose);
       setMascotEmotion(item.mascotEmotion || 'calm');
-      
-      const speechTextMap = {
-        "HOME": "Return to the exhibition entrance and home coordinate ledger.",
-        "PROJECTS": "Behold our completed Bangalore & Mysuru residential estates.",
-        "SERVICES": "Check our IS_456 BOQ estimators and digital twin MEP designs.",
-        "PROCESS": "Walk through our 5-phase foundation and concrete casting timeline.",
-        "MATERIALS": "See our direct trace records of teak logs and Travertine bedrock.",
-        "ABOUT": "Audit our geological history, Indiranagar HQ, and creator's mandates.",
-        "INSIGHTS": "Explore engineering journals and architectural design education.",
-        "CONTACT": "Schedule geological standard penetration testing for your site.",
-        "WHY RIGHTCON": "Verify our 10-year transferable structural warranty deed.",
-        "BIM TECHNOLOGY": "Inspect virtual BIM LOD 400 MEP clash coordinates.",
-        "CLIENT JOURNEY": "Review our geological advisory compaction check protocols.",
-        "TESTIMONIALS": "Read homeowner verifications from Bangalore villas.",
-        "CAREERS": "Apply for structural coordinator and supervisor openings.",
-        "GENERAL FAQ": "Audit RERA registers, Fe550D rebar standards, and concrete targets."
-      };
-      
     }
   };
 
@@ -269,165 +252,308 @@ export default function FullscreenMenu() {
   return (
     <div 
       data-lenis-prevent
-      className="fixed inset-0 z-[1000] menu-grid-overlay menu-anim-bg select-none bg-charcoal text-white"
+      className="fixed inset-0 z-[1000] menu-anim-bg select-none bg-charcoal text-white overflow-hidden"
     >
-      
-      {/* Blueprint Grid Overlay using Brand Blue */}
+      {/* Blueprint Grid Overlay */}
       <div className="absolute inset-0 blueprint-grid opacity-[0.015] pointer-events-none"></div>
 
-      {/* Close button (Top-Right) */}
+      {/* ── Close Button (Top-Right) — 48px tap area on mobile ── */}
       <button 
         type="button"
         onClick={handleClose}
-        className="absolute top-space-24 right-space-24 md:right-space-40 z-50 text-white hover:text-primary font-sans text-[11px] tracking-widest transition-all cursor-pointer border-none bg-transparent outline-none uppercase"
+        aria-label="Close navigation menu"
+        className="absolute top-3 right-4 md:top-6 md:right-10 z-50 
+          flex items-center justify-center
+          min-w-[48px] min-h-[48px]
+          text-white hover:text-primary font-sans text-[11px] tracking-widest 
+          transition-all cursor-pointer border-none bg-transparent outline-none uppercase
+          touch-manipulation"
       >
-        Close ✕
+        <span className="hidden sm:inline mr-1">Close</span>
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
       </button>
 
-      {/* Left Column: Asymmetrical Editorial Preview Panel (Desktop Only) */}
-      <div className="hidden lg:flex flex-col justify-between p-space-40 md:p-space-64 border-r border-white/10 relative bg-charcoal select-none h-full max-h-screen overflow-y-auto">
-        
-        {/* Dynamic Chapter description */}
-        <div className="flex flex-col gap-space-8 menu-anim-preview">
-          <span className="h-label-mono text-primary font-semibold">{currentItem.tagline}</span>
-          <p className="font-sans text-[11px] text-white/60 leading-relaxed font-light max-w-xs mt-1">
-            {currentItem.desc}
-          </p>
-        </div>
+      {/* ═══════════════════════════════════════════════════════════════════
+          MOBILE/TABLET LAYOUT (below lg): Image carousel top + editorial links
+      ═══════════════════════════════════════════════════════════════════ */}
+      <div className="lg:hidden flex flex-col h-full max-h-screen">
 
-        {/* Dynamic Asymmetric Editorial collage */}
-        <div className="relative w-full aspect-[4/3] max-w-[280px] mx-auto my-auto menu-anim-preview select-none overflow-visible flex items-center justify-center py-8">
-          {/* Main big image */}
-          <div className="w-[75%] h-[90%] overflow-hidden border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative z-10 bg-charcoal rounded-none">
-            <img 
-              src={currentItem.img} 
-              alt={currentItem.label} 
-              className="w-full h-full object-cover transition-all duration-700 ease-out"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent"></div>
+        {/* ── Top Image Carousel — Preview for selected nav item ── */}
+        <div className="menu-anim-img relative w-full flex-shrink-0 overflow-hidden"
+          style={{ height: '30vh', minHeight: 150, maxHeight: 260 }}
+        >
+          <img
+            key={currentItem.img}
+            src={currentItem.img}
+            alt={currentItem.label}
+            className="absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 img-hero"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/60 via-charcoal/30 to-charcoal/90"></div>
+          <div className="absolute inset-0 blueprint-grid opacity-[0.03]"></div>
+
+          {/* Slide item info */}
+          <div className="absolute bottom-0 left-0 right-0 p-5 flex flex-col gap-1">
+            <span className="h-label-mono text-accent font-bold" style={{ fontSize: '9px' }}>{currentItem.tagline}</span>
+            <h2 className="font-display text-xl md:text-2xl font-light text-white tracking-tight leading-tight">{currentItem.label}</h2>
+            <p className="font-sans text-white/55 leading-relaxed font-light line-clamp-1" style={{ fontSize: '11px' }}>
+              {currentItem.desc}
+            </p>
           </div>
 
-          {/* Secondary overlapping thumbnail */}
-          {currentItem.photos && currentItem.photos[0] && (
-            <div className="absolute -left-[12%] -bottom-[5%] w-[45%] aspect-square z-20 border border-white/10 bg-charcoal shadow-lg rounded-none overflow-hidden rotate-[-4deg] hover:rotate-0 transition-transform duration-500 hover:scale-105">
-              <img 
-                src={currentItem.photos[0]} 
-                alt="Material reference" 
-                className="w-full h-full object-cover grayscale-[15%]"
-              />
-            </div>
-          )}
+          {/* RIGHTCON wordmark top-left */}
+          <div className="absolute top-4 left-5 font-display text-sm font-semibold tracking-[0.2em] text-white/80">
+            RIGHTCON
+          </div>
 
-          {/* Tertiary overlapping thumbnail */}
-          {currentItem.photos && currentItem.photos[1] && (
-            <div className="absolute -right-[12%] -top-[5%] w-[40%] aspect-[3/4] z-0 border border-white/10 bg-charcoal shadow-lg rounded-none overflow-hidden rotate-[3deg] hover:rotate-0 transition-transform duration-500 hover:scale-105 opacity-80">
-              <img 
-                src={currentItem.photos[1]} 
-                alt="Detail close-up" 
-                className="w-full h-full object-cover grayscale-[25%]"
+          {/* Slide dots */}
+          <div className="absolute top-4 right-16 flex gap-1.5">
+            {PRIMARY_ITEMS.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  hoveredState.isPrimary && hoveredState.idx === i
+                    ? 'bg-accent w-4'
+                    : 'bg-white/25 w-1.5'
+                }`}
               />
-            </div>
-          )}
-        </div>
-
-        {/* Dynamic statistical preview at bottom */}
-        <div className="flex flex-col gap-2 border-t border-white/10 pt-4 menu-anim-preview">
-          <span className="font-sans text-[7.5px] text-accent tracking-widest uppercase font-bold">[METRIC RECORDS LEDGER]</span>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-1 font-mono text-[8px] text-white/50">
-            {currentItem.stats.map((stat, sIdx) => (
-              <div key={sIdx} className="flex justify-between border-b border-white/5 pb-1">
-                <span>{stat.split(' // ')[0]}</span>
-                <span className="text-white font-bold">{stat.split(' // ')[1]}</span>
-              </div>
             ))}
           </div>
         </div>
+
+        {/* ── Navigation Links — Scrollable ── */}
+        <div className="flex flex-col flex-1 overflow-y-auto scrollbar-none">
+          
+          {/* Primary Pages */}
+          <div className="flex flex-col px-5 pt-5 pb-2">
+            <span className="mb-2 font-bold" style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)' }}>
+              [01 // PRIMARY CHAPTERS]
+            </span>
+            <div className="flex flex-col divide-y divide-white/[0.06]">
+              {PRIMARY_ITEMS.map((item, idx) => {
+                const isActive = location.pathname === item.path;
+                const isSelected = hoveredState.isPrimary && hoveredState.idx === idx;
+                return (
+                  <div
+                    key={idx}
+                    className="menu-anim-link"
+                    onTouchStart={() => handleHover(true, idx)}
+                    onMouseEnter={() => handleHover(true, idx)}
+                  >
+                    <NavLink
+                      to={item.path}
+                      onClick={handleClose}
+                      className={`
+                        flex items-center gap-3 pr-4 transition-all duration-300 touch-manipulation min-h-[56px]
+                        ${isActive || isSelected ? 'pl-2' : 'pl-0'}
+                      `}
+                    >
+                      <span className={`font-mono font-bold w-6 flex-shrink-0 transition-colors ${isActive ? 'text-accent' : 'text-white/20'}`}
+                        style={{ fontSize: '9px' }}>
+                        0{idx + 1}
+                      </span>
+                      <div className="flex flex-col gap-0.5 flex-1 min-w-0">
+                        <span className={`font-display font-light tracking-tight leading-none transition-colors ${
+                          isActive ? 'text-accent' : isSelected ? 'text-white' : 'text-white/55'
+                        }`} style={{ fontSize: '22px' }}>
+                          {item.label}
+                        </span>
+                        <span className="font-sans text-white/30 tracking-wide truncate" style={{ fontSize: '9px' }}>
+                          {item.tagline.split(' // ')[0]}
+                        </span>
+                      </div>
+                      <svg 
+                        className={`w-3.5 h-3.5 flex-shrink-0 transition-all duration-300 ${isSelected ? 'text-accent opacity-100' : 'text-white/10 opacity-0'}`}
+                        fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </NavLink>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Secondary Pages */}
+          <div className="flex flex-col px-5 pt-3 pb-4 border-t border-white/[0.06]">
+            <span className="mb-2.5 font-bold" style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)' }}>
+              [02 // TECHNICAL REGISTRIES]
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {SECONDARY_ITEMS.map((item, idx) => {
+                const isActive = location.pathname === item.path;
+                return (
+                  <NavLink
+                    key={idx}
+                    to={item.path}
+                    onClick={handleClose}
+                    className={`
+                      flex items-center gap-2 px-3 border transition-all duration-300 touch-manipulation min-h-[40px]
+                      font-sans tracking-wider
+                      ${isActive
+                        ? 'border-accent/40 text-accent bg-accent/5'
+                        : 'border-white/10 text-white/50 hover:border-white/30 hover:text-white'
+                      }
+                    `}
+                    style={{ fontSize: '10px' }}
+                    onTouchStart={() => handleHover(false, idx)}
+                    onMouseEnter={() => handleHover(false, idx)}
+                  >
+                    <span className="text-white/20 font-bold" style={{ fontSize: '8px' }}>R{idx + 1}</span>
+                    {item.label}
+                  </NavLink>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="flex justify-between items-center px-5 py-4 border-t border-white/[0.06] mt-auto pb-safe">
+            <div className="flex gap-5" style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors min-h-[44px] flex items-center">Instagram</a>
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors min-h-[44px] flex items-center">LinkedIn</a>
+            </div>
+            <div className="flex gap-4" style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>
+              <a href="https://wa.me/919845100000" className="hover:text-primary transition-colors min-h-[44px] flex items-center">WhatsApp</a>
+              <a href="tel:+919845100000" className="hover:text-primary transition-colors min-h-[44px] flex items-center">Call</a>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Right Column: High-contrast navigation links list (Scrollable catalog grid) */}
-      <div 
-        className="flex flex-col justify-between p-space-24 md:p-space-64 bg-charcoal relative overflow-y-auto select-none pt-space-96 lg:pt-space-64 h-full max-h-screen"
-      >
-        
-        {/* Editorial double column links */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-space-40 my-auto items-start">
+      {/* ═══════════════════════════════════════════════════════════════════
+          DESKTOP LAYOUT (1024px+): Full editorial two-column  
+      ═══════════════════════════════════════════════════════════════════ */}
+      <div className="hidden lg:grid h-full" style={{ gridTemplateColumns: '4.5fr 5.5fr' }}>
+
+        {/* Left Column: Editorial Preview Panel */}
+        <div className="flex flex-col justify-between p-10 xl:p-16 border-r border-white/10 relative bg-charcoal select-none h-full max-h-screen overflow-y-auto">
           
-          {/* Column 1: Primary pages */}
-          <div className="md:col-span-7 flex flex-col gap-space-6">
-            <span className="h-label-mono text-white/30 mb-2 font-bold">[01 // PRIMARY CHAPTERS]</span>
-            {PRIMARY_ITEMS.map((item, idx) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <div 
-                  key={idx}
-                  className="menu-anim-link"
-                  onMouseEnter={() => handleHover(true, idx)}
-                >
-                  <NavLink 
-                    to={item.path} 
-                    onClick={handleClose}
-                    className={`menu-link-item ${isActive ? 'active' : ''}`}
-                    style={{ color: isActive ? BRAND_COLORS.primary : undefined }}
-                  >
-                    <span className="font-sans text-[10px] text-white/20 tracking-wider font-semibold">
-                      0{idx + 1}
-                    </span>
-                    <span className="font-display font-light tracking-tight text-white hover:text-primary transition-colors">{item.label}</span>
-                  </NavLink>
-                </div>
-              );
-            })}
+          <div className="font-display text-lg font-semibold tracking-[0.25em] text-white/70">
+            RIGHTCON
           </div>
 
-          {/* Column 2: Reference ledgers */}
-          <div className="md:col-span-5 flex flex-col gap-space-6 md:border-l md:border-white/10 md:pl-space-32">
-            <span className="h-label-mono text-white/30 mb-2 font-bold">[02 // TECHNICAL REGISTRIES]</span>
-            {SECONDARY_ITEMS.map((item, idx) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <div 
-                  key={idx}
-                  className="menu-anim-link"
-                  onMouseEnter={() => handleHover(false, idx)}
-                >
-                  <NavLink 
-                    to={item.path} 
-                    onClick={handleClose}
-                    className="flex items-center gap-3 py-1 hover:pl-2 transition-all group"
-                  >
-                    <span className="font-sans text-[9px] text-white/20 tracking-wider font-semibold">
-                      R{idx + 1}
-                    </span>
-                    <span className="font-sans text-[11px] font-light tracking-wider text-white/70 group-hover:text-primary transition-colors">{item.label}</span>
-                  </NavLink>
-                </div>
-              );
-            })}
+          <div className="flex flex-col gap-3 menu-anim-preview">
+            <span className="h-label-mono text-primary font-semibold">{currentItem.tagline}</span>
+            <p className="font-sans text-white/60 leading-relaxed font-light max-w-xs mt-1" style={{ fontSize: '12px' }}>
+              {currentItem.desc}
+            </p>
           </div>
 
+          {/* Asymmetric Editorial Collage */}
+          <div className="relative w-full aspect-[4/3] max-w-[300px] mx-auto my-auto menu-anim-preview select-none overflow-visible flex items-center justify-center py-8">
+            <div className="w-[75%] h-[90%] overflow-hidden border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)] relative z-10 bg-charcoal">
+              <img src={currentItem.img} alt={currentItem.label} className="w-full h-full object-cover transition-all duration-700 ease-out img-hero" />
+              <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent"></div>
+            </div>
+            {currentItem.photos && currentItem.photos[0] && (
+              <div className="absolute -left-[12%] -bottom-[5%] w-[45%] aspect-square z-20 border border-white/10 bg-charcoal shadow-lg overflow-hidden rotate-[-4deg] hover:rotate-0 transition-transform duration-500 hover:scale-105">
+                <img src={currentItem.photos[0]} alt="Material reference" className="w-full h-full object-cover grayscale-[15%]" />
+              </div>
+            )}
+            {currentItem.photos && currentItem.photos[1] && (
+              <div className="absolute -right-[12%] -top-[5%] w-[40%] aspect-[3/4] z-0 border border-white/10 bg-charcoal shadow-lg overflow-hidden rotate-[3deg] hover:rotate-0 transition-transform duration-500 hover:scale-105 opacity-80">
+                <img src={currentItem.photos[1]} alt="Detail close-up" className="w-full h-full object-cover grayscale-[25%]" />
+              </div>
+            )}
+          </div>
+
+          {/* Metric Records Ledger */}
+          <div className="flex flex-col gap-2 border-t border-white/10 pt-4 menu-anim-preview">
+            <span className="font-sans text-accent tracking-widest uppercase font-bold" style={{ fontSize: '8px' }}>[METRIC RECORDS LEDGER]</span>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1 font-mono text-white/50" style={{ fontSize: '8px' }}>
+              {currentItem.stats.map((stat, sIdx) => (
+                <div key={sIdx} className="flex justify-between border-b border-white/5 pb-1">
+                  <span>{stat.split(' // ')[0]}</span>
+                  <span className="text-white font-bold">{stat.split(' // ')[1]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Expanded Navigation Footer (At the bottom) */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-t border-white/10 pt-space-24 mt-space-40 gap-space-16 text-white/50">
+        {/* Right Column: Navigation Links */}
+        <div className="flex flex-col justify-between p-10 xl:p-16 bg-charcoal relative overflow-y-auto select-none pt-20 h-full max-h-screen">
           
-          {/* Social vectors */}
-          <div className="flex gap-space-16 h-label-mono text-[8.5px] text-white/40">
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">Instagram</a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">LinkedIn</a>
-            <a href="https://youtube.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">YouTube</a>
+          <div className="grid grid-cols-12 gap-10 my-auto items-start">
+            
+            {/* Primary pages */}
+            <div className="col-span-7 flex flex-col gap-1">
+              <span className="h-label-mono text-white/30 mb-3 font-bold">[01 // PRIMARY CHAPTERS]</span>
+              {PRIMARY_ITEMS.map((item, idx) => {
+                const isActive = location.pathname === item.path;
+                return (
+                  <div key={idx} className="menu-anim-link" onMouseEnter={() => handleHover(true, idx)}>
+                    <NavLink
+                      to={item.path}
+                      onClick={handleClose}
+                      className={`menu-link-item ${isActive ? 'active' : ''}`}
+                      style={{ color: isActive ? BRAND_COLORS.primary : undefined }}
+                    >
+                      <span className="font-sans text-white/20 tracking-wider font-semibold w-7" style={{ fontSize: '10px' }}>
+                        0{idx + 1}
+                      </span>
+                      <div className="flex flex-col">
+                        <span className="font-display font-light tracking-tight transition-colors" style={{ color: 'inherit' }}>
+                          {item.label}
+                        </span>
+                        <span className="font-sans text-white/25 tracking-wide font-normal" style={{ fontSize: '9px' }}>
+                          {item.tagline.split(' // ')[0]}
+                        </span>
+                      </div>
+                    </NavLink>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Secondary pages */}
+            <div className="col-span-5 flex flex-col gap-1 border-l border-white/10 pl-8">
+              <span className="h-label-mono text-white/30 mb-3 font-bold">[02 // TECHNICAL REGISTRIES]</span>
+              {SECONDARY_ITEMS.map((item, idx) => {
+                const isActive = location.pathname === item.path;
+                return (
+                  <div key={idx} className="menu-anim-link" onMouseEnter={() => handleHover(false, idx)}>
+                    <NavLink
+                      to={item.path}
+                      onClick={handleClose}
+                      className="flex items-center gap-3 hover:pl-2 transition-all duration-300 group min-h-[44px]"
+                    >
+                      <span className="font-sans text-white/20 tracking-wider font-semibold" style={{ fontSize: '9px' }}>R{idx + 1}</span>
+                      <div className="flex flex-col gap-0.5">
+                        <span className={`font-sans font-light tracking-wider transition-colors ${
+                          isActive ? 'text-accent' : 'text-white/70 group-hover:text-primary'
+                        }`} style={{ fontSize: '12px' }}>
+                          {item.label}
+                        </span>
+                        <span className="font-sans text-white/25 tracking-wide" style={{ fontSize: '9px' }}>
+                          {item.tagline.split(' // ')[0]}
+                        </span>
+                      </div>
+                    </NavLink>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* Quick Contacts */}
-          <div className="flex gap-space-16 h-label-mono text-[8.5px] text-white/40">
-            <a href="https://wa.me/919845100000" className="hover:text-primary transition-colors">WhatsApp</a>
-            <a href="tel:+919845100000" className="hover:text-primary transition-colors">Call</a>
-            <a href="mailto:info@rightcon.in" className="hover:text-primary transition-colors">Email</a>
+          {/* Desktop Footer */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-t border-white/10 pt-6 mt-10 gap-4">
+            <div className="flex gap-5 h-label-mono text-white/40" style={{ fontSize: '9px' }}>
+              <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">Instagram</a>
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">LinkedIn</a>
+              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">YouTube</a>
+            </div>
+            <div className="flex gap-5 h-label-mono text-white/40" style={{ fontSize: '9px' }}>
+              <a href="https://wa.me/919845100000" className="hover:text-primary transition-colors">WhatsApp</a>
+              <a href="tel:+919845100000" className="hover:text-primary transition-colors">Call</a>
+              <a href="mailto:info@rightcon.in" className="hover:text-primary transition-colors">Email</a>
+            </div>
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }

@@ -49,6 +49,7 @@ export default function BrandStoryScene() {
           src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1800&auto=format&fit=crop&q=90"
           alt="Exposed raw concrete terrace detailing"
           className="w-full h-full object-cover"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-transparent to-transparent"></div>
@@ -60,7 +61,7 @@ export default function BrandStoryScene() {
       </div>
 
       {/* Content section */}
-      <div className="py-space-96 md:py-space-160 px-space-24 md:px-space-40">
+      <div className="section-container relative">
         <div className="absolute inset-0 architectural-grid opacity-[0.05] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto w-full relative z-10">
           
@@ -84,10 +85,10 @@ export default function BrandStoryScene() {
             {/* Left: Copy + quote */}
             <div className="lg:col-span-6 flex flex-col gap-space-40">
               <div className="flex flex-col gap-space-24">
-                <p className="h-body-large text-charcoal/80 leading-relaxed font-light">
+                <p className="h-body-large text-charcoal/80 leading-relaxed font-light max-w-[var(--max-line-len)]">
                   Rightcon replaces cosmetic veneers and hollow drywalls with raw form-finished concrete, solid Burma teak logs, and certified Fe550D rebar matrices. Every residential landmark represents absolute structural physics.
                 </p>
-                <p className="h-body text-charcoal/60 leading-relaxed font-light">
+                <p className="h-body text-charcoal/60 leading-relaxed font-light max-w-[var(--max-line-len)]">
                   We believe a home is not a product of commercial marketing—it is a physical monument designed to endure for centuries. We refuse standard developer shortcuts. Instead, we run comprehensive geomechanical profile mapping before a single drop of concrete is poured, ensuring zero settlement risks.
                 </p>
               </div>

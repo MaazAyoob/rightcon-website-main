@@ -125,7 +125,7 @@ export default function AmenitiesScene() {
                   <h3 className="font-display text-3xl md:text-4xl text-white font-light">
                     {item.title}
                   </h3>
-                  <p className="font-sans text-xs md:text-sm font-light text-white-light leading-relaxed">
+                  <p className="font-sans text-xs md:text-sm font-light text-white/70 leading-relaxed">
                     {item.desc}
                   </p>
                 </div>

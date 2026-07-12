@@ -81,7 +81,7 @@ export default function Materials() {
       <CinematicHero slides={MATERIALS_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<PanelSculpture />} />
 
       {/* 2. DETAILED MATERIALS REGISTER */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-white relative">
+      <section className="section-container border-t border-charcoal/5 bg-white relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto w-full flex flex-col gap-space-64 relative z-10">
           
@@ -119,7 +119,7 @@ export default function Materials() {
       </section>
 
       {/* 2.5 TECHNICAL SPECIFICATIONS MATRIX */}
-      <section className="py-space-64 px-space-24 md:px-space-40 border-t border-charcoal/5 bg-charcoal relative">
+      <section className="section-container border-t border-charcoal/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="border-l-2 border-accent/40 pl-4 mb-12">
@@ -128,49 +128,57 @@ export default function Materials() {
               Material Specification Tolerances
             </h3>
           </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse border border-charcoal/10 font-mono text-[10px]">
-              <thead>
-                <tr className="bg-white border-b border-charcoal/10 text-accent uppercase tracking-wider">
-                  <th className="p-4 border-r border-charcoal/10">Material Code</th>
-                  <th className="p-4 border-r border-charcoal/10">Target Specification</th>
-                  <th className="p-4 border-r border-charcoal/10">Testing Frequency</th>
-                  <th className="p-4">Assurance Standard</th>
-                </tr>
-              </thead>
-              <tbody className="text-charcoal/80">
-                <tr className="border-b border-charcoal/10 hover:bg-white/[0.01]">
-                  <td className="p-4 border-r border-charcoal/10 font-bold text-white">CONC_M40</td>
-                  <td className="p-4 border-r border-charcoal/10">40 N/mm² compressive strength @ day 28</td>
-                  <td className="p-4 border-r border-charcoal/10">Every 15 cubic meters poured</td>
-                  <td className="p-4">ISO 9001 / NABL Lab Certified</td>
-                </tr>
-                <tr className="border-b border-charcoal/10 hover:bg-white/[0.01]">
-                  <td className="p-4 border-r border-charcoal/10 font-bold text-white">STEEL_REBAR_550D</td>
-                  <td className="p-4 border-r border-charcoal/10">Yield strength 550 MPa minimum, elongation &gt; 14.5%</td>
-                  <td className="p-4 border-r border-charcoal/10">Per batch invoice shipment</td>
-                  <td className="p-4">Fe-550D BIS Standard Cores</td>
-                </tr>
-                <tr className="border-b border-charcoal/10 hover:bg-white/[0.01]">
-                  <td className="p-4 border-r border-charcoal/10 font-bold text-white">TRAV_EXT_30</td>
-                  <td className="p-4 border-r border-charcoal/10">30mm thickness, stainless steel under-cut anchoring</td>
-                  <td className="p-4 border-r border-charcoal/10">100% of panels laser aligned</td>
-                  <td className="p-4">ASTM C1527 Travertine Specs</td>
-                </tr>
-                <tr className="hover:bg-white/[0.01]">
-                  <td className="p-4 border-r border-charcoal/10 font-bold text-white">TIMB_TEAK_01</td>
-                  <td className="p-4 border-r border-charcoal/10">Grade A Burma logs, moisture coefficient &lt; 12%</td>
-                  <td className="p-4 border-r border-charcoal/10">Every timber slab prior to finish</td>
-                  <td className="p-4">Oven-dry moisture test verified</td>
-                </tr>
-              </tbody>
-            </table>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-24">
+            <div className="border border-white/10 p-5 bg-charcoal/20 rounded-none flex flex-col justify-between min-h-[160px]">
+              <div className="flex flex-col gap-2">
+                <span className="font-mono text-[8px] text-accent uppercase font-bold">CONC_M40</span>
+                <h4 className="font-display text-base font-light text-white leading-tight">40 N/mm² Compressive Strength</h4>
+              </div>
+              <div className="border-t border-white/5 pt-3 mt-4 flex flex-col gap-1.5 font-mono text-[8px] text-white/50">
+                <div>FREQ: Every 15 m³ poured</div>
+                <div>STD: ISO 9001 / NABL Lab</div>
+              </div>
+            </div>
+            
+            <div className="border border-white/10 p-5 bg-charcoal/20 rounded-none flex flex-col justify-between min-h-[160px]">
+              <div className="flex flex-col gap-2">
+                <span className="font-mono text-[8px] text-primary uppercase font-bold">STEEL_REBAR_550D</span>
+                <h4 className="font-display text-base font-light text-white leading-tight">Yield Strength 550 MPa</h4>
+              </div>
+              <div className="border-t border-white/5 pt-3 mt-4 flex flex-col gap-1.5 font-mono text-[8px] text-white/50">
+                <div>FREQ: Per batch invoice shipment</div>
+                <div>STD: Fe-550D BIS Standard</div>
+              </div>
+            </div>
+
+            <div className="border border-white/10 p-5 bg-charcoal/20 rounded-none flex flex-col justify-between min-h-[160px]">
+              <div className="flex flex-col gap-2">
+                <span className="font-mono text-[8px] text-accent uppercase font-bold">TRAV_EXT_30</span>
+                <h4 className="font-display text-base font-light text-white leading-tight">30mm Stainless Cladding</h4>
+              </div>
+              <div className="border-t border-white/5 pt-3 mt-4 flex flex-col gap-1.5 font-mono text-[8px] text-white/50">
+                <div>FREQ: 100% of panels laser aligned</div>
+                <div>STD: ASTM C1527 Travertine</div>
+              </div>
+            </div>
+
+            <div className="border border-white/10 p-5 bg-charcoal/20 rounded-none flex flex-col justify-between min-h-[160px]">
+              <div className="flex flex-col gap-2">
+                <span className="font-mono text-[8px] text-primary uppercase font-bold">TIMB_TEAK_01</span>
+                <h4 className="font-display text-base font-light text-white leading-tight">Burma Moisture &lt; 12%</h4>
+              </div>
+              <div className="border-t border-white/5 pt-3 mt-4 flex flex-col gap-1.5 font-mono text-[8px] text-white/50">
+                <div>FREQ: Every timber slab checked</div>
+                <div>STD: Oven-dry moisture test</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* 3. MATERIAL CONSULTATION CTA */}
-      <section className="py-space-96 px-space-24 md:px-space-40 bg-charcoal border-t border-charcoal/5 relative">
+      <section className="section-container bg-charcoal border-t border-charcoal/5 relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-space-24 relative z-10">
           <span className="h-label-mono text-accent">[PROVENANCE ADVISORY REGISTRY]</span>

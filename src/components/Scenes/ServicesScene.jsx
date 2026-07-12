@@ -71,16 +71,17 @@ export default function ServicesScene() {
         {/* Outer Layout: left 4 columns visual, right 8 columns content panel */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-start">
           
-          {/* Left Column: Visual site details */}
-          <div className="hidden lg:block lg:col-span-4 relative pr-space-24">
-            <div className="w-full aspect-[3/4] overflow-hidden border border-charcoal/15 bg-white shadow-[0_32px_80px_rgba(0,0,0,0.06)] rounded-none group">
+          {/* Left Column: Visual site details — responsive aspect ratio, visible on all viewports */}
+          <div className="col-span-12 lg:col-span-4 relative lg:pr-space-24 mb-6 lg:mb-0">
+            <div className="w-full aspect-[16/9] lg:aspect-[3/4] overflow-hidden border border-charcoal/15 bg-white shadow-[0_24px_64px_rgba(0,0,0,0.05)] rounded-none group">
               <img 
                 src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&auto=format&fit=crop" 
                 alt="Raw construction concrete reinforcement steel" 
+                loading="lazy"
                 className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
               />
             </div>
-            <span className="h-caption font-mono text-[7px] text-charcoal/50 mt-3 block text-center uppercase tracking-widest">
+            <span className="h-caption font-mono text-[7.5px] text-charcoal/50 mt-3.5 block text-center uppercase tracking-widest">
               STRUC_CORE // DAY_12 FOUNDATION SLAB
             </span>
           </div>
@@ -151,38 +152,42 @@ export default function ServicesScene() {
                         </p>
                       </div>
 
-                      {/* Sliders */}
+                      {/* Sliders with increased touch targets */}
                       <div className="flex flex-col gap-space-16 bg-charcoal/[0.02] p-space-24 border border-charcoal/5 rounded-none">
-                        <div className="flex flex-col gap-space-8">
+                        <div className="flex flex-col gap-space-8 py-2">
                           <div className="flex justify-between h-label-mono text-charcoal/70">
                             <span>Target Built Area</span>
                             <span className="text-accent font-bold text-xs">{area} SQ. FT.</span>
                           </div>
-                          <input 
-                            type="range" 
-                            min="1000" 
-                            max="8000" 
-                            step="100" 
-                            value={area}
-                            onChange={(e) => setArea(parseInt(e.target.value))}
-                            className="w-full accent-bronze bg-charcoal/10 h-[2px] rounded-none cursor-pointer"
-                          />
+                          <div className="py-2.5 flex items-center">
+                            <input 
+                              type="range" 
+                              min="1000" 
+                              max="8000" 
+                              step="100" 
+                              value={area}
+                              onChange={(e) => setArea(parseInt(e.target.value))}
+                              className="w-full accent-bronze bg-charcoal/10 h-[2px] rounded-none cursor-pointer"
+                            />
+                          </div>
                         </div>
 
-                        <div className="flex flex-col gap-space-8">
+                        <div className="flex flex-col gap-space-8 py-2">
                           <div className="flex justify-between h-label-mono text-charcoal/70">
                             <span>Slab Depth Thickness</span>
                             <span className="text-accent font-bold text-xs">{thickness} INCHES</span>
                           </div>
-                          <input 
-                            type="range" 
-                            min="4" 
-                            max="12" 
-                            step="1" 
-                            value={thickness}
-                            onChange={(e) => setThickness(parseInt(e.target.value))}
-                            className="w-full accent-bronze bg-charcoal/10 h-[2px] rounded-none cursor-pointer"
-                          />
+                          <div className="py-2.5 flex items-center">
+                            <input 
+                              type="range" 
+                              min="4" 
+                              max="12" 
+                              step="1" 
+                              value={thickness}
+                              onChange={(e) => setThickness(parseInt(e.target.value))}
+                              className="w-full accent-bronze bg-charcoal/10 h-[2px] rounded-none cursor-pointer"
+                            />
+                          </div>
                         </div>
                       </div>
 
@@ -204,12 +209,13 @@ export default function ServicesScene() {
                     </div>
 
                     {/* Right: Technical Blueprint Drawing */}
-                    <div className="md:col-span-5 flex flex-col justify-center">
+                    <div className="md:col-span-5 flex flex-col justify-center mt-6 md:mt-0">
                       <div className="w-full aspect-[4/5] overflow-hidden border border-charcoal/10 rounded-none relative shadow-md group">
                         <div className="absolute inset-0 blueprint-grid opacity-15 pointer-events-none"></div>
                         <img 
                           src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop" 
                           alt="BIM drawing blueprint details" 
+                          loading="lazy"
                           className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
                         />
                         <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[6.5px] text-accent">
@@ -255,11 +261,12 @@ export default function ServicesScene() {
                     </div>
 
                     {/* Right: Site inspection, Engineer review */}
-                    <div className="md:col-span-5 flex flex-col justify-center">
+                    <div className="md:col-span-5 flex flex-col justify-center mt-6 md:mt-0">
                       <div className="w-full aspect-[4/5] overflow-hidden border border-charcoal/10 rounded-none relative shadow-md group">
                         <img 
                           src="https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=600&auto=format&fit=crop" 
                           alt="Geotechnical coordination review" 
+                          loading="lazy"
                           className="w-full h-full object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-[1s]"
                         />
                         <div className="absolute bottom-2.5 left-2.5 bg-charcoal/90 border border-white/5 px-2 py-0.5 font-mono text-[6.5px] text-primary">
@@ -282,13 +289,14 @@ export default function ServicesScene() {
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-space-16">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-16">
                       {MATERIALS_LIST.map((mat, i) => (
                         <div key={i} className="flex flex-col border border-charcoal/10 rounded-none overflow-hidden bg-charcoal/[0.01]">
                           <div className="w-full aspect-[16/9] overflow-hidden">
                             <img 
                               src={mat.image} 
                               alt={mat.name} 
+                              loading="lazy"
                               className="w-full h-full object-cover grayscale-[25%] hover:grayscale-0 hover:scale-101 transition-all duration-700" 
                             />
                           </div>

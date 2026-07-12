@@ -99,7 +99,7 @@ export default function ProjectDetail() {
       />
 
       {/* 2. OVERVIEW & PROJECT FACTS */}
-      <section className="py-space-64 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10 border-t border-white/5 mt-space-40">
+      <section className="section-container max-w-7xl mx-auto w-full relative z-10 border-t border-white/5 mt-space-40">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-40">
           
           {/* Facts column */}
@@ -141,11 +141,11 @@ export default function ProjectDetail() {
       </section>
 
       {/* 3. NARRATIVE GALLERY COLLAGE */}
-      <section className="py-space-64 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10">
+      <section className="section-container max-w-7xl mx-auto w-full relative z-10">
         <span className="h-label-mono text-accent mb-space-32 block">[02 // DESIGN PORTRAIT GALLERY]</span>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-24">
           {project.gallery.map((img, idx) => (
-            <div key={idx} className="aspect-[3/4] overflow-hidden border border-white/10 rounded-none bg-charcoal group">
+            <div key={idx} className="aspect-[16/9] md:aspect-[3/4] overflow-hidden border border-white/10 rounded-none bg-charcoal group">
               <img 
                 src={img} 
                 alt={`${project.title} gallery ${idx + 1}`} 
@@ -157,7 +157,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* 4. STRUCTURAL CHALLENGE, SITE CONTEXT & DESIGN PHILOSOPHY */}
-      <section className="py-space-96 md:py-space-160 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+      <section className="section-container border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
         
         <div className="max-w-7xl mx-auto w-full flex flex-col gap-space-48 relative z-10">
@@ -197,7 +197,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* 5. INTERACTIVE BEFORE & AFTER SLIDER */}
-      <section className="py-space-96 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-space-32">
+      <section className="section-container max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-space-32">
         <div className="flex flex-col gap-space-8">
           <span className="h-label-mono text-accent">[05 // BEFORE &amp; AFTER SLIDER]</span>
           <h2 className="font-display text-2xl md:text-3xl font-light text-white">
@@ -249,7 +249,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* 6. MATERIAL PALETTE & FLOOR PLANS */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+      <section className="section-container border-t border-white/5 bg-charcoal relative">
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-start">
           
           {/* Materials Swatches */}
@@ -295,7 +295,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* 7. CLIENT TESTIMONIAL (Interview) */}
-      <section className="py-space-96 md:py-space-160 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10 border-t border-white/5">
+      <section className="section-container max-w-7xl mx-auto w-full relative z-10 border-t border-white/5">
         <div className="max-w-3xl mx-auto text-center flex flex-col gap-space-24">
           <span className="h-label-mono text-accent">[08 // CLIENT INTERVIEW]</span>
           <p className="font-display text-2xl font-light italic leading-relaxed text-white">
@@ -309,7 +309,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* 8. RELATED PROJECTS */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal">
+      <section className="section-container border-t border-white/5 bg-charcoal">
         <div className="max-w-7xl mx-auto w-full flex flex-col gap-space-48">
           <span className="h-label-mono text-accent">[09 // ADDITIONAL CHAPTERS]</span>
           
@@ -341,7 +341,7 @@ export default function ProjectDetail() {
       </section>
 
       {/* 9. CONSULTATION CTA */}
-      <section className="py-space-96 px-space-24 md:px-space-40 bg-charcoal border-t border-white/5 relative">
+      <section className="section-container bg-charcoal border-t border-white/5 relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-space-24 relative z-10">
           <span className="h-label-mono text-accent">[DIRECT COMMISSION REGISTRY]</span>

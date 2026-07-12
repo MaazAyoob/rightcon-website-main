@@ -40,7 +40,7 @@ export default function Technology() {
       <CinematicHero slides={TECH_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<GridSculpture />} />
 
       {/* 2. BIM EXPLANATION DETAILED SECTION */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+      <section className="section-container border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-center relative z-10">
@@ -76,7 +76,7 @@ export default function Technology() {
       </section>
 
       {/* 2.5 CLASH TELEMETRY CONSOLE */}
-      <section className="py-space-64 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+      <section className="section-container border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-space-40">
           
@@ -90,18 +90,28 @@ export default function Technology() {
             <p className="font-sans text-xs text-white/60 leading-relaxed font-light">
               We design coordination boundaries down to the millimeter. Using Autodesk Revit for volumetric models, Tekla for structural rebar steel layouts, and Navisworks for automated clash rules, our architecture is compiled like high-performance software.
             </p>
-            <div className="flex flex-col gap-4 font-mono text-[10px] text-white/80 mt-2">
-              <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-accent shrink-0"></span>
-                <span>AUTODESK REVIT // Architectural & Space Twins</span>
+            
+            <div className="grid grid-cols-1 gap-space-16 mt-4">
+              <div className="border border-white/5 p-4 bg-charcoal/20 rounded-none flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-accent"></span>
+                  <span className="font-mono text-[9px] text-accent uppercase font-bold">AUTODESK REVIT</span>
+                </div>
+                <span className="font-sans text-xs text-white/70 font-light">Architectural & Space Twins</span>
               </div>
-              <div className="flex items-center gap-3 border-t border-white/5 pt-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-primary shrink-0"></span>
-                <span>TEKLA STRUCTURES // Heavy Rebar & Column Tolerances</span>
+              <div className="border border-white/5 p-4 bg-charcoal/20 rounded-none flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-primary"></span>
+                  <span className="font-mono text-[9px] text-primary uppercase font-bold">TEKLA STRUCTURES</span>
+                </div>
+                <span className="font-sans text-xs text-white/70 font-light">Heavy Rebar & Column Tolerances</span>
               </div>
-              <div className="flex items-center gap-3 border-t border-white/5 pt-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
-                <span>NAVISWORKS MANAGE // Automated Clash Audit Scans</span>
+              <div className="border border-white/5 p-4 bg-charcoal/20 rounded-none flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span className="font-mono text-[9px] text-emerald-400 uppercase font-bold">NAVISWORKS MANAGE</span>
+                </div>
+                <span className="font-sans text-xs text-white/70 font-light">Automated Clash Audit Scans</span>
               </div>
             </div>
           </div>

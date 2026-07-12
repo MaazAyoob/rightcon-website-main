@@ -26,7 +26,7 @@ export default function PrivacyPolicy() {
     <div className="w-full flex flex-col bg-white text-charcoal selection:bg-primary selection:text-white pt-0 select-none font-sans">
       <CinematicHero slides={PRIVACY_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<LockSculpture />} />
 
-      <section className="py-space-96 px-space-24 md:px-space-40 max-w-4xl mx-auto w-full relative z-10 min-h-[40vh] flex flex-col gap-space-32">
+      <section className="section-container max-w-4xl mx-auto w-full relative z-10 min-h-[40vh] flex flex-col gap-space-32">
         <span className="h-label-mono text-accent">[REGISTRY // PRIVACY]</span>
         <h2 className="font-display text-2xl font-light text-charcoal uppercase tracking-wider">Data Handling Guidelines</h2>
         

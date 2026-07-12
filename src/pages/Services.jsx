@@ -50,7 +50,7 @@ export default function Services() {
       <CinematicHero slides={SERVICES_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<AssemblySculpture />} />
 
       {/* 2. SERVICES LISTING BENTO GRID */}
-      <section className="py-space-96 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10">
+      <section className="section-container max-w-7xl mx-auto w-full relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-32">
           {SERVICES_DATA.map((srv, idx) => (
             <Link 
@@ -58,13 +58,13 @@ export default function Services() {
               to={`/services/${srv.id}`}
               className="group border border-charcoal/10 p-space-32 bg-white rounded-none hover:border-accent/45 transition-all duration-700 flex flex-col justify-between min-h-[360px] shadow-2xl relative"
             >
-              <div className="absolute top-0 right-0 border-b border-l border-charcoal/10 p-space-12 h-label-mono text-[8px]">
+              <div className="absolute top-0 right-0 border-b border-l border-charcoal/10 p-space-12 h-label-mono text-[8px] text-charcoal/40">
                 CODE // 0{idx+1}
               </div>
 
               <div className="flex flex-col gap-space-16 mt-4">
                 <span className="font-mono text-[8.5px] text-accent font-bold">{srv.category.toUpperCase()}</span>
-                <h3 className="font-display text-2xl font-light text-white group-hover:text-accent transition-colors">
+                <h3 className="font-display text-2xl font-light text-charcoal group-hover:text-accent transition-colors">
                   {srv.title}
                 </h3>
                 <p className="font-sans text-xs text-charcoal/60 leading-relaxed font-light">
@@ -74,7 +74,7 @@ export default function Services() {
 
               <div className="border-t border-charcoal/10 pt-space-24 mt-space-24 flex justify-between items-center text-xs">
                 <span className="font-mono text-charcoal/50 text-[9px] uppercase tracking-wider">READ COMPLIANCE</span>
-                <span className="font-mono text-[9px] text-accent hover:text-white transition-colors">→</span>
+                <span className="font-mono text-[9px] text-accent group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </Link>
           ))}
@@ -82,11 +82,11 @@ export default function Services() {
       </section>
 
       {/* 3. CONSULTATION ADVISORY CTA */}
-      <section className="py-space-96 px-space-24 md:px-space-40 bg-white border-t border-charcoal/5 relative">
+      <section className="section-container bg-white border-t border-charcoal/5 relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-space-24 relative z-10">
           <span className="h-label-mono text-accent">[STRUCTURAL CONSULTATIVE REGISTRY]</span>
-          <h2 className="font-display text-3xl font-light text-white uppercase tracking-wide">
+          <h2 className="font-display text-3xl font-light text-charcoal uppercase tracking-wide">
             Discuss Your Geomechanical Specifications
           </h2>
           <p className="font-sans text-xs text-charcoal/60 max-w-md mx-auto leading-relaxed font-light">

@@ -113,7 +113,7 @@ export default function ServiceDetail() {
       />
 
       {/* 2. CONSULTATIVE DIAGNOSIS SECTION */}
-      <section className="py-space-96 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10 border-t border-white/5 mt-space-40">
+      <section className="section-container border-t border-white/5 mt-space-40">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-64">
           
           {/* Who is it for & Problems */}
@@ -162,7 +162,7 @@ export default function ServiceDetail() {
       </section>
 
       {/* 3. DELIVERABLES & MOCK CAD BLUEPRINTS */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+      <section className="section-container border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-center relative z-10">
@@ -206,7 +206,7 @@ export default function ServiceDetail() {
 
       {/* 4. SERVICE FAQS */}
       {service.faq && (
-        <section className="py-space-96 px-space-24 md:px-space-40 max-w-7xl mx-auto w-full relative z-10 border-t border-white/5">
+        <section className="section-container border-t border-white/5">
           <div className="max-w-3xl mx-auto flex flex-col gap-space-48">
             <div className="flex flex-col gap-space-8 text-center items-center">
               <span className="h-label-mono text-accent">[03 // TECHNICAL ACCORD // Q&amp;A]</span>
@@ -231,7 +231,7 @@ export default function ServiceDetail() {
       )}
 
       {/* 5. CONSULTATION CTA */}
-      <section className="py-space-96 px-space-24 md:px-space-40 bg-charcoal border-t border-white/5 relative">
+      <section className="section-container bg-charcoal border-t border-white/5 relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-space-24 relative z-10">
           <span className="h-label-mono text-accent">[DIRECT SITE ADVISORY REGISTRY]</span>

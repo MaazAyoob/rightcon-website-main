@@ -89,7 +89,7 @@ export default function Process() {
       <CinematicHero slides={PROCESS_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<EvolutionSculpture />} />
 
       {/* 2. DYNAMIC WORKFLOW PRESENTATION */}
-      <section className="py-space-96 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+      <section className="section-container border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.02] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-40 items-stretch relative z-10">
@@ -123,7 +123,7 @@ export default function Process() {
           </div>
 
           {/* Right Side: Image and description of active stage */}
-          <div className="col-span-12 lg:col-span-7 flex flex-col gap-space-24 justify-between">
+          <div className="col-span-12 lg:col-span-7 flex flex-col gap-space-24 justify-between mt-8 lg:mt-0">
             <div className="w-full aspect-[16/10] overflow-hidden border border-white/10 shadow-2xl rounded-none bg-charcoal">
               <img 
                 src={optimizeUnsplashUrl(PROCESS_STAGES[activeStage].img, isMobile ? 800 : 1200, isMobile ? 70 : 85)} 
@@ -132,7 +132,7 @@ export default function Process() {
               />
             </div>
             
-            <p className="font-sans text-xs md:text-sm text-white/80 leading-relaxed font-light pl-space-16 border-l-2 border-accent/30">
+            <p className="font-sans text-xs md:text-sm text-white/80 leading-relaxed font-light pl-space-16 border-l-2 border-accent/30 mt-6 lg:mt-0">
               {PROCESS_STAGES[activeStage].desc}
             </p>
           </div>
@@ -141,7 +141,7 @@ export default function Process() {
       </section>
 
       {/* 2.5 TELEMETRY & EXECUTION STANDARDS */}
-      <section className="py-space-64 px-space-24 md:px-space-40 border-t border-white/5 bg-charcoal relative">
+      <section className="section-container border-t border-white/5 bg-charcoal relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="border-l-2 border-accent/40 pl-4 mb-12">
@@ -177,7 +177,7 @@ export default function Process() {
       </section>
 
       {/* 3. ADVISORY CONSULTATION CTA */}
-      <section className="py-space-96 px-space-24 md:px-space-40 bg-charcoal border-t border-white/5 relative">
+      <section className="section-container bg-charcoal border-t border-white/5 relative">
         <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto text-center flex flex-col gap-space-24 relative z-10">
           <span className="h-label-mono text-accent">[STRUCTURAL EXECUTION ADVISORY]</span>
