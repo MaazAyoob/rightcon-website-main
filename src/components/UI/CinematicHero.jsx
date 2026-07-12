@@ -70,32 +70,14 @@ export default function CinematicHero({ slides = [], coordinates = "12.9716° N,
 
   return (
     <section
-      className="relative w-full flex flex-col justify-between overflow-hidden select-none bg-transparent"
+      className="relative w-full flex flex-col justify-between overflow-hidden select-none bg-charcoal"
       style={{ height: '100svh', maxHeight: '100svh', minHeight: '500px' }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       aria-label={`${activeSlide.title} — slide ${currentSlide + 1} of ${slides.length}`}
     >
-      {/* ── 0. Background Image ── */}
-      <div className="absolute inset-0 z-0">
-        {slides.map((slide, idx) => (
-          <img
-            key={idx}
-            src={optimizeUnsplashUrl(slide.image, imgWidth, imgQuality)}
-            alt={slide.title}
-            loading={idx === 0 ? 'eager' : 'lazy'}
-            className={`absolute inset-0 w-full h-full object-cover transition-all duration-[1.2s] ease-in-out ${
-              idx === currentSlide
-                ? 'opacity-100 scale-100'
-                : 'opacity-0 scale-[1.02]'
-            }
-            /* Portrait crop on mobile — preserve building top */`}
-            style={{
-              objectPosition: isMobile ? 'center 20%' : isTablet ? 'center center' : 'center 30%'
-            }}
-          />
-        ))}
-      </div>
+      {/* ── 0. Solid Charcoal Backdrop — Sculpture only mode ── */}
+      <div className="absolute inset-0 z-0 bg-[#0A0A0A]" />
 
       {/* ── 1. Gradient Overlays ── */}
       {/* Left-to-right for desktop text readability */}

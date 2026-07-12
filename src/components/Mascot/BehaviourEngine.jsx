@@ -163,8 +163,8 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
     let targetY = pt.pos[1];
     let targetZ = pt.pos[2];
     
-    // Scale modifier on mobile - smaller mascot (0.42 scale) to fit margins without overlapping text
-    const scaleFactor = isMobile ? 0.42 : 1.0;
+    // Scale modifier on mobile - smaller mascot (0.58 scale) to fit margins without overlapping text
+    const scaleFactor = isMobile ? 0.58 : 1.0;
     targetScale.current = pt.scale * scaleFactor;
     
     // Mobile position shifting to clear layout / overlaps
@@ -172,53 +172,55 @@ export default function BehaviourEngine({ posRef, rotRef, scaleRef, behaviourSta
       if (pointId === 'chat_left') {
         targetX = -0.3;
         targetY = 0.55;
+        targetZ = 0.35;
       } else if (pointId === 'nav_observe') {
         targetX = -0.9;
         targetY = 0.65;
+        targetZ = 0.4;
       } else if (pointId === 'hero_right') {
         targetX = 0.85;
-        targetY = -0.7;
+        targetY = -0.45;
         targetZ = 0.4;
       } else if (pointId === 'hero_left') {
         targetX = -0.85;
-        targetY = -0.7;
+        targetY = -0.45;
         targetZ = 0.4;
       } else if (pointId === 'projects_left') {
         targetX = -0.85;
-        targetY = -0.8;
+        targetY = -0.5;
         targetZ = 0.35;
       } else if (pointId === 'projects_right') {
         targetX = 0.85;
-        targetY = -0.8;
+        targetY = -0.5;
         targetZ = 0.35;
       } else if (pointId === 'about_side') {
         targetX = 0.8;
-        targetY = -0.85;
+        targetY = -0.55;
         targetZ = 0.4;
       } else if (pointId === 'testimonials') {
         targetX = -0.8;
-        targetY = -0.85;
+        targetY = -0.55;
         targetZ = 0.4;
       } else if (pointId === 'process_guide') {
         targetX = 0.8;
-        targetY = -0.65;
+        targetY = -0.4;
         targetZ = 0.3;
       } else if (pointId === 'process_side') {
         targetX = -0.8;
-        targetY = -0.65;
+        targetY = -0.4;
         targetZ = 0.3;
       } else if (pointId === 'estimator_side') {
         targetX = -0.8;
-        targetY = -0.75;
+        targetY = -0.5;
         targetZ = 0.35;
       } else if (pointId === 'trust_corner') {
         targetX = 0.8;
-        targetY = -0.65;
+        targetY = -0.4;
         targetZ = 0.3;
       } else if (pointId === 'cta_side') {
         targetX = -0.8;
-        targetY = -0.85;
-        targetZ = 0.45;
+        targetY = -0.55;
+        targetZ = 0.4;
       }
     }
     
