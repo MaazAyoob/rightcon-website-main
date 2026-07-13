@@ -1251,3 +1251,170 @@ input[type="range"].accent-bronze::-moz-range-thumb {
 .animate-scale-in {
   animation: scaleIn 0.55s var(--ease-premium) forwards;
 }
+
+/* ─── Global Contrast, Readability & Hover Enhancements ───────────────────── */
+
+/* 1. Typography Weights & Line Heights */
+h1, h2, h3, h4, h5, h6, .h-hero-display, .h-section-title {
+  font-weight: 700 !important;
+}
+.h-subheading, .h-label-mono, .tagline {
+  font-weight: 600 !important;
+}
+p, .h-body, .h-body-large {
+  font-weight: 500 !important;
+  line-height: 1.75 !important;
+}
+.h-caption, figcaption, .caption {
+  font-weight: 500 !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/*  THEME SYSTEM                                                               */
+/*  Strategy: containers set their color, ALL children inherit it.            */
+/*  Then specific exceptions (buttons, links, accents) are re-declared.       */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Step 1: Make all text elements inherit color from their parent ────────── */
+/* This ensures text color always follows the nearest container's theme.       */
+h1, h2, h3, h4, h5, h6,
+p, span, div, li, td, th, label,
+a, button, input, textarea, select,
+small, strong, em, b, i, blockquote,
+figcaption, caption, address, time, mark,
+.h-hero-display, .h-section-title, .h-subheading,
+.h-label-mono, .h-body, .h-body-large, .h-caption,
+.tagline, .breadcrumb, .caption {
+  color: inherit;
+}
+
+/* ── Step 2: LIGHT containers → set color to black (charcoal) ─────────────── */
+/* All children will inherit this black color unless overridden below.         */
+.theme-light,
+.theme-stone,
+[data-theme="light"],
+[data-nav-theme="light"] {
+  background-color: #FFFFFF;
+  color: #1C1C1C !important;
+}
+
+/* Standalone light bg-* utility classes used without theme-light wrapper */
+section.bg-white,
+div.bg-white:not(.theme-dark *),
+.bg-stone,
+.bg-gray-50 {
+  color: #1C1C1C !important;
+}
+
+/* ── Step 3: DARK containers → set color to white ─────────────────────────── */
+/* All children will inherit this white color unless overridden below.         */
+/* IMPORTANT: .bg-charcoal has !important to beat Tailwind's own specificity  */
+.theme-dark,
+[data-theme="dark"],
+[data-nav-theme="dark"] {
+  background-color: #1C1C1C !important;
+  color: #FFFFFF !important;
+}
+
+/* bg-charcoal class (Tailwind utility) also marks a dark zone */
+.bg-charcoal {
+  color: #FFFFFF !important;
+}
+
+/* bg-white INSIDE a dark container must reset to black */
+.theme-dark .bg-white,
+.bg-charcoal .bg-white,
+[data-theme="dark"] .bg-white {
+  color: #1C1C1C !important;
+}
+
+/* ── Step 4: Re-declare interactive elements (buttons, links, accents) ─────── */
+
+/* Primary buttons — always blue bg, white text */
+.btn-primary {
+  background-color: #0000AA !important;
+  border-color: #0000AA !important;
+  color: #FFFFFF !important;
+  transition: all 0.4s var(--ease-premium);
+}
+.btn-primary:hover {
+  background-color: #000088 !important;
+  border-color: #000088 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 170, 0.35) !important;
+}
+
+/* Secondary outline buttons — brand blue */
+.btn-secondary {
+  border-color: #0000AA !important;
+  color: #0000AA !important;
+  background-color: transparent !important;
+  transition: all 0.4s var(--ease-premium);
+}
+.btn-secondary:hover {
+  background-color: rgba(0, 0, 170, 0.08) !important;
+  border-color: #000088 !important;
+  color: #000088 !important;
+}
+
+/* Ghost buttons */
+.btn-ghost {
+  color: #0000AA !important;
+  background-color: transparent !important;
+  transition: color 0.3s var(--ease-premium);
+}
+.btn-ghost:hover {
+  color: #000088 !important;
+}
+
+/* Gold accent — always gold regardless of container */
+.text-accent {
+  color: #C9A227 !important;
+}
+
+/* Brand blue helper class */
+.text-primary {
+  color: #0000AA !important;
+}
+
+/* Inline text links */
+p a, li a, .inline-link {
+  color: #0000AA !important;
+  text-decoration: underline !important;
+  text-decoration-color: rgba(0, 0, 170, 0.4) !important;
+  font-weight: 600 !important;
+  transition: color 0.3s var(--ease-premium), text-decoration-color 0.3s var(--ease-premium);
+}
+p a:hover, li a:hover, .inline-link:hover {
+  color: #0000FF !important;
+  text-decoration-color: #0000FF !important;
+}
+
+/* ── Step 5: Hover turns brand blue ────────────────────────────────────────── */
+a:not(.btn-primary):not(.whatsapp-fab):hover,
+button:not(.btn-primary):not(.whatsapp-fab):hover,
+.cursor-pointer:not(.btn-primary):not(.whatsapp-fab):hover,
+[role="button"]:not(.btn-primary):not(.whatsapp-fab):hover,
+.menu-link-item:hover,
+.breadcrumb-link:hover {
+  color: #0000AA !important;
+}
+
+a:not(.btn-primary):not(.whatsapp-fab):hover svg,
+button:not(.btn-primary):not(.whatsapp-fab):hover svg,
+.cursor-pointer:not(.btn-primary):not(.whatsapp-fab):hover svg,
+[role="button"]:not(.btn-primary):not(.whatsapp-fab):hover svg {
+  stroke: #0000AA !important;
+  fill: currentColor;
+}
+
+/* ── Step 6: Menu active/hover ──────────────────────────────────────────────  */
+.menu-link-item:hover {
+  color: #0000AA !important;
+  border-left-color: #0000AA !important;
+}
+.menu-link-item.active {
+  color: #0000AA !important;
+  border-left-color: #0000AA !important;
+}
+

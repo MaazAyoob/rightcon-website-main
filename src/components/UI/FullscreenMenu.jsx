@@ -201,7 +201,7 @@ const SECONDARY_ITEMS = [
 ];
 
 export default function FullscreenMenu() {
-  const { menuOpen, setMenuOpen, setMascotPose, setMascotEmotion } = useScrollSystem();
+  const { menuOpen, setMenuOpen, setMascotPose, setMascotEmotion, setHoveredMenuItem } = useScrollSystem();
   const [hoveredState, setHoveredState] = useState({ isPrimary: true, idx: 0 });
   const location = useLocation();
 
@@ -236,6 +236,9 @@ export default function FullscreenMenu() {
 
   const handleHover = (isPrimary, idx) => {
     setHoveredState({ isPrimary, idx });
+    if (setHoveredMenuItem) {
+      setHoveredMenuItem({ isPrimary, idx });
+    }
     const item = isPrimary ? PRIMARY_ITEMS[idx] : SECONDARY_ITEMS[idx];
     if (item && item.mascotPose) {
       setMascotPose(item.mascotPose);
@@ -247,6 +250,9 @@ export default function FullscreenMenu() {
     setMenuOpen(false);
     setMascotPose('idle');
     setMascotEmotion('calm');
+    if (setHoveredMenuItem) {
+      setHoveredMenuItem(null);
+    }
   };
 
   return (
@@ -340,6 +346,7 @@ export default function FullscreenMenu() {
                     className="menu-anim-link"
                     onTouchStart={() => handleHover(true, idx)}
                     onMouseEnter={() => handleHover(true, idx)}
+                    onMouseLeave={() => setHoveredMenuItem && setHoveredMenuItem(null)}
                   >
                     <NavLink
                       to={item.path}
@@ -400,6 +407,7 @@ export default function FullscreenMenu() {
                     style={{ fontSize: '10px' }}
                     onTouchStart={() => handleHover(false, idx)}
                     onMouseEnter={() => handleHover(false, idx)}
+                    onMouseLeave={() => setHoveredMenuItem && setHoveredMenuItem(null)}
                   >
                     <span className="text-white/20 font-bold" style={{ fontSize: '8px' }}>R{idx + 1}</span>
                     {item.label}
@@ -485,7 +493,7 @@ export default function FullscreenMenu() {
               {PRIMARY_ITEMS.map((item, idx) => {
                 const isActive = location.pathname === item.path;
                 return (
-                  <div key={idx} className="menu-anim-link" onMouseEnter={() => handleHover(true, idx)}>
+                  <div key={idx} className="menu-anim-link" onMouseEnter={() => handleHover(true, idx)} onMouseLeave={() => setHoveredMenuItem && setHoveredMenuItem(null)}>
                     <NavLink
                       to={item.path}
                       onClick={handleClose}
@@ -515,7 +523,7 @@ export default function FullscreenMenu() {
               {SECONDARY_ITEMS.map((item, idx) => {
                 const isActive = location.pathname === item.path;
                 return (
-                  <div key={idx} className="menu-anim-link" onMouseEnter={() => handleHover(false, idx)}>
+                  <div key={idx} className="menu-anim-link" onMouseEnter={() => handleHover(false, idx)} onMouseLeave={() => setHoveredMenuItem && setHoveredMenuItem(null)}>
                     <NavLink
                       to={item.path}
                       onClick={handleClose}

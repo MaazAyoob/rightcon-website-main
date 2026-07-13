@@ -115,7 +115,7 @@ export default function CtaScene() {
   }, []);
 
   return (
-    <section id="book-a-visit" className="relative w-full section-container select-none bg-charcoal subpixel-text">
+    <section id="book-a-visit" className="relative w-full section-container select-none bg-charcoal theme-dark subpixel-text">
       <div className="absolute inset-0 architectural-grid opacity-10 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">

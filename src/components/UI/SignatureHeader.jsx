@@ -12,7 +12,7 @@ export default function SignatureHeader() {
     const NAV_HEIGHT = 80;
 
     const update = () => {
-      const lightSections = document.querySelectorAll('[data-nav-theme="light"]');
+      const lightSections = document.querySelectorAll('[data-nav-theme="light"], .theme-light, section.bg-white, div.bg-white:not(.theme-dark *):not(.bg-charcoal *)');
       let overLight = false;
       lightSections.forEach((el) => {
         const rect = el.getBoundingClientRect();
@@ -136,7 +136,7 @@ export default function SignatureHeader() {
             /* Mobile: compact, tablet+: full */
             text-[10px] px-3 min-h-[40px] xs:px-4 md:px-6 md:min-h-[44px]
             rounded-none
-            {!isLight
+            ${!isLight
               ? 'border-white/25 text-white hover:border-[var(--color-primary)] hover:bg-primary hover:text-white'
               : 'border-[var(--color-charcoal)]/25 text-[var(--color-charcoal)] hover:border-[var(--color-primary)] hover:bg-primary hover:text-white'
             }

@@ -217,6 +217,7 @@ export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourSt
   const {
     mousePos, scrollVelocity, introActive, mascotPose, formFieldFocus, formSuccess, setIsChatOpen,
     isChatOpen, mascotHovered, setMascotPose, setMascotEmotion,
+    menuOpen, hoveredMenuItem,
   } = useScrollSystem();
 
   // ── Randomised lerp rates (imperfect timing — set once at mount) ──
@@ -339,6 +340,34 @@ export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourSt
     let hxTarget = cfg.headX;
     let hyTarget = cfg.headY;
 
+    // V22.1 - Navigation Menu Hover Pointing Refinement
+    const isMenuPoint = menuOpen && hoveredMenuItem;
+    if (isMenuPoint) {
+      const idx = hoveredMenuItem.idx;
+      const isPrimary = hoveredMenuItem.isPrimary;
+      const total = isPrimary ? 8 : 6;
+      const itemRatio = idx / (total - 1 || 1);
+
+      // Torso yaw to turn toward the menu on the right
+      tyTarget = -0.7;
+      txTarget = 0.05;
+
+      // Head turn toward menu item (looking right, and up/down)
+      hyTarget = -0.8;
+      hxTarget = -0.15 + itemRatio * 0.35;
+
+      // Right arm pointing at the menu item
+      // Pitch ranges from -0.85 (pointing up/high item) to -0.2 (pointing down/low item)
+      rsTarget = [-0.85 + itemRatio * 0.65, -0.4, 0.45];
+      reTarget = [0.08, 0, 0];
+      rwTarget = [0, 0, -0.1];
+
+      // Left arm relaxed at side
+      lsTarget = [0, 0, 0.15];
+      leTarget = [0.15, 0, 0];
+      lwTarget = [0.05, 0, 0.05];
+    }
+
     // Special animations driven by time
     if (cfg.waveWrist) {
       const freq  = cfg.slowWave ? 6 : 11;
@@ -415,8 +444,8 @@ export default function ProceduralMascot({ posRef, rotRef, scaleRef, behaviourSt
     }
 
     // ── 7. Finger curls + micro-movements ──
-    const LFStyle = FINGER_STYLES[cfg.LF] || FINGER_STYLES.relaxed;
-    const RFStyle = FINGER_STYLES[cfg.RF] || FINGER_STYLES.relaxed;
+    const LFStyle = isMenuPoint ? FINGER_STYLES.relaxed : (FINGER_STYLES[cfg.LF] || FINGER_STYLES.relaxed);
+    const RFStyle = isMenuPoint ? FINGER_STYLES.pointing : (FINGER_STYLES[cfg.RF] || FINGER_STYLES.relaxed);
 
     const fingerGroups = [
       { refs: [LFI[0], LFI[1]], style: LFStyle[0], side: 'L', fi: 0 },

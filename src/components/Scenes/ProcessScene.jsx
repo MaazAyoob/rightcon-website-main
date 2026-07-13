@@ -223,7 +223,7 @@ function DesktopProcessScene() {
 
   return (
     <div ref={triggerRef} className="relative z-10 select-none">
-      <section className="h-screen w-full flex items-center px-10 xl:px-16 overflow-hidden border-t border-charcoal/5 bg-white subpixel-text">
+      <section className="h-screen w-full flex items-center px-10 xl:px-16 overflow-hidden border-t border-charcoal/5 bg-white theme-light subpixel-text">
         <div className="absolute inset-0 architectural-grid opacity-[0.06] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto w-full grid grid-cols-12 gap-16 items-center relative z-10">
@@ -335,7 +335,7 @@ export default function ProcessScene() {
   // ── Mobile: Premium Vertical Timeline ──
   if (isMobile) {
     return (
-      <section className="relative z-10 select-none border-t border-charcoal/5 bg-white overflow-x-hidden"
+      <section className="relative z-10 select-none border-t border-charcoal/5 bg-white theme-light overflow-x-hidden"
         style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)', paddingLeft: 'var(--section-px)', paddingRight: 'var(--section-px)' }}
       >
         <div className="absolute inset-0 architectural-grid opacity-[0.04] pointer-events-none"></div>
@@ -375,7 +375,7 @@ export default function ProcessScene() {
   // ── Tablet: Alternating timeline ──
   if (isTablet) {
     return (
-      <section className="relative z-10 select-none border-t border-charcoal/5 bg-white overflow-x-hidden"
+      <section className="relative z-10 select-none border-t border-charcoal/5 bg-white theme-light overflow-x-hidden"
         style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)', paddingLeft: 'var(--section-px)', paddingRight: 'var(--section-px)' }}
       >
         <div className="absolute inset-0 architectural-grid opacity-[0.04] pointer-events-none"></div>

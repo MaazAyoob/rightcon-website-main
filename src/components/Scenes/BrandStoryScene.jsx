@@ -41,7 +41,7 @@ export default function BrandStoryScene() {
   }, [isActive]);
 
   return (
-    <section className="relative w-full overflow-hidden border-t border-charcoal/5 bg-white subpixel-text">
+    <section className="relative w-full overflow-hidden border-t border-charcoal/5 bg-white theme-light subpixel-text">
       
       {/* Full-bleed hero image strip */}
       <div className="relative w-full h-[45vh] overflow-hidden">

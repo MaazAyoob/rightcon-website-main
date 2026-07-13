@@ -27,7 +27,7 @@ export default function Footer() {
   return (
     <footer 
       ref={footerRef}
-      className="relative w-full border-t border-white/5 py-space-96 px-space-24 md:px-space-40 select-none z-10 theme-dark subpixel-text"
+      className="relative w-full border-t border-white/5 py-space-96 px-space-24 md:px-space-40 select-none z-10 theme-dark bg-charcoal subpixel-text"
     >
       {/* Decorative architectural grid */}
       <div className="absolute inset-0 architectural-grid opacity-10 pointer-events-none"></div>
@@ -86,7 +86,7 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-space-16 md:gap-space-40 h-label-mono text-[9px] items-start sm:items-center">
-            <a href="/privacy-policy" className="hover:text-accent transition-colors">
+            <a href="/privacy" className="hover:text-accent transition-colors">
               PRIVACY POLICY
             </a>
 

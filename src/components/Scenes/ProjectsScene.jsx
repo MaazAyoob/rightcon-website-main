@@ -368,7 +368,7 @@ function DesktopProjectsScene({ onOpen }) {
   };
 
   return (
-    <div ref={triggerRef} className="relative z-10 select-none overflow-hidden theme-dark">
+    <div ref={triggerRef} className="relative z-10 select-none overflow-hidden theme-dark bg-charcoal">
       <div className="absolute inset-0 z-0 bg-charcoal overflow-hidden">
         {PROJECTS.map((p, i) => {
           const d = Math.abs(i - scrollProgressFloat), op = Math.max(0, 1 - d);

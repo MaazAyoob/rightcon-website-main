@@ -26,7 +26,7 @@ export default function TrustScene() {
   }, [isActive]);
 
   return (
-    <section className="relative min-h-screen w-full py-space-96 md:py-space-160 px-space-24 md:px-space-40 flex items-center overflow-hidden border-t border-charcoal/5 bg-white subpixel-text">
+    <section className="relative min-h-screen w-full py-space-96 md:py-space-160 px-space-24 md:px-space-40 flex items-center overflow-hidden border-t border-charcoal/5 bg-white theme-light subpixel-text">
       <div className="absolute inset-0 architectural-grid opacity-[0.06] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col gap-space-48">

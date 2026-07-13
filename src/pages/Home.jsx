@@ -71,7 +71,7 @@ export default function Home() {
       </div>
 
       {/* Scene 5: Services / Craftsmanship */}
-      <div className="journey-scene w-full">
+      <div className="journey-scene w-full" data-nav-theme="light">
         <ServicesScene />
       </div>
 

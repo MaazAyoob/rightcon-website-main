@@ -34,6 +34,8 @@ const ScrollContext = createContext({
   setSearchOpen: () => {},
   currentMascotPoint: 'hero_right',
   setCurrentMascotPoint: () => {},
+  hoveredMenuItem: null,
+  setHoveredMenuItem: () => {},
   mascotSpeech: '',
   setMascotSpeech: () => {},
   mascotHovered: false,
@@ -106,6 +108,7 @@ export const ScrollProvider = ({ children }) => {
     if (val) {
       rawSetMenuOpen(false);
       rawSetSearchOpen(false);
+      completeIntro();
     }
   };
 
@@ -114,6 +117,7 @@ export const ScrollProvider = ({ children }) => {
     if (val) {
       rawSetIsChatOpen(false);
       rawSetSearchOpen(false);
+      completeIntro();
     }
   };
 
@@ -122,9 +126,11 @@ export const ScrollProvider = ({ children }) => {
     if (val) {
       rawSetIsChatOpen(false);
       rawSetMenuOpen(false);
+      completeIntro();
     }
   };
   const [currentMascotPoint, setCurrentMascotPoint] = useState('hero_right');
+  const [hoveredMenuItem, setHoveredMenuItem] = useState(null);
   const [mascotSpeech, setMascotSpeech] = useState("");
   const [mascotHovered, setMascotHovered] = useState(false);
   
@@ -377,6 +383,8 @@ export const ScrollProvider = ({ children }) => {
       setSearchOpen,
       currentMascotPoint,
       setCurrentMascotPoint,
+      hoveredMenuItem,
+      setHoveredMenuItem,
       mascotSpeech,
       setMascotSpeech,
       mascotHovered,

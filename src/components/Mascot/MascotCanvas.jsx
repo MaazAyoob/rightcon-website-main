@@ -3,7 +3,6 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useScrollSystem } from '../../context/ScrollContext';
 import ProceduralMascot from './ProceduralMascot';
 import BehaviourEngine from './BehaviourEngine';
-import HoloProjector from './HoloProjector';
 import FuturisticKey from './FuturisticKey';
 import IntroParticles from './IntroParticles';
 import { BRAND_COLORS } from '../../config/colors';
@@ -235,10 +234,7 @@ export default function MascotCanvas() {
               </>
             )}
 
-            {/* Project hologram — shown when in projects or projecting */}
-            {!introActive && (activeScene === 3 || activeScene === 5 || activeScene === 8) && (
-              <HoloProjector posRef={currentPos} scaleRef={currentScale} />
-            )}
+            {/* Hologram projectors removed as per Brand Refinement guidelines */}
           </group>
         </Suspense>
       </Canvas>
