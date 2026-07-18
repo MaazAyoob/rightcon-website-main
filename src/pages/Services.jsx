@@ -1,108 +1,147 @@
-import React, { useEffect } from 'react';
-import { useScrollSystem } from '../context/ScrollContext';
-import { SERVICES_DATA } from '../data/mockData';
-import { Link } from 'react-router-dom';
-import CinematicHero from '../components/UI/CinematicHero';
-import Footer from '../components/UI/Footer';
-import AssemblySculpture from '../components/Sculptures/AssemblySculpture';
-
-const SERVICES_SLIDES = [
-  {
-    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=95&auto=format&fit=crop",
-    category: "01 // STRUCTURAL EXECUTION",
-    title: "RCC SLAB VOLUMETRICS.",
-    desc: "Rigorous casting of geomechanical friction pile foundations and load-bearing column matrices. Custom concrete mixes crushed at ISO laboratories.",
-    code: "RCC_VOL // FOUNDATION",
-    detailImg: "https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?w=600&auto=format&fit=crop"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=1920&q=95&auto=format&fit=crop",
-    category: "02 // COMPUTATIONAL AUDITS",
-    title: "LOD 400 BIM CLASH.",
-    desc: "Virtual twins scanning pipeline, mechanical, and structural conduits in 3D. Clearing geometric collisions to prevent onsite core drilling errors.",
-    code: "BIM_CLASH // SCANNER",
-    detailImg: "https://images.unsplash.com/photo-1508962914676-134849a727f0?w=600&auto=format&fit=crop"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1920&q=95&auto=format&fit=crop",
-    category: "03 // MATERIAL LEDGERS",
-    title: "MATERIAL PROVIDENCE.",
-    desc: "Maintaining digital ledgers tracing travertine blocks, kiln-dried Burma teak lumber logs, and Fe550D reinforcement rebars straight from mills.",
-    code: "PROVIDENCE // LEDGER",
-    detailImg: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&auto=format&fit=crop"
-  }
-];
+import { useState } from "react";
+import { SERVICES } from "../data/rightconData";
+import { Link } from "react-router-dom";
 
 export default function Services() {
-  const { setActiveScene, setMascotPose, setMascotEmotion } = useScrollSystem();
+  const [activeFaq, setActiveFaq] = useState(null);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    setActiveScene(5); // Mascot targets Services coordinates
-    setMascotPose('idle');
-    setMascotEmotion('calm');
-  }, [setActiveScene, setMascotPose, setMascotEmotion]);
+  const faqs = [
+    {
+      q: "What is included in a turnkey construction package?",
+      a: "Our turnkey construction package covers the entire lifecycle: soil testing, design drawings, structural mapping, excavation, site engineering supervision, material logistics (cement, steel, brick, masonry), wiring, plumbing, and structural validation certificates.",
+    },
+    {
+      q: "How does Rightcon manage quality checkpoints?",
+      a: "We maintain our proprietary Quality Book which outlines 150+ inspection points checked by our on-site engineers. These include cement grade verification, concrete compression tests, structural steel lap sizing, and plaster water curing tracking.",
+    },
+    {
+      q: "What are 'Insideout' packages?",
+      a: "Insideout packages integrate our architectural design studio directly with our construction teams and custom interior finishing millwork. This ensures that layout designs translate exactly into construction, with zero discrepancy in final fittings.",
+    },
+    {
+      q: "Can I customize the material specifications?",
+      a: "Yes. While our packages have standard baselines (ACC/Ultratech 53-grade cement, Vizag steel, Finolex wires), our engineering team coordinates custom specifications depending on aesthetic and architectural needs.",
+    },
+  ];
 
   return (
-    <div className="w-full flex flex-col bg-white text-charcoal selection:bg-primary selection:text-white pt-0 select-none">
-      
-      {/* 1. Services slideshow hero */}
-      <CinematicHero slides={SERVICES_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<AssemblySculpture />} />
-
-      {/* 2. SERVICES LISTING BENTO GRID */}
-      <section className="section-container max-w-7xl mx-auto w-full relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-space-32">
-          {SERVICES_DATA.map((srv, idx) => (
-            <Link 
-              key={srv.id}
-              to={`/services/${srv.id}`}
-              className="group border border-charcoal/10 p-space-32 bg-white rounded-none hover:border-accent/45 transition-all duration-700 flex flex-col justify-between min-h-[360px] shadow-2xl relative"
-            >
-              <div className="absolute top-0 right-0 border-b border-l border-charcoal/10 p-space-12 h-label-mono text-[8px] text-charcoal/40">
-                CODE // 0{idx+1}
-              </div>
-
-              <div className="flex flex-col gap-space-16 mt-4">
-                <span className="font-mono text-[8.5px] text-accent font-bold">{srv.category.toUpperCase()}</span>
-                <h3 className="font-display text-2xl font-light text-charcoal group-hover:text-accent transition-colors">
-                  {srv.title}
-                </h3>
-                <p className="font-sans text-xs text-charcoal/60 leading-relaxed font-light">
-                  {srv.overview}
-                </p>
-              </div>
-
-              <div className="border-t border-charcoal/10 pt-space-24 mt-space-24 flex justify-between items-center text-xs">
-                <span className="font-mono text-charcoal/50 text-[9px] uppercase tracking-wider">READ COMPLIANCE</span>
-                <span className="font-mono text-[9px] text-accent group-hover:translate-x-1 transition-transform">→</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* 3. CONSULTATION ADVISORY CTA */}
-      <section className="section-container bg-white border-t border-charcoal/5 relative">
-        <div className="absolute inset-0 blueprint-grid opacity-[0.01] pointer-events-none"></div>
-        <div className="max-w-4xl mx-auto text-center flex flex-col gap-space-24 relative z-10">
-          <span className="h-label-mono text-accent">[STRUCTURAL CONSULTATIVE REGISTRY]</span>
-          <h2 className="font-display text-3xl font-light text-charcoal uppercase tracking-wide">
-            Discuss Your Geomechanical Specifications
-          </h2>
-          <p className="font-sans text-xs text-charcoal/60 max-w-md mx-auto leading-relaxed font-light">
-            Book a consultation with our Indiranagar estimating engineers to review soil friction logs and coordinate RERA scheduling parameters.
+    <div className="bg-white pt-32 pb-24 min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-32">
+        
+        {/* Page Header */}
+        <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">
+          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">OUR CAPABILITIES</span>
+          <h1 className="font-display font-bold text-4xl md:text-6xl text-charcoal uppercase tracking-tight">
+            CONSTRUCTION & DESIGN SERVICES
+          </h1>
+          <p className="text-neutral-500 font-light text-base md:text-lg leading-relaxed">
+            Professional systems for residential design and civil execution. We bring engineering discipline and craftsmanship to every foundation we cast.
           </p>
-          <Link 
-            to="/contact?advisory=true" 
-            className="btn-primary py-3.5 px-8 tracking-widest text-[9px] rounded-none self-center mt-4"
-          >
-            <span>REQUEST TECHNICAL ADVISORY</span>
-          </Link>
         </div>
-      </section>
 
-      <Footer />
+        {/* Detailed Services Breakdown */}
+        <div className="space-y-32">
+          {SERVICES.map((service, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <div 
+                key={service.id} 
+                className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${
+                  isEven ? "" : "lg:flex-row-reverse"
+                }`}
+              >
+                {/* Large Service Image */}
+                <div className="w-full lg:w-1/2 aspect-[16/10] overflow-hidden bg-neutral-100 border border-neutral-200">
+                  <img 
+                    src={service.image} 
+                    alt={service.title} 
+                    className="w-full h-full object-cover transition-transform duration-[1200ms] hover:scale-102"
+                  />
+                </div>
 
+                {/* Service Details */}
+                <div className="w-full lg:w-1/2 space-y-6">
+                  <span className="font-mono text-xs text-gold uppercase tracking-widest font-semibold block">
+                    0{index + 1} / {service.subtitle}
+                  </span>
+                  <h2 className="font-display font-bold text-3xl md:text-4xl text-charcoal tracking-tight uppercase leading-none">
+                    {service.title}
+                  </h2>
+                  <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-light">
+                    {service.description}
+                  </p>
+
+                  {/* Core Deliverables Grid */}
+                  <div className="border-t border-neutral-150 pt-6 space-y-4">
+                    <h4 className="font-mono text-xs text-charcoal font-semibold uppercase tracking-wider">
+                      SPECIFICATION DELIVERABLES
+                    </h4>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      {service.deliverables.map((item, idx) => (
+                        <li key={idx} className="flex items-start space-x-3 text-xs text-neutral-500 leading-relaxed font-light">
+                          <span className="w-1 h-1 bg-gold rounded-full mt-2"></span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="pt-6">
+                    <Link 
+                      to="/cost-calculator" 
+                      className="inline-block bg-charcoal text-white hover:bg-gold hover:text-charcoal transition-all duration-300 font-mono text-xs uppercase tracking-widest px-8 py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 min-h-[44px] text-center"
+                    >
+                      Estimate Work Scope
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Accordion FAQ Section */}
+        <div className="pt-20 border-t border-neutral-100 max-w-4xl mx-auto space-y-12">
+          <div className="text-center space-y-3">
+            <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">PROCEDURE FAQS</span>
+            <h2 className="font-display font-bold text-3xl text-charcoal uppercase">
+              ENGINEERING SYSTEMS
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, idx) => {
+              const isSelected = activeFaq === idx;
+              return (
+                <div key={idx} className="border-b border-neutral-100 pb-4">
+                  <button
+                    onClick={() => setActiveFaq(isSelected ? null : idx)}
+                    aria-expanded={isSelected}
+                    className="w-full flex items-center justify-between text-left py-4 hover:text-gold transition-colors focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 cursor-pointer"
+                  >
+                    <span className="font-display font-bold text-base md:text-lg text-charcoal uppercase tracking-tight">
+                      {faq.q}
+                    </span>
+                    <span className="font-mono text-xs text-gold ml-4">
+                      {isSelected ? "[-]" : "[+]"}
+                    </span>
+                  </button>
+                  <div
+                    className={`transition-all duration-300 overflow-hidden ${
+                      isSelected ? "max-h-[220px] opacity-100" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <p className="text-neutral-500 text-sm leading-relaxed font-light pt-2 pb-4">
+                      {faq.a}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }

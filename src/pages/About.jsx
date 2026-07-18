@@ -1,133 +1,103 @@
-import React, { useEffect } from 'react';
-import { useScrollSystem } from '../context/ScrollContext';
-import CinematicHero from '../components/UI/CinematicHero';
-import Footer from '../components/UI/Footer';
-import FoundationSculpture from '../components/Sculptures/FoundationSculpture';
-
-const ABOUT_SLIDES = [
-  {
-    image: "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=1920&q=95&auto=format&fit=crop",
-    category: "01 // CHIEF MANDATE",
-    title: "MAAZ AYOOB'S VISION.",
-    desc: "A home is not an aesthetic veneer. It is a geomechanical blueprint—an envelope of concrete, steel, and stone calculated to outlast centuries. We sink friction piles directly into verified bedrock.",
-    code: "FOUNDER // CHIEF_ESTIMATOR",
-    detailImg: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=600&auto=format&fit=crop"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=95&auto=format&fit=crop",
-    category: "02 // GEOLOGICAL STUDY",
-    title: "BEDROCKcomp SOIL CORES.",
-    desc: "Standard Penetration Tests mapping clay expansion layers up to 8m deep. Every structural foundation is calculated to counter geomechanical settlements before pouring concrete.",
-    code: "SOIL_SPT // DRILL_RECORD",
-    detailImg: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&auto=format&fit=crop"
-  },
-  {
-    image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1920&q=95&auto=format&fit=crop",
-    category: "03 // COMPUTATIONAL LAYOUTS",
-    title: "BIM VIRTUAL TWINNING.",
-    desc: "Virtual coordination grids modeling structural pillars and MEP conduits at LOD 400 specs. Eliminating onsite structural drill cuts and pipeline clashes in virtual space.",
-    code: "LOD_400 // CLASH_PASS",
-    detailImg: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop"
-  }
-];
+import { COMPANY_METRICS } from "../data/rightconData";
+import { Link } from "react-router-dom";
 
 export default function About() {
-  const { setActiveScene, setMascotPose, setMascotEmotion } = useScrollSystem();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    setActiveScene(7); // Target Testimonials/About coordinates
-    setMascotPose('idle');
-    setMascotEmotion('calm');
-  }, [setActiveScene, setMascotPose, setMascotEmotion]);
-
   return (
-    <div className="w-full flex flex-col bg-white text-charcoal selection:bg-primary selection:text-white pt-0 select-none">
-      
-      {/* 1. Cinematic Slideshow Hero */}
-      <CinematicHero slides={ABOUT_SLIDES} coordinates="12.9716° N, 77.5946° E" sculpture={<FoundationSculpture />} />
-      <section className="section-container border-t border-charcoal/5 bg-white relative">
-        <div className="absolute inset-0 blueprint-grid opacity-[0.015] pointer-events-none"></div>
-        <div className="max-w-4xl mx-auto flex flex-col gap-space-32 text-center items-center relative z-10">
-          <span className="h-label-mono text-primary font-bold">[02 // DESIGN MANDATE]</span>
+    <div className="bg-white pt-32 pb-24 min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-24">
+        
+        {/* Header */}
+        <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">
+          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">OUR STORY & PHILOSOPHY</span>
+          <h1 className="font-display font-bold text-4xl md:text-6xl text-charcoal uppercase tracking-tight">
+            ABOUT RIGHTCON
+          </h1>
+          <p className="text-neutral-500 font-light text-base md:text-lg leading-relaxed">
+            Constructing bespoke residences in Bangalore and Mysore on the principles of transparency, structured workflows, and engineering discipline.
+          </p>
+        </div>
+
+        {/* Narrative & Visual Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           
-          <blockquote className="font-display text-2xl md:text-4xl font-light italic leading-relaxed text-charcoal">
-            "We reject superficial veneers. Construction is a geomechanical science. Every concrete pour, steel rebar layout, and wood joint must reflect physical honesty and structural integrity."
-          </blockquote>
-          
-          <div className="flex flex-col gap-1.5 mt-4">
-            <span className="font-display text-lg font-light text-charcoal">Maaz Ayoob</span>
-            <span className="h-label-mono text-accent font-bold">FOUNDER &amp; CHIEF ESTIMATOR</span>
+          {/* Narrative Column */}
+          <div className="lg:col-span-6 space-y-6">
+            <h2 className="font-display font-bold text-2xl md:text-3xl text-charcoal uppercase leading-tight">
+              THE SYSTEM-DRIVEN BUILD METHOD
+            </h2>
+            <div className="w-12 h-0.5 bg-gold"></div>
+            <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-light">
+              Rightcon was founded to transform the traditionally unpredictable residential construction process into a systematic, stress-free engineering execution. Over the past {COMPANY_METRICS.yearsExperience} years, we have refined a framework that covers every detail of a residential build.
+            </p>
+            <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-light">
+              By keeping architectural design, civil engineering, and finishing trades entirely in-house, we eliminate contractor hand-offs and structural discrepancies. Every project operates under the oversight of professional project managers who track execution using our 150-checkpoint Quality Book.
+            </p>
+            <div className="pt-4">
+              <Link 
+                to="/projects" 
+                className="inline-block bg-charcoal text-white hover:bg-gold hover:text-charcoal transition-all duration-300 font-mono text-xs uppercase tracking-widest px-8 py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 min-h-[44px] text-center"
+              >
+                Examine Our Residences
+              </Link>
+            </div>
+          </div>
+
+          {/* Visual Column */}
+          <div className="lg:col-span-6 aspect-[4/3] overflow-hidden bg-neutral-100 border border-neutral-200">
+            <img 
+              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80" 
+              alt="Rightcon Office Meeting and Collaborative Blueprint Planning" 
+              className="w-full h-full object-cover transition-transform duration-1000 hover:scale-[1.01]"
+            />
+          </div>
+
+        </div>
+
+        {/* Corporate Metrics Strip */}
+        <div className="bg-grain py-12 px-8 border border-neutral-100 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+          <div className="space-y-1">
+            <span className="font-mono text-[10px] text-neutral-450 uppercase block tracking-wider">MANAGEMENT EXPERTISE</span>
+            <span className="font-display font-bold text-2xl text-charcoal">Structural Specialists</span>
+            <p className="text-neutral-500 text-xs font-light leading-relaxed">Led by M.Tech structural engineers with BDA/BBMP sanction clearances.</p>
+          </div>
+          <div className="space-y-1 md:border-l md:border-neutral-200 md:pl-8">
+            <span className="font-mono text-[10px] text-neutral-450 uppercase block tracking-wider">REGULATORY SANCTIONS</span>
+            <span className="font-display font-bold text-2xl text-charcoal">BBMP & BDA Compliant</span>
+            <p className="text-neutral-500 text-xs font-light leading-relaxed">Systemized layout blueprints matching local zoning laws precisely.</p>
+          </div>
+          <div className="space-y-1 md:border-l md:border-neutral-200 md:pl-8">
+            <span className="font-mono text-[10px] text-neutral-450 uppercase block tracking-wider">PROJECT ASSISTANCE</span>
+            <span className="font-display font-bold text-2xl text-charcoal">Single-Point Support</span>
+            <p className="text-neutral-500 text-xs font-light leading-relaxed">Weekly digital reports containing photo logs and cylinder testing records.</p>
           </div>
         </div>
-      </section>
 
-      {/* 3. COORD TIMELINE LEDGER */}
-      <section className="section-container border-t border-white/5 bg-charcoal">
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-space-48">
-          <div className="lg:col-span-4 flex flex-col gap-space-16">
-            <span className="h-label-mono text-accent">[03 // STUDIO TIMELINE]</span>
-            <h2 className="font-display text-3xl font-light text-white uppercase tracking-wide">Historical Ledger</h2>
-            <p className="font-sans text-xs text-white/60 leading-relaxed font-light mt-2 max-w-xs">
-              A chronological history tracking geotechnical milestones, virtual coordination upgrades, and RERA registries.
+        {/* Engineering Philosophy Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12 border-t border-neutral-100">
+          <div className="space-y-4">
+            <span className="font-mono text-xs text-gold font-semibold uppercase tracking-wider block">01 / TRANSPARENCY</span>
+            <h3 className="font-display font-bold text-xl text-charcoal uppercase">CONTRACT LOCKED COST</h3>
+            <p className="text-neutral-500 text-sm leading-relaxed font-light">
+              We provide all-inclusive pricing schedules with zero cost escalations, fully underwritten in our execution contracts.
             </p>
           </div>
-
-          <div className="lg:col-span-8 flex flex-col gap-space-40 border-l border-white/10 pl-space-32">
-            <div className="relative">
-              <span className="font-sans text-xs text-accent block font-bold">2014 // STUDIO FOUNDING</span>
-              <p className="font-sans text-xs text-white/70 mt-2 font-light leading-relaxed">
-                Rightcon begins operations in Indiranagar, Bangalore, focusing strictly on soil geomechanics, compaction indexes, and foundations.
-              </p>
-            </div>
-            <div className="relative">
-              <span className="font-sans text-xs text-accent block font-bold">2018 // BIM CAD ARCHIVES</span>
-              <p className="font-sans text-xs text-white/70 mt-2 font-light leading-relaxed">
-                Integrated virtual twin coordinate mapping at LOD 400 specifications, resolving sub-surface MEP conduit overlaps prior to concrete pour.
-              </p>
-            </div>
-            <div className="relative">
-              <span className="font-sans text-xs text-accent block font-bold">2022 // COMPRESSIVE CUBE MANDATE</span>
-              <p className="font-sans text-xs text-white/70 mt-2 font-light leading-relaxed">
-                Established strict laboratory compression checks on day 7 and day 28 for all load-bearing columns cast across Bangalore.
-              </p>
-            </div>
+          <div className="space-y-4">
+            <span className="font-mono text-xs text-gold font-semibold uppercase tracking-wider block">02 / CRAFTSMANSHIP</span>
+            <h3 className="font-display font-bold text-xl text-charcoal uppercase">IN-HOUSE RESPONSIBILITY</h3>
+            <p className="text-neutral-500 text-sm leading-relaxed font-light">
+              From our structural detailing engineers to our carpentry and finishing trades, all operations are managed by in-house Rightcon employees.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <span className="font-mono text-xs text-gold font-semibold uppercase tracking-wider block">03 / VERIFICATION</span>
+            <h3 className="font-display font-bold text-xl text-charcoal uppercase">THE QUALITY BOOK</h3>
+            <p className="text-neutral-500 text-sm leading-relaxed font-light">
+              We compile a physical and digital record of structural compliance, slab cure logs, and material testing results for the client.
+            </p>
           </div>
         </div>
-      </section>
 
-      {/* 4. COMPLETED RESIDENCES VERIFICATIONS */}
-      <section className="section-container border-t border-charcoal/5 bg-white relative">
-        <div className="absolute inset-0 blueprint-grid opacity-[0.015] pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto w-full flex flex-col gap-space-48 relative z-10">
-          <span className="h-label-mono text-primary font-bold">[04 // CLIENT STORIES]</span>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-space-32">
-            <div className="border border-charcoal/10 p-space-32 bg-white rounded-none flex flex-col gap-space-24 justify-between shadow-sm">
-              <p className="font-display text-lg italic leading-relaxed text-charcoal/90">
-                "Rightcon's geomechanical compaction test logs were extremely thorough. They drilled 8m deep soil cores to secure a perfect bedrock plinth footing for our active clay lot."
-              </p>
-              <div className="flex flex-col gap-1">
-                <span className="font-sans text-[10px] text-accent font-bold">DR. ADITYA SEN</span>
-                <span className="font-sans text-[9px] text-charcoal/40 uppercase">OWNER // THE EMERALD TERRACES</span>
-              </div>
-            </div>
-
-            <div className="border border-charcoal/10 p-space-32 bg-white rounded-none flex flex-col gap-space-24 justify-between shadow-sm">
-              <p className="font-display text-lg italic leading-relaxed text-charcoal/90">
-                "The physical honesty of the exposed concrete formwork and solid teak woodwork is unmatched. They do not hide structural defects behind veneers."
-              </p>
-              <div className="flex flex-col gap-1">
-                <span className="font-sans text-[10px] text-accent font-bold">KIRAN RAO</span>
-                <span className="font-sans text-[9px] text-charcoal/40 uppercase">OWNER // KORAMANGALA MONOLITH</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-
+      </div>
     </div>
   );
 }
