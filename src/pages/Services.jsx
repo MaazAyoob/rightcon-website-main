@@ -1,9 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SERVICES } from "../data/rightconData";
 import { Link } from "react-router-dom";
 
 export default function Services() {
   const [activeFaq, setActiveFaq] = useState(null);
+
+  // Scroll reveal observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".fade-up-element");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
 
   const faqs = [
     {
@@ -25,73 +46,73 @@ export default function Services() {
   ];
 
   return (
-    <div className="bg-white pt-32 pb-24 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-32">
+    <div className="bg-white pt-32 pb-32 min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-36">
         
         {/* Page Header */}
-        <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">OUR CAPABILITIES</span>
-          <h1 className="font-display font-bold text-4xl md:text-6xl text-charcoal uppercase tracking-tight">
-            CONSTRUCTION & DESIGN SERVICES
+        <div className="space-y-6 max-w-3xl border-b border-neutral-100 pb-16 fade-up-element">
+          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block">OUR CAPABILITIES</span>
+          <h1 className="font-display font-light text-4xl md:text-7xl text-charcoal uppercase tracking-tight leading-none">
+            Construction & <br />Design Services
           </h1>
-          <p className="text-neutral-500 font-light text-base md:text-lg leading-relaxed">
+          <p className="text-neutral-500 font-light text-sm md:text-base leading-relaxed">
             Professional systems for residential design and civil execution. We bring engineering discipline and craftsmanship to every foundation we cast.
           </p>
         </div>
 
-        {/* Detailed Services Breakdown */}
-        <div className="space-y-32">
+        {/* Detailed Services Breakdown (Alternating editorial grids) */}
+        <div className="space-y-40 md:space-y-56">
           {SERVICES.map((service, index) => {
             const isEven = index % 2 === 0;
             return (
               <div 
                 key={service.id} 
-                className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${
+                className={`flex flex-col lg:flex-row items-center gap-16 lg:gap-24 ${
                   isEven ? "" : "lg:flex-row-reverse"
                 }`}
               >
-                {/* Large Service Image */}
-                <div className="w-full lg:w-1/2 aspect-[16/10] overflow-hidden bg-neutral-100 border border-neutral-200">
+                {/* Large Service Image with Zoom */}
+                <div className="w-full lg:w-1/2 aspect-[16/10] bg-neutral-50 hover-zoom fade-up-element">
                   <img 
                     src={service.image} 
                     alt={service.title} 
-                    className="w-full h-full object-cover transition-transform duration-[1200ms] hover:scale-102"
+                    className="w-full h-full object-cover transition-editorial"
                   />
                 </div>
 
                 {/* Service Details */}
-                <div className="w-full lg:w-1/2 space-y-6">
-                  <span className="font-mono text-xs text-gold uppercase tracking-widest font-semibold block">
-                    0{index + 1} / {service.subtitle}
+                <div className="w-full lg:w-1/2 space-y-8 fade-up-element" style={{ transitionDelay: "150ms" }}>
+                  <span className="font-mono text-xs text-gold uppercase tracking-widest block">
+                    Portfolio / 0{index + 1}
                   </span>
-                  <h2 className="font-display font-bold text-3xl md:text-4xl text-charcoal tracking-tight uppercase leading-none">
+                  <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal tracking-tight uppercase leading-tight">
                     {service.title}
                   </h2>
-                  <p className="text-neutral-600 text-sm md:text-base leading-relaxed font-light">
+                  <p className="text-neutral-500 text-xs md:text-sm leading-relaxed font-light">
                     {service.description}
                   </p>
 
-                  {/* Core Deliverables Grid */}
-                  <div className="border-t border-neutral-150 pt-6 space-y-4">
-                    <h4 className="font-mono text-xs text-charcoal font-semibold uppercase tracking-wider">
+                  {/* Core Deliverables without Card background */}
+                  <div className="border-t border-neutral-100 pt-8 space-y-6">
+                    <h4 className="font-mono text-xs text-charcoal font-semibold uppercase tracking-widest">
                       SPECIFICATION DELIVERABLES
                     </h4>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {service.deliverables.map((item, idx) => (
                         <li key={idx} className="flex items-start space-x-3 text-xs text-neutral-500 leading-relaxed font-light">
-                          <span className="w-1 h-1 bg-gold rounded-full mt-2"></span>
+                          <span className="w-1.5 h-1.5 bg-gold rounded-full mt-1.5"></span>
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="pt-6">
+                  <div className="pt-4">
                     <Link 
-                      to="/cost-calculator" 
-                      className="inline-block bg-charcoal text-white hover:bg-gold hover:text-charcoal transition-all duration-300 font-mono text-xs uppercase tracking-widest px-8 py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 min-h-[44px] text-center"
+                      to={`/services/${service.id}`} 
+                      className="font-mono text-xs uppercase tracking-widest text-gold border-b border-gold/30 pb-1 hover:text-charcoal hover:border-charcoal transition-editorial"
                     >
-                      Estimate Work Scope
+                      Examine Service Method →
                     </Link>
                   </div>
                 </div>
@@ -101,11 +122,11 @@ export default function Services() {
         </div>
 
         {/* Accordion FAQ Section */}
-        <div className="pt-20 border-t border-neutral-100 max-w-4xl mx-auto space-y-12">
-          <div className="text-center space-y-3">
+        <div className="pt-32 border-t border-neutral-100 max-w-4xl mx-auto space-y-16 fade-up-element">
+          <div className="text-center space-y-4">
             <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">PROCEDURE FAQS</span>
-            <h2 className="font-display font-bold text-3xl text-charcoal uppercase">
-              ENGINEERING SYSTEMS
+            <h2 className="font-display font-light text-3xl md:text-4xl text-charcoal uppercase tracking-tight">
+              Engineering Systems
             </h2>
           </div>
 
@@ -113,13 +134,13 @@ export default function Services() {
             {faqs.map((faq, idx) => {
               const isSelected = activeFaq === idx;
               return (
-                <div key={idx} className="border-b border-neutral-100 pb-4">
+                <div key={idx} className="border-b border-neutral-100 pb-6">
                   <button
                     onClick={() => setActiveFaq(isSelected ? null : idx)}
                     aria-expanded={isSelected}
-                    className="w-full flex items-center justify-between text-left py-4 hover:text-gold transition-colors focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 cursor-pointer"
+                    className="w-full flex items-center justify-between text-left py-4 hover:text-gold transition-editorial cursor-pointer"
                   >
-                    <span className="font-display font-bold text-base md:text-lg text-charcoal uppercase tracking-tight">
+                    <span className="font-display font-medium text-base md:text-xl text-charcoal uppercase tracking-tight">
                       {faq.q}
                     </span>
                     <span className="font-mono text-xs text-gold ml-4">
@@ -127,11 +148,11 @@ export default function Services() {
                     </span>
                   </button>
                   <div
-                    className={`transition-all duration-300 overflow-hidden ${
+                    className={`transition-all duration-500 ease-in-out overflow-hidden ${
                       isSelected ? "max-h-[220px] opacity-100" : "max-h-0 opacity-0"
                     }`}
                   >
-                    <p className="text-neutral-500 text-sm leading-relaxed font-light pt-2 pb-4">
+                    <p className="text-neutral-500 text-xs md:text-sm leading-relaxed font-light pt-2 pb-4">
                       {faq.a}
                     </p>
                   </div>

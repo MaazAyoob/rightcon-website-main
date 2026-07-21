@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { PROJECTS, TESTIMONIALS } from "../data/rightconData";
 
@@ -11,116 +12,236 @@ export default function ProjectDetail() {
   // Find testimonial matching this project
   const testimonial = TESTIMONIALS.find((t) => t.project.includes(project.title)) || TESTIMONIALS[0];
 
+  // Scroll reveal observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
+    );
+
+    const elements = document.querySelectorAll(".fade-up-element");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, [id]); // Reset observer on route change
+
   return (
-    <div className="bg-white pt-24 pb-24 min-h-screen">
+    <div className="bg-white min-h-screen">
       
       {/* 1. CINEMATIC HERO */}
-      <section className="relative h-[80vh] flex items-end bg-charcoal text-white overflow-hidden pb-16">
-        <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden opacity-50">
+      <section className="relative h-[85vh] flex items-end bg-charcoal text-white overflow-hidden pb-24">
+        <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden opacity-40">
           <img 
             src={project.image} 
             alt={project.title} 
-            className="w-full h-full object-cover animate-[zoomSlow_20s_infinite_alternate]"
+            className="w-full h-full object-cover animate-cinematic-zoom"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 lg:px-32 w-full space-y-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-gold font-semibold">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 lg:px-32 w-full space-y-4 fade-up-element visible">
+          <span className="font-mono text-xs uppercase tracking-widest text-gold/80 font-medium">
             CASE RESIDENCE // {project.location.toUpperCase()}
           </span>
-          <h1 className="font-display font-bold text-4xl sm:text-6xl lg:text-7xl tracking-normal uppercase leading-[1.05] text-white">
+          <h1 className="font-display font-light text-4xl sm:text-6xl lg:text-8xl tracking-tight uppercase leading-[1.02] text-white">
             {project.title}
           </h1>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 mt-20 space-y-24">
-        
-        {/* 2. SPECIFICATION OVERVIEW STRIP */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 py-8 border-y border-neutral-100 font-mono text-xs text-neutral-500">
-          <div>
-            <span className="text-[10px] text-neutral-400 uppercase block tracking-wider mb-1">LOCATION SITE</span>
-            <span className="text-charcoal font-semibold">{project.location}</span>
-          </div>
-          <div>
-            <span className="text-[10px] text-neutral-400 uppercase block tracking-wider mb-1">BUILT-UP METRIC</span>
-            <span className="text-charcoal font-semibold">{project.builtUpArea}</span>
-          </div>
-          <div>
-            <span className="text-[10px] text-neutral-400 uppercase block tracking-wider mb-1">DESIGN SCALE</span>
-            <span className="text-charcoal font-semibold">{project.scale}</span>
-          </div>
-          <div>
-            <span className="text-[10px] text-neutral-400 uppercase block tracking-wider mb-1">STRUCTURE STATUS</span>
-            <span className="text-charcoal font-semibold">Handed Over (10-Yr Guarantee Lock)</span>
-          </div>
-        </div>
-
-        {/* 3. CONTEXT & CHALLENGE SPLIT */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
-          <div className="lg:col-span-5 space-y-6">
-            <span className="font-mono text-xs uppercase tracking-widest text-gold block">01 / CONTEXT & SCALE</span>
-            <h2 className="font-display font-bold text-2xl md:text-3xl text-charcoal uppercase leading-tight">
-              THE SITE BRIEFING & ANGLE
-            </h2>
-            <p className="text-neutral-600 text-sm leading-relaxed font-light">
-              Designing a high-end private home on Bangalore urban configurations requires maximizing natural illumination while ensuring structural protection. This build combines open-floor engineering plans with high ceilings to draw ventilation across all G+2 levels.
-            </p>
-          </div>
-          <div className="lg:col-span-7 space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="space-y-4">
-                <h3 className="font-mono text-xs uppercase tracking-widest text-charcoal font-semibold">THE GEOTECHNICAL CHALLENGE</h3>
-                <p className="text-neutral-550 text-xs leading-relaxed font-light">
-                  {project.challenge}
-                </p>
-              </div>
-              <div className="space-y-4">
-                <h3 className="font-mono text-xs uppercase tracking-widest text-charcoal font-semibold">THE ENGINEERING RESOLUTION</h3>
-                <p className="text-neutral-550 text-xs leading-relaxed font-light">
-                  {project.solution}
-                </p>
-              </div>
+      {/* 2. EDITORIAL STORY SECTION */}
+      <section className="py-32 md:py-48 bg-white text-charcoal">
+        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-5 space-y-6 fade-up-element">
+              <span className="font-mono text-xs text-gold uppercase tracking-widest block font-medium">01 / THE STORY</span>
+              <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal uppercase leading-tight tracking-tight">
+                Crafting <br />
+                living sanctuary.
+              </h2>
+            </div>
+            <div className="lg:col-span-7 space-y-6 text-neutral-500 text-sm md:text-base font-light leading-relaxed fade-up-element" style={{ transitionDelay: "150ms" }}>
+              <p>
+                Every private home we construct is conceived as an enduring family sanctuary. Beyond physical concrete structures, we focus on the emotional relationship between natural light, spatial volumes, and the people who inhabit them.
+              </p>
+              <p>
+                The design coordinates for this estate emphasize high, open ceilings that welcome the morning breeze, casting shifting shadows over seasoned teak wood panels and raw structural pillars throughout the day.
+              </p>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* 4. STRUCTURAL DETAILS & MATERIAL SPEC */}
-        <div className="bg-grain p-8 md:p-12 border border-neutral-100 space-y-8">
-          <div className="border-b border-neutral-200 pb-6 flex justify-between items-end">
-            <h3 className="font-display font-bold text-lg text-charcoal uppercase">
-              TECHNICAL SPECIFICATIONS LOGS
-            </h3>
-            <span className="font-mono text-[9px] text-neutral-400">QUALITY BOOK SEC.08</span>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="space-y-4">
-              <h4 className="font-mono text-xs text-gold uppercase tracking-wider font-semibold">FOUNDATION FRAME</h4>
-              <p className="text-neutral-500 text-xs leading-relaxed font-light">
-                Reinforced concrete piles excavated down to hard rock soil levels. Tied column framework using Fe-550 TMT grade steel logs.
-              </p>
+      {/* 3. DESIGN PHILOSOPHY SECTION */}
+      <section className="py-32 md:py-48 bg-grain text-charcoal border-y border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-5 space-y-6 fade-up-element">
+              <span className="font-mono text-xs text-gold uppercase tracking-widest block font-medium">02 / PHILOSOPHY</span>
+              <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal uppercase leading-tight tracking-tight">
+                The Site Brief <br />
+                & Orientation
+              </h2>
             </div>
-            <div className="space-y-4">
-              <h4 className="font-mono text-xs text-gold uppercase tracking-wider font-semibold">CONCRETE CHEMISTRY</h4>
-              <p className="text-neutral-500 text-xs leading-relaxed font-light">
-                M30 design mix using 53-grade certified cement. Curing periods monitored on-site and verified via structural compression checks.
+            <div className="lg:col-span-7 space-y-12 fade-up-element" style={{ transitionDelay: "150ms" }}>
+              <p className="text-neutral-500 text-sm md:text-base font-light leading-relaxed">
+                Constructing premium homes on Bangalore's dense urban parameters demands strategic window and volume placement. We utilize light wells and cantilevers to capture cool air, blocking busy street traffic noise while preserving direct, quiet light paths.
               </p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-mono text-xs text-gold uppercase tracking-wider font-semibold">WATERPROOFING SYSTEM</h4>
-              <p className="text-neutral-500 text-xs leading-relaxed font-light">
-                Polyurethane multi-coat elastomeric waterproofing applied to raw slab decks, sumps, and cantilever elements.
-              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-neutral-200/50 pt-12">
+                <div className="space-y-4">
+                  <h4 className="font-mono text-xs uppercase tracking-widest text-charcoal font-semibold">THE GEOTECHNICAL CHALLENGE</h4>
+                  <p className="text-neutral-500 text-xs leading-relaxed font-light">{project.challenge}</p>
+                </div>
+                <div className="space-y-4">
+                  <h4 className="font-mono text-xs uppercase tracking-widest text-charcoal font-semibold">THE ARCHITECTURAL RESPONSE</h4>
+                  <p className="text-neutral-500 text-xs leading-relaxed font-light">{project.solution}</p>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="pt-6 border-t border-neutral-200">
-            <span className="font-mono text-[10px] text-neutral-400 block tracking-widest uppercase mb-3">AUDITED CHECKPOINTS CLEARANCE</span>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-neutral-500 leading-relaxed font-light">
+      {/* 4. CONSTRUCTION JOURNEY SECTION */}
+      <section className="py-32 md:py-48 bg-white text-charcoal">
+        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-5 space-y-6 fade-up-element">
+              <span className="font-mono text-xs text-gold uppercase tracking-widest block font-medium">03 / CHRONOLOGY</span>
+              <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal uppercase leading-tight tracking-tight">
+                Fidelity <br />
+                in Execution
+              </h2>
+              <p className="text-neutral-500 font-light text-xs md:text-sm leading-relaxed max-w-sm">
+                We execute every project in sequential engineering stages, keeping construction metrics tightly audited.
+              </p>
+            </div>
+            <div className="lg:col-span-7 space-y-12 fade-up-element" style={{ transitionDelay: "150ms" }}>
+              <div className="space-y-4 border-l border-neutral-100 pl-8 relative">
+                <span className="absolute -left-1.5 top-2 w-2.5 h-2.5 bg-gold rounded-full"></span>
+                <span className="font-mono text-[9px] text-neutral-400 uppercase tracking-widest block">STAGE 01 — SETUP</span>
+                <h4 className="font-display font-medium text-lg text-charcoal">Geotechnical Foundation Mapping</h4>
+                <p className="text-neutral-500 text-xs font-light leading-relaxed">
+                  Soil bearing capability reports guide structural excavations down to hard stratum, casting concrete columns reinforced by Fe-550 TMT grade logs.
+                </p>
+              </div>
+              <div className="space-y-4 border-l border-neutral-100 pl-8 relative">
+                <span className="absolute -left-1.5 top-2 w-2.5 h-2.5 bg-gold rounded-full"></span>
+                <span className="font-mono text-[9px] text-neutral-400 uppercase tracking-widest block">STAGE 02 — STRUCTURE</span>
+                <h4 className="font-display font-medium text-lg text-charcoal">Precision Framing & Pouring</h4>
+                <p className="text-neutral-500 text-xs font-light leading-relaxed">
+                  Each floor slab concrete mix undergoes design lab compression audits, cured continuously for 21 days with structural log verification.
+                </p>
+              </div>
+              <div className="space-y-4 border-l border-neutral-100 pl-8 relative">
+                <span className="absolute -left-1.5 top-2 w-2.5 h-2.5 bg-gold rounded-full"></span>
+                <span className="font-mono text-[9px] text-neutral-400 uppercase tracking-widest block">STAGE 03 — CLEARANCE</span>
+                <h4 className="font-display font-medium text-lg text-charcoal">System Handover & Stability Seal</h4>
+                <p className="text-neutral-500 text-xs font-light leading-relaxed">
+                  Handing over complete documentation logs, material invoices, plumbing routes, and registering the official 10-Year stability warranty bond.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. PHOTO GALLERY SECTION (Asymmetric spreads) */}
+      {project.gallery && (
+        <section className="py-32 bg-grain border-y border-neutral-100">
+          <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+            <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block fade-up-element">04 / VISUAL ARCHIVE</span>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-start">
+              {project.gallery[0] && (
+                <div className="md:col-span-8 aspect-[16/10] overflow-hidden bg-neutral-100 hover-zoom fade-up-element">
+                  <img 
+                    src={project.gallery[0]} 
+                    alt={`${project.title} space 1`} 
+                    className="w-full h-full object-cover transition-editorial"
+                  />
+                </div>
+              )}
+              {project.gallery[1] && (
+                <div className="md:col-span-4 aspect-[3/4] overflow-hidden bg-neutral-100 hover-zoom fade-up-element" style={{ transitionDelay: "150ms" }}>
+                  <img 
+                    src={project.gallery[1]} 
+                    alt={`${project.title} space 2`} 
+                    className="w-full h-full object-cover transition-editorial"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 6. MATERIALS SECTION */}
+      <section className="py-32 md:py-48 bg-white text-charcoal">
+        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <div className="lg:col-span-5 space-y-6 fade-up-element">
+              <span className="font-mono text-xs text-gold uppercase tracking-widest block font-medium">05 / MATERIALITY</span>
+              <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal uppercase leading-tight tracking-tight">
+                Honest <br />
+                Material Choice
+              </h2>
+            </div>
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-12 fade-up-element" style={{ transitionDelay: "150ms" }}>
+              <div className="space-y-3">
+                <h4 className="font-mono text-xs text-gold uppercase tracking-widest font-semibold">TMT Structural steel</h4>
+                <p className="text-neutral-500 text-xs leading-relaxed font-light">Vizag Fe-550 TMT grade steel logs constructed with custom lap-lengths to manage stress and shear dynamics.</p>
+              </div>
+              <div className="space-y-3">
+                <h4 className="font-mono text-xs text-gold uppercase tracking-widest font-semibold">High-Strength Concrete</h4>
+                <p className="text-neutral-500 text-xs leading-relaxed font-light">Design mix cement concrete structures with regular crushing test validation audits at slab castings.</p>
+              </div>
+              <div className="space-y-3">
+                <h4 className="font-mono text-xs text-gold uppercase tracking-widest font-semibold">Bespoke Timber Joinery</h4>
+                <p className="text-neutral-500 text-xs leading-relaxed font-light">Hand-selected, kiln-seasoned teak wood frames and details crafted by master carpenters.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. TECHNICAL SPECIFICATIONS SECTION (Quiet parameters at bottom) */}
+      <section className="py-24 md:py-32 bg-grain border-y border-neutral-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+          <div className="border-b border-neutral-200/60 pb-6 flex justify-between items-end fade-up-element">
+            <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">06 / ENGINEERING PROTOCOLS</span>
+            <span className="font-mono text-[9px] text-neutral-450">STABILITY INDEX SEC.08</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 font-mono text-xs text-neutral-500 fade-up-element" style={{ transitionDelay: "100ms" }}>
+            <div>
+              <span className="text-[10px] text-neutral-400 uppercase block tracking-wider mb-2">Location</span>
+              <span className="text-charcoal font-medium">{project.location}</span>
+            </div>
+            <div>
+              <span className="text-[10px] text-neutral-400 uppercase block tracking-wider mb-2">Built-up Area</span>
+              <span className="text-charcoal font-medium">{project.builtUpArea}</span>
+            </div>
+            <div>
+              <span className="text-[10px] text-neutral-400 uppercase block tracking-wider mb-2">Structural Scale</span>
+              <span className="text-charcoal font-medium">{project.scale}</span>
+            </div>
+            <div>
+              <span className="text-[10px] text-neutral-400 uppercase block tracking-wider mb-2">Stability Bond</span>
+              <span className="text-charcoal font-medium">10-Year structural lock warranty</span>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-neutral-200/50 fade-up-element" style={{ transitionDelay: "200ms" }}>
+            <span className="font-mono text-[10px] text-neutral-400 block tracking-widest uppercase mb-4">Inspection checkpoints cleared:</span>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-neutral-550 leading-relaxed font-light">
               {project.technicalHighlights.map((feat, idx) => (
-                <li key={idx} className="flex items-center space-x-2">
+                <li key={idx} className="flex items-center space-x-3">
                   <span className="w-1.5 h-1.5 bg-gold rounded-full"></span>
                   <span>{feat}</span>
                 </li>
@@ -128,67 +249,45 @@ export default function ProjectDetail() {
             </ul>
           </div>
         </div>
+      </section>
 
-        {/* 5. STAGGERED PHOTO GALLERY */}
-        <div className="space-y-8">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block">VISUAL LOG GALLERY</span>
-          {project.gallery && (
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
-              {project.gallery[0] && (
-                <div className="md:col-span-8 aspect-[16/10] overflow-hidden border border-neutral-200">
-                  <img 
-                    src={project.gallery[0]} 
-                    alt={`${project.title} internal space 1`} 
-                    className="w-full h-full object-cover transition-transform duration-1000 hover:scale-102"
-                  />
-                </div>
-              )}
-              {project.gallery[1] && (
-                <div className="md:col-span-4 aspect-[3/4] overflow-hidden border border-neutral-200">
-                  <img 
-                    src={project.gallery[1]} 
-                    alt={`${project.title} internal space 2`} 
-                    className="w-full h-full object-cover transition-transform duration-1000 hover:scale-102"
-                  />
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* 6. CLIENT TESTIMONIAL ADVOACY */}
-        <div className="bg-charcoal text-white p-8 md:p-16 text-center space-y-8 border border-neutral-800 relative">
-          <span className="font-mono text-xs uppercase tracking-widest text-gold">CLIENT SATISFACTION BRIEF</span>
-          <p className="font-display font-light text-xl md:text-2xl text-neutral-200 italic max-w-3xl mx-auto leading-relaxed">
+      {/* 8. CLIENT TESTIMONIAL & CTA SECTION */}
+      <section className="bg-charcoal text-white py-32 md:py-48 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-6 text-center space-y-12 relative z-10 fade-up-element">
+          <span className="font-mono text-xs uppercase tracking-widest text-gold/80">07 / CLIENT EXPERIENCE</span>
+          <p className="font-display font-light text-2xl md:text-3xl text-neutral-200 italic leading-relaxed">
             "{testimonial.quote}"
           </p>
           <div className="space-y-1">
-            <h4 className="font-mono text-xs uppercase tracking-widest text-white font-semibold">{testimonial.author}</h4>
-            <p className="text-xs text-neutral-500">{testimonial.project}</p>
+            <h4 className="font-mono text-xs text-white uppercase tracking-widest font-medium">{testimonial.author}</h4>
+            <p className="text-[10px] text-neutral-400 uppercase tracking-widest">{testimonial.project}</p>
           </div>
         </div>
+      </section>
 
-        {/* 7. RELATED PROJECTS LINK */}
-        <div className="space-y-8 pt-8 border-t border-neutral-100">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block">EXAMINE RELATED PROJECTS</span>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {relatedProjects.map((p) => (
+      {/* RELATED PROJECTS */}
+      <section className="py-32 bg-white text-charcoal">
+        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block fade-up-element">Related residencies</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {relatedProjects.slice(0, 2).map((p, idx) => (
               <Link 
                 key={p.id}
                 to={`/projects/${p.id}`}
-                className="group block border border-neutral-200 p-6 space-y-4 hover:border-gold transition-colors"
+                className="group block space-y-6 fade-up-element"
+                style={{ transitionDelay: `${idx * 150}ms` }}
               >
-                <div className="aspect-[16/9] w-full overflow-hidden bg-neutral-100 border border-neutral-200">
+                <div className="aspect-[16/9] w-full overflow-hidden bg-neutral-50 hover-zoom">
                   <img 
                     src={p.image} 
                     alt={p.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
+                    className="w-full h-full object-cover transition-editorial"
                   />
                 </div>
                 <div className="flex justify-between items-end">
                   <div className="space-y-1">
                     <span className="font-mono text-[9px] uppercase tracking-widest text-gold block">{p.location}</span>
-                    <h4 className="font-display font-bold text-lg text-charcoal group-hover:text-gold transition-colors">
+                    <h4 className="font-display font-medium text-xl text-charcoal group-hover:text-gold transition-colors">
                       {p.title}
                     </h4>
                   </div>
@@ -198,8 +297,8 @@ export default function ProjectDetail() {
             ))}
           </div>
         </div>
+      </section>
 
-      </div>
     </div>
   );
 }

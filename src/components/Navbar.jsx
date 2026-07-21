@@ -32,10 +32,13 @@ export default function Navbar() {
   }, [location.pathname]);
 
   const navLinks = [
-    { name: "Projects", path: "/projects" },
-    { name: "Services", path: "/services" },
+    { name: "Home", path: "/" },
     { name: "About Us", path: "/about" },
-    { name: "Calculator", path: "/cost-calculator" },
+    { name: "Services", path: "/services" },
+    { name: "Projects", path: "/projects" },
+    { name: "Materials", path: "/#materials" },
+    { name: "Journey", path: "/#journey" },
+    { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
   ];
 
@@ -53,39 +56,36 @@ export default function Navbar() {
           {/* Logo / Brand Name */}
           <Link
             to="/"
-            className="font-display font-bold text-xl tracking-[0.15em] text-white flex items-center space-x-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4"
+            className="flex flex-col items-start focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4"
             aria-label="Rightcon Homepage"
           >
-            <span>RIGHTCON</span>
-            <span className="w-1.5 h-1.5 bg-gold rounded-full"></span>
+            <span className="font-display font-bold text-2xl tracking-[0.1em] text-white leading-none">RIGHTCON</span>
+            <span className="font-mono text-[7px] uppercase tracking-[0.22em] text-gold mt-1">BUILDING PEACE OF MIND</span>
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
               return (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`font-mono text-xs uppercase tracking-widest hover:text-gold transition-colors duration-200 relative py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4 ${
+                  className={`font-mono text-[10px] uppercase tracking-[0.12em] hover:text-gold transition-colors duration-200 relative py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4 ${
                     isActive
                       ? "text-gold font-semibold"
                       : "text-white/90"
                   }`}
                 >
                   {link.name}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gold rounded-full"></span>
-                  )}
                 </Link>
               );
             })}
             <Link
               to="/contact"
-              className="bg-gold text-charcoal text-xs font-mono uppercase tracking-widest px-6 py-3 font-semibold hover:bg-white hover:text-charcoal transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4 min-h-[44px] flex items-center justify-center"
+              className="border border-white/50 hover:border-white text-white text-[10px] font-mono uppercase tracking-[0.15em] px-6 py-3 font-semibold hover:bg-white hover:text-charcoal transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4 min-h-[44px] flex items-center justify-center"
             >
-              Consultation
+              BOOK A CONSULTATION
             </Link>
           </div>
 

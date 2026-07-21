@@ -26,7 +26,7 @@ export default function CostCalculator() {
 
   return (
     <div className="bg-white pt-32 pb-24 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 space-y-24">
+      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-24">
         
         {/* Page Header */}
         <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">
