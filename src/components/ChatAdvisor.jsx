@@ -112,7 +112,7 @@ export default function ChatAdvisor() {
     <>
       {/* Tooltip Alert */}
       {showTooltip && !isOpen && (
-        <div className="fixed bottom-24 right-6 md:right-8 z-50 bg-charcoal text-white text-xs font-light px-4 py-3 border border-[#C6A75E]/40 shadow-xl max-w-xs transition-opacity duration-300">
+        <div className="fixed bottom-24 right-6 md:right-8 z-[70] bg-charcoal text-white text-xs font-light px-4 py-3 border border-gold/40 shadow-xl max-w-xs transition-opacity duration-300">
           <div className="flex items-center space-x-2">
             <span className="w-1.5 h-1.5 bg-gold rounded-full"></span>
             <span>Need help planning your dream home?</span>
@@ -133,7 +133,7 @@ export default function ChatAdvisor() {
           setIsOpen(!isOpen);
           setShowTooltip(false);
         }}
-        className={`fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 w-16 h-16 rounded-full bg-charcoal border border-[#C6A75E] text-white flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 hover:shadow-gold/15 transition-all duration-300 ${
+        className={`fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[70] w-16 h-16 rounded-full bg-charcoal border border-gold text-white flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 hover:shadow-gold/15 transition-all duration-300 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
@@ -151,13 +151,13 @@ export default function ChatAdvisor() {
       {/* Drawer Panel */}
       <div
         ref={drawerRef}
-        className={`fixed bottom-24 right-4 md:right-8 z-50 w-[380px] max-w-[calc(100vw-32px)] bg-white border border-neutral-200 shadow-2xl flex flex-col transition-all duration-500 ease-out ${
+        className={`fixed bottom-24 right-4 md:right-8 z-[70] w-[380px] max-w-[calc(100vw-32px)] bg-white border border-neutral-200 shadow-2xl flex flex-col transition-all duration-500 ease-out ${
           isOpen ? "translate-y-0 opacity-100 scale-100" : "translate-y-12 opacity-0 scale-95 pointer-events-none"
         }`}
         style={{ height: "480px" }}
       >
         {/* Header */}
-        <div className="bg-charcoal text-white p-5 border-b border-[#C6A75E]/30 flex justify-between items-center">
+        <div className="bg-charcoal text-white p-5 border-b border-gold/30 flex justify-between items-center">
           <div className="space-y-0.5 text-left">
             <div className="font-mono text-[9px] uppercase tracking-widest text-gold font-semibold">RIGHTCON</div>
             <div className="font-display font-bold text-sm tracking-wide">CONSTRUCTION ADVISOR</div>
@@ -254,3 +254,4 @@ export default function ChatAdvisor() {
     </>
   );
 }
+

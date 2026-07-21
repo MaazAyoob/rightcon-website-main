@@ -27,7 +27,7 @@ export default function BrandSignature() {
     >
       <path
         d="M 0 10 H 75 L 100 2 L 125 10 H 200"
-        stroke="#C6A75E"
+        stroke="#C9A227"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -36,3 +36,4 @@ export default function BrandSignature() {
     </svg>
   );
 }
+

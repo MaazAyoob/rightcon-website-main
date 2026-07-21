@@ -19,11 +19,11 @@ export default function Contact() {
 
   return (
     <div className="bg-white pt-32 pb-24 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-24">
         
         {/* Header */}
         <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">CONNECT WITH OUR OFFICE</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">CONNECT WITH OUR OFFICE</span>
           <h1 className="font-display font-bold text-4xl md:text-6xl text-charcoal uppercase">
             REQUEST BRIEFING
           </h1>
@@ -80,7 +80,7 @@ export default function Contact() {
           {/* Form Inquiry Column */}
           <div className="bg-grain p-8 md:p-12 border border-neutral-100 space-y-8">
             <div className="space-y-2">
-              <h3 className="font-display font-bold text-2xl text-charcoal uppercase">INQUIRY FORM</h3>
+              <h3 className="font-sans font-bold text-2xl text-charcoal uppercase">INQUIRY FORM</h3>
               <p className="text-neutral-400 text-xs font-light">
                 Please provide your plot details to prepare your initial assessment file.
               </p>
@@ -88,8 +88,8 @@ export default function Contact() {
 
             {submitted ? (
               <div className="bg-white p-8 border border-gold/30 text-center space-y-4">
-                <span className="text-gold font-mono text-xl block">✔</span>
-                <h4 className="font-display font-bold text-lg text-charcoal">BRIEFING FILED</h4>
+                <span className="text-brand-blue font-mono text-xl block">✔</span>
+                <h4 className="font-sans font-bold text-lg text-charcoal">BRIEFING FILED</h4>
                 <p className="text-neutral-500 text-xs leading-relaxed font-light">
                   Thank you. Our Jayanagar engineering coordinator will contact you shortly to confirm your consultation schedule.
                 </p>
@@ -164,7 +164,7 @@ export default function Contact() {
 
                 <button 
                   type="submit" 
-                  className="w-full bg-charcoal text-white hover:bg-gold hover:text-charcoal transition-colors duration-300 font-mono text-xs uppercase tracking-widest py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 min-h-[44px] cursor-pointer"
+                  className="w-full bg-brand-blue text-white hover:bg-gold hover:text-charcoal transition-colors duration-300 font-mono text-xs uppercase tracking-widest py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 min-h-[44px] cursor-pointer"
                 >
                   File Inquiry
                 </button>
@@ -180,3 +180,4 @@ export default function Contact() {
     </div>
   );
 }
+

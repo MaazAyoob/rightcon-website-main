@@ -49,11 +49,11 @@ export default function Gallery() {
 
   return (
     <div className="bg-white pt-32 pb-24 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
         
         {/* Page Header */}
         <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">VISUAL RECORDS</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">VISUAL RECORDS</span>
           <h1 className="font-display font-bold text-4xl md:text-6xl text-charcoal uppercase tracking-tight">
             ARCHITECTURAL GALLERY
           </h1>
@@ -96,7 +96,7 @@ export default function Gallery() {
               </div>
               <div className="space-y-1 text-left">
                 <span className="font-mono text-[9px] text-gold uppercase tracking-wider">{img.cat}</span>
-                <h3 className="font-display font-bold text-base text-charcoal uppercase leading-tight">{img.title}</h3>
+                <h3 className="font-sans font-bold text-base text-charcoal uppercase leading-tight">{img.title}</h3>
                 <p className="text-neutral-500 text-[11px] font-light leading-relaxed">{img.desc}</p>
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function Gallery() {
               </div>
               <div className="space-y-1 text-white">
                 <span className="font-mono text-xs text-gold uppercase tracking-widest block">{lightboxImg.cat}</span>
-                <h4 className="font-display font-bold text-lg uppercase">{lightboxImg.title}</h4>
+                <h4 className="font-sans font-bold text-lg uppercase">{lightboxImg.title}</h4>
                 <p className="text-neutral-400 text-xs font-light max-w-md mx-auto">{lightboxImg.desc}</p>
               </div>
             </div>
@@ -136,3 +136,4 @@ export default function Gallery() {
     </div>
   );
 }
+

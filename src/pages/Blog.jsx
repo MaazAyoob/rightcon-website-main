@@ -36,11 +36,11 @@ export default function Blog() {
 
   return (
     <div className="bg-white pt-32 pb-24 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-24">
         
         {/* Page Header */}
         <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">ENGINEERING JOURNALS</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">ENGINEERING JOURNALS</span>
           <h1 className="font-display font-bold text-4xl md:text-6xl text-charcoal uppercase tracking-tight">
             ENGINEERING INSIGHTS
           </h1>
@@ -63,7 +63,7 @@ export default function Blog() {
               <span>{articles[0].cat}</span>
               <span>{articles[0].readTime}</span>
             </div>
-            <h2 className="font-display font-bold text-2xl md:text-3xl text-charcoal group-hover:text-gold transition-colors duration-300 leading-tight">
+            <h2 className="font-sans font-bold text-2xl md:text-3xl text-charcoal group-hover:text-gold transition-colors duration-300 leading-tight">
               <Link to={`/blog/${articles[0].id}`}>{articles[0].title}</Link>
             </h2>
             <p className="text-neutral-500 text-sm font-light leading-relaxed">
@@ -92,7 +92,7 @@ export default function Blog() {
                   <span>{art.cat}</span>
                   <span>{art.readTime}</span>
                 </div>
-                <h3 className="font-display font-bold text-xl text-charcoal group-hover:text-gold transition-colors duration-300 leading-tight">
+                <h3 className="font-sans font-bold text-xl text-charcoal group-hover:text-gold transition-colors duration-300 leading-tight">
                   <Link to={`/blog/${art.id}`}>{art.title}</Link>
                 </h3>
                 <p className="text-neutral-500 text-xs font-light leading-relaxed">
@@ -111,3 +111,4 @@ export default function Blog() {
     </div>
   );
 }
+

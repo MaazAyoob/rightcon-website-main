@@ -48,7 +48,7 @@ export default function FAQ() {
         
         {/* Page Header */}
         <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">PROCEDURE DIRECTORY</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">PROCEDURE DIRECTORY</span>
           <h1 className="font-display font-bold text-4xl md:text-5xl text-charcoal uppercase tracking-tight">
             FREQUENTLY ASKED QUESTIONS
           </h1>
@@ -88,7 +88,7 @@ export default function FAQ() {
                     aria-expanded={isSelected}
                     className="w-full flex items-center justify-between text-left py-4 hover:text-gold transition-colors focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 cursor-pointer"
                   >
-                    <span className="font-display font-bold text-base md:text-lg text-charcoal uppercase tracking-tight flex items-center space-x-3">
+                    <span className="font-sans font-bold text-base md:text-lg text-charcoal uppercase tracking-tight flex items-center space-x-3">
                       <span className="font-mono text-xs text-neutral-400 font-normal">[{faq.cat.toUpperCase()}]</span>
                       <span>{faq.q}</span>
                     </span>
@@ -119,3 +119,4 @@ export default function FAQ() {
     </div>
   );
 }
+

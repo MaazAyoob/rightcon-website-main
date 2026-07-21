@@ -47,7 +47,7 @@ export default function ProjectDetail() {
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 lg:px-32 w-full space-y-4 fade-up-element visible">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 w-full space-y-4 fade-up-element visible">
           <span className="font-mono text-xs uppercase tracking-widest text-gold/80 font-medium">
             CASE RESIDENCE // {project.location.toUpperCase()}
           </span>
@@ -59,7 +59,7 @@ export default function ProjectDetail() {
 
       {/* 2. EDITORIAL STORY SECTION */}
       <section className="py-32 md:py-48 bg-white text-charcoal">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-5 space-y-6 fade-up-element">
               <span className="font-mono text-xs text-gold uppercase tracking-widest block font-medium">01 / THE STORY</span>
@@ -82,7 +82,7 @@ export default function ProjectDetail() {
 
       {/* 3. DESIGN PHILOSOPHY SECTION */}
       <section className="py-32 md:py-48 bg-grain text-charcoal border-y border-neutral-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-5 space-y-6 fade-up-element">
               <span className="font-mono text-xs text-gold uppercase tracking-widest block font-medium">02 / PHILOSOPHY</span>
@@ -112,7 +112,7 @@ export default function ProjectDetail() {
 
       {/* 4. CONSTRUCTION JOURNEY SECTION */}
       <section className="py-32 md:py-48 bg-white text-charcoal">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-5 space-y-6 fade-up-element">
               <span className="font-mono text-xs text-gold uppercase tracking-widest block font-medium">03 / CHRONOLOGY</span>
@@ -128,7 +128,7 @@ export default function ProjectDetail() {
               <div className="space-y-4 border-l border-neutral-100 pl-8 relative">
                 <span className="absolute -left-1.5 top-2 w-2.5 h-2.5 bg-gold rounded-full"></span>
                 <span className="font-mono text-[9px] text-neutral-400 uppercase tracking-widest block">STAGE 01 — SETUP</span>
-                <h4 className="font-display font-medium text-lg text-charcoal">Geotechnical Foundation Mapping</h4>
+                <h4 className="font-sans font-medium text-lg text-charcoal">Geotechnical Foundation Mapping</h4>
                 <p className="text-neutral-500 text-xs font-light leading-relaxed">
                   Soil bearing capability reports guide structural excavations down to hard stratum, casting concrete columns reinforced by Fe-550 TMT grade logs.
                 </p>
@@ -136,7 +136,7 @@ export default function ProjectDetail() {
               <div className="space-y-4 border-l border-neutral-100 pl-8 relative">
                 <span className="absolute -left-1.5 top-2 w-2.5 h-2.5 bg-gold rounded-full"></span>
                 <span className="font-mono text-[9px] text-neutral-400 uppercase tracking-widest block">STAGE 02 — STRUCTURE</span>
-                <h4 className="font-display font-medium text-lg text-charcoal">Precision Framing & Pouring</h4>
+                <h4 className="font-sans font-medium text-lg text-charcoal">Precision Framing & Pouring</h4>
                 <p className="text-neutral-500 text-xs font-light leading-relaxed">
                   Each floor slab concrete mix undergoes design lab compression audits, cured continuously for 21 days with structural log verification.
                 </p>
@@ -144,7 +144,7 @@ export default function ProjectDetail() {
               <div className="space-y-4 border-l border-neutral-100 pl-8 relative">
                 <span className="absolute -left-1.5 top-2 w-2.5 h-2.5 bg-gold rounded-full"></span>
                 <span className="font-mono text-[9px] text-neutral-400 uppercase tracking-widest block">STAGE 03 — CLEARANCE</span>
-                <h4 className="font-display font-medium text-lg text-charcoal">System Handover & Stability Seal</h4>
+                <h4 className="font-sans font-medium text-lg text-charcoal">System Handover & Stability Seal</h4>
                 <p className="text-neutral-500 text-xs font-light leading-relaxed">
                   Handing over complete documentation logs, material invoices, plumbing routes, and registering the official 10-Year stability warranty bond.
                 </p>
@@ -157,7 +157,7 @@ export default function ProjectDetail() {
       {/* 5. PHOTO GALLERY SECTION (Asymmetric spreads) */}
       {project.gallery && (
         <section className="py-32 bg-grain border-y border-neutral-100">
-          <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
             <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block fade-up-element">04 / VISUAL ARCHIVE</span>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-start">
               {project.gallery[0] && (
@@ -185,7 +185,7 @@ export default function ProjectDetail() {
 
       {/* 6. MATERIALS SECTION */}
       <section className="py-32 md:py-48 bg-white text-charcoal">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-5 space-y-6 fade-up-element">
               <span className="font-mono text-xs text-gold uppercase tracking-widest block font-medium">05 / MATERIALITY</span>
@@ -214,7 +214,7 @@ export default function ProjectDetail() {
 
       {/* 7. TECHNICAL SPECIFICATIONS SECTION (Quiet parameters at bottom) */}
       <section className="py-24 md:py-32 bg-grain border-y border-neutral-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
           <div className="border-b border-neutral-200/60 pb-6 flex justify-between items-end fade-up-element">
             <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">06 / ENGINEERING PROTOCOLS</span>
             <span className="font-mono text-[9px] text-neutral-450">STABILITY INDEX SEC.08</span>
@@ -267,7 +267,7 @@ export default function ProjectDetail() {
 
       {/* RELATED PROJECTS */}
       <section className="py-32 bg-white text-charcoal">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
           <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block fade-up-element">Related residencies</span>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {relatedProjects.slice(0, 2).map((p, idx) => (
@@ -287,7 +287,7 @@ export default function ProjectDetail() {
                 <div className="flex justify-between items-end">
                   <div className="space-y-1">
                     <span className="font-mono text-[9px] uppercase tracking-widest text-gold block">{p.location}</span>
-                    <h4 className="font-display font-medium text-xl text-charcoal group-hover:text-gold transition-colors">
+                    <h4 className="font-sans font-medium text-xl text-charcoal group-hover:text-gold transition-colors">
                       {p.title}
                     </h4>
                   </div>
@@ -302,3 +302,4 @@ export default function ProjectDetail() {
     </div>
   );
 }
+

@@ -120,7 +120,7 @@ export default function Home() {
     <div className="space-y-0 text-charcoal bg-white font-sans antialiased overflow-x-hidden">
       
       {/* 1. CINEMATIC HERO EXPERIENCE */}
-      <section className="relative min-h-screen flex items-center bg-charcoal text-white overflow-hidden">
+      <section className="relative min-h-screen flex flex-col justify-between bg-charcoal text-white overflow-hidden">
         {/* Architecture backdrop */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden opacity-45">
           <img
@@ -137,8 +137,8 @@ export default function Home() {
           - pb-16 keeps it from pressing into the trust bar at the bottom
           - no extra mt/mb that was causing the off-center look
         */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 lg:px-32 w-full pt-24 pb-16">
-          <div className="space-y-8 max-w-5xl">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-4 sm:px-6 md:px-20 lg:px-32 w-full pt-28 pb-12 flex-1 flex flex-col justify-center">
+          <div className="space-y-5 md:space-y-8 max-w-5xl">
 
             {/* Tagline + architectural underline (in normal flow, compact) */}
             <div className="flex flex-col items-start gap-2 animate-hero-tagline">
@@ -148,8 +148,8 @@ export default function Home() {
               <BrandSignature />
             </div>
 
-            <h1 className="font-serif font-light text-5xl sm:text-7xl md:text-[80px] tracking-tight leading-[1.08] text-white animate-hero-title">
-              Engineering homes <br />
+            <h1 className="font-display font-bold text-4xl sm:text-6xl md:text-[72px] lg:text-[80px] tracking-tight leading-[1.08] text-white animate-hero-title">
+              Engineering homes <br className="hidden sm:block" />
               with absolute certainty.
             </h1>
 
@@ -158,13 +158,13 @@ export default function Home() {
               Timeless craftsmanship. Peace of mind, from foundation to finish.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-start gap-8 animate-hero-cta">
+            <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 animate-hero-cta pt-2">
               <Link
                 to="/projects"
-                className="font-mono text-[11px] uppercase tracking-[0.18em] text-white border border-gold px-8 py-4 transition-editorial font-medium flex items-center space-x-2"
+                className="font-mono text-[11px] uppercase tracking-[0.18em] text-charcoal bg-gold border border-gold hover:border-white px-6 sm:px-8 py-4 transition-editorial font-medium flex items-center space-x-2 hover:bg-white hover:text-charcoal w-full sm:w-auto justify-center sm:justify-start"
               >
                 <span>EXPLORE OUR WORK</span>
-                <span className="text-gold">→</span>
+                <span>→</span>
               </Link>
               <Link
                 to="/about"
@@ -178,8 +178,8 @@ export default function Home() {
         </div>
 
         {/* Bottom Hero Trust Bar */}
-        <div className="absolute bottom-12 left-0 w-full z-20 pointer-events-auto hidden lg:block">
-          <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+        <div className="relative z-20 pb-12 w-full pointer-events-auto hidden lg:block">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
             <div className="grid grid-cols-5 gap-4 pt-6 border-t border-white/15 text-[9px] font-mono text-neutral-300 uppercase tracking-[0.16em]">
               <div className="flex items-center space-x-3.5">
                 <svg className="w-4.5 h-4.5 text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
@@ -216,41 +216,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. STATS INDICATORS BAR (Rightcon 3.0 Ivory replica) */}
-      <section className="bg-[#F4F2EC] py-20 md:py-28 relative border-b border-neutral-200/40">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-y-12 md:gap-x-4">
+      <section className="bg-[#F4F2EC] py-16 md:py-28 relative border-b border-neutral-200/40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-4 sm:px-6 md:px-20 lg:px-32">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-y-10 md:gap-x-4">
             
             <div className="flex flex-col items-center text-center space-y-2 fade-up-element">
-              <h3 className="text-5xl md:text-6xl font-serif font-light text-charcoal/90">12+</h3>
+              <h3 className="text-4xl md:text-6xl font-serif font-light text-charcoal/90">12+</h3>
               <span className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.18em]">
                 YEARS OF<br />EXPERIENCE
               </span>
             </div>
 
-            <div className="flex flex-col items-center text-center space-y-2 border-l border-neutral-300/40 pl-4 fade-up-element" style={{ transitionDelay: "100ms" }}>
-              <h3 className="text-5xl md:text-6xl font-serif font-light text-charcoal/90">100+</h3>
+            <div className="flex flex-col items-center text-center space-y-2 md:border-l md:border-neutral-300/40 md:pl-4 fade-up-element" style={{ transitionDelay: "100ms" }}>
+              <h3 className="text-4xl md:text-6xl font-serif font-light text-charcoal/90">100+</h3>
               <span className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.18em]">
                 LUXURY HOMES<br />COMPLETED
               </span>
             </div>
 
-            <div className="flex flex-col items-center text-center space-y-2 border-l border-neutral-300/40 pl-4 fade-up-element" style={{ transitionDelay: "200ms" }}>
-              <h3 className="text-5xl md:text-6xl font-serif font-light text-charcoal/90">1</h3>
+            <div className="flex flex-col items-center text-center space-y-2 md:border-l md:border-neutral-300/40 md:pl-4 fade-up-element" style={{ transitionDelay: "200ms" }}>
+              <h3 className="text-4xl md:text-6xl font-serif font-light text-charcoal/90">1</h3>
               <span className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.18em]">
                 SINGLE POINT<br />ACCOUNTABILITY
               </span>
             </div>
 
-            <div className="flex flex-col items-center text-center space-y-2 border-l border-neutral-300/40 pl-4 fade-up-element" style={{ transitionDelay: "300ms" }}>
-              <h3 className="text-5xl md:text-6xl font-serif font-light text-charcoal/90">10</h3>
+            <div className="flex flex-col items-center text-center space-y-2 md:border-l md:border-neutral-300/40 md:pl-4 fade-up-element" style={{ transitionDelay: "300ms" }}>
+              <h3 className="text-4xl md:text-6xl font-serif font-light text-charcoal/90">10</h3>
               <span className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.18em]">
                 YEAR STRUCTURAL<br />WARRANTY
               </span>
             </div>
 
-            <div className="flex flex-col items-center text-center space-y-2 border-l border-neutral-300/40 pl-4 fade-up-element" style={{ transitionDelay: "400ms" }}>
-              <h3 className="text-5xl md:text-6xl font-serif font-light text-charcoal/90">100%</h3>
+            <div className="flex flex-col items-center text-center space-y-2 md:border-l md:border-neutral-300/40 md:pl-4 fade-up-element col-span-2 md:col-span-1" style={{ transitionDelay: "400ms" }}>
+              <h3 className="text-4xl md:text-6xl font-serif font-light text-charcoal/90">100%</h3>
               <span className="font-mono text-[9px] text-neutral-500 uppercase tracking-[0.18em]">
                 TRANSPARENT<br />PROCESSES
               </span>
@@ -259,6 +258,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+
 
       {/* 3. CINEMATIC CENTERPIECE */}
       <section className="relative bg-charcoal text-white overflow-hidden py-24 md:py-32 flex items-center justify-center">
@@ -272,7 +272,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-charcoal/60 via-transparent to-charcoal/60"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 lg:px-32 w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 w-full">
           <div className="text-center space-y-4 max-w-3xl mx-auto fade-up-element">
             <span className="font-mono text-xs uppercase tracking-widest text-gold/80 block font-medium">OUR PURPOSE</span>
             <h2 className="font-display font-light text-4xl sm:text-6xl md:text-8xl text-white uppercase tracking-tight leading-none">
@@ -286,7 +286,7 @@ export default function Home() {
 
       {/* 4. SIGNATURE PROJECT MOMENT */}
       <section className="bg-charcoal text-white py-24 md:py-32 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16 relative z-10">
           
           {/* Headline focusing on core trust / experience feel */}
           <div className="space-y-4 max-w-3xl fade-up-element">
@@ -347,9 +347,9 @@ export default function Home() {
 
       {/* 5. SERVICES */}
       <section className="bg-white py-20 md:py-28 relative">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
           <div className="space-y-4 max-w-2xl border-b border-neutral-100 pb-8 fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">WHAT WE DELIVER</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">WHAT WE DELIVER</span>
             <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal uppercase tracking-tight">
               Construction Capabilities
             </h2>
@@ -384,7 +384,7 @@ export default function Home() {
                   </p>
                   <Link
                     to={`/services/${service.id}`}
-                    className="font-mono text-xs uppercase tracking-widest text-gold border-b border-gold/30 pb-1 hover:text-charcoal hover:border-charcoal transition-editorial inline-block"
+                    className="font-mono text-xs uppercase tracking-widest text-brand-blue border-b border-brand-blue/30 pb-1 hover:text-charcoal hover:border-charcoal transition-editorial inline-block"
                   >
                     Examine Specifications →
                   </Link>
@@ -397,7 +397,7 @@ export default function Home() {
 
       {/* 6. WHY RIGHTCON */}
       <section className="bg-grain py-20 md:py-28 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 relative z-10">
           {/* Equal 6/6 split — heading left, pillars right */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
 
@@ -464,9 +464,9 @@ export default function Home() {
 
       {/* 7. CONSTRUCTION JOURNEY */}
       <section className="bg-white py-20 md:py-28 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16 relative z-10">
           <div className="space-y-4 fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">THE ROADMAP</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">THE ROADMAP</span>
             <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal uppercase tracking-tight">
               The Construction Journey
             </h2>
@@ -481,7 +481,7 @@ export default function Home() {
                   onClick={() => setActiveStep(index)}
                   className={`text-left font-mono text-xs uppercase tracking-wider py-4 px-4 border-l-2 whitespace-nowrap lg:whitespace-normal transition-editorial cursor-pointer ${
                     activeStep === index
-                      ? "text-gold border-gold font-medium"
+                      ? "text-brand-blue border-brand-blue font-medium"
                       : "text-neutral-400 border-transparent hover:text-charcoal"
                   }`}
                 >
@@ -493,7 +493,7 @@ export default function Home() {
             {/* Display card right */}
             <div className="w-full lg:w-2/3 bg-grain p-8 md:p-16 flex flex-col justify-between min-h-[350px] relative fade-up-element" style={{ transitionDelay: "150ms" }}>
               <div className="space-y-6 pt-4">
-                <span className="font-mono text-xs text-gold uppercase tracking-widest block font-medium">
+                <span className="font-mono text-xs text-brand-blue uppercase tracking-widest block font-medium">
                   PHASE {CONSTRUCTION_PROCESS[activeStep].step}
                 </span>
                 <h3 className="font-display font-light text-3xl md:text-4xl text-charcoal leading-tight">
@@ -514,7 +514,7 @@ export default function Home() {
 
       {/* 8. CRAFTSMANSHIP & MATERIALS */}
       <section className="bg-charcoal text-white py-20 md:py-28 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
           <div className="space-y-4 border-b border-white/10 pb-8 fade-up-element">
             <span className="font-mono text-xs uppercase tracking-widest text-gold/80">UNCOMPROMISING MATERIALS</span>
             <h2 className="font-display font-light text-3xl md:text-5xl uppercase text-white tracking-tight">
@@ -545,17 +545,17 @@ export default function Home() {
 
       {/* 9. FEATURED RESIDENCES */}
       <section className="bg-white py-20 md:py-28 relative">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-100 pb-8 fade-up-element">
             <div className="space-y-4">
-              <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">COMPLETED HOMES</span>
+              <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">COMPLETED HOMES</span>
               <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal uppercase tracking-tight">
                 Featured Residences
               </h2>
             </div>
             <Link 
               to="/projects" 
-              className="font-mono text-xs uppercase tracking-widest text-gold border-b border-gold/30 pb-1 hover:text-charcoal hover:border-charcoal transition-editorial"
+              className="font-mono text-xs uppercase tracking-widest text-brand-blue border-b border-brand-blue/30 pb-1 hover:text-charcoal hover:border-charcoal transition-editorial"
             >
               Examine Complete Folio →
             </Link>
@@ -580,7 +580,7 @@ export default function Home() {
                     <span>{proj.builtUpArea}</span>
                   </div>
                   <h4 className="font-display font-medium text-xl text-charcoal">
-                    <Link to={`/projects/${proj.id}`} className="hover:text-gold transition-colors duration-300">
+                    <Link to={`/projects/${proj.id}`} className="hover:text-brand-blue transition-colors duration-300">
                       {proj.title}
                     </Link>
                   </h4>
@@ -594,9 +594,9 @@ export default function Home() {
 
       {/* 10. CLIENT JOURNEY */}
       <section className="bg-grain py-20 md:py-28 border-y border-neutral-100 relative">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
           <div className="space-y-4 fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">TRANSPARENT PIPELINE</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">TRANSPARENT PIPELINE</span>
             <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal uppercase tracking-tight">
               The Client Advisory Journey
             </h2>
@@ -616,7 +616,7 @@ export default function Home() {
                     onClick={() => setActiveJourney(idx)}
                     className={`w-full flex items-center justify-between text-left font-mono text-[11px] uppercase py-3 px-3 border-l-2 transition-editorial cursor-pointer ${
                       activeJourney === idx 
-                        ? "border-gold text-gold font-medium bg-gold/5" 
+                        ? "border-brand-blue text-brand-blue font-medium bg-brand-blue/5" 
                         : "border-transparent text-neutral-400 hover:text-charcoal"
                     }`}
                   >
@@ -643,7 +643,7 @@ export default function Home() {
               
               <div className="pt-8 border-t border-neutral-100 flex items-center justify-between text-xs font-mono text-neutral-400 mt-8">
                 <span>Verification Gate</span>
-                <span className="text-gold font-medium">Contract Bind Guarantee</span>
+                <span className="text-brand-blue font-medium">Contract Bind Guarantee</span>
               </div>
             </div>
           </div>
@@ -652,9 +652,9 @@ export default function Home() {
 
       {/* 11. TESTIMONIALS */}
       <section className="bg-white py-20 md:py-28 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-12 fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">CLIENT ADVOCACY</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">CLIENT ADVOCACY</span>
 
             <div className="space-y-8">
               <p className="font-display font-light text-2xl md:text-4xl text-charcoal italic leading-relaxed">
@@ -672,7 +672,7 @@ export default function Home() {
 
       {/* 12. INSIGHTS */}
       <section className="bg-grain py-20 md:py-28 border-t border-neutral-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-200 pb-8 fade-up-element">
             <div className="space-y-4">
               <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">LATEST ARTICLES</span>
@@ -698,7 +698,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="pt-6 border-t border-neutral-100 mt-6 flex justify-between items-center">
-                  <span className="font-mono text-xs text-gold cursor-pointer group-hover:text-charcoal transition-editorial">
+                  <span className="font-mono text-xs text-brand-blue cursor-pointer group-hover:text-charcoal transition-editorial">
                     Read Article →
                   </span>
                   <span className="text-neutral-400 font-mono text-[10px]">{art.date}</span>
@@ -720,7 +720,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
           <div className="max-w-4xl mx-auto text-center space-y-12 fade-up-element">
             <div className="space-y-6">
               <span className="font-mono text-xs uppercase tracking-widest text-gold/90 bg-gold/10 px-4 py-2 border border-gold/20 inline-block font-medium">
@@ -755,3 +755,4 @@ export default function Home() {
     </div>
   );
 }
+

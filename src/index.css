@@ -6,16 +6,51 @@
   --color-gold: #C9A227;
   --color-grain: #F9F9FB;
   
-  --font-sans: "Plus Jakarta Sans", "Inter", "sans-serif";
-  --font-display: "Outfit", "Syne", "sans-serif";
+  --font-sans: "Panton-Trial", "Panton Trial", "Plus Jakarta Sans", "Inter", "sans-serif";
+  --font-display: "Super Rich Expanded", "Outfit", "Syne", "sans-serif";
+  --font-mono: "Panton-Trial", "Panton Trial", "monospace";
   
   --letter-spacing-widest: 0.15em;
   --letter-spacing-wider: 0.08em;
 }
 
+@font-face {
+  font-family: "Super Rich Expanded";
+  src: local("Super Rich Expanded"), local("SuperRichExpanded"), local("SuperRichExpanded-Bold");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Panton-Trial";
+  src: local("Panton-Trial"), local("Panton Trial"), local("PantonTrial"), local("PantonTrial-Regular");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Panton-Trial";
+  src: local("Panton-Trial SemiBold"), local("Panton Trial SemiBold"), local("PantonTrial-SemiBold");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Panton-Trial";
+  src: local("Panton-Trial Bold"), local("Panton Trial Bold"), local("PantonTrial-Bold");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
 @layer base {
   body {
-    @apply bg-white text-charcoal font-sans antialiased selection:bg-gold/20 selection:text-charcoal;
+    @apply bg-white text-charcoal font-sans antialiased selection:bg-brand-blue selection:text-white overflow-x-hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -58,7 +93,7 @@ html.lenis, html.lenis body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #C9A227;
+  background: #0000AA;
 }
 
 /* Luxury transitions & reveals */

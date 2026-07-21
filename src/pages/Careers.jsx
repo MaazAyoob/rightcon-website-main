@@ -38,11 +38,11 @@ export default function Careers() {
 
   return (
     <div className="bg-white pt-32 pb-24 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-24">
         
         {/* Page Header */}
         <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">JOIN THE TEAM</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">JOIN THE TEAM</span>
           <h1 className="font-display font-bold text-4xl md:text-6xl text-charcoal uppercase tracking-tight">
             CAREERS AT RIGHTCON
           </h1>
@@ -83,8 +83,8 @@ export default function Careers() {
             {roles.map((role, idx) => (
               <div key={idx} className="border border-neutral-150 p-8 space-y-6 flex flex-col justify-between hover:border-gold transition-colors duration-300">
                 <div className="space-y-4">
-                  <span className="font-mono text-xs text-gold font-semibold uppercase">{role.dept}</span>
-                  <h3 className="font-display font-bold text-lg text-charcoal uppercase leading-tight">{role.title}</h3>
+                  <span className="font-mono text-xs text-brand-blue font-semibold uppercase">{role.dept}</span>
+                  <h3 className="font-sans font-bold text-lg text-charcoal uppercase leading-tight">{role.title}</h3>
                   <p className="text-neutral-500 text-xs leading-relaxed font-light">{role.desc}</p>
                 </div>
                 <div className="pt-6 border-t border-neutral-100 mt-6 text-[10px] font-mono text-neutral-400 uppercase">
@@ -104,8 +104,8 @@ export default function Careers() {
 
           {submitted ? (
             <div className="bg-white p-8 border border-gold/30 text-center space-y-4">
-              <span className="text-gold font-mono text-xl block">✔</span>
-              <h4 className="font-display font-bold text-lg text-charcoal">APPLICATION FILED</h4>
+              <span className="text-brand-blue font-mono text-xl block">✔</span>
+              <h4 className="font-sans font-bold text-lg text-charcoal">APPLICATION FILED</h4>
               <p className="text-neutral-500 text-xs leading-relaxed font-light">Thank you. Our Jayanagar HR coordinator will review your profile logs shortly.</p>
             </div>
           ) : (
@@ -179,7 +179,7 @@ export default function Careers() {
 
               <button 
                 type="submit" 
-                className="w-full bg-charcoal text-white hover:bg-gold hover:text-charcoal transition-colors duration-300 font-mono text-xs uppercase tracking-widest py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 min-h-[44px] cursor-pointer"
+                className="w-full bg-brand-blue text-white hover:bg-gold hover:text-charcoal transition-colors duration-300 font-mono text-xs uppercase tracking-widest py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 min-h-[44px] cursor-pointer"
               >
                 Submit Application
               </button>
@@ -191,3 +191,4 @@ export default function Careers() {
     </div>
   );
 }
+

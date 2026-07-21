@@ -1,17 +1,17 @@
 import { Link } from "react-router-dom";
 import { COMPANY_METRICS } from "../data/rightconData";
+import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
   return (
     <footer className="bg-charcoal text-white pt-24 pb-12 border-t border-neutral-800">
-      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-12 pb-16 border-b border-neutral-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-4 sm:px-6 md:px-20 lg:px-32">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10 md:gap-12 pb-16 border-b border-neutral-800">
           
           {/* Brand/Philosophy */}
-          <div className="space-y-4 md:col-span-1">
-            <Link to="/" className="font-display font-bold text-2xl tracking-[0.15em] text-white flex items-center space-x-2">
-              <span>RIGHTCON</span>
-              <span className="w-1.5 h-1.5 bg-gold rounded-full"></span>
+          <div className="space-y-4 sm:col-span-2 md:col-span-1">
+            <Link to="/">
+              <BrandLogo light={true} />
             </Link>
             <p className="text-neutral-400 text-sm max-w-xs leading-relaxed font-light">
               Crafting premium private residences with mathematical precision and absolute structural transparency across Bangalore and Mysore.
@@ -103,3 +103,4 @@ export default function Footer() {
     </footer>
   );
 }
+

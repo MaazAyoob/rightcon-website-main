@@ -26,11 +26,11 @@ export default function Projects() {
 
   return (
     <div className="bg-white pt-32 pb-32 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-32">
         
         {/* Page Header */}
         <div className="space-y-6 max-w-3xl border-b border-neutral-100 pb-16 fade-up-element">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block">OUR ARCHITECTURAL PORTFOLIO</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue block">OUR ARCHITECTURAL PORTFOLIO</span>
           <h1 className="font-display font-light text-4xl md:text-7xl text-charcoal uppercase tracking-tight leading-none">
             Selected Residences
           </h1>
@@ -97,7 +97,7 @@ export default function Projects() {
                   <div className="pt-2">
                     <Link 
                       to={`/projects/${project.id}`}
-                      className="font-mono text-[11px] uppercase tracking-widest text-gold border-b border-gold/30 pb-1 hover:text-charcoal hover:border-charcoal transition-editorial inline-block"
+                      className="font-mono text-[11px] uppercase tracking-widest text-brand-blue border-b border-brand-blue/30 pb-1 hover:text-charcoal hover:border-charcoal transition-editorial inline-block"
                     >
                       View Project Spec →
                     </Link>
@@ -112,7 +112,7 @@ export default function Projects() {
 
         {/* Footer CTA */}
         <div className="pt-24 border-t border-neutral-100 text-center space-y-8 max-w-2xl mx-auto fade-up-element">
-          <span className="font-mono text-xs uppercase tracking-widest text-gold block font-medium">COMMENCE YOUR PROJECT BRIEF</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue block font-medium">COMMENCE YOUR PROJECT BRIEF</span>
           <h2 className="font-display font-light text-3xl md:text-4xl text-charcoal uppercase tracking-tight">
             Want to build your signature home?
           </h2>
@@ -122,7 +122,7 @@ export default function Projects() {
           <div className="pt-4">
             <Link 
               to="/contact" 
-              className="font-mono text-xs uppercase tracking-widest text-gold border border-gold/30 hover:border-gold px-8 py-4.5 transition-editorial inline-block font-medium"
+              className="font-mono text-xs uppercase tracking-widest text-brand-blue border border-brand-blue/30 hover:border-brand-blue px-8 py-4.5 transition-editorial inline-block font-medium"
             >
               Request Private Consultation
             </Link>
@@ -133,3 +133,4 @@ export default function Projects() {
     </div>
   );
 }
+

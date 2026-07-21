@@ -26,11 +26,11 @@ export default function CostCalculator() {
 
   return (
     <div className="bg-white pt-32 pb-24 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-24">
         
         {/* Page Header */}
         <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">STRUCTURAL PLANNING</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">STRUCTURAL PLANNING</span>
           <h1 className="font-display font-bold text-4xl md:text-6xl text-charcoal uppercase">
             COST CALCULATOR
           </h1>
@@ -46,7 +46,7 @@ export default function CostCalculator() {
           <div className="bg-grain p-8 md:p-12 border border-neutral-100 space-y-8">
             
             <div className="space-y-4">
-              <h3 className="font-display font-bold text-lg text-charcoal uppercase">1. Site Specifications</h3>
+              <h3 className="font-sans font-bold text-lg text-charcoal uppercase">1. Site Specifications</h3>
               
               <div className="space-y-2">
                 <label className="flex justify-between text-xs font-mono uppercase text-neutral-500 tracking-wider">
@@ -93,7 +93,7 @@ export default function CostCalculator() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="font-display font-bold text-lg text-charcoal uppercase">2. Material Specification Package</h3>
+              <h3 className="font-sans font-bold text-lg text-charcoal uppercase">2. Material Specification Package</h3>
               <div className="space-y-2">
                 {ESTIMATOR_PACKAGES.map((pkg, idx) => (
                   <button
@@ -107,7 +107,7 @@ export default function CostCalculator() {
                     }`}
                   >
                     <div>
-                      <h4 className="font-display font-bold text-sm text-charcoal uppercase">{pkg.name}</h4>
+                      <h4 className="font-sans font-bold text-sm text-charcoal uppercase">{pkg.name}</h4>
                       <p className="text-[10px] text-neutral-400 font-mono mt-1">Estimates: ₹{pkg.minPrice} - ₹{pkg.maxPrice} / sqft</p>
                     </div>
                     <span className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
@@ -121,7 +121,7 @@ export default function CostCalculator() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="font-display font-bold text-lg text-charcoal uppercase">3. Structural Optionals</h3>
+              <h3 className="font-sans font-bold text-lg text-charcoal uppercase">3. Structural Optionals</h3>
               
               <div className="space-y-4 bg-white p-4 border border-neutral-100">
                 <label className="flex items-center space-x-3 cursor-pointer">
@@ -187,7 +187,7 @@ export default function CostCalculator() {
 
           {/* Outputs Column */}
           <div className="border border-neutral-200 p-8 md:p-12 space-y-8">
-            <h3 className="font-display font-bold text-xl text-charcoal uppercase border-b border-neutral-100 pb-4">
+            <h3 className="font-sans font-bold text-xl text-charcoal uppercase border-b border-neutral-100 pb-4">
               ESTIMATION SUMMARY
             </h3>
 
@@ -227,9 +227,9 @@ export default function CostCalculator() {
               </div>
             </div>
 
-            <div className="bg-grain p-6 border-t-2 border-gold space-y-2">
+            <div className="bg-grain p-6 border-t-2 border-brand-blue space-y-2">
               <span className="font-mono text-[10px] uppercase text-neutral-400 tracking-widest block">TOTAL PROJECTED RANGE</span>
-              <h2 className="font-display font-bold text-2xl md:text-3xl text-charcoal">
+              <h2 className="font-sans font-bold text-2xl md:text-3xl text-charcoal">
                 ₹{totalMin.toLocaleString()} - ₹{totalMax.toLocaleString()}*
               </h2>
               <span className="text-[10px] text-neutral-400 font-light block leading-relaxed pt-2">
@@ -238,11 +238,11 @@ export default function CostCalculator() {
             </div>
 
             <div className="space-y-4 pt-4">
-              <h4 className="font-mono text-xs uppercase tracking-widest text-gold font-semibold">SELECTED PACKAGE SPECIFICATIONS</h4>
+              <h4 className="font-mono text-xs uppercase tracking-widest text-brand-blue font-semibold">SELECTED PACKAGE SPECIFICATIONS</h4>
               <ul className="space-y-2.5">
                 {selectedPkg.features.map((feat, idx) => (
                   <li key={idx} className="flex items-start space-x-2 text-xs text-neutral-500 leading-relaxed font-light">
-                    <span className="w-1 h-1 bg-gold rounded-full mt-2"></span>
+                    <span className="w-1 h-1 bg-brand-blue rounded-full mt-2"></span>
                     <span>{feat}</span>
                   </li>
                 ))}
@@ -252,7 +252,7 @@ export default function CostCalculator() {
             <div className="pt-6">
               <Link
                 to="/contact"
-                className="w-full inline-block bg-charcoal text-white hover:bg-gold hover:text-charcoal text-center transition-colors duration-300 font-mono text-xs uppercase tracking-widest py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 min-h-[44px]"
+                className="w-full inline-block bg-brand-blue text-white hover:bg-gold hover:text-charcoal text-center transition-colors duration-300 font-mono text-xs uppercase tracking-widest py-4 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 min-h-[44px]"
               >
                 File Consultation with this Estimate
               </Link>
@@ -266,3 +266,4 @@ export default function CostCalculator() {
     </div>
   );
 }
+

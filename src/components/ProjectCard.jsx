@@ -28,7 +28,7 @@ export default function ProjectCard({ project, index }) {
           <span>{project.scale}</span>
         </div>
         
-        <h3 className="font-display font-bold text-3xl md:text-4xl text-charcoal tracking-normal leading-tight">
+        <h3 className="font-sans font-bold text-3xl md:text-4xl text-charcoal tracking-normal leading-tight">
           {project.title}
         </h3>
         
@@ -39,7 +39,7 @@ export default function ProjectCard({ project, index }) {
         <div className="pt-4 flex items-center space-x-6">
           <Link 
             to={`/projects`} 
-            className="inline-block bg-charcoal text-white hover:bg-gold hover:text-charcoal transition-colors duration-300 font-mono text-xs uppercase tracking-widest px-6 py-3"
+            className="inline-block bg-brand-blue text-white hover:bg-gold hover:text-charcoal transition-colors duration-300 font-mono text-xs uppercase tracking-widest px-6 py-3"
           >
             Examine Case Study
           </Link>
@@ -49,3 +49,4 @@ export default function ProjectCard({ project, index }) {
     </div>
   );
 }
+

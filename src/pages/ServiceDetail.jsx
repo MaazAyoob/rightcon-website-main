@@ -63,7 +63,7 @@ export default function ServiceDetail() {
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 lg:px-32 w-full space-y-4 fade-up-element visible">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 w-full space-y-4 fade-up-element visible">
           <span className="font-mono text-xs uppercase tracking-widest text-gold/80 font-medium">
             SERVICE SCOPE // {service.subtitle.toUpperCase()}
           </span>
@@ -75,7 +75,7 @@ export default function ServiceDetail() {
 
       {/* 2. SPECIFICATION OVERVIEW STRIP */}
       <section className="py-20 bg-white border-y border-neutral-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 font-mono text-xs text-neutral-500 fade-up-element">
             <div>
               <span className="text-[10px] text-neutral-400 uppercase block tracking-wider mb-2">PRICING PROFILE</span>
@@ -95,7 +95,7 @@ export default function ServiceDetail() {
 
       {/* 3. DETAILED SUMMARY SPLIT */}
       <section className="py-32 md:py-48 bg-white text-charcoal">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
             <div className="lg:col-span-5 space-y-6 fade-up-element">
               <span className="font-mono text-xs text-gold uppercase tracking-widest block font-medium">01 / CAPABILITY BRIEF</span>
@@ -120,9 +120,9 @@ export default function ServiceDetail() {
 
       {/* 4. DELIVERABLES SPECS LIST (No boxes, pure whitespace rows) */}
       <section className="py-32 bg-grain border-y border-neutral-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
           <div className="border-b border-neutral-200/50 pb-6 flex justify-between items-end fade-up-element">
-            <h3 className="font-display font-light text-xl text-charcoal uppercase tracking-tight">
+            <h3 className="font-sans font-light text-xl text-charcoal uppercase tracking-tight">
               Deliverable Checklist
             </h3>
             <span className="font-mono text-[10px] text-neutral-450">QUALITY CHECK SEC.04</span>
@@ -144,22 +144,22 @@ export default function ServiceDetail() {
 
       {/* 5. PROCESS WORKFLOW FOR SERVICE */}
       <section className="py-32 md:py-48 bg-white text-charcoal">
-        <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
           <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block fade-up-element">EXECUTION PROCESS WORKFLOW</span>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
             <div className="space-y-4 fade-up-element">
               <span className="font-mono text-xs text-gold font-medium">STAGE 01 / BRIEFING</span>
-              <h4 className="font-display font-medium text-xl text-charcoal uppercase tracking-wider">Structural Alignment</h4>
+              <h4 className="font-sans font-medium text-xl text-charcoal uppercase tracking-wider">Structural Alignment</h4>
               <p className="text-neutral-500 text-xs leading-relaxed font-light">Reviewing site boundaries, preparing soil profiles, and mapping column loads before casting foundation footprints.</p>
             </div>
             <div className="space-y-4 fade-up-element" style={{ transitionDelay: "100ms" }}>
               <span className="font-mono text-xs text-gold font-medium">STAGE 02 / ANALYSIS</span>
-              <h4 className="font-display font-medium text-xl text-charcoal uppercase tracking-wider">Fidelity Casting</h4>
+              <h4 className="font-sans font-medium text-xl text-charcoal uppercase tracking-wider">Fidelity Casting</h4>
               <p className="text-neutral-500 text-xs leading-relaxed font-light">Monitoring cement mix compression tests, reinforcing concrete frames, and logging water curing metrics systematically.</p>
             </div>
             <div className="space-y-4 fade-up-element" style={{ transitionDelay: "200ms" }}>
               <span className="font-mono text-xs text-gold font-medium">STAGE 03 / HANDOVER</span>
-              <h4 className="font-display font-medium text-xl text-charcoal uppercase tracking-wider">Clearance Handover</h4>
+              <h4 className="font-sans font-medium text-xl text-charcoal uppercase tracking-wider">Clearance Handover</h4>
               <p className="text-neutral-500 text-xs leading-relaxed font-light">Reviewing finish millwork and electrical fittings against the Quality Book before locking structural guarantees.</p>
             </div>
           </div>
@@ -190,3 +190,4 @@ export default function ServiceDetail() {
     </div>
   );
 }
+

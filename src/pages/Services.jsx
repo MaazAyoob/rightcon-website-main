@@ -47,11 +47,11 @@ export default function Services() {
 
   return (
     <div className="bg-white pt-32 pb-32 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 md:px-20 lg:px-32 space-y-36">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-36">
         
         {/* Page Header */}
         <div className="space-y-6 max-w-3xl border-b border-neutral-100 pb-16 fade-up-element">
-          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 block">OUR CAPABILITIES</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue block">OUR CAPABILITIES</span>
           <h1 className="font-display font-light text-4xl md:text-7xl text-charcoal uppercase tracking-tight leading-none">
             Construction & <br />Design Services
           </h1>
@@ -110,7 +110,7 @@ export default function Services() {
                   <div className="pt-4">
                     <Link 
                       to={`/services/${service.id}`} 
-                      className="font-mono text-xs uppercase tracking-widest text-gold border-b border-gold/30 pb-1 hover:text-charcoal hover:border-charcoal transition-editorial"
+                      className="font-mono text-xs uppercase tracking-widest text-brand-blue border-b border-brand-blue/30 pb-1 hover:text-charcoal hover:border-charcoal transition-editorial"
                     >
                       Examine Service Method →
                     </Link>
@@ -124,7 +124,7 @@ export default function Services() {
         {/* Accordion FAQ Section */}
         <div className="pt-32 border-t border-neutral-100 max-w-4xl mx-auto space-y-16 fade-up-element">
           <div className="text-center space-y-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">PROCEDURE FAQS</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue">PROCEDURE FAQS</span>
             <h2 className="font-display font-light text-3xl md:text-4xl text-charcoal uppercase tracking-tight">
               Engineering Systems
             </h2>
@@ -140,7 +140,7 @@ export default function Services() {
                     aria-expanded={isSelected}
                     className="w-full flex items-center justify-between text-left py-4 hover:text-gold transition-editorial cursor-pointer"
                   >
-                    <span className="font-display font-medium text-base md:text-xl text-charcoal uppercase tracking-tight">
+                    <span className="font-sans font-medium text-base md:text-xl text-charcoal uppercase tracking-tight">
                       {faq.q}
                     </span>
                     <span className="font-mono text-xs text-gold ml-4">
@@ -166,3 +166,4 @@ export default function Services() {
     </div>
   );
 }
+
