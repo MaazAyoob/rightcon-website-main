@@ -1,10 +1,13 @@
 import { COMPANY_METRICS } from "../data/rightconData";
 import { Link } from "react-router-dom";
+import MetallicElement from "../components/MetallicElement";
 
 export default function About() {
   return (
-    <div className="bg-white dark:bg-charcoal text-charcoal dark:text-white pt-32 pb-24 min-h-screen transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-24">
+    <div className="relative bg-white dark:bg-charcoal text-charcoal dark:text-white pt-32 pb-24 min-h-screen transition-colors duration-300 overflow-hidden">
+      <MetallicElement variant="villa-gable" className="opacity-40 dark:opacity-60" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-24">
+
         
         {/* Header */}
         <div className="space-y-4 max-w-3xl border-b border-neutral-200 dark:border-neutral-800 pb-12">

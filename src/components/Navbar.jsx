@@ -47,11 +47,11 @@ export default function Navbar() {
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           scrolled
             ? isDark
-              ? "bg-charcoal/95 backdrop-blur-md py-3 shadow-lg border-b border-neutral-800/80"
-              : "bg-white/95 backdrop-blur-md py-3 shadow-sm border-b border-neutral-200/80"
+              ? "bg-charcoal/95 backdrop-blur-md py-3 shadow-lg border-b border-neutral-700/90"
+              : "bg-white/95 backdrop-blur-md py-3 shadow-sm border-b border-neutral-300"
             : isDark
-              ? "bg-charcoal/90 backdrop-blur-md py-4 border-b border-neutral-800/60"
-              : "bg-white/90 backdrop-blur-md py-4 border-b border-neutral-200/80"
+              ? "bg-charcoal/90 backdrop-blur-md py-4 border-b border-neutral-800"
+              : "bg-white/90 backdrop-blur-md py-4 border-b border-neutral-200"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-20 xl:px-32 flex items-center justify-between">
@@ -73,16 +73,20 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`font-display text-[12px] uppercase tracking-[0.1em] transition-colors duration-200 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4 ${
+                  className={`relative font-display text-[12px] uppercase tracking-[0.1em] transition-colors duration-200 py-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4 ${
                     isDark
                       ? isActive ? "text-gold font-bold" : "text-white/90 hover:text-gold"
                       : isActive ? "text-brand-blue font-bold" : "text-charcoal hover:text-brand-blue font-semibold"
                   }`}
                 >
                   {link.name}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 w-full h-[2px] bg-gold dark:bg-gold shadow-[0_1px_4px_rgba(201,162,39,0.5)]" />
+                  )}
                 </Link>
               );
             })}
+
 
             {/* Theme Switcher Button */}
             <button

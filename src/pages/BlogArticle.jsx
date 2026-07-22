@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { BLOG_POSTS } from "../data/rightconData";
+import MetallicElement from "../components/MetallicElement";
 
 export default function BlogArticle() {
   const { id } = useParams();
@@ -7,8 +8,10 @@ export default function BlogArticle() {
   const article = BLOG_POSTS.find((p) => p.slug === id || p.id === id) || BLOG_POSTS[0];
 
   return (
-    <div className="bg-white dark:bg-charcoal text-charcoal dark:text-white pt-24 pb-32 min-h-screen transition-colors duration-300">
-      
+    <div className="relative bg-white dark:bg-charcoal text-charcoal dark:text-white pt-24 pb-32 min-h-screen transition-colors duration-300 overflow-hidden">
+      <MetallicElement variant="villa-gable" className="opacity-40 dark:opacity-60" />
+      <div className="relative z-10">
+
       {/* Article Hero */}
       <section className="relative h-[60vh] flex items-end bg-charcoal text-white overflow-hidden pb-12">
         <div className="absolute inset-0 z-0 pointer-events-none select-none overflow-hidden opacity-40">
@@ -71,6 +74,8 @@ export default function BlogArticle() {
       </div>
 
     </div>
+    </div>
   );
 }
+
 

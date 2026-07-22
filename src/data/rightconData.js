@@ -1473,3 +1473,31 @@ export const CONSTRUCTION_PROCESS = [
     deliverables: ["154 Audits", "Final Handover", "10-Year Bond"]
   }
 ];
+
+export const CUSTOMER_STORIES = [
+  {
+    id: "story-1",
+    customerName: "Sudheendra Rao & Family",
+    location: "Bannerghatta Road, Bengaluru",
+    quote: "The transparency throughout the project gave us complete peace of mind.",
+    thumbnail: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80",
+    videoUrl: null
+  },
+  {
+    id: "story-2",
+    customerName: "Lakshmi & Family",
+    location: "Electronic City, Bengaluru",
+    quote: "Rightcon delivered our home on budget without a single price escalation.",
+    thumbnail: "https://rightcon.in/wp-content/uploads/2026/05/View-1-1-scaled.jpg",
+    videoUrl: null
+  },
+  {
+    id: "story-3",
+    customerName: "Shantanu Sharma & Family",
+    location: "Whitefield, Bengaluru",
+    quote: "From soil testing to 150 quality audits, their engineering rigor is unmatched.",
+    thumbnail: "https://rightcon.in/wp-content/uploads/2025/12/Main_1-shantuni-house-.jpg",
+    videoUrl: null
+  }
+];
+

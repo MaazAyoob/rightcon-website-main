@@ -8,13 +8,14 @@
   --color-gold: #C9A227;
   --color-grain: #F9F9FB;
   
-  --font-sans: "Panton-Trial", "Panton Trial", "Plus Jakarta Sans", "Inter", "sans-serif";
-  --font-display: "Super Rich Expanded", "Outfit", "Syne", "sans-serif";
-  --font-mono: "Panton-Trial", "Panton Trial", "monospace";
+  --font-sans: "Plus Jakarta Sans", "Panton-Trial", "Panton Trial", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Outfit", "Super Rich Expanded", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "Plus Jakarta Sans", "Panton-Trial", "Panton Trial", monospace;
   
   --letter-spacing-widest: 0.15em;
   --letter-spacing-wider: 0.08em;
 }
+
 
 @font-face {
   font-family: "Super Rich Expanded";
@@ -236,81 +237,201 @@ html.lenis, html.lenis body {
 }
 
 /* =====================================================
-   RIGHTCON 3.2 — METALLIC DESIGN SYSTEM ANIMATIONS & RULES
-   High-performance hardware-accelerated chrome keyframes
+   RIGHTCON 5.1 — ARCHITECTURAL MATERIAL DESIGN SYSTEM
+   Functional, architectural materials (brushed steel, titanium, shadow gaps, mounted frames, anodized CTAs)
    ===================================================== */
 
-@keyframes floatMetallic {
-  0% {
-    transform: translateY(0px) rotate(0deg) scale(1);
-  }
-  50% {
-    transform: translateY(-22px) rotate(4deg) scale(1.02);
-  }
-  100% {
-    transform: translateY(0px) rotate(0deg) scale(1);
-  }
+/* 1. Architectural Shadow Gap / Expansion Joint Divider */
+.architectural-shadow-gap {
+  position: relative;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, rgba(203, 213, 225, 0.4) 15%, rgba(148, 163, 184, 0.8) 50%, rgba(203, 213, 225, 0.4) 85%, transparent 100%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+.dark .architectural-shadow-gap {
+  background: linear-gradient(90deg, transparent 0%, rgba(51, 65, 85, 0.4) 15%, rgba(100, 116, 139, 0.8) 50%, rgba(51, 65, 85, 0.4) 85%, transparent 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
-@keyframes rotateMetallic {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+/* 2. Mounted Architectural Photo Frame */
+.mounted-photo-frame {
+  position: relative;
+  padding: 6px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08), 0 10px 25px rgba(0, 0, 0, 0.06);
+  border-radius: 2px;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.dark .mounted-photo-frame {
+  background: #0f172a;
+  border-color: #334155;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4), 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+.mounted-photo-frame:hover {
+  border-color: #0000aa;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 15px 35px rgba(0, 0, 170, 0.12);
+}
+.dark .mounted-photo-frame:hover {
+  border-color: #c9a227;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5), 0 20px 40px rgba(201, 162, 39, 0.15);
 }
 
-@keyframes shimmerMetallic {
-  0% {
-    opacity: 0.20;
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
-  }
-  50% {
-    opacity: 0.38;
-    filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.5));
-  }
-  100% {
-    opacity: 0.20;
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
-  }
+/* 3. Solid Black Anodized Aluminium Primary Button */
+.btn-anodized-black {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #1c1c1c 0%, #0f0f0f 100%);
+  border: 1px solid #333333;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 1rem 2rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-anodized-black::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-anodized-black:hover::before {
+  transform: translateX(320%);
+}
+.btn-anodized-black:hover {
+  border-color: #c9a227;
+  box-shadow: 0 6px 20px rgba(201, 162, 39, 0.25);
+  transform: translateY(-1px);
 }
 
-@keyframes pulseMetallic {
-  0% {
-    transform: scale(0.98);
-    opacity: 0.25;
-  }
-  50% {
-    transform: scale(1.04);
-    opacity: 0.40;
-  }
-  100% {
-    transform: scale(0.98);
-    opacity: 0.25;
-  }
+/* 4. Precision Steel Structural Beam (Timeline Track) */
+.structural-beam-track {
+  height: 6px;
+  background: linear-gradient(90deg, #cbd5e1 0%, #ffffff 25%, #64748b 50%, #f1f5f9 75%, #cbd5e1 100%);
+  border-top: 1px solid #94a3b8;
+  border-bottom: 1px solid #64748b;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+.dark .structural-beam-track {
+  background: linear-gradient(90deg, #1e293b 0%, #64748b 25%, #0f172a 50%, #475569 75%, #1e293b 100%);
+  border-top-color: #475569;
+  border-bottom-color: #0f172a;
 }
 
-/* Metallic Utility Classes */
-.animate-metallic-float {
-  animation: floatMetallic 32s ease-in-out infinite alternate;
+/* =====================================================
+   RIGHTCON 5.2.1 — CENTRALIZED MOTION DESIGN SYSTEM
+   Standardized scroll reveals, hover physics, and reduced motion
+   ===================================================== */
+
+/* 1. Global Motion Easing Variable */
+:root {
+  --ease-architectural: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. Scroll Reveal Utility Classes (Triggered once by useReveal.js) */
+.fade-up-element {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms var(--ease-architectural), transform 600ms var(--ease-architectural);
+  will-change: opacity, transform;
+}
+.fade-up-element.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-element {
+  opacity: 0;
+  transition: opacity 600ms var(--ease-architectural);
+  will-change: opacity;
+}
+.fade-in-element.is-visible {
+  opacity: 1;
+}
+
+.scale-in-element {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 700ms var(--ease-architectural), transform 700ms var(--ease-architectural);
+  will-change: opacity, transform;
+}
+.scale-in-element.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 3. Stagger Utility Classes */
+.stagger-xs:nth-child(1) { transition-delay: 0ms; }
+.stagger-xs:nth-child(2) { transition-delay: 60ms; }
+.stagger-xs:nth-child(3) { transition-delay: 120ms; }
+.stagger-xs:nth-child(4) { transition-delay: 180ms; }
+.stagger-xs:nth-child(5) { transition-delay: 240ms; }
+
+.stagger-sm:nth-child(1) { transition-delay: 0ms; }
+.stagger-sm:nth-child(2) { transition-delay: 100ms; }
+.stagger-sm:nth-child(3) { transition-delay: 200ms; }
+.stagger-sm:nth-child(4) { transition-delay: 300ms; }
+.stagger-sm:nth-child(5) { transition-delay: 400ms; }
+
+.stagger-md:nth-child(1) { transition-delay: 0ms; }
+.stagger-md:nth-child(2) { transition-delay: 150ms; }
+.stagger-md:nth-child(3) { transition-delay: 300ms; }
+.stagger-md:nth-child(4) { transition-delay: 450ms; }
+
+/* 4. Standardized Hover Physics */
+.hover-lift {
+  transition: transform 400ms var(--ease-architectural), box-shadow 400ms var(--ease-architectural), border-color 400ms var(--ease-architectural);
+  will-change: transform, box-shadow;
+}
+.hover-lift:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+.dark .hover-lift:hover {
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+}
+
+.hover-zoom {
+  transition: transform 700ms var(--ease-architectural);
   will-change: transform;
 }
-
-.animate-metallic-rotate {
-  animation: rotateMetallic 40s linear infinite;
-  will-change: transform;
+.hover-zoom:hover {
+  transform: scale(1.03);
 }
 
-.animate-metallic-shimmer {
-  animation: shimmerMetallic 25s ease-in-out infinite alternate;
-  will-change: opacity, filter;
+/* 5. Accessibility — Prefers Reduced Motion Controls */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fade-up-element,
+  .fade-in-element,
+  .scale-in-element {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
-.animate-metallic-pulse {
-  animation: pulseMetallic 20s ease-in-out infinite alternate;
-  will-change: transform, opacity;
-}
+
+
+
 
 
 

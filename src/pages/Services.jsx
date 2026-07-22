@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { SERVICES } from "../data/rightconData";
 import { Link } from "react-router-dom";
+import MetallicElement from "../components/MetallicElement";
 
 export default function Services() {
   const [activeFaq, setActiveFaq] = useState(null);
+
 
   // Scroll reveal observer
   useEffect(() => {
@@ -46,8 +48,11 @@ export default function Services() {
   ];
 
   return (
-    <div className="bg-white dark:bg-charcoal text-charcoal dark:text-white pt-32 pb-32 min-h-screen transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-36">
+    <div className="relative bg-white dark:bg-charcoal text-charcoal dark:text-white pt-28 pb-32 min-h-screen transition-colors duration-300 overflow-hidden">
+      <MetallicElement variant="cantilever-frame" className="opacity-40 dark:opacity-60" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-36">
+
+
         
         {/* Page Header */}
         <div className="space-y-6 max-w-3xl border-b border-neutral-200 dark:border-neutral-800 pb-16 fade-up-element">

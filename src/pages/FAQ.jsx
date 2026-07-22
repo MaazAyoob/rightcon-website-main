@@ -1,8 +1,10 @@
 import { useState } from "react";
+import MetallicElement from "../components/MetallicElement";
 
 export default function FAQ() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeIdx, setActiveIdx] = useState(null);
+
 
   const faqData = [
     {
@@ -43,8 +45,10 @@ export default function FAQ() {
   );
 
   return (
-    <div className="bg-white pt-32 pb-24 min-h-screen">
-      <div className="max-w-4xl mx-auto px-6 md:px-12 space-y-16">
+    <div className="relative bg-white dark:bg-charcoal text-charcoal dark:text-white pt-32 pb-24 min-h-screen transition-colors duration-300 overflow-hidden">
+      <MetallicElement variant="villa-gable" className="opacity-50 dark:opacity-75" />
+      <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-12 space-y-16">
+
         
         {/* Page Header */}
         <div className="space-y-4 max-w-3xl border-b border-neutral-100 pb-12">

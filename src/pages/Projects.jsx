@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { PROJECTS } from "../data/rightconData";
 import { Link } from "react-router-dom";
+import MetallicElement from "../components/MetallicElement";
 
 export default function Projects() {
   // Scroll reveal observer
@@ -25,8 +26,10 @@ export default function Projects() {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-charcoal text-charcoal dark:text-white pt-32 pb-32 min-h-screen transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-32">
+    <div className="relative bg-white dark:bg-charcoal text-charcoal dark:text-white pt-32 pb-32 min-h-screen transition-colors duration-300 overflow-hidden">
+      <MetallicElement variant="tower-skyline" className="opacity-50 dark:opacity-75" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-32">
+
         
         {/* Page Header */}
         <div className="space-y-6 max-w-3xl border-b border-neutral-200 dark:border-neutral-800 pb-16 fade-up-element">

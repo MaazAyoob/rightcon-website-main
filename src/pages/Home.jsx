@@ -1,771 +1,760 @@
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { PROJECTS, CONSTRUCTION_PROCESS, TESTIMONIALS, SERVICES } from "../data/rightconData";
+import { PROJECTS, CUSTOMER_STORIES } from "../data/rightconData";
 import BrandSignature from "../components/BrandSignature";
 import MetallicElement from "../components/MetallicElement";
+import ConsultationModal from "../components/ConsultationModal";
+import ProcessModal from "../components/ProcessModal";
+import PowerplayModal from "../components/PowerplayModal";
+import QualityChecksModal from "../components/QualityChecksModal";
+import VideoLightboxModal from "../components/VideoLightboxModal";
+import { useReveal } from "../motion/useReveal";
 
 export default function Home() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [activeJourney, setActiveJourney] = useState(0);
+  // Modal states
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [isProcessOpen, setIsProcessOpen] = useState(false);
+  const [isPowerplayOpen, setIsPowerplayOpen] = useState(false);
+  const [isQualityOpen, setIsQualityOpen] = useState(false);
+  
+  // Video Lightbox states
+  const [selectedStoryIndex, setSelectedStoryIndex] = useState(null);
+  const [isVideoLightboxOpen, setIsVideoLightboxOpen] = useState(false);
+
+  // Section 3: Journey active step state
+  const [activeJourneyStep, setActiveJourneyStep] = useState(0);
+
+  // Centralized once-only scroll reveals
+  useReveal(".fade-up-element, .fade-in-element, .scale-in-element");
 
 
-  // IntersectionObserver for scroll reveals
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
-    );
+  // Smooth scroll handler for Secondary CTA
+  const scrollToJourney = () => {
+    const section = document.getElementById("construction-journey");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-    const elements = document.querySelectorAll(".fade-up-element, .fade-in-element");
-    elements.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
-
-  const signatureProject = PROJECTS[0];
-
-  const clientJourneySteps = [
+  // Section 3: Your Construction Journey steps (Preserved Exactly from PRD)
+  const journeySteps = [
     {
-      phase: "PHASE 01",
-      title: "First Briefing",
-      desc: "Meeting at our Jayanagar headquarters to establish site parameters, target configurations, and spatial needs.",
+      stepNumber: "01",
+      title: "1. Consultation",
+      heading: "Consultation",
+      desc: "We understand your requirements, budget, lifestyle, and answer all your questions before getting started."
     },
     {
-      phase: "PHASE 02",
-      title: "Architectural Drafting",
-      desc: "Our in-house design studio drafts bespoke layout blueprints and compiles 3D facade renders.",
+      stepNumber: "02",
+      title: "2. Site Visit",
+      heading: "Site Visit",
+      desc: "Our team visits your site to understand the plot, surroundings, site conditions, and project requirements."
     },
     {
-      phase: "PHASE 03",
-      title: "Contract Cost Lock",
-      desc: "A comprehensive contract is signed, securing material grades and final project cost. No price escalations.",
+      stepNumber: "03",
+      title: "3. Design",
+      heading: "Design",
+      desc: "Our architects design a home that's tailored to your needs, balancing functionality, aesthetics, and your budget."
     },
     {
-      phase: "PHASE 04",
-      title: "Geotechnical Setup",
-      desc: "Soil bearing capacity checks, site marking, excavation plans, and structural logistics alignment.",
+      stepNumber: "04",
+      title: "4. Package / BOQ",
+      heading: "Package / BOQ",
+      desc: "Choose the approach that suits you best. Build with one of our carefully curated packages or opt for a customised BOQ with complete clarity on materials, specifications, quantities, and costs."
     },
     {
-      phase: "PHASE 05",
-      title: "Execution Logs",
-      desc: "Reinforcement audits, cement mix compression tests, and photo logs updated regularly on your client dashboard.",
+      stepNumber: "05",
+      title: "5. Agreement",
+      heading: "Agreement",
+      desc: "Once everything is finalized, we prepare the agreement, define the scope of work, and assign a dedicated project team to your home."
     },
     {
-      phase: "PHASE 06",
-      title: "Quality Book Clearance",
-      desc: "On-site engineers review our 150+ inspection checkpoints spanning structural, plumbing, and finish items.",
+      stepNumber: "06",
+      title: "6. Construction",
+      heading: "Construction",
+      desc: "Construction begins with structured planning, technology-driven project management, regular updates, and 150 documented quality checkpoints."
     },
     {
-      phase: "PHASE 07",
-      title: "Key Handover & Warranty",
-      desc: "Formal handover of project documents, keys, structural details, and the 10-Year Guarantee certificate.",
-    },
-  ];
-
-  const craftsmanshipMaterials = [
-    {
-      title: "Structural Concrete",
-      desc: "M30-grade design concrete mixes, cured systematically and tested for ultimate compression load capacity.",
-      image: "https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      title: "Reinforced Steel",
-      desc: "Primary Vizag Fe-550 TMT steel bars tied with structural offsets to manage building load distribution.",
-      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      title: "Waterproofing Envelopes",
-      desc: "Multi-layered elastomeric membranes applied to sumps, bathrooms, and terrace areas to prevent leaks.",
-      image: "https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      title: "Teakwood & Joinery",
-      desc: "Hand-selected, seasoned teakwood frames and premium cladding customized by experienced craftsmen.",
-      image: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?auto=format&fit=crop&w=800&q=80",
-    },
-  ];
-
-  const insights = [
-    {
-      title: "Concrete Compression Tiers in Residential Architecture",
-      cat: "Engineering Spec",
-      date: "July 2026",
-      readTime: "6 Min Read",
-      desc: "A structural guide explaining compression tests, concrete ratios, and curing schedules required for multi-level private frames.",
-    },
-    {
-      title: "The Courtyard Concept: Optimizing Urban Plots for Natural Light",
-      cat: "Architecture Design",
-      date: "June 2026",
-      readTime: "8 Min Read",
-      desc: "How structural light wells and open courtyards can reduce home temperatures while keeping inner living rooms private.",
-    },
-    {
-      title: "Why Turnkey Contracts Prevent Project Cost Escalation",
-      cat: "Management Log",
-      date: "May 2026",
-      readTime: "5 Min Read",
-      desc: "Analyzing material logistics, price indexes, and how systemized builders prevent budget overruns during execution.",
-    },
-  ];
-
-  const featuredResidences = PROJECTS.slice(1, 7);
-
-  const blogHighlights = [
-    {
-      id: "what-is-pcc-in-construction-step-by-step-process",
-      title: "What is PCC in Construction? Step-by-Step Process",
-      cat: "Construction Materials",
-      date: "May 2026",
-      desc: "Plain Cement Concrete (PCC) forms the essential bed foundation before structural steel placement. Learn the ideal ratio and curing times."
-    },
-    {
-      id: "cement-for-house-construction",
-      title: "Best Cement for House Construction in India",
-      cat: "House Construction",
-      date: "May 2026",
-      desc: "Comparing 53-grade OPC, PPC, and PSC cement types to ensure optimum structural load capability and moisture barrier protection."
-    },
-    {
-      id: "house-construction-process",
-      title: "Step-By-Step House Construction Process in Bangalore",
-      cat: "Engineering Guides",
-      date: "May 2026",
-      desc: "From soil bearing test to BBMP approval, framing, slab casting, and turnkey handover. A complete homeowner playbook."
+      stepNumber: "07",
+      title: "7. Handover",
+      heading: "Handover",
+      desc: "After final inspections and quality approvals, we hand over your completed home along with the necessary documentation."
     }
   ];
+
+  // Dynamic Featured Projects from Dataset
+  const featuredProjects = PROJECTS.slice(0, 3);
+
+  // Dynamic Customer Stories from Dataset
+  const customerStories = CUSTOMER_STORIES;
+
+  // Video Lightbox Navigation
+  const handleOpenStory = (index) => {
+    setSelectedStoryIndex(index);
+    setIsVideoLightboxOpen(true);
+  };
+
+  const handleNextStory = () => {
+    if (selectedStoryIndex !== null) {
+      setSelectedStoryIndex((selectedStoryIndex + 1) % customerStories.length);
+    }
+  };
 
   return (
     <div className="space-y-0 text-charcoal dark:text-white bg-white dark:bg-charcoal font-sans antialiased overflow-x-hidden transition-colors duration-300">
       
-      {/* 1. HERO EXPERIENCE */}
-      <section className="relative min-h-screen flex flex-col justify-between bg-white dark:bg-charcoal text-charcoal dark:text-white transition-colors duration-300 overflow-hidden border-b border-neutral-200 dark:border-neutral-800">
-        
-        {/* RIGHTCON 3.2 — Metallic Chrome Sculpture Accent */}
-        <MetallicElement variant="hero-sculpture" />
-
-        {/*
-          Content wrapper:
-          - pt-28 clears the fixed navbar
-          - pb-12 keeps it from pressing into the trust bar at the bottom
-        */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 w-full pt-32 pb-12 flex-1 flex flex-col justify-center">
-          <div className="space-y-5 md:space-y-8 max-w-5xl">
-
-            {/* Tagline + architectural underline */}
-            <div className="flex flex-col items-start gap-2 animate-hero-tagline">
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-brand-blue dark:text-gold font-semibold whitespace-nowrap">
-                BUILDING PEACE OF MIND
-              </span>
-              <BrandSignature />
-            </div>
-
-            <h1 className="font-display font-bold text-4xl sm:text-6xl md:text-[72px] lg:text-[80px] tracking-tight leading-[1.08] text-charcoal dark:text-white animate-hero-title">
-              Engineering homes <br className="hidden sm:block" />
-              with absolute certainty.
-            </h1>
-
-            <p className="text-neutral-600 dark:text-neutral-300 text-sm md:text-base font-light max-w-2xl leading-relaxed animate-hero-desc">
-              Single-point civil accountability. Transparent processes.<br />
-              Timeless craftsmanship. Peace of mind, from foundation to finish.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 animate-hero-cta pt-2">
-              <Link
-                to="/projects"
-                className="font-mono text-[11px] uppercase tracking-[0.18em] text-white bg-brand-blue border border-brand-blue hover:bg-gold hover:text-charcoal hover:border-gold dark:bg-gold dark:text-charcoal dark:border-gold dark:hover:bg-white dark:hover:text-charcoal px-6 sm:px-8 py-4 transition-all duration-300 font-semibold flex items-center space-x-2 w-full sm:w-auto justify-center sm:justify-start shadow-sm"
-              >
-                <span>EXPLORE OUR WORK</span>
-                <span>→</span>
-              </Link>
-              <Link
-                to="/about"
-                className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-blue dark:text-gold hover:text-charcoal dark:hover:text-white pb-1 border-b border-brand-blue/30 dark:border-gold/30 hover:border-charcoal dark:hover:border-white transition-all duration-300 flex items-center space-x-2 self-center font-medium"
-              >
-                <span>OUR APPROACH</span>
-                <span>→</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Hero Trust Bar */}
-        <div className="relative z-20 pb-12 w-full pointer-events-auto hidden lg:block">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
-            <div className="grid grid-cols-5 gap-4 pt-6 border-t border-neutral-200 dark:border-white/15 text-[9px] font-mono text-neutral-600 dark:text-neutral-300 uppercase tracking-[0.16em]">
-              <div className="flex items-center space-x-3.5">
-                <svg className="w-4.5 h-4.5 text-brand-blue dark:text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                <span>FIXED COST CONTRACT</span>
-              </div>
-              <div className="flex items-center space-x-3.5 border-l border-neutral-200 dark:border-white/15 pl-6">
-                <svg className="w-4.5 h-4.5 text-brand-blue dark:text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span>TIMELINE COMMITMENT</span>
-              </div>
-              <div className="flex items-center space-x-3.5 border-l border-neutral-200 dark:border-white/15 pl-6">
-                <svg className="w-4.5 h-4.5 text-brand-blue dark:text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <span>QUALITY INSPECTIONS</span>
-              </div>
-              <div className="flex items-center space-x-3.5 border-l border-neutral-200 dark:border-white/15 pl-6">
-                <svg className="w-4.5 h-4.5 text-brand-blue dark:text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                <span>DEDICATED PROJECT MANAGER</span>
-              </div>
-              <div className="flex items-center space-x-3.5 border-l border-neutral-200 dark:border-white/15 pl-6">
-                <svg className="w-4.5 h-4.5 text-brand-blue dark:text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                <span>10 YEAR STRUCTURAL WARRANTY</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. METRICS */}
-      <section className="bg-[#F4F2EC] dark:bg-neutral-900 text-charcoal dark:text-white py-16 md:py-28 relative border-b border-neutral-200/40 dark:border-neutral-800 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-y-10 md:gap-x-4">
+      {/* ==================================================
+          SECTION 1: HERO SECTION
+          ================================================== */}
+      <section 
+        aria-label="Hero Section"
+        className="relative min-h-[650px] md:min-h-screen flex flex-col justify-between bg-white dark:bg-charcoal text-charcoal dark:text-white transition-colors duration-300 overflow-hidden border-b border-neutral-200 dark:border-neutral-800"
+      >
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 w-full pt-36 pb-20 flex-1 flex flex-col justify-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            <div className="flex flex-col items-center text-center space-y-2 fade-up-element">
-              <h3 className="text-4xl md:text-6xl font-serif font-light text-charcoal dark:text-white">12+</h3>
-              <span className="font-mono text-[9px] text-neutral-600 dark:text-neutral-400 uppercase tracking-[0.18em]">
-                YEARS OF<br />EXPERIENCE
-              </span>
-            </div>
+            {/* Left Content Column */}
+            <div className="lg:col-span-7 space-y-6 md:space-y-8">
+              {/* Eyebrow Tag + Brand Signature */}
+              <div className="flex flex-col items-start gap-3 animate-hero-tagline">
+                <span className="font-mono text-xs uppercase tracking-[0.25em] text-brand-blue dark:text-gold font-semibold whitespace-nowrap">
+                  BUILDING PEACE OF MIND
+                </span>
+                <BrandSignature />
+              </div>
 
-            <div className="flex flex-col items-center text-center space-y-2 md:border-l md:border-neutral-300/40 dark:md:border-neutral-800 md:pl-4 fade-up-element" style={{ transitionDelay: "100ms" }}>
-              <h3 className="text-4xl md:text-6xl font-serif font-light text-charcoal dark:text-white">100+</h3>
-              <span className="font-mono text-[9px] text-neutral-600 dark:text-neutral-400 uppercase tracking-[0.18em]">
-                LUXURY HOMES<br />COMPLETED
-              </span>
-            </div>
+              {/* H1 Headline (Preserved Exactly from PRD) */}
+              <h1 className="font-display font-bold text-4xl sm:text-6xl md:text-[64px] lg:text-[72px] tracking-tight leading-[1.06] text-charcoal dark:text-white animate-hero-title">
+                Building a home <br className="hidden sm:block" />
+                shouldn't be stressful.
+              </h1>
 
-            <div className="flex flex-col items-center text-center space-y-2 md:border-l md:border-neutral-300/40 dark:md:border-neutral-800 md:pl-4 fade-up-element" style={{ transitionDelay: "200ms" }}>
-              <h3 className="text-4xl md:text-6xl font-serif font-light text-charcoal dark:text-white">1</h3>
-              <span className="font-mono text-[9px] text-neutral-600 dark:text-neutral-400 uppercase tracking-[0.18em]">
-                SINGLE POINT<br />ACCOUNTABILITY
-              </span>
-            </div>
-
-            <div className="flex flex-col items-center text-center space-y-2 md:border-l md:border-neutral-300/40 dark:md:border-neutral-800 md:pl-4 fade-up-element" style={{ transitionDelay: "300ms" }}>
-              <h3 className="text-4xl md:text-6xl font-serif font-light text-charcoal dark:text-white">10</h3>
-              <span className="font-mono text-[9px] text-neutral-600 dark:text-neutral-400 uppercase tracking-[0.18em]">
-                YEAR STRUCTURAL<br />WARRANTY
-              </span>
-            </div>
-
-            <div className="flex flex-col items-center text-center space-y-2 md:border-l md:border-neutral-300/40 dark:md:border-neutral-800 md:pl-4 fade-up-element col-span-2 md:col-span-1" style={{ transitionDelay: "400ms" }}>
-              <h3 className="text-4xl md:text-6xl font-serif font-light text-charcoal dark:text-white">100%</h3>
-              <span className="font-mono text-[9px] text-neutral-600 dark:text-neutral-400 uppercase tracking-[0.18em]">
-                TRANSPARENT<br />PROCESSES
-              </span>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 3. CENTERPIECE STATEMENT */}
-      <section className="relative bg-white dark:bg-charcoal text-charcoal dark:text-white overflow-hidden py-24 md:py-32 flex items-center justify-center transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 w-full">
-          <div className="text-center space-y-4 max-w-3xl mx-auto fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold block font-semibold">OUR PURPOSE</span>
-            <h2 className="font-display font-light text-4xl sm:text-6xl md:text-8xl text-charcoal dark:text-white uppercase tracking-tight leading-none">
-              Building homes <br />
-              families never want <br />
-              to leave.
-            </h2>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. SIGNATURE PROJECT MOMENT */}
-      <section className="bg-neutral-50 dark:bg-neutral-900 text-charcoal dark:text-white py-24 md:py-32 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800">
-        
-        {/* RIGHTCON 3.3 — Architectural Steel Ribbon Sculpture */}
-        <MetallicElement variant="signature-arc" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16 relative z-10">
-          
-          {/* Headline focusing on core trust / experience feel */}
-          <div className="space-y-4 max-w-3xl fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold block font-semibold">EMOTIONAL CENTERPIECE</span>
-            <h2 className="font-display font-light text-4xl md:text-6xl text-charcoal dark:text-white uppercase tracking-tight leading-tight">
-              A sanctuary of light <br />& absolute quiet.
-            </h2>
-            <p className="text-neutral-600 dark:text-neutral-300 text-sm md:text-base leading-relaxed font-light max-w-xl">
-              We constructed Sudheendra Residency not merely as a modern G+2 structure, but to solve an architectural puzzle: creating a quiet, sun-drenched sanctuary of peace for the family.
-            </p>
-          </div>
-
-          {/* Full viewport project image frame with slow transition zoom */}
-          <div className="w-full aspect-[16/9] hover-zoom fade-up-element relative border border-neutral-200 dark:border-neutral-800 rounded-sm">
-            <img 
-              src={signatureProject.image} 
-              alt={signatureProject.title} 
-              className="w-full h-full object-cover transition-editorial"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
-            
-            <div className="absolute bottom-6 right-6 md:bottom-12 md:right-12 text-right text-white font-mono text-[9px] uppercase tracking-widest leading-relaxed hidden sm:block drop-shadow-md">
-              <span>Location: Bannerghatta Road, Bangalore</span><br />
-              <span>Scale: {signatureProject.builtUpArea} // G+2 Estate</span>
-            </div>
-          </div>
-
-          {/* Equal 6/6 split — label+title left, body+link right */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start pt-8">
-            <div className="space-y-6 fade-up-element">
-              <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">01 / ARCHITECTURE FOR TRUST</span>
-              <h3 className="font-display font-light text-3xl text-charcoal dark:text-white tracking-tight leading-tight">
-                Building to last a century.
-              </h3>
-            </div>
-
-            <div className="space-y-8 text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light leading-relaxed fade-up-element" style={{ transitionDelay: "150ms" }}>
-              <p>
-                Prospective homeowners seek one fundamental resolution: that their foundation will remain rock-solid for generations. Our engineers mapped the soil integrity, cast reinforced columns using high-grade Vizag Fe-550 steel, and logged every concrete mix pour to guarantee peace of mind.
-              </p>
-              <p>
-                Behind the double-height visual volumes and the custom teak timber cladding lies a structural framework engineered to withstand urban vibrations and elements, backed by our contract stability lock.
+              {/* Lead Paragraph Subheading (Preserved Exactly from PRD) */}
+              <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg font-light max-w-[62ch] leading-relaxed animate-hero-desc">
+                We'll help you understand the cost, the process, and every decision before construction begins, so you can build with confidence.
               </p>
 
-              <div>
-                <Link
-                  to={`/projects/${signatureProject.id}`}
-                  className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold border-b border-brand-blue/30 dark:border-gold/30 pb-1 hover:text-charcoal dark:hover:text-white hover:border-charcoal dark:hover:border-white transition-editorial font-semibold"
-                >
-                  Read the Sudheendra Casing Story →
-                </Link>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 5. SERVICES */}
-      <section className="bg-white dark:bg-charcoal text-charcoal dark:text-white py-20 md:py-28 relative transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
-          <div className="space-y-4 max-w-2xl border-b border-neutral-200 dark:border-neutral-800 pb-8 fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold block font-semibold">WHAT WE DELIVER</span>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal dark:text-white uppercase tracking-tight">
-              Construction Capabilities
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-            {SERVICES.map((service, index) => (
-              <div
-                key={service.id}
-                className="flex flex-col gap-8 fade-up-element"
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                {/* Photo Frame */}
-                <div className="w-full aspect-[16/10] bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 relative group hover-zoom rounded-sm">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover transition-editorial"
-                  />
-                </div>
-
-                {/* Information Panel */}
-                <div className="space-y-4">
-                  <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">
-                    0{index + 1} / {service.subtitle}
-                  </span>
-                  <h3 className="font-display font-medium text-2xl text-charcoal dark:text-white tracking-tight">
-                    {service.title}
-                  </h3>
-                  <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-light">
-                    {service.description}
-                  </p>
-                  <Link
-                    to={`/services/${service.id}`}
-                    className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold border-b border-brand-blue/30 dark:border-gold/30 pb-1 hover:text-charcoal dark:hover:text-white hover:border-charcoal dark:hover:border-white transition-editorial inline-block font-semibold"
-                  >
-                    Examine Specifications →
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. WHY RIGHTCON */}
-      <section className="bg-grain dark:bg-neutral-900 text-charcoal dark:text-white py-20 md:py-28 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 relative z-10">
-          {/* Equal 6/6 split — heading left, pillars right */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
-
-            {/* Left: statement */}
-            <div className="space-y-8 lg:sticky top-32 fade-up-element">
-              <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold block font-semibold">ENGINEERING ADVANTAGE</span>
-              <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal dark:text-white uppercase leading-tight tracking-tight">
-                Why construct <br />
-                with Rightcon?
-              </h2>
-              <p className="text-neutral-600 dark:text-neutral-300 font-light text-sm md:text-base leading-relaxed">
-                We replace traditional contractor approximations with professional structural engineering, locked contracts, and radical visual transparency logs.
-              </p>
-            </div>
-
-            {/* Right: trust pillars */}
-            <div className="space-y-12">
-
-              <div className="space-y-3 fade-up-element">
-                <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">01 / STRUCTURAL ACCOUNTABILITY</span>
-                <h3 className="font-display font-medium text-xl text-charcoal dark:text-white">
-                  Direct structural audits on steel and concrete.
-                </h3>
-                <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-light">
-                  Our in-house structural engineers check steel detailing and concrete mix ratios, guaranteeing safety that warrants a ten-year stability guarantee.
-                </p>
-              </div>
-
-              <div className="space-y-3 fade-up-element">
-                <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">02 / RADICAL COST LOCKING</span>
-                <h3 className="font-display font-medium text-xl text-charcoal dark:text-white">
-                  Comprehensive budget transparency without escalations.
-                </h3>
-                <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-light">
-                  Our estimation protocols itemize every structural footprint, binding the final cost by contract before groundbreaking to prevent mid-project surprises.
-                </p>
-              </div>
-
-              <div className="space-y-3 fade-up-element">
-                <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">03 / REAL-TIME PORTAL LOGS</span>
-                <h3 className="font-display font-medium text-xl text-charcoal dark:text-white">
-                  Digital timeline logs directly to your dashboard.
-                </h3>
-                <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-light">
-                  Homeowners trace execution progress from anywhere, receiving regular photos, cement pour summaries, and curing metrics directly to their screen.
-                </p>
-              </div>
-
-              <div className="space-y-3 fade-up-element">
-                <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">04 / CONTROLLED EXECUTION</span>
-                <h3 className="font-display font-medium text-xl text-charcoal dark:text-white">
-                  Zero contractor subcontracting leakage.
-                </h3>
-                <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-light">
-                  All framing, masonry, and custom joinery trades are executed directly by our in-house teams under single-point corporate accountability.
-                </p>
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 7. CONSTRUCTION JOURNEY */}
-      <section className="bg-white dark:bg-charcoal text-charcoal dark:text-white py-20 md:py-28 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16 relative z-10">
-          <div className="space-y-4 fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold block font-semibold">THE ROADMAP</span>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal dark:text-white uppercase tracking-tight">
-              The Construction Journey
-            </h2>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-16">
-            {/* Step list left */}
-            <div className="w-full lg:w-1/3 flex flex-row lg:flex-col overflow-x-auto lg:overflow-x-visible border-b lg:border-b-0 lg:border-r border-neutral-200 dark:border-neutral-800 pb-4 lg:pb-0 lg:pr-8 scrollbar-none gap-2 fade-up-element">
-              {CONSTRUCTION_PROCESS.map((proc, index) => (
+              {/* Action Buttons Container */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4 animate-hero-cta">
+                {/* Primary CTA (Black Anodized Aluminium with subtle hairline light reflection sweep) */}
                 <button
-                  key={proc.step}
-                  onClick={() => setActiveStep(index)}
-                  className={`text-left font-mono text-xs uppercase tracking-wider py-4 px-4 border-l-2 whitespace-nowrap lg:whitespace-normal transition-editorial cursor-pointer ${
-                    activeStep === index
-                      ? "text-brand-blue dark:text-gold border-brand-blue dark:border-gold font-medium bg-brand-blue/5 dark:bg-gold/10"
-                      : "text-neutral-500 dark:text-neutral-400 border-transparent hover:text-charcoal dark:hover:text-white"
-                  }`}
+                  onClick={() => setIsConsultationOpen(true)}
+                  className="btn-anodized-black min-h-[48px] cursor-pointer focus-visible:ring-2 focus-visible:ring-gold"
+                  aria-label="Book a Free Consultation"
                 >
-                  Phase {proc.step} // {proc.phase}
+                  <span>Book a Free Consultation</span>
+                  <span className="ml-2">→</span>
                 </button>
+
+                {/* Secondary CTA (Minimal Outline) */}
+                <button
+                  onClick={scrollToJourney}
+                  className="font-mono text-xs uppercase tracking-[0.18em] text-brand-blue dark:text-gold border border-brand-blue/30 dark:border-gold/30 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:border-brand-blue dark:hover:border-gold px-8 py-4 transition-all duration-300 font-semibold flex items-center justify-center space-x-2 min-h-[48px] cursor-pointer rounded-xs focus-visible:ring-2 focus-visible:ring-brand-blue dark:focus-visible:ring-gold"
+                  aria-label="See How We Work"
+                >
+                  <span>See How We Work</span>
+                  <span>↓</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Architectural Photography Showcase (Mounted Photo Frame) */}
+            <div className="lg:col-span-5 hidden lg:block animate-hero-desc">
+              <div className="mounted-photo-frame aspect-[4/5] overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" 
+                  alt="Rightcon Architectural Estate Entrance" 
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+                />
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Bottom Architectural Trust Metrics Bar */}
+        <div className="relative z-20 pb-12 w-full hidden lg:block border-t border-neutral-200 dark:border-neutral-800 pt-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
+            <div className="grid grid-cols-4 gap-6 text-[10px] font-mono text-neutral-600 dark:text-neutral-300 uppercase tracking-[0.18em]">
+              <div className="flex items-center space-x-3">
+                <span className="w-2 h-2 rounded-full bg-brand-blue dark:bg-gold flex-shrink-0"></span>
+                <span>BOQ-FIRST COST CLARITY</span>
+              </div>
+              <div className="flex items-center space-x-3 border-l border-neutral-200 dark:border-neutral-800 pl-6">
+                <span className="w-2 h-2 rounded-full bg-brand-blue dark:bg-gold flex-shrink-0"></span>
+                <span>POWERPLAY TECH DASHBOARD</span>
+              </div>
+              <div className="flex items-center space-x-3 border-l border-neutral-200 dark:border-neutral-800 pl-6">
+                <span className="w-2 h-2 rounded-full bg-brand-blue dark:bg-gold flex-shrink-0"></span>
+                <span>150 DOCUMENTED AUDITS</span>
+              </div>
+              <div className="flex items-center space-x-3 border-l border-neutral-200 dark:border-neutral-800 pl-6">
+                <span className="w-2 h-2 rounded-full bg-brand-blue dark:bg-gold flex-shrink-0"></span>
+                <span>10-YEAR STRUCTURAL BOND</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Architectural Shadow Gap Divider */}
+      <div className="architectural-shadow-gap" />
+
+      {/* ==================================================
+          SECTION 2: WHY HOMEOWNERS CHOOSE RIGHTCON
+          ================================================== */}
+      <section 
+        aria-label="Why Homeowners Choose Rightcon"
+        className="bg-neutral-50 dark:bg-neutral-900 text-charcoal dark:text-white py-24 md:py-32 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800"
+      >
+
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 space-y-16 relative z-10">
+          
+          {/* Section Header (Preserved Exactly from PRD) */}
+          <div className="space-y-4 max-w-3xl fade-up-element">
+            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold font-semibold block">
+              THE RIGHTCON DIFFERENCE
+            </span>
+            <h2 className="font-display font-bold text-3xl md:text-5xl text-charcoal dark:text-white tracking-tight">
+              Why Homeowners Choose Rightcon
+            </h2>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base font-light leading-relaxed max-w-[65ch]">
+              Building a home is one of the biggest decisions you'll ever make. We've built our entire process to make it clear, transparent, and stress-free from day one.
+            </p>
+          </div>
+
+          {/* 6 Responsive Cards (2x3 Grid on Desktop, 1-Column on Mobile) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            {/* Card 1: BOQ-First Construction */}
+            <div className="bg-white dark:bg-neutral-800/90 p-8 border border-neutral-200 dark:border-neutral-700/80 hover:border-brand-blue/40 dark:hover:border-gold/40 hover:-translate-y-1.5 shadow-sm hover:shadow-xl transition-all duration-300 group rounded-xs flex flex-col justify-between fade-up-element">
+              <div className="space-y-4">
+                <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">01 / SPECIFICATION</span>
+                <h3 className="font-display font-bold text-xl text-charcoal dark:text-white group-hover:text-brand-blue dark:group-hover:text-gold transition-colors">
+                  BOQ-First Construction
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light leading-relaxed">
+                  Every home is unique. That's why we begin with a detailed BOQ, giving you complete clarity on materials, specifications, quantities, and costs before construction begins.
+                </p>
+              </div>
+              <div className="pt-6 border-t border-neutral-100 dark:border-neutral-700/60 mt-6 flex items-center justify-between text-xs font-mono text-neutral-400">
+                <span>Material & Cost Lock</span>
+                <span className="text-brand-blue dark:text-gold font-bold">100% Fixed</span>
+              </div>
+            </div>
+
+            {/* Card 2: Two Carefully Curated Packages */}
+            <div className="bg-white dark:bg-neutral-800/90 p-8 border border-neutral-200 dark:border-neutral-700/80 hover:border-brand-blue/40 dark:hover:border-gold/40 hover:-translate-y-1.5 shadow-sm hover:shadow-xl transition-all duration-300 group rounded-xs flex flex-col justify-between fade-up-element" style={{ transitionDelay: "100ms" }}>
+              <div className="space-y-4">
+                <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">02 / FLEXIBILITY</span>
+                <h3 className="font-display font-bold text-xl text-charcoal dark:text-white group-hover:text-brand-blue dark:group-hover:text-gold transition-colors">
+                  Two Carefully Curated Packages
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light leading-relaxed">
+                  Choose from our two thoughtfully designed construction packages or build your home with a customised BOQ approach.
+                </p>
+              </div>
+              <div className="pt-6 border-t border-neutral-100 dark:border-neutral-700/60 mt-6 flex items-center justify-between text-xs font-mono text-neutral-400">
+                <span>Custom or Curated</span>
+                <span className="text-brand-blue dark:text-gold font-bold">Tailored Specs</span>
+              </div>
+            </div>
+
+            {/* Card 3: Dedicated Team */}
+            <div className="bg-white dark:bg-neutral-800/90 p-8 border border-neutral-200 dark:border-neutral-700/80 hover:border-brand-blue/40 dark:hover:border-gold/40 hover:-translate-y-1.5 shadow-sm hover:shadow-xl transition-all duration-300 group rounded-xs flex flex-col justify-between fade-up-element" style={{ transitionDelay: "200ms" }}>
+              <div className="space-y-4">
+                <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">03 / EXPERT GOVERNANCE</span>
+                <h3 className="font-display font-bold text-xl text-charcoal dark:text-white group-hover:text-brand-blue dark:group-hover:text-gold transition-colors">
+                  Dedicated Team
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light leading-relaxed">
+                  Every project is managed by a dedicated team of architects, engineers, project managers, and site engineers working together from design to handover.
+                </p>
+              </div>
+              <div className="pt-6 border-t border-neutral-100 dark:border-neutral-700/60 mt-6 flex items-center justify-between text-xs font-mono text-neutral-400">
+                <span>In-House Specialists</span>
+                <span className="text-brand-blue dark:text-gold font-bold">Zero Subcontracting</span>
+              </div>
+            </div>
+
+            {/* Card 4: Proven Construction Process (Interactive Timeline Modal On Click) */}
+            <button
+              onClick={() => setIsProcessOpen(true)}
+              className="bg-white dark:bg-neutral-800/90 p-8 border border-neutral-200 dark:border-neutral-700/80 hover:border-brand-blue dark:hover:border-gold hover:-translate-y-1.5 shadow-sm hover:shadow-xl transition-all duration-300 group rounded-xs flex flex-col justify-between text-left cursor-pointer fade-up-element focus-visible:ring-2 focus-visible:ring-brand-blue dark:focus-visible:ring-gold"
+              style={{ transitionDelay: "300ms" }}
+              aria-label="Open Proven Construction Process Modal"
+            >
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest font-semibold">04 / WORKFLOW</span>
+                  <span className="px-2 py-0.5 text-[9px] font-mono bg-brand-blue/10 dark:bg-gold/10 text-brand-blue dark:text-gold rounded border border-brand-blue/20 dark:border-gold/20">INTERACTIVE TIMELINE</span>
+                </div>
+                <h3 className="font-display font-bold text-xl text-charcoal dark:text-white group-hover:text-brand-blue dark:group-hover:text-gold transition-colors">
+                  Proven Construction Process
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light leading-relaxed">
+                  Every project follows a structured construction journey with dedicated meetings, technical reviews, site studies, and milestone-based execution.
+                </p>
+              </div>
+              <div className="pt-6 border-t border-neutral-100 dark:border-neutral-700/60 mt-6 flex items-center justify-between text-xs font-mono text-brand-blue dark:text-gold font-semibold">
+                <span>Explore Timeline Modal</span>
+                <span className="group-hover:translate-x-1 transition-transform">View Stages →</span>
+              </div>
+            </button>
+
+            {/* Card 5: Technology Driven (Interactive Powerplay Modal On Click) */}
+            <button 
+              onClick={() => setIsPowerplayOpen(true)}
+              className="bg-white dark:bg-neutral-800/90 p-8 border border-neutral-200 dark:border-neutral-700/80 hover:border-brand-blue dark:hover:border-gold hover:-translate-y-1.5 shadow-sm hover:shadow-xl transition-all duration-300 group rounded-xs flex flex-col justify-between text-left cursor-pointer fade-up-element focus-visible:ring-2 focus-visible:ring-brand-blue dark:focus-visible:ring-gold"
+              style={{ transitionDelay: "400ms" }}
+              aria-label="Open Powerplay Technology Portal Modal"
+            >
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest font-semibold">05 / DIGITAL INTEGRATION</span>
+                  <span className="px-2 py-0.5 text-[9px] font-mono bg-brand-blue/10 dark:bg-gold/10 text-brand-blue dark:text-gold rounded border border-brand-blue/20 dark:border-gold/20">POWERPLAY PORTAL</span>
+                </div>
+                <h3 className="font-display font-bold text-xl text-charcoal dark:text-white group-hover:text-brand-blue dark:group-hover:text-gold transition-colors">
+                  Technology Driven
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light leading-relaxed">
+                  We use Powerplay to manage project progress, procurement, purchase lifecycle, approvals, timelines, and team coordination, keeping every project organised and on track.
+                </p>
+              </div>
+              <div className="pt-6 border-t border-neutral-100 dark:border-neutral-700/60 mt-6 flex items-center justify-between text-xs font-mono text-brand-blue dark:text-gold font-semibold">
+                <span>Preview Powerplay Dashboard</span>
+                <span className="group-hover:translate-x-1 transition-transform">Launch Portal →</span>
+              </div>
+            </button>
+
+            {/* Card 6: 150 Documented Quality Checks (Interactive Checklist Modal On Click) */}
+            <button 
+              onClick={() => setIsQualityOpen(true)}
+              className="bg-white dark:bg-neutral-800/90 p-8 border border-neutral-200 dark:border-neutral-700/80 hover:border-brand-blue dark:hover:border-gold hover:-translate-y-1.5 shadow-sm hover:shadow-xl transition-all duration-300 group rounded-xs flex flex-col justify-between text-left cursor-pointer fade-up-element focus-visible:ring-2 focus-visible:ring-brand-blue dark:focus-visible:ring-gold"
+              style={{ transitionDelay: "500ms" }}
+              aria-label="Open 150 Quality Checks Modal"
+            >
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest font-semibold">06 / ENGINEERING RIGOR</span>
+                  <span className="px-2 py-0.5 text-[9px] font-mono bg-brand-blue/10 dark:bg-gold/10 text-brand-blue dark:text-gold rounded border border-brand-blue/20 dark:border-gold/20">150 CHECKPOINTS</span>
+                </div>
+                <h3 className="font-display font-bold text-xl text-charcoal dark:text-white group-hover:text-brand-blue dark:group-hover:text-gold transition-colors">
+                  150 Documented Quality Checks
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light leading-relaxed">
+                  Our engineers follow 150 documented quality checkpoints across every stage of construction to ensure your home is built the right way.
+                </p>
+              </div>
+              <div className="pt-6 border-t border-neutral-100 dark:border-neutral-700/60 mt-6 flex items-center justify-between text-xs font-mono text-brand-blue dark:text-gold font-semibold">
+                <span>View Quality Checklist</span>
+                <span className="group-hover:translate-x-1 transition-transform">Open Audits →</span>
+              </div>
+            </button>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ==================================================
+          SECTION 3: YOUR CONSTRUCTION JOURNEY
+          ================================================== */}
+      <section 
+        id="construction-journey"
+        aria-label="Your Construction Journey"
+        className="bg-white dark:bg-charcoal text-charcoal dark:text-white py-24 md:py-32 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 space-y-16 relative z-10">
+          
+          <div className="space-y-4 max-w-3xl fade-up-element">
+            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold font-semibold block">
+              SEQUENTIAL ROADMAP
+            </span>
+            <h2 className="font-display font-bold text-3xl md:text-5xl text-charcoal dark:text-white tracking-tight">
+              Your Construction Journey
+            </h2>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base font-light leading-relaxed max-w-[65ch]">
+              Walk through the sequential process of building with Rightcon, instilling confidence and transparency at every step.
+            </p>
+          </div>
+
+          {/* Stepper Container — Responsive Desktop Horizontal Stepper + Mobile Vertical Timeline Ladder */}
+          <div className="space-y-12">
+            
+            {/* Desktop Horizontal Stepper Bar */}
+            <div className="hidden lg:block border-b border-neutral-200 dark:border-neutral-800 pb-8 fade-up-element">
+              <div className="grid grid-cols-7 gap-2 relative">
+                {/* Structural Steel I-Beam Track Line */}
+                <div className="absolute top-1/2 left-0 right-0 structural-beam-track -translate-y-1/2 z-0"></div>
+
+                {journeySteps.map((step, idx) => {
+                  const isActive = activeJourneyStep === idx;
+                  return (
+                    <button
+                      key={step.stepNumber}
+                      onClick={() => setActiveJourneyStep(idx)}
+                      className="relative z-10 flex flex-col items-center text-center space-y-3 cursor-pointer group transition-all focus-visible:ring-2 focus-visible:ring-brand-blue dark:focus-visible:ring-gold rounded"
+                      aria-label={`Select Stage ${step.stepNumber}: ${step.heading}`}
+                    >
+                      <div 
+                        className={`w-10 h-10 rounded-full flex items-center justify-center font-mono text-xs font-bold transition-all duration-300 ${
+                          isActive
+                            ? "bg-brand-blue text-white dark:bg-gold dark:text-charcoal scale-110 shadow-lg ring-4 ring-brand-blue/20 dark:ring-gold/20"
+                            : "bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-neutral-500 group-hover:border-brand-blue dark:group-hover:border-gold group-hover:text-charcoal dark:group-hover:text-white"
+                        }`}
+                      >
+                        {step.stepNumber}
+                      </div>
+                      <span className={`font-display text-xs font-medium uppercase tracking-wider transition-colors ${
+                        isActive
+                          ? "text-brand-blue dark:text-gold font-bold"
+                          : "text-neutral-500 group-hover:text-charcoal dark:group-hover:text-white"
+                      }`}>
+                        {step.heading}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Selected Journey Step Detail Display Card (Desktop & Tablet) */}
+            <div className="hidden md:block bg-neutral-50 dark:bg-neutral-900 p-8 md:p-12 border border-neutral-200 dark:border-neutral-800 rounded-xs relative fade-up-element">
+              <div className="space-y-4 max-w-3xl">
+                <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest font-semibold block">
+                  STAGE {journeySteps[activeJourneyStep].stepNumber} // {journeySteps[activeJourneyStep].heading}
+                </span>
+                <h3 className="font-display font-bold text-2xl md:text-3xl text-charcoal dark:text-white">
+                  {journeySteps[activeJourneyStep].title}
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-300 text-base leading-relaxed font-light max-w-[65ch]">
+                  {journeySteps[activeJourneyStep].desc}
+                </p>
+              </div>
+
+              <div className="pt-8 border-t border-neutral-200 dark:border-neutral-800/80 flex items-center justify-between text-xs font-mono text-neutral-500 mt-8">
+                <span>Stage Milestone Quality Clearance</span>
+                <span className="text-brand-blue dark:text-gold font-semibold">100% Documented</span>
+              </div>
+            </div>
+
+            {/* Mobile Vertical Timeline Ladder Layout (Stacked Single-Column) */}
+            <div className="block md:hidden space-y-6">
+              {journeySteps.map((step) => (
+                <div 
+                  key={step.stepNumber}
+                  className="p-6 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xs space-y-3"
+                >
+                  <div className="flex items-center space-x-3">
+                    <span className="w-8 h-8 rounded-full bg-brand-blue text-white dark:bg-gold dark:text-charcoal font-mono text-xs font-bold flex items-center justify-center flex-shrink-0">
+                      {step.stepNumber}
+                    </span>
+                    <h3 className="font-display font-bold text-lg text-charcoal dark:text-white">
+                      {step.title}
+                    </h3>
+                  </div>
+                  <p className="text-xs text-neutral-600 dark:text-neutral-300 font-light leading-relaxed pl-11">
+                    {step.desc}
+                  </p>
+                </div>
               ))}
             </div>
 
-            {/* Display card right */}
-            <div className="w-full lg:w-2/3 bg-neutral-50 dark:bg-neutral-900 p-8 md:p-16 border border-neutral-200 dark:border-neutral-800 flex flex-col justify-between min-h-[350px] relative fade-up-element rounded-sm" style={{ transitionDelay: "150ms" }}>
-              <div className="space-y-6 pt-4">
-                <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-medium">
-                  PHASE {CONSTRUCTION_PROCESS[activeStep].step}
-                </span>
-                <h3 className="font-display font-light text-3xl md:text-4xl text-charcoal dark:text-white leading-tight">
-                  {CONSTRUCTION_PROCESS[activeStep].headline}
-                </h3>
-                <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-light max-w-xl">
-                  {CONSTRUCTION_PROCESS[activeStep].description}
-                </p>
-              </div>
-              <div className="pt-8 border-t border-neutral-200 dark:border-neutral-800 flex justify-between items-center text-xs font-mono text-neutral-500 dark:text-neutral-400 mt-8">
-                <span>Phase Activity</span>
-                <span className="text-brand-blue dark:text-gold font-medium">Quality Verified</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 8. CRAFTSMANSHIP & MATERIALS */}
-      <section className="bg-grain dark:bg-neutral-950 text-charcoal dark:text-white py-20 md:py-28 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800">
-        
-        {/* RIGHTCON 3.3 — Architectural Structural Beam */}
-        <MetallicElement variant="beam-divider" />
+      {/* Architectural Shadow Gap Divider */}
+      <div className="architectural-shadow-gap" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
-          <div className="space-y-4 border-b border-neutral-200 dark:border-neutral-800 pb-8 fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold font-semibold">UNCOMPROMISING MATERIALS</span>
-            <h2 className="font-display font-light text-3xl md:text-5xl uppercase text-charcoal dark:text-white tracking-tight">
-              Craftsmanship & Materials
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-            {craftsmanshipMaterials.map((mat, index) => (
-              <div key={index} className="flex flex-col justify-between group fade-up-element" style={{ transitionDelay: `${index * 100}ms` }}>
-                <div className="aspect-square relative hover-zoom border border-neutral-200 dark:border-neutral-800 rounded-sm">
-                  <img 
-                    src={mat.image} 
-                    alt={mat.title} 
-                    className="w-full h-full object-cover transition-editorial"
-                  />
-                </div>
-                <div className="pt-6 space-y-3">
-                  <span className="font-mono text-[10px] text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">0{index + 1} / MATERIALS</span>
-                  <h3 className="font-display font-medium text-lg text-charcoal dark:text-white uppercase tracking-wider">{mat.title}</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400 text-xs leading-relaxed font-light">{mat.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 9. FEATURED RESIDENCES */}
-      <section className="bg-white dark:bg-charcoal text-charcoal dark:text-white py-20 md:py-28 relative transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
+      {/* ==================================================
+          SECTION 4: FEATURED PROJECTS
+          ================================================== */}
+      <section 
+        aria-label="Featured Projects"
+        className="bg-neutral-50 dark:bg-neutral-900 text-charcoal dark:text-white py-24 md:py-32 relative transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 space-y-16 relative z-10">
+          
+          {/* Section Header (Preserved Exactly from PRD) */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-200 dark:border-neutral-800 pb-8 fade-up-element">
-            <div className="space-y-4">
-              <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold block font-semibold">COMPLETED HOMES</span>
-              <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal dark:text-white uppercase tracking-tight">
-                Featured Residences
+            <div className="space-y-4 max-w-2xl">
+              <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold font-semibold block">
+                COMPLETED RESIDENCES
+              </span>
+              <h2 className="font-display font-bold text-3xl md:text-5xl text-charcoal dark:text-white tracking-tight">
+                Homes We're Proud to Have Built
               </h2>
+              <p className="text-neutral-600 dark:text-neutral-300 text-base font-light leading-relaxed max-w-[65ch]">
+                Every home tells a different story. Here are a few projects that reflect our commitment to quality, thoughtful design, and exceptional execution.
+              </p>
             </div>
-            <Link 
-              to="/projects" 
-              className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold border-b border-brand-blue/30 dark:border-gold/30 pb-1 hover:text-charcoal dark:hover:text-white hover:border-charcoal dark:hover:border-white transition-editorial font-semibold"
+
+            <Link
+              to="/projects"
+              className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold border-b border-brand-blue/30 dark:border-gold/30 pb-1 hover:text-charcoal dark:hover:text-white hover:border-charcoal dark:hover:border-white transition-all font-semibold whitespace-nowrap self-start md:self-auto focus-visible:ring-2 focus-visible:ring-brand-blue dark:focus-visible:ring-gold"
             >
-              Examine Complete Folio →
+              View All Projects →
             </Link>
           </div>
 
-          {/* Symmetrical 3-equal-column grid */}
+          {/* Dynamic 3-Column Project Grid (Mounted Photo Frames) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {PROJECTS.slice(0, 3).map((proj, idx) => (
-              <div key={proj.id} className="space-y-4 fade-up-element" style={{ transitionDelay: `${idx * 100}ms` }}>
-                <div className="aspect-[4/3] w-full relative hover-zoom border border-neutral-200 dark:border-neutral-800 rounded-sm">
-                  <Link to={`/projects/${proj.id}`}>
-                    <img
-                      src={proj.image}
-                      alt={proj.title}
-                      className="w-full h-full object-cover transition-editorial"
-                    />
+            {featuredProjects.map((proj, idx) => (
+              <div 
+                key={proj.id} 
+                className="bg-white dark:bg-neutral-800/90 border border-neutral-200 dark:border-neutral-700/80 rounded-xs overflow-hidden flex flex-col justify-between group hover:shadow-xl transition-all duration-300 fade-up-element"
+                style={{ transitionDelay: `${idx * 150}ms` }}
+              >
+                <div>
+                  <div className="p-2">
+                    <div className="aspect-[4/3] w-full relative overflow-hidden bg-neutral-100 dark:bg-neutral-900 mounted-photo-frame">
+                      <img
+                        src={proj.image}
+                        alt={proj.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2.5 py-1 text-[9px] font-mono text-gold uppercase tracking-wider rounded-xs z-10">
+                        {proj.stage}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-6 space-y-3">
+                    <div className="flex justify-between items-center text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
+                      <span>{proj.location}</span>
+                      <span>{proj.builtUpArea}</span>
+                    </div>
+                    <h3 className="font-display font-bold text-xl text-charcoal dark:text-white group-hover:text-brand-blue dark:group-hover:text-gold transition-colors">
+                      {proj.title}
+                    </h3>
+                    <p className="text-neutral-600 dark:text-neutral-300 text-xs font-light leading-relaxed line-clamp-2">
+                      {proj.challenge || "Custom luxury residential construction by Rightcon with engineered foundations and premium finishes."}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-6 pt-0 border-t border-neutral-100 dark:border-neutral-700/60 mt-4">
+                  <Link
+                    to={`/projects/${proj.id}`}
+                    className="font-mono text-xs uppercase tracking-wider text-brand-blue dark:text-gold hover:text-charcoal dark:hover:text-white font-semibold flex items-center justify-between group-hover:translate-x-1 transition-transform focus-visible:ring-2 focus-visible:ring-brand-blue dark:focus-visible:ring-gold"
+                  >
+                    <span>View Project</span>
+                    <span>→</span>
                   </Link>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
-                    <span>{proj.location}</span>
-                    <span>{proj.builtUpArea}</span>
-                  </div>
-                  <h4 className="font-display font-medium text-xl text-charcoal dark:text-white">
-                    <Link to={`/projects/${proj.id}`} className="hover:text-brand-blue dark:hover:text-gold transition-colors duration-300">
-                      {proj.title}
-                    </Link>
-                  </h4>
-                  <p className="text-neutral-600 dark:text-neutral-300 text-xs font-light leading-relaxed">{proj.challenge}</p>
-                </div>
               </div>
             ))}
           </div>
+
+          {/* Section CTA Button */}
+          <div className="text-center pt-6 fade-up-element">
+            <Link
+              to="/projects"
+              className="inline-block font-mono text-xs uppercase tracking-[0.18em] text-brand-blue dark:text-gold border border-brand-blue/40 dark:border-gold/40 hover:bg-brand-blue hover:text-white dark:hover:bg-gold dark:hover:text-charcoal px-10 py-4 font-semibold transition-all duration-300 shadow-sm rounded-xs focus-visible:ring-2 focus-visible:ring-brand-blue dark:focus-visible:ring-gold"
+            >
+              [ View All Projects ]
+            </Link>
+          </div>
+
         </div>
       </section>
 
-      {/* 10. CLIENT JOURNEY */}
-      <section className="bg-grain dark:bg-neutral-900 text-charcoal dark:text-white py-20 md:py-28 border-y border-neutral-200 dark:border-neutral-800 relative transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
-          <div className="space-y-4 fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold block font-semibold">TRANSPARENT PIPELINE</span>
-            <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal dark:text-white uppercase tracking-tight">
-              The Client Advisory Journey
+      {/* Architectural Shadow Gap Divider */}
+      <div className="architectural-shadow-gap" />
+
+      {/* ==================================================
+          SECTION 5: CUSTOMER STORIES
+          ================================================== */}
+      <section 
+        aria-label="Customer Stories"
+        className="bg-white dark:bg-charcoal text-charcoal dark:text-white py-24 md:py-32 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 space-y-16 relative z-10">
+          
+          {/* Section Header (Preserved Exactly from PRD) */}
+          <div className="space-y-4 max-w-3xl fade-up-element">
+            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold font-semibold block">
+              AUTHENTIC TESTIMONIALS
+            </span>
+            <h2 className="font-display font-bold text-3xl md:text-5xl text-charcoal dark:text-white tracking-tight">
+              Hear It From the Families We've Built For
             </h2>
+            <p className="text-neutral-600 dark:text-neutral-300 text-base font-light leading-relaxed max-w-[65ch]">
+              Every home has a story, and every family has a different experience. Here's what a few of our homeowners had to say about building with Rightcon.
+            </p>
           </div>
 
-          {/* Balanced 2-column: steps left, content card right */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Steps list */}
-            <div className="space-y-6 fade-up-element">
-              <p className="text-neutral-600 dark:text-neutral-300 font-light text-sm leading-relaxed">
-                Building a private home should be a rewarding path of precision, not a calendar of stress. Here is our step-by-step communication pipeline:
-              </p>
-              <div className="space-y-2 pt-4">
-                {clientJourneySteps.map((step, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveJourney(idx)}
-                    className={`w-full flex items-center justify-between text-left font-mono text-[11px] uppercase py-3 px-3 border-l-2 transition-editorial cursor-pointer ${
-                      activeJourney === idx 
-                        ? "border-brand-blue dark:border-gold text-brand-blue dark:text-gold font-semibold bg-brand-blue/5 dark:bg-gold/10" 
-                        : "border-transparent text-neutral-500 dark:text-neutral-400 hover:text-charcoal dark:hover:text-white"
-                    }`}
-                  >
-                    <span>0{idx + 1} / {step.title}</span>
-                    <span>{activeJourney === idx ? "→" : ""}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
+          {/* Video Cards Layout (3 Cards Data-Driven Architecture) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {customerStories.map((story, idx) => (
+              <button 
+                key={story.id}
+                onClick={() => handleOpenStory(idx)}
+                className="bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xs overflow-hidden flex flex-col justify-between group hover:shadow-xl transition-all duration-300 text-left cursor-pointer fade-up-element focus-visible:ring-2 focus-visible:ring-brand-blue dark:focus-visible:ring-gold"
+                style={{ transitionDelay: `${idx * 150}ms` }}
+                aria-label={`Watch testimonial story for ${story.customerName}`}
+              >
+                <div>
+                  <div className="p-2">
+                    {/* Video Thumbnail Frame + Large Play Button */}
+                    <div className="aspect-video w-full relative overflow-hidden bg-neutral-900 mounted-photo-frame">
+                      <img
+                        src={story.thumbnail}
+                        alt={story.customerName}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-95"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+                      
+                      {/* Play Button Overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center z-20">
+                        <div className="w-12 h-12 rounded-full bg-brand-blue/90 text-white dark:bg-gold/90 dark:text-charcoal flex items-center justify-center text-base font-mono pl-0.5 shadow-lg group-hover:scale-110 transition-transform">
+                          ▶
+                        </div>
+                      </div>
 
-            {/* Step illustration details right */}
-            <div className="lg:col-span-2 bg-white dark:bg-neutral-800 p-8 md:p-16 border border-neutral-200 dark:border-neutral-700 min-h-[300px] flex flex-col justify-between relative fade-up-element rounded-sm" style={{ transitionDelay: "150ms" }}>
-              <div className="space-y-6 pt-2">
-                <span className="font-mono text-[10px] text-brand-blue dark:text-gold uppercase block font-semibold">
-                  {clientJourneySteps[activeJourney].phase}
-                </span>
-                <h3 className="font-display font-light text-3xl text-charcoal dark:text-white leading-tight">
-                  {clientJourneySteps[activeJourney].title}
-                </h3>
-                <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed font-light max-w-xl">
-                  {clientJourneySteps[activeJourney].desc}
-                </p>
-              </div>
-              
-              <div className="pt-8 border-t border-neutral-200 dark:border-neutral-700 flex items-center justify-between text-xs font-mono text-neutral-500 dark:text-neutral-400 mt-8">
-                <span>Verification Gate</span>
-                <span className="text-brand-blue dark:text-gold font-semibold">Contract Bind Guarantee</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 11. TESTIMONIALS */}
-      <section className="bg-white dark:bg-charcoal text-charcoal dark:text-white py-20 md:py-28 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 relative z-10">
-          <div className="max-w-3xl mx-auto text-center space-y-12 fade-up-element">
-            <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold block font-semibold">CLIENT ADVOCACY</span>
-
-            <div className="space-y-8">
-              <p className="font-display font-light text-2xl md:text-4xl text-charcoal dark:text-white italic leading-relaxed">
-                "{TESTIMONIALS[0].quote}"
-              </p>
-              <div className="w-12 h-px bg-brand-blue/40 dark:bg-gold/50 mx-auto"></div>
-              <div className="space-y-1">
-                <h4 className="font-mono text-xs text-charcoal dark:text-white uppercase tracking-widest font-semibold">{TESTIMONIALS[0].author}</h4>
-                <p className="text-[11px] text-neutral-500 dark:text-neutral-400 tracking-wider uppercase">{TESTIMONIALS[0].project}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 12. INSIGHTS */}
-      <section className="bg-grain dark:bg-neutral-900 text-charcoal dark:text-white py-20 md:py-28 border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-200 dark:border-neutral-800 pb-8 fade-up-element">
-            <div className="space-y-4">
-              <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold font-semibold">LATEST ARTICLES</span>
-              <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal dark:text-white uppercase tracking-tight">
-                Engineering Insights
-              </h2>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-            {insights.map((art, idx) => (
-              <div key={idx} className="flex flex-col justify-between min-h-[280px] bg-white dark:bg-neutral-800 p-8 border border-neutral-200 dark:border-neutral-700 hover:shadow-md transition-all duration-300 group fade-up-element rounded-sm" style={{ transitionDelay: `${idx * 100}ms` }}>
-                <div className="space-y-6">
-                  <div className="flex justify-between items-center text-[10px] font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-widest">
-                    <span>{art.cat}</span>
-                    <span>{art.readTime}</span>
+                      <div className="absolute bottom-3 left-3 right-3 text-[10px] font-mono text-white/90 uppercase tracking-widest z-20">
+                        {story.location}
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="font-display font-medium text-xl text-charcoal dark:text-white group-hover:text-brand-blue dark:group-hover:text-gold cursor-pointer transition-editorial leading-snug">
-                    {art.title}
-                  </h3>
-                  <p className="text-neutral-600 dark:text-neutral-300 text-xs leading-relaxed font-light">
-                    {art.desc}
-                  </p>
+
+                  {/* Customer Info & Quote */}
+                  <div className="p-6 space-y-3">
+                    <h3 className="font-display font-bold text-xl text-charcoal dark:text-white group-hover:text-brand-blue dark:group-hover:text-gold transition-colors">
+                      {story.customerName}
+                    </h3>
+                    <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light italic leading-relaxed">
+                      "{story.quote}"
+                    </p>
+                  </div>
                 </div>
-                <div className="pt-6 border-t border-neutral-200 dark:border-neutral-700 mt-6 flex justify-between items-center">
-                  <span className="font-mono text-xs text-brand-blue dark:text-gold cursor-pointer group-hover:text-charcoal dark:group-hover:text-white transition-editorial font-semibold">
-                    Read Article →
-                  </span>
-                  <span className="text-neutral-500 dark:text-neutral-400 font-mono text-[10px]">{art.date}</span>
+
+                <div className="p-6 pt-0 border-t border-neutral-200/60 dark:border-neutral-800 mt-4 flex justify-between items-center text-xs font-mono text-brand-blue dark:text-gold font-semibold">
+                  <span>Watch Video Story</span>
+                  <span className="group-hover:translate-x-1 transition-transform">Play →</span>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
+
+          {/* Section CTA Banner (Preserved Exactly from PRD) */}
+          <div className="bg-neutral-900 text-white p-8 md:p-12 border border-neutral-800 rounded-xs flex flex-col md:flex-row items-center justify-between gap-8 fade-up-element">
+            <div className="space-y-2 max-w-2xl text-center md:text-left">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-gold font-semibold block">
+                BUILD YOUR FAMILY LEGACY
+              </span>
+              <h3 className="font-display font-bold text-xl md:text-3xl text-white tracking-tight">
+                Ready to Start Your Home Building Journey? Join the families who trusted Rightcon to build their dream home.
+              </h3>
+            </div>
+
+            <button
+              onClick={() => setIsConsultationOpen(true)}
+              className="btn-anodized-black min-h-[48px] cursor-pointer whitespace-nowrap focus-visible:ring-2 focus-visible:ring-gold"
+            >
+              Book a Free Consultation
+            </button>
+          </div>
+
         </div>
       </section>
 
-      {/* 13. CONSULTATION CTA */}
-      <section className="bg-neutral-100 dark:bg-neutral-950 text-charcoal dark:text-white py-24 md:py-32 relative overflow-hidden transition-colors duration-300">
-        
-        {/* RIGHTCON 3.3 — Architectural Metallic Frame Accent */}
-        <MetallicElement variant="cta-frame" />
+      {/* Architectural Shadow Gap Divider */}
+      <div className="architectural-shadow-gap" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
-          <div className="max-w-4xl mx-auto text-center space-y-12 fade-up-element">
+      {/* ==================================================
+          SECTION 6: FINAL CTA SECTION
+          ================================================== */}
+      <section 
+        aria-label="Final Call to Action"
+        className="bg-neutral-100 dark:bg-neutral-950 text-charcoal dark:text-white py-24 md:py-36 relative overflow-hidden transition-colors duration-300"
+      >
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32">
+          <div className="max-w-4xl mx-auto text-center space-y-10 fade-up-element">
+            
+            {/* Heading & Subheading (Preserved Exactly from PRD) */}
             <div className="space-y-6">
               <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold bg-brand-blue/10 dark:bg-gold/10 px-4 py-2 border border-brand-blue/20 dark:border-gold/20 inline-block font-semibold">
-                A PARTNERSHIP FOR CERTAINTY
+                DIRECT CONTACT PATHS
               </span>
-              <h2 className="font-display font-light text-4xl md:text-7xl text-charcoal dark:text-white uppercase tracking-tight leading-[1.1] max-w-3xl mx-auto">
-                Your dream home deserves more than a contractor.
+              <h2 className="font-display font-bold text-4xl sm:text-6xl md:text-7xl text-charcoal dark:text-white tracking-tight leading-[1.08]">
+                Ready to Build Your Dream Home?
               </h2>
-              <p className="text-neutral-600 dark:text-neutral-300 font-light text-sm md:text-base max-w-2xl mx-auto leading-relaxed pt-2">
-                It deserves a partner who gives you peace of mind from foundation to finish. We take absolute civil and budget accountability, protecting your investment from cost escalations and builder delays, so you can enjoy the journey of creating your family legacy.
+              <p className="text-neutral-600 dark:text-neutral-300 font-light text-base md:text-lg max-w-[62ch] mx-auto leading-relaxed">
+                Whether you're just getting started or already have plans in hand, we're here to make your home building journey clear, transparent, and stress-free.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
-              <Link
-                to="/contact"
-                className="bg-brand-blue text-white hover:bg-gold hover:text-charcoal dark:bg-gold dark:text-charcoal dark:hover:bg-white dark:hover:text-charcoal transition-all duration-300 font-mono text-xs uppercase tracking-widest px-10 py-5 text-center w-full sm:w-auto font-semibold shadow-md"
+            {/* Multiple Contact Buttons Layout */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              
+              {/* Primary Button (Black Anodized CTA) */}
+              <button
+                onClick={() => setIsConsultationOpen(true)}
+                className="btn-anodized-black min-h-[50px] w-full sm:w-auto cursor-pointer focus-visible:ring-2 focus-visible:ring-gold"
               >
-                Book Your Consultation
-              </Link>
-              <Link
-                to="/cost-calculator"
-                className="border border-brand-blue/40 text-brand-blue hover:bg-brand-blue hover:text-white dark:border-white/40 dark:text-white dark:hover:border-gold dark:hover:text-gold transition-all duration-300 font-mono text-xs uppercase tracking-widest px-10 py-5 text-center w-full sm:w-auto font-semibold"
+                Book a Free Consultation
+              </button>
+
+              {/* Secondary Buttons: Call Us & WhatsApp Us */}
+              <a
+                href="tel:+919886012345"
+                className="border border-brand-blue/40 text-brand-blue hover:bg-neutral-200 dark:border-white/40 dark:text-white dark:hover:border-gold dark:hover:text-gold transition-all duration-300 font-mono text-xs uppercase tracking-widest px-8 py-4 text-center w-full sm:w-auto font-semibold cursor-pointer rounded-xs focus-visible:ring-2 focus-visible:ring-brand-blue dark:focus-visible:ring-gold"
               >
-                Calculate Project Budget
-              </Link>
+                Call Us
+              </a>
+
+              <a
+                href="https://wa.me/919606592959"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-emerald-700 hover:bg-emerald-800 text-white transition-all duration-300 font-mono text-xs uppercase tracking-widest px-8 py-4 text-center w-full sm:w-auto font-semibold shadow-md hover:scale-105 cursor-pointer rounded-xs focus-visible:ring-2 focus-visible:ring-emerald-500"
+              >
+                WhatsApp Us
+              </a>
             </div>
           </div>
         </div>
       </section>
+
+
+      {/* ==================================================
+          MODAL COMPONENTS ARCHITECTURE
+          ================================================== */}
+      <ConsultationModal 
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+      />
+
+      <ProcessModal 
+        isOpen={isProcessOpen}
+        onClose={() => setIsProcessOpen(false)}
+      />
+
+      <PowerplayModal 
+        isOpen={isPowerplayOpen}
+        onClose={() => setIsPowerplayOpen(false)}
+      />
+
+      <QualityChecksModal 
+        isOpen={isQualityOpen}
+        onClose={() => setIsQualityOpen(false)}
+      />
+
+      <VideoLightboxModal 
+        isOpen={isVideoLightboxOpen}
+        onClose={() => setIsVideoLightboxOpen(false)}
+        story={selectedStoryIndex !== null ? customerStories[selectedStoryIndex] : null}
+        onNextStory={handleNextStory}
+        onBookConsultation={() => setIsConsultationOpen(true)}
+      />
 
     </div>
   );
 }
-

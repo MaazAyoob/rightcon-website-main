@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BLOG_POSTS } from "../data/rightconData";
+import MetallicElement from "../components/MetallicElement";
 
 export default function Blog() {
   const [selectedCat, setSelectedCat] = useState("All");
@@ -17,8 +18,10 @@ export default function Blog() {
   });
 
   return (
-    <div className="bg-white dark:bg-charcoal text-charcoal dark:text-white pt-32 pb-32 min-h-screen transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
+    <div className="relative bg-white dark:bg-charcoal text-charcoal dark:text-white pt-32 pb-32 min-h-screen transition-colors duration-300 overflow-hidden">
+      <MetallicElement variant="villa-gable" className="opacity-50 dark:opacity-75" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
+
         
         {/* Page Header */}
         <div className="space-y-6 max-w-3xl border-b border-neutral-200 dark:border-neutral-800 pb-12">

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { SERVICES } from "../data/rightconData";
+import MetallicElement from "../components/MetallicElement";
 
 export default function ServiceDetail() {
   const { id } = useParams();
@@ -47,10 +48,12 @@ export default function ServiceDetail() {
     return () => {
       elements.forEach((el) => observer.unobserve(el));
     };
-  }, [id]); // Reset observer on route change
+  }, []);
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="relative bg-white dark:bg-charcoal text-charcoal dark:text-white pt-32 pb-32 min-h-screen transition-colors duration-300 overflow-hidden">
+      <MetallicElement variant="foundation-grid" className="opacity-50 dark:opacity-75" />
+      <div className="relative z-10 space-y-24">
       
       {/* 1. CINEMATIC HERO */}
       <section className="relative h-[75vh] flex items-end bg-charcoal text-white overflow-hidden pb-20">
@@ -188,6 +191,8 @@ export default function ServiceDetail() {
       </section>
 
     </div>
+    </div>
   );
 }
+
 

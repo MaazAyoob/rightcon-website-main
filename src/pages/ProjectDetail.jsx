@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { PROJECTS, TESTIMONIALS } from "../data/rightconData";
+import MetallicElement from "../components/MetallicElement";
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -31,7 +32,7 @@ export default function ProjectDetail() {
     return () => {
       elements.forEach((el) => observer.unobserve(el));
     };
-  }, [id]); // Reset observer on route change
+  }, []);
 
   const scale = project.scale || "G+2 Residential Estate";
   const technicalHighlights = project.technicalHighlights || [
