@@ -86,11 +86,8 @@ export default function Projects() {
                   </div>
 
                   {/* Editorial Description */}
-                  <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light leading-relaxed">
-                    {project.id === "sudheendra-residency" && "A double-height volumetric frame integrated with structural steel columns, custom floor concrete logs, and high-performance joinery details."}
-                    {project.id === "naresh-residency" && "A light-well central layout designed to pull illumination through narrow plot dimensions. Engineered with cantilevers and robust waterproofing layers."}
-                    {project.id === "manas-residency" && "A compact G+1 residence maximizing spatial efficiency, combining open-layout dining with smart system pathways."}
-                    {project.id === "ayoob-residency" && "A structural G+2 contemporary residence utilizing vibration-isolated concrete footing frames and bespoke teak cladding accents."}
+                  <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light leading-relaxed line-clamp-3">
+                    {project.challenge}
                   </p>
 
                   {/* View Project Button */}
