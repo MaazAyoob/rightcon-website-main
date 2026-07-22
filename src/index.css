@@ -429,6 +429,65 @@ html.lenis, html.lenis body {
   }
 }
 
+/* =====================================================
+   RIGHTCON 5.3.1 — FLUID RESPONSIVE SYSTEM & SAFE AREA INSETS
+   Fluid clamp typography, dynamic 100dvh viewport, safe area insets, root-cause overflow fixes
+   ===================================================== */
+
+/* 1. Fluid Typography Classes */
+.text-fluid-hero {
+  font-size: clamp(2.25rem, 4.5vw + 1rem, 4.5rem);
+  line-height: 1.06;
+}
+.text-fluid-h2 {
+  font-size: clamp(1.75rem, 3vw + 0.8rem, 3.25rem);
+  line-height: 1.1;
+}
+.text-fluid-lead {
+  font-size: clamp(0.95rem, 1.2vw + 0.65rem, 1.25rem);
+  line-height: 1.6;
+}
+
+/* 2. Dynamic Viewport Unit for Hero Section */
+.hero-dvh {
+  min-height: 100dvh;
+}
+
+/* 3. Centralized Fluid Responsive Container */
+.responsive-container {
+  width: 100%;
+  max-width: 80rem; /* 1280px */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 4vw, 3rem);
+  padding-right: clamp(1rem, 4vw, 3rem);
+}
+@media (min-width: 1536px) {
+  .responsive-container {
+    max-width: 96rem; /* 1536px */
+    padding-left: clamp(2rem, 5vw, 4rem);
+    padding-right: clamp(2rem, 5vw, 4rem);
+  }
+}
+
+/* 4. Safe Area Insets for Mobile Devices with Cutouts */
+.safe-pb {
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+.safe-pt {
+  padding-top: max(1.5rem, env(safe-area-inset-top));
+}
+
+/* 5. Root-Cause Defenses Against Horizontal Scrolling */
+body, html {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.grid, .flex {
+  min-width: 0;
+}
+
+
 
 
 

@@ -108,10 +108,10 @@ export default function Home() {
           ================================================== */}
       <section 
         aria-label="Hero Section"
-        className="relative min-h-[650px] md:min-h-screen flex flex-col justify-between bg-white dark:bg-charcoal text-charcoal dark:text-white transition-colors duration-300 overflow-hidden border-b border-neutral-200 dark:border-neutral-800"
+        className="relative hero-dvh flex flex-col justify-between bg-white dark:bg-charcoal text-charcoal dark:text-white transition-colors duration-300 overflow-hidden border-b border-neutral-200 dark:border-neutral-800"
       >
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 w-full pt-36 pb-20 flex-1 flex flex-col justify-center">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="relative z-10 responsive-container w-full pt-32 sm:pt-36 pb-16 flex-1 flex flex-col justify-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             
             {/* Left Content Column */}
             <div className="lg:col-span-7 space-y-6 md:space-y-8">
@@ -123,14 +123,14 @@ export default function Home() {
                 <BrandSignature />
               </div>
 
-              {/* H1 Headline (Preserved Exactly from PRD) */}
-              <h1 className="font-display font-bold text-4xl sm:text-6xl md:text-[64px] lg:text-[72px] tracking-tight leading-[1.06] text-charcoal dark:text-white animate-hero-title">
+              {/* H1 Headline (Preserved Exactly from PRD - Fluid Sizing) */}
+              <h1 className="font-display font-bold text-fluid-hero tracking-tight text-charcoal dark:text-white animate-hero-title">
                 Building a home <br className="hidden sm:block" />
                 shouldn't be stressful.
               </h1>
 
-              {/* Lead Paragraph Subheading (Preserved Exactly from PRD) */}
-              <p className="text-neutral-600 dark:text-neutral-300 text-base md:text-lg font-light max-w-[62ch] leading-relaxed animate-hero-desc">
+              {/* Lead Paragraph Subheading (Preserved Exactly from PRD - Fluid Sizing) */}
+              <p className="text-neutral-600 dark:text-neutral-300 text-fluid-lead font-light max-w-[62ch] leading-relaxed animate-hero-desc">
                 We'll help you understand the cost, the process, and every decision before construction begins, so you can build with confidence.
               </p>
 
@@ -205,21 +205,19 @@ export default function Home() {
           ================================================== */}
       <section 
         aria-label="Why Homeowners Choose Rightcon"
-        className="bg-neutral-50 dark:bg-neutral-900 text-charcoal dark:text-white py-24 md:py-32 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800"
+        className="bg-neutral-50 dark:bg-neutral-900 text-charcoal dark:text-white py-16 sm:py-24 md:py-32 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800"
       >
-
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 xl:px-32 space-y-16 relative z-10">
+        <div className="responsive-container space-y-12 md:space-y-16 relative z-10">
           
           {/* Section Header (Preserved Exactly from PRD) */}
           <div className="space-y-4 max-w-3xl fade-up-element">
             <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold font-semibold block">
               THE RIGHTCON DIFFERENCE
             </span>
-            <h2 className="font-display font-bold text-3xl md:text-5xl text-charcoal dark:text-white tracking-tight">
+            <h2 className="font-display font-bold text-fluid-h2 text-charcoal dark:text-white tracking-tight">
               Why Homeowners Choose Rightcon
             </h2>
-            <p className="text-neutral-600 dark:text-neutral-300 text-base font-light leading-relaxed max-w-[65ch]">
+            <p className="text-neutral-600 dark:text-neutral-300 text-fluid-lead font-light leading-relaxed max-w-[65ch]">
               Building a home is one of the biggest decisions you'll ever make. We've built our entire process to make it clear, transparent, and stress-free from day one.
             </p>
           </div>
