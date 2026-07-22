@@ -119,41 +119,31 @@ export default function Home() {
   return (
     <div className="space-y-0 text-charcoal bg-white font-sans antialiased overflow-x-hidden">
       
-      {/* 1. CINEMATIC HERO EXPERIENCE */}
-      <section className="relative min-h-screen flex flex-col justify-between bg-charcoal text-white overflow-hidden">
-        {/* Architecture backdrop */}
-        <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden opacity-45">
-          <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80"
-            alt="Rightcon Luxury Estate Facade"
-            className="w-full h-full object-cover animate-cinematic-zoom-once brightness-[0.8]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/30 to-transparent"></div>
-        </div>
-
+      {/* 1. HERO EXPERIENCE */}
+      <section className="relative min-h-screen flex flex-col justify-between bg-white dark:bg-charcoal text-charcoal dark:text-white transition-colors duration-300 overflow-hidden border-b border-neutral-200 dark:border-neutral-800">
+        
         {/*
           Content wrapper:
-          - pt-24 clears the fixed 80px navbar without adding visual weight
-          - pb-16 keeps it from pressing into the trust bar at the bottom
-          - no extra mt/mb that was causing the off-center look
+          - pt-28 clears the fixed navbar
+          - pb-12 keeps it from pressing into the trust bar at the bottom
         */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-4 sm:px-6 md:px-20 lg:px-32 w-full pt-28 pb-12 flex-1 flex flex-col justify-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 w-full pt-32 pb-12 flex-1 flex flex-col justify-center">
           <div className="space-y-5 md:space-y-8 max-w-5xl">
 
-            {/* Tagline + architectural underline (in normal flow, compact) */}
+            {/* Tagline + architectural underline */}
             <div className="flex flex-col items-start gap-2 animate-hero-tagline">
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-gold font-medium whitespace-nowrap">
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-brand-blue dark:text-gold font-semibold whitespace-nowrap">
                 BUILDING PEACE OF MIND
               </span>
               <BrandSignature />
             </div>
 
-            <h1 className="font-display font-bold text-4xl sm:text-6xl md:text-[72px] lg:text-[80px] tracking-tight leading-[1.08] text-white animate-hero-title">
+            <h1 className="font-display font-bold text-4xl sm:text-6xl md:text-[72px] lg:text-[80px] tracking-tight leading-[1.08] text-charcoal dark:text-white animate-hero-title">
               Engineering homes <br className="hidden sm:block" />
               with absolute certainty.
             </h1>
 
-            <p className="text-neutral-300 text-sm md:text-base font-light max-w-2xl leading-relaxed animate-hero-desc">
+            <p className="text-neutral-600 dark:text-neutral-300 text-sm md:text-base font-light max-w-2xl leading-relaxed animate-hero-desc">
               Single-point civil accountability. Transparent processes.<br />
               Timeless craftsmanship. Peace of mind, from foundation to finish.
             </p>
@@ -161,14 +151,14 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-8 animate-hero-cta pt-2">
               <Link
                 to="/projects"
-                className="font-mono text-[11px] uppercase tracking-[0.18em] text-charcoal bg-gold border border-gold hover:border-white px-6 sm:px-8 py-4 transition-editorial font-medium flex items-center space-x-2 hover:bg-white hover:text-charcoal w-full sm:w-auto justify-center sm:justify-start"
+                className="font-mono text-[11px] uppercase tracking-[0.18em] text-white bg-brand-blue border border-brand-blue hover:bg-gold hover:text-charcoal hover:border-gold dark:bg-gold dark:text-charcoal dark:border-gold dark:hover:bg-white dark:hover:text-charcoal px-6 sm:px-8 py-4 transition-all duration-300 font-semibold flex items-center space-x-2 w-full sm:w-auto justify-center sm:justify-start shadow-sm"
               >
                 <span>EXPLORE OUR WORK</span>
                 <span>→</span>
               </Link>
               <Link
                 to="/about"
-                className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/90 hover:text-white pb-1 border-b border-white/30 hover:border-gold transition-editorial flex items-center space-x-2 self-center"
+                className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand-blue dark:text-gold hover:text-charcoal dark:hover:text-white pb-1 border-b border-brand-blue/30 dark:border-gold/30 hover:border-charcoal dark:hover:border-white transition-all duration-300 flex items-center space-x-2 self-center font-medium"
               >
                 <span>OUR APPROACH</span>
                 <span>→</span>
@@ -180,33 +170,33 @@ export default function Home() {
         {/* Bottom Hero Trust Bar */}
         <div className="relative z-20 pb-12 w-full pointer-events-auto hidden lg:block">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
-            <div className="grid grid-cols-5 gap-4 pt-6 border-t border-white/15 text-[9px] font-mono text-neutral-300 uppercase tracking-[0.16em]">
+            <div className="grid grid-cols-5 gap-4 pt-6 border-t border-neutral-200 dark:border-white/15 text-[9px] font-mono text-neutral-600 dark:text-neutral-300 uppercase tracking-[0.16em]">
               <div className="flex items-center space-x-3.5">
-                <svg className="w-4.5 h-4.5 text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <svg className="w-4.5 h-4.5 text-brand-blue dark:text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
                 <span>FIXED COST CONTRACT</span>
               </div>
-              <div className="flex items-center space-x-3.5 border-l border-white/15 pl-6">
-                <svg className="w-4.5 h-4.5 text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+              <div className="flex items-center space-x-3.5 border-l border-neutral-200 dark:border-white/15 pl-6">
+                <svg className="w-4.5 h-4.5 text-brand-blue dark:text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 <span>TIMELINE COMMITMENT</span>
               </div>
-              <div className="flex items-center space-x-3.5 border-l border-white/15 pl-6">
-                <svg className="w-4.5 h-4.5 text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+              <div className="flex items-center space-x-3.5 border-l border-neutral-200 dark:border-white/15 pl-6">
+                <svg className="w-4.5 h-4.5 text-brand-blue dark:text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <span>QUALITY INSPECTIONS</span>
               </div>
-              <div className="flex items-center space-x-3.5 border-l border-white/15 pl-6">
-                <svg className="w-4.5 h-4.5 text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+              <div className="flex items-center space-x-3.5 border-l border-neutral-200 dark:border-white/15 pl-6">
+                <svg className="w-4.5 h-4.5 text-brand-blue dark:text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 <span>DEDICATED PROJECT MANAGER</span>
               </div>
-              <div className="flex items-center space-x-3.5 border-l border-white/15 pl-6">
-                <svg className="w-4.5 h-4.5 text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+              <div className="flex items-center space-x-3.5 border-l border-neutral-200 dark:border-white/15 pl-6">
+                <svg className="w-4.5 h-4.5 text-brand-blue dark:text-gold flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
                 <span>10 YEAR STRUCTURAL WARRANTY</span>

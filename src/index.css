@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-charcoal: #1C1C1C;
   --color-brand-blue: #0000AA;
@@ -46,15 +48,13 @@
   font-display: swap;
 }
 
-
-
 @layer base {
   body {
-    @apply bg-white text-charcoal font-sans antialiased selection:bg-brand-blue selection:text-white overflow-x-hidden;
+    @apply bg-white text-charcoal dark:bg-charcoal dark:text-white font-sans antialiased selection:bg-brand-blue selection:text-white overflow-x-hidden transition-colors duration-300;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-wider;
+    @apply font-display tracking-wider text-charcoal dark:text-white;
   }
 }
 

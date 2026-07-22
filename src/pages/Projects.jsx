@@ -25,16 +25,16 @@ export default function Projects() {
   }, []);
 
   return (
-    <div className="bg-white pt-32 pb-32 min-h-screen">
+    <div className="bg-white dark:bg-charcoal text-charcoal dark:text-white pt-32 pb-32 min-h-screen transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-32">
         
         {/* Page Header */}
-        <div className="space-y-6 max-w-3xl border-b border-neutral-100 pb-16 fade-up-element">
-          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue block">OUR ARCHITECTURAL PORTFOLIO</span>
-          <h1 className="font-display font-light text-4xl md:text-7xl text-charcoal uppercase tracking-tight leading-none">
+        <div className="space-y-6 max-w-3xl border-b border-neutral-200 dark:border-neutral-800 pb-16 fade-up-element">
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold block font-semibold">OUR ARCHITECTURAL PORTFOLIO</span>
+          <h1 className="font-display font-light text-4xl md:text-7xl text-charcoal dark:text-white uppercase tracking-tight leading-none">
             Selected Residences
           </h1>
-          <p className="text-neutral-500 font-light text-sm md:text-base leading-relaxed">
+          <p className="text-neutral-600 dark:text-neutral-300 font-light text-sm md:text-base leading-relaxed">
             Bespoke private estates engineered with structural fidelity. Explore our featured architectural stories.
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function Projects() {
               >
                 
                 {/* 1. Large Image (≈65% on desktop) with Hover Zoom */}
-                <div className="w-full lg:w-[65%] aspect-[16/10] bg-neutral-50 hover-zoom fade-up-element">
+                <div className="w-full lg:w-[65%] aspect-[16/10] bg-neutral-50 dark:bg-neutral-900 hover-zoom fade-up-element border border-neutral-200 dark:border-neutral-800">
                   <Link to={`/projects/${project.id}`} aria-label={`View case details for ${project.title}`}>
                     <img 
                       src={project.image} 
@@ -68,25 +68,25 @@ export default function Projects() {
                 <div className="w-full lg:w-[35%] space-y-8 fade-up-element" style={{ transitionDelay: "150ms" }}>
                   
                   {/* Project Number */}
-                  <span className="font-mono text-xs text-gold uppercase tracking-widest block">
+                  <span className="font-mono text-xs text-brand-blue dark:text-gold uppercase tracking-widest block font-semibold">
                     Portfolio / {projectNumber}
                   </span>
 
                   {/* Project Name */}
-                  <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal uppercase leading-tight tracking-tight">
-                    <Link to={`/projects/${project.id}`} className="hover:text-gold transition-colors duration-300">
+                  <h2 className="font-display font-light text-3xl md:text-5xl text-charcoal dark:text-white uppercase leading-tight tracking-tight">
+                    <Link to={`/projects/${project.id}`} className="hover:text-brand-blue dark:hover:text-gold transition-colors duration-300">
                       {project.title}
                     </Link>
                   </h2>
 
                   {/* Location + Area */}
-                  <div className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest space-y-1 pt-2 border-t border-neutral-100">
-                    <div>Location: <span className="text-neutral-600 font-medium">{project.location}</span></div>
-                    <div>Area: <span className="text-neutral-600 font-medium">{project.builtUpArea}</span></div>
+                  <div className="font-mono text-[10px] text-neutral-500 dark:text-neutral-400 uppercase tracking-widest space-y-1 pt-2 border-t border-neutral-200 dark:border-neutral-800">
+                    <div>Location: <span className="text-charcoal dark:text-white font-medium">{project.location}</span></div>
+                    <div>Area: <span className="text-charcoal dark:text-white font-medium">{project.builtUpArea}</span></div>
                   </div>
 
                   {/* Editorial Description */}
-                  <p className="text-neutral-500 text-xs md:text-sm font-light leading-relaxed">
+                  <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm font-light leading-relaxed">
                     {project.id === "sudheendra-residency" && "A double-height volumetric frame integrated with structural steel columns, custom floor concrete logs, and high-performance joinery details."}
                     {project.id === "naresh-residency" && "A light-well central layout designed to pull illumination through narrow plot dimensions. Engineered with cantilevers and robust waterproofing layers."}
                     {project.id === "manas-residency" && "A compact G+1 residence maximizing spatial efficiency, combining open-layout dining with smart system pathways."}
@@ -97,7 +97,7 @@ export default function Projects() {
                   <div className="pt-2">
                     <Link 
                       to={`/projects/${project.id}`}
-                      className="font-mono text-[11px] uppercase tracking-widest text-brand-blue border-b border-brand-blue/30 pb-1 hover:text-charcoal hover:border-charcoal transition-editorial inline-block"
+                      className="font-mono text-[11px] uppercase tracking-widest text-brand-blue dark:text-gold border-b border-brand-blue/30 dark:border-gold/30 pb-1 hover:text-charcoal dark:hover:text-white hover:border-charcoal dark:hover:border-white transition-editorial inline-block font-semibold"
                     >
                       View Project Spec →
                     </Link>
@@ -111,18 +111,18 @@ export default function Projects() {
         </div>
 
         {/* Footer CTA */}
-        <div className="pt-24 border-t border-neutral-100 text-center space-y-8 max-w-2xl mx-auto fade-up-element">
-          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue block font-medium">COMMENCE YOUR PROJECT BRIEF</span>
-          <h2 className="font-display font-light text-3xl md:text-4xl text-charcoal uppercase tracking-tight">
+        <div className="pt-24 border-t border-neutral-200 dark:border-neutral-800 text-center space-y-8 max-w-2xl mx-auto fade-up-element">
+          <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold block font-semibold">COMMENCE YOUR PROJECT BRIEF</span>
+          <h2 className="font-display font-light text-3xl md:text-4xl text-charcoal dark:text-white uppercase tracking-tight">
             Want to build your signature home?
           </h2>
-          <p className="text-neutral-500 text-xs md:text-sm leading-relaxed font-light">
+          <p className="text-neutral-600 dark:text-neutral-300 text-xs md:text-sm leading-relaxed font-light">
             Contact our structural coordinators to schedule an overview briefing at our Jayanagar office, where we can inspect site parameters.
           </p>
           <div className="pt-4">
             <Link 
               to="/contact" 
-              className="font-mono text-xs uppercase tracking-widest text-brand-blue border border-brand-blue/30 hover:border-brand-blue px-8 py-4.5 transition-editorial inline-block font-medium"
+              className="font-mono text-xs uppercase tracking-widest text-white bg-brand-blue hover:bg-gold hover:text-charcoal dark:bg-gold dark:text-charcoal dark:hover:bg-white dark:hover:text-charcoal px-8 py-4.5 transition-all duration-300 inline-block font-semibold shadow-sm"
             >
               Request Private Consultation
             </Link>

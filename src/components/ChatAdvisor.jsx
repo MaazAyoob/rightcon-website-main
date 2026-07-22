@@ -151,7 +151,7 @@ export default function ChatAdvisor() {
       {/* Drawer Panel */}
       <div
         ref={drawerRef}
-        className={`fixed bottom-24 right-4 md:right-8 z-[70] w-[380px] max-w-[calc(100vw-32px)] bg-white border border-neutral-200 shadow-2xl flex flex-col transition-all duration-500 ease-out ${
+        className={`fixed bottom-24 right-4 md:right-8 z-[70] w-[380px] max-w-[calc(100vw-32px)] bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl flex flex-col transition-all duration-500 ease-out ${
           isOpen ? "translate-y-0 opacity-100 scale-100" : "translate-y-12 opacity-0 scale-95 pointer-events-none"
         }`}
         style={{ height: "480px" }}
@@ -164,7 +164,7 @@ export default function ChatAdvisor() {
           </div>
           <button 
             onClick={() => setIsOpen(false)}
-            className="text-neutral-400 hover:text-white transition-colors"
+            className="text-neutral-400 hover:text-white transition-colors cursor-pointer"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -180,10 +180,10 @@ export default function ChatAdvisor() {
               className={`flex flex-col ${msg.sender === "user" ? "items-end" : "items-start"}`}
             >
               <div 
-                className={`max-w-[85%] p-3.5 text-xs leading-relaxed ${
+                className={`max-w-[85%] p-3.5 text-xs leading-relaxed rounded-sm ${
                   msg.sender === "user" 
                     ? "bg-gold text-charcoal font-medium" 
-                    : "bg-neutral-50 text-neutral-600 border border-neutral-100 font-light"
+                    : "bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-neutral-200 dark:border-neutral-700 font-light"
                 }`}
               >
                 {msg.text}
@@ -197,7 +197,7 @@ export default function ChatAdvisor() {
           {/* Typing Indicator */}
           {isTyping && (
             <div className="flex flex-col items-start">
-              <div className="bg-neutral-50 text-neutral-400 text-xs px-4 py-3 border border-neutral-100 font-mono italic">
+              <div className="bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-xs px-4 py-3 border border-neutral-200 dark:border-neutral-700 font-mono italic rounded-sm">
                 Analyzing specification logs...
               </div>
             </div>
@@ -205,45 +205,45 @@ export default function ChatAdvisor() {
         </div>
 
         {/* Quick action buttons container */}
-        <div className="p-3 bg-neutral-50 border-t border-neutral-100 flex flex-wrap gap-2 justify-center">
+        <div className="p-3 bg-neutral-50 dark:bg-neutral-950 border-t border-neutral-200 dark:border-neutral-800 flex flex-wrap gap-2 justify-center">
           <button
             onClick={() => handleActionClick("Estimate Construction Cost")}
-            className="bg-white border border-neutral-200 hover:border-gold hover:text-gold text-[10px] font-mono uppercase px-3 py-1.5 transition-colors cursor-pointer"
+            className="bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-gold dark:hover:border-gold hover:text-gold dark:hover:text-gold text-charcoal dark:text-white text-[10px] font-mono uppercase px-3 py-1.5 transition-colors cursor-pointer rounded-sm"
           >
             Estimate Cost
           </button>
           <button
             onClick={() => handleActionClick("Compare Packages")}
-            className="bg-white border border-neutral-200 hover:border-gold hover:text-gold text-[10px] font-mono uppercase px-3 py-1.5 transition-colors cursor-pointer"
+            className="bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-gold dark:hover:border-gold hover:text-gold dark:hover:text-gold text-charcoal dark:text-white text-[10px] font-mono uppercase px-3 py-1.5 transition-colors cursor-pointer rounded-sm"
           >
             Compare Packages
           </button>
           <button
             onClick={() => handleActionClick("Book Free Consultation")}
-            className="bg-white border border-neutral-200 hover:border-gold hover:text-gold text-[10px] font-mono uppercase px-3 py-1.5 transition-colors cursor-pointer"
+            className="bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-gold dark:hover:border-gold hover:text-gold dark:hover:text-gold text-charcoal dark:text-white text-[10px] font-mono uppercase px-3 py-1.5 transition-colors cursor-pointer rounded-sm"
           >
             Book Consultation
           </button>
           <button
             onClick={() => handleActionClick("View Completed Projects")}
-            className="bg-white border border-neutral-200 hover:border-gold hover:text-gold text-[10px] font-mono uppercase px-3 py-1.5 transition-colors cursor-pointer"
+            className="bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-gold dark:hover:border-gold hover:text-gold dark:hover:text-gold text-charcoal dark:text-white text-[10px] font-mono uppercase px-3 py-1.5 transition-colors cursor-pointer rounded-sm"
           >
             View Projects
           </button>
         </div>
 
         {/* Message Input Box */}
-        <form onSubmit={handleSendMessage} className="p-3 border-t border-neutral-200 flex items-center gap-2">
+        <form onSubmit={handleSendMessage} className="p-3 border-t border-neutral-200 dark:border-neutral-800 flex items-center gap-2">
           <input
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Ask about your dream home..."
-            className="flex-grow text-xs px-3 py-2.5 border border-neutral-200 focus:outline-none focus:border-gold font-light"
+            className="flex-grow text-xs px-3 py-2.5 bg-white dark:bg-neutral-800 text-charcoal dark:text-white border border-neutral-200 dark:border-neutral-700 focus:outline-none focus:border-gold dark:focus:border-gold font-light rounded-sm"
           />
           <button
             type="submit"
-            className="bg-charcoal text-white hover:bg-gold hover:text-charcoal p-2.5 transition-colors cursor-pointer"
+            className="bg-brand-blue dark:bg-gold text-white dark:text-charcoal hover:bg-charcoal dark:hover:bg-white transition-colors p-2.5 cursor-pointer rounded-sm"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
