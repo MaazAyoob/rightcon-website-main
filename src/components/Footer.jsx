@@ -2,13 +2,17 @@ import { Link } from "react-router-dom";
 import { COMPANY_METRICS } from "../data/rightconData";
 import BrandLogo from "./BrandLogo";
 import { useTheme } from "../context/ThemeContext";
+import MetallicElement from "./MetallicElement";
 
 export default function Footer() {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
   return (
-    <footer className="bg-neutral-100 dark:bg-charcoal text-charcoal dark:text-white pt-24 pb-12 border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-300">
+    <footer className="relative bg-neutral-100 dark:bg-charcoal text-charcoal dark:text-white pt-24 pb-12 border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-300 overflow-hidden">
+      
+      {/* RIGHTCON 3.2 — Metallic Chrome Brand Accent */}
+      <MetallicElement variant="footer-brand" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10 md:gap-12 pb-16 border-b border-neutral-200 dark:border-neutral-800">
           

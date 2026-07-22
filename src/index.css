@@ -235,6 +235,84 @@ html.lenis, html.lenis body {
   to { stroke-dashoffset: 0; }
 }
 
+/* =====================================================
+   RIGHTCON 3.2 — METALLIC DESIGN SYSTEM ANIMATIONS & RULES
+   High-performance hardware-accelerated chrome keyframes
+   ===================================================== */
+
+@keyframes floatMetallic {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateY(-22px) rotate(4deg) scale(1.02);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes rotateMetallic {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmerMetallic {
+  0% {
+    opacity: 0.20;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+  }
+  50% {
+    opacity: 0.38;
+    filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.5));
+  }
+  100% {
+    opacity: 0.20;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+  }
+}
+
+@keyframes pulseMetallic {
+  0% {
+    transform: scale(0.98);
+    opacity: 0.25;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.40;
+  }
+  100% {
+    transform: scale(0.98);
+    opacity: 0.25;
+  }
+}
+
+/* Metallic Utility Classes */
+.animate-metallic-float {
+  animation: floatMetallic 32s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.animate-metallic-rotate {
+  animation: rotateMetallic 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-metallic-shimmer {
+  animation: shimmerMetallic 25s ease-in-out infinite alternate;
+  will-change: opacity, filter;
+}
+
+.animate-metallic-pulse {
+  animation: pulseMetallic 20s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+
 
 
 

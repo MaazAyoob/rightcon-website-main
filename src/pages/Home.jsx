@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { PROJECTS, CONSTRUCTION_PROCESS, TESTIMONIALS, SERVICES } from "../data/rightconData";
 import BrandSignature from "../components/BrandSignature";
+import MetallicElement from "../components/MetallicElement";
 
 export default function Home() {
   const [activeStep, setActiveStep] = useState(0);
@@ -116,12 +117,41 @@ export default function Home() {
     },
   ];
 
+  const featuredResidences = PROJECTS.slice(1, 7);
+
+  const blogHighlights = [
+    {
+      id: "what-is-pcc-in-construction-step-by-step-process",
+      title: "What is PCC in Construction? Step-by-Step Process",
+      cat: "Construction Materials",
+      date: "May 2026",
+      desc: "Plain Cement Concrete (PCC) forms the essential bed foundation before structural steel placement. Learn the ideal ratio and curing times."
+    },
+    {
+      id: "cement-for-house-construction",
+      title: "Best Cement for House Construction in India",
+      cat: "House Construction",
+      date: "May 2026",
+      desc: "Comparing 53-grade OPC, PPC, and PSC cement types to ensure optimum structural load capability and moisture barrier protection."
+    },
+    {
+      id: "house-construction-process",
+      title: "Step-By-Step House Construction Process in Bangalore",
+      cat: "Engineering Guides",
+      date: "May 2026",
+      desc: "From soil bearing test to BBMP approval, framing, slab casting, and turnkey handover. A complete homeowner playbook."
+    }
+  ];
+
   return (
     <div className="space-y-0 text-charcoal dark:text-white bg-white dark:bg-charcoal font-sans antialiased overflow-x-hidden transition-colors duration-300">
       
       {/* 1. HERO EXPERIENCE */}
       <section className="relative min-h-screen flex flex-col justify-between bg-white dark:bg-charcoal text-charcoal dark:text-white transition-colors duration-300 overflow-hidden border-b border-neutral-200 dark:border-neutral-800">
         
+        {/* RIGHTCON 3.2 — Metallic Chrome Sculpture Accent */}
+        <MetallicElement variant="hero-sculpture" />
+
         {/*
           Content wrapper:
           - pt-28 clears the fixed navbar
@@ -266,6 +296,10 @@ export default function Home() {
 
       {/* 4. SIGNATURE PROJECT MOMENT */}
       <section className="bg-neutral-50 dark:bg-neutral-900 text-charcoal dark:text-white py-24 md:py-32 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800">
+        
+        {/* RIGHTCON 3.3 — Architectural Steel Ribbon Sculpture */}
+        <MetallicElement variant="signature-arc" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16 relative z-10">
           
           {/* Headline focusing on core trust / experience feel */}
@@ -494,6 +528,10 @@ export default function Home() {
 
       {/* 8. CRAFTSMANSHIP & MATERIALS */}
       <section className="bg-grain dark:bg-neutral-950 text-charcoal dark:text-white py-20 md:py-28 relative overflow-hidden transition-colors duration-300 border-b border-neutral-200 dark:border-neutral-800">
+        
+        {/* RIGHTCON 3.3 — Architectural Structural Beam */}
+        <MetallicElement variant="beam-divider" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32 space-y-16">
           <div className="space-y-4 border-b border-neutral-200 dark:border-neutral-800 pb-8 fade-up-element">
             <span className="font-mono text-xs uppercase tracking-widest text-brand-blue dark:text-gold font-semibold">UNCOMPROMISING MATERIALS</span>
@@ -691,6 +729,10 @@ export default function Home() {
 
       {/* 13. CONSULTATION CTA */}
       <section className="bg-neutral-100 dark:bg-neutral-950 text-charcoal dark:text-white py-24 md:py-32 relative overflow-hidden transition-colors duration-300">
+        
+        {/* RIGHTCON 3.3 — Architectural Metallic Frame Accent */}
+        <MetallicElement variant="cta-frame" />
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-20 lg:px-32">
           <div className="max-w-4xl mx-auto text-center space-y-12 fade-up-element">
             <div className="space-y-6">
