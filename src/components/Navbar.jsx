@@ -54,7 +54,7 @@ export default function Navbar() {
             className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4 flex-shrink-0"
             aria-label="Rightcon Homepage"
           >
-            <BrandLogo light={true} />
+            <BrandLogo light={true} height={48} />
           </Link>
 
           {/* Desktop Nav — lg and above */}

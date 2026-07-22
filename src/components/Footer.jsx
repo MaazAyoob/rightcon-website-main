@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Brand/Philosophy */}
           <div className="space-y-4 sm:col-span-2 md:col-span-1">
             <Link to="/">
-              <BrandLogo light={true} />
+              <BrandLogo light={true} height={48} />
             </Link>
             <p className="text-neutral-400 text-sm max-w-xs leading-relaxed font-light">
               Crafting premium private residences with mathematical precision and absolute structural transparency across Bangalore and Mysore.
