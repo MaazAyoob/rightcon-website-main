@@ -73,7 +73,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`font-mono text-[11px] uppercase tracking-[0.12em] transition-colors duration-200 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4 ${
+                  className={`font-display text-[12px] uppercase tracking-[0.1em] transition-colors duration-200 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4 ${
                     isDark
                       ? isActive ? "text-gold font-bold" : "text-white/90 hover:text-gold"
                       : isActive ? "text-brand-blue font-bold" : "text-charcoal hover:text-brand-blue font-semibold"
@@ -110,7 +110,7 @@ export default function Navbar() {
 
             <Link
               to="/contact"
-              className={`border text-[10px] font-mono uppercase tracking-[0.15em] px-5 py-3 font-semibold transition-all duration-300 min-h-[44px] flex items-center justify-center whitespace-nowrap ${
+              className={`border text-[11px] font-display uppercase tracking-[0.1em] px-5 py-3 font-semibold transition-all duration-300 min-h-[44px] flex items-center justify-center whitespace-nowrap ${
                 isDark
                   ? "border-gold bg-gold text-charcoal hover:bg-white hover:text-charcoal hover:border-white"
                   : "border-brand-blue bg-brand-blue text-white hover:bg-charcoal hover:text-white hover:border-charcoal shadow-sm"
@@ -175,7 +175,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 to={link.path}
-                className={`font-sans font-semibold text-xl tracking-[0.1em] uppercase transition-colors ${
+                className={`font-display font-semibold text-xl tracking-[0.1em] uppercase transition-colors ${
                   isDark
                     ? isActive ? "text-gold" : "text-white hover:text-gold"
                     : isActive ? "text-brand-blue" : "text-charcoal hover:text-brand-blue"
